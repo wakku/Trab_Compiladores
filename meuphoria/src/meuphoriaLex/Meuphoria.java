@@ -3,13 +3,13 @@
 /* MeuPhoria Parser */
 public class Meuphoria implements MeuphoriaConstants {
 
-  /** Main entry point. */
-  public static void main(String args[]) throws ParseException {
-    Simple3 parser = new Meuphoria(System.in);
-    parser.Input();
-  }
+        /** Main entry point. */
+        public static void main(String args[]) throws ParseException {
+                Simple3 parser = new Meuphoria(test);
+                parser.Input();
+        }
 
-/* THE CODE HAS TO BE CHANGE FROM NOW ON */
+/* THE CODE HAS TO BE CHANGED FROM THIS POINT ON */
 
 /** Root production. */
   static final public void Input() throws ParseException {int count;
