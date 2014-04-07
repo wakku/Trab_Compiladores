@@ -31,11 +31,11 @@ SKIP :
 /* ADD THE TOKENS, SUCH AS THE FIRST 5 IN RULES IN THE GRAMMAR */
 TOKEN :
 {
-  < ALPHA: ["a"-"z","A"-"Z"] >
-  < NUM: ( ["0"-"9"] )+ >
-  < USCORE: "_" >
+  < ALPHA: ["a"-"z","A"-"Z"] > | 
+  < NUM: ( ["0"-"9"] )+ > | 
+  < USCORE: "_" > | 
   /* don't know what to do with the EOL */
-  < EOL: " ">
+  //< EOL: " "> | 
   /* CAN I USE IT LIKE THIS OR DO I HAVE TO CREATE A RULE LIKE THE BRACE MATCHER? */
   /*< NAME: ( alpha1 | uscore3 ) { alpha1 | digit2 | uscore3 }> */
   <LBRACE: "{">
