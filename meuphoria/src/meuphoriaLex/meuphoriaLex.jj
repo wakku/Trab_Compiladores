@@ -67,7 +67,7 @@ TOKEN : { <EOL: "\n"> }                 // 4 - EOL
 TOKEN : { <NAME : (<ALPHA>|<USCORE>)(<ALPHA>|<DIGIT>|<USCORE>)+ > }        // 5 - NAME
 
 TOKEN : { <SPACENAME : <NAME>":"> }       // 6 - SPACENAME
-TOKEN : { <IDENTIFIER : [SPACENAME]NAME> }                 // 7 - IDENTIFIER
+TOKEN : { <IDENTIFIER : (<SPACENAME>)(<NAME>) | (<NAME>)> }                 // 7 - IDENTIFIER
 TOKEN : { <ATOM : ATOM_INTEGER_LIT | ATOM_REAL_LIT> }       // 8 - ATOM
 TOKEN : { <ATOM_INTEGER_LIT : "-253"-"+253" | "-9.007e15"-"+9.007e15"> }                    // 9 - ATOM_INTEGER_INT - acho que está certo
 TOKEN : { <ATOM_REAL_LIT : "-21024+1"-"+21024-1" | "-1.798e308+1"-"+1.798e308-1"> }         // 10 - ATOM_REAL_LIT - acho que está certo
