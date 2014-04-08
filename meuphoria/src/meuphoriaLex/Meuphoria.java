@@ -9,7 +9,7 @@ class Meuphoria implements MeuphoriaConstants {
       try {
         t = getNextToken();
         String nomeToken = tokenImage[t.kind];
-        System.out.println( " Line: " + t.beginLine + "  Column: " + t.beginColumn + "   " + nomeToken + " " + t.kind );
+        System.out.println( " Line: " + t.beginLine + "  Column: " + t.beginColumn + "   " + nomeToken + " " + t.image );
         if(nomeToken.equals("<EOF>"))break;
       }
       catch (Exception e) {
@@ -314,16 +314,16 @@ System.out.println("@("+t.beginLine+","+t.beginColumn+") RETURN:\u005ct"+t.toStr
       jj_la1_init_3();
    }
    private static void jj_la1_init_0() {
-      jj_la1_0 = new int[] {0x2000e0,0x2000e0,};
+      jj_la1_0 = new int[] {0x100070,0x100070,};
    }
    private static void jj_la1_init_1() {
-      jj_la1_1 = new int[] {0x48300044,0x48300044,};
+      jj_la1_1 = new int[] {0x24180022,0x24180022,};
    }
    private static void jj_la1_init_2() {
       jj_la1_2 = new int[] {0x0,0x0,};
    }
    private static void jj_la1_init_3() {
-      jj_la1_3 = new int[] {0x1e0,0x1e0,};
+      jj_la1_3 = new int[] {0xf0,0xf0,};
    }
 
   /** Constructor with InputStream. */

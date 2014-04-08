@@ -9,205 +9,207 @@ public interface MeuphoriaConstants {
   /** End of File. */
   int EOF = 0;
   /** RegularExpression Id. */
-  int COMENTARIO_INICIAL = 5;
+  int COMENTARIO_INICIAL = 4;
   /** RegularExpression Id. */
-  int COMENTARIO_LINHA = 6;
+  int COMENTARIO_LINHA = 5;
   /** RegularExpression Id. */
-  int COMENTARIO_BLOCO = 7;
+  int COMENTARIO_BLOCO = 6;
   /** RegularExpression Id. */
-  int AND = 8;
+  int AND = 7;
   /** RegularExpression Id. */
-  int CASE = 9;
+  int CASE = 8;
   /** RegularExpression Id. */
-  int DO = 10;
+  int DO = 9;
   /** RegularExpression Id. */
-  int END = 11;
+  int END = 10;
   /** RegularExpression Id. */
-  int EXPORT = 12;
+  int EXPORT = 11;
   /** RegularExpression Id. */
-  int GLOBAL = 13;
+  int GLOBAL = 12;
   /** RegularExpression Id. */
-  int INCLUDE = 14;
+  int INCLUDE = 13;
   /** RegularExpression Id. */
-  int NOT = 15;
+  int NOT = 14;
   /** RegularExpression Id. */
-  int PUBLIC = 16;
+  int PUBLIC = 15;
   /** RegularExpression Id. */
-  int SWITCH = 17;
+  int SWITCH = 16;
   /** RegularExpression Id. */
-  int UNTIL = 18;
+  int UNTIL = 17;
   /** RegularExpression Id. */
-  int XOR = 19;
+  int XOR = 18;
   /** RegularExpression Id. */
-  int AS = 20;
+  int AS = 19;
   /** RegularExpression Id. */
-  int CONSTANT = 21;
+  int CONSTANT = 20;
   /** RegularExpression Id. */
-  int ELSE = 22;
+  int ELSE = 21;
   /** RegularExpression Id. */
-  int ENTRY = 23;
+  int ENTRY = 22;
   /** RegularExpression Id. */
-  int FALLTHRU = 24;
+  int FALLTHRU = 23;
   /** RegularExpression Id. */
-  int GOTO = 25;
+  int GOTO = 24;
   /** RegularExpression Id. */
-  int LABEL = 26;
+  int LABEL = 25;
   /** RegularExpression Id. */
-  int OR = 27;
+  int OR = 26;
   /** RegularExpression Id. */
-  int RETRY = 28;
+  int RETRY = 27;
   /** RegularExpression Id. */
-  int THEN = 29;
+  int THEN = 28;
   /** RegularExpression Id. */
-  int WHILE = 30;
+  int WHILE = 29;
   /** RegularExpression Id. */
-  int BREAK = 31;
+  int BREAK = 30;
   /** RegularExpression Id. */
-  int CONTINUE = 32;
+  int CONTINUE = 31;
   /** RegularExpression Id. */
-  int ELSEDEF = 33;
+  int ELSEDEF = 32;
   /** RegularExpression Id. */
-  int ENUM = 34;
+  int ENUM = 33;
   /** RegularExpression Id. */
-  int IF = 35;
+  int IF = 34;
   /** RegularExpression Id. */
-  int LOOP = 36;
+  int LOOP = 35;
   /** RegularExpression Id. */
-  int OVERRIDE = 37;
+  int OVERRIDE = 36;
   /** RegularExpression Id. */
-  int RETURN = 38;
+  int RETURN = 37;
   /** RegularExpression Id. */
-  int TO = 39;
+  int TO = 38;
   /** RegularExpression Id. */
-  int WITH = 40;
+  int WITH = 39;
   /** RegularExpression Id. */
-  int BY = 41;
+  int BY = 40;
   /** RegularExpression Id. */
-  int DEPRECATE = 42;
+  int DEPRECATE = 41;
   /** RegularExpression Id. */
-  int ELSIF = 43;
+  int ELSIF = 42;
   /** RegularExpression Id. */
-  int EXIT = 44;
+  int EXIT = 43;
   /** RegularExpression Id. */
-  int FUNCTION = 45;
+  int FUNCTION = 44;
   /** RegularExpression Id. */
-  int IFDEF = 46;
+  int IFDEF = 45;
   /** RegularExpression Id. */
-  int NAMESPACE = 47;
+  int NAMESPACE = 46;
   /** RegularExpression Id. */
-  int PROCEDURE = 48;
+  int PROCEDURE = 47;
   /** RegularExpression Id. */
-  int ROUTINE = 49;
+  int ROUTINE = 48;
   /** RegularExpression Id. */
-  int TYPE = 50;
+  int TYPE = 49;
   /** RegularExpression Id. */
-  int WITHOUT = 51;
+  int WITHOUT = 50;
   /** RegularExpression Id. */
-  int LPAREN = 52;
+  int LPAREN = 51;
   /** RegularExpression Id. */
-  int RPAREN = 53;
+  int RPAREN = 52;
   /** RegularExpression Id. */
-  int LBRACE = 54;
+  int LBRACE = 53;
   /** RegularExpression Id. */
-  int RBRACE = 55;
+  int RBRACE = 54;
   /** RegularExpression Id. */
-  int LBRACKET = 56;
+  int LBRACKET = 55;
   /** RegularExpression Id. */
-  int RBRACKET = 57;
+  int RBRACKET = 56;
   /** RegularExpression Id. */
-  int SEMICOLON = 58;
+  int SEMICOLON = 57;
   /** RegularExpression Id. */
-  int COMMA = 59;
+  int COMMA = 58;
   /** RegularExpression Id. */
-  int DOT = 60;
+  int DOT = 59;
   /** RegularExpression Id. */
-  int QUOTE = 61;
+  int QUOTE = 60;
   /** RegularExpression Id. */
-  int ASSIGN = 62;
+  int ASSIGN = 61;
   /** RegularExpression Id. */
-  int GT = 63;
+  int GT = 62;
   /** RegularExpression Id. */
-  int LT = 64;
+  int LT = 63;
   /** RegularExpression Id. */
-  int BANG = 65;
+  int BANG = 64;
   /** RegularExpression Id. */
-  int TILDE = 66;
+  int TILDE = 65;
   /** RegularExpression Id. */
-  int HOOK = 67;
+  int HOOK = 66;
   /** RegularExpression Id. */
-  int COLON = 68;
+  int COLON = 67;
   /** RegularExpression Id. */
-  int EQ = 69;
+  int EQ = 68;
   /** RegularExpression Id. */
-  int LE = 70;
+  int LE = 69;
   /** RegularExpression Id. */
-  int GE = 71;
+  int GE = 70;
   /** RegularExpression Id. */
-  int NE = 72;
+  int NE = 71;
   /** RegularExpression Id. */
-  int SC_OR = 73;
+  int SC_OR = 72;
   /** RegularExpression Id. */
-  int SC_AND = 74;
+  int SC_AND = 73;
   /** RegularExpression Id. */
-  int INCR = 75;
+  int INCR = 74;
   /** RegularExpression Id. */
-  int DECR = 76;
+  int DECR = 75;
   /** RegularExpression Id. */
-  int PLUS = 77;
+  int PLUS = 76;
   /** RegularExpression Id. */
-  int MINUS = 78;
+  int MINUS = 77;
   /** RegularExpression Id. */
-  int STAR = 79;
+  int STAR = 78;
   /** RegularExpression Id. */
-  int SLASH = 80;
+  int SLASH = 79;
   /** RegularExpression Id. */
-  int BIT_AND = 81;
+  int BIT_AND = 80;
   /** RegularExpression Id. */
-  int BIT_OR = 82;
+  int BIT_OR = 81;
   /** RegularExpression Id. */
-  int XOR_OP = 83;
+  int XOR_OP = 82;
   /** RegularExpression Id. */
-  int REM = 84;
+  int REM = 83;
   /** RegularExpression Id. */
-  int LSHIFT = 85;
+  int LSHIFT = 84;
   /** RegularExpression Id. */
-  int RSIGNEDSHIFT = 86;
+  int RSIGNEDSHIFT = 85;
   /** RegularExpression Id. */
-  int RUNSIGNEDSHIFT = 87;
+  int RUNSIGNEDSHIFT = 86;
   /** RegularExpression Id. */
-  int PLUSASSIGN = 88;
+  int PLUSASSIGN = 87;
   /** RegularExpression Id. */
-  int MINUSASSIGN = 89;
+  int MINUSASSIGN = 88;
   /** RegularExpression Id. */
-  int STARASSIGN = 90;
+  int STARASSIGN = 89;
   /** RegularExpression Id. */
-  int SLASHASSIGN = 91;
+  int SLASHASSIGN = 90;
   /** RegularExpression Id. */
-  int ANDASSIGN = 92;
+  int ANDASSIGN = 91;
   /** RegularExpression Id. */
-  int ORASSIGN = 93;
+  int ORASSIGN = 92;
   /** RegularExpression Id. */
-  int XORASSIGN = 94;
+  int XORASSIGN = 93;
   /** RegularExpression Id. */
-  int REMASSIGN = 95;
+  int REMASSIGN = 94;
   /** RegularExpression Id. */
-  int LSHIFTASSIGN = 96;
+  int LSHIFTASSIGN = 95;
   /** RegularExpression Id. */
-  int RSIGNEDSHIFTASSIGN = 97;
+  int RSIGNEDSHIFTASSIGN = 96;
   /** RegularExpression Id. */
-  int RUNSIGNEDSHIFTASSIGN = 98;
+  int RUNSIGNEDSHIFTASSIGN = 97;
   /** RegularExpression Id. */
-  int USCORE = 99;
+  int USCORE = 98;
   /** RegularExpression Id. */
-  int ALPHA = 100;
+  int ALPHA = 99;
   /** RegularExpression Id. */
-  int ID = 101;
+  int ID = 100;
   /** RegularExpression Id. */
-  int INT = 102;
+  int INT = 101;
   /** RegularExpression Id. */
-  int FLOAT = 103;
+  int FLOAT = 102;
   /** RegularExpression Id. */
-  int STRING = 104;
+  int STRING = 103;
+  /** RegularExpression Id. */
+  int EOL = 104;
   /** RegularExpression Id. */
   int DATATYPE = 105;
   /** RegularExpression Id. */
@@ -226,7 +228,6 @@ public interface MeuphoriaConstants {
     "\" \"",
     "\"\\t\"",
     "\"\\r\"",
-    "\"\\n\"",
     "<COMENTARIO_INICIAL>",
     "<COMENTARIO_LINHA>",
     "<COMENTARIO_BLOCO>",
@@ -327,6 +328,7 @@ public interface MeuphoriaConstants {
     "<INT>",
     "<FLOAT>",
     "<STRING>",
+    "\"\\n\"",
     "<DATATYPE>",
     "<NAME>",
     "<SPACENAME>",

@@ -36,7 +36,7 @@ class Meuphoria {
       try {
         t = getNextToken();
         String nomeToken = tokenImage[t.kind];
-        System.out.println( " Line: " + t.beginLine + "  Column: " + t.beginColumn + "   " + nomeToken + " " + t.kind );
+        System.out.println( " Line: " + t.beginLine + "  Column: " + t.beginColumn + "   " + nomeToken + " " + t.image );
         if(nomeToken.equals("<EOF>"))break;
       } 
       catch (Exception e) {
@@ -74,7 +74,7 @@ PARSER_END(Meuphoria)
 /************************
 SKIP
 ************************/
-SKIP : { " " | "\t" | "\r" | "\n" } // \n esta nos tokens
+SKIP : { " " | "\t" | "\r" } // \n esta nos tokens
 
 /************************
         TOKENS
@@ -85,7 +85,7 @@ SKIP : { " " | "\t" | "\r" | "\n" } // \n esta nos tokens
 TOKEN : {
     <COMENTARIO_INICIAL : "#" (~["\n","\r"])* ("\n"|"\r"|"\r\n")>
   | <COMENTARIO_LINHA: "--" (~["\n","\r"])* ("\n"|"\r"|"\r\n")>
-  | <COMENTARIO_BLOCO: "/*" (~["*"])* "*" ("*" | (~["*","/"] (~["*"])* "*"))* "/">
+  //| <COMENTARIO_BLOCO: "/*" (~["*"])* | "/*" (~["*"])* "*" (~["/"])* | "/*" (~["*"])* "*" (~["/"])* "/" >
 }
 
 /* Palavras Reservadas */
@@ -212,7 +212,7 @@ TOKEN : { <STRING : <QUOTE>(~["\n","\r"])* <QUOTE> > }
 
 
 // Fim de linha
-//TOKEN : { <EOL: "\\n"> }
+TOKEN : { <EOL: "\n"> }
 
 
 //TOKEN : { <SCOPEMODIFIER : <GLOBAL> | <PUBLIC> | <EXPORT> | <OVERRIDE> > }   
