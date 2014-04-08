@@ -102,7 +102,7 @@ SKIP :
 TOKEN : {
     <COMENTARIO_INICIAL : "#" (~["\n","\r"])* ("\n"|"\r"|"\r\n")>
   | <COMENTARIO_LINHA: "--" (~["\n","\r"])* ("\n"|"\r"|"\r\n")>
-  //| <COMENTARIO_BLOCO: "/*" (~["*"])* | "/*" (~["*"])* "*" (~["/"])* | "/*" (~["*"])* "*" (~["/"])* "/" >
+  | <COMENTARIO_BLOCO: "/*" (~["*"])* | "/*" (~["*"])* "*" (~["/"])* | "/*" (~["*"])* "*" (~["/"])* "/" >
 }
 
 /* Palavras Reservadas */
@@ -400,7 +400,7 @@ void Main():
     /************ COMENTARIOS ************/
     | t = <COMENTARIO_INICIAL>    { System.out.println("@("+t.beginLine+","+t.beginColumn+") COMENTARIO_INICIAL:\t"+t.toString());}
     | t = <COMENTARIO_LINHA>      { System.out.println("@("+t.beginLine+","+t.beginColumn+") COMENTARIO_LINHA:\t"+t.toString());}
-    //| t = <COMENTARIO_BLOCO>      { System.out.println("@("+t.beginLine+","+t.beginColumn+") COMENTARIO_BLOCO:\t"+t.toString());}
+    | t = <COMENTARIO_BLOCO>      { System.out.println("@("+t.beginLine+","+t.beginColumn+") COMENTARIO_BLOCO:\t"+t.toString());}
 
     /************ PALAVRAS RESERVADAS ************/
     | t = <CONSTANT>      { System.out.println("@("+t.beginLine+","+t.beginColumn+") CONSTANT:\t"+t.toString());}
