@@ -190,7 +190,6 @@ TOKEN : { <ASSIGNWITHOP : <IDENTIFIER> ( "+" | "-" | "/" | "*" | "&" )? "=" <EXP
       switch ((jj_ntk==-1)?jj_ntk_f():jj_ntk) {
       case COMENTARIO_INICIAL:
       case COMENTARIO_LINHA:
-      case COMENTARIO_BLOCO:
       case CONSTANT:
       case ENUM:
       case RETURN:
@@ -243,11 +242,6 @@ System.out.println("@("+t.beginLine+","+t.beginColumn+") COMENTARIO_INICIAL:\u00
       case COMENTARIO_LINHA:{
         t = jj_consume_token(COMENTARIO_LINHA);
 System.out.println("@("+t.beginLine+","+t.beginColumn+") COMENTARIO_LINHA:\u005ct"+t.toString());
-        break;
-        }
-      case COMENTARIO_BLOCO:{
-        t = jj_consume_token(COMENTARIO_BLOCO);
-System.out.println("@("+t.beginLine+","+t.beginColumn+") COMENTARIO_BLOCO:\u005ct"+t.toString());
         break;
         }
       case CONSTANT:{
@@ -314,16 +308,16 @@ System.out.println("@("+t.beginLine+","+t.beginColumn+") RETURN:\u005ct"+t.toStr
       jj_la1_init_3();
    }
    private static void jj_la1_init_0() {
-      jj_la1_0 = new int[] {0x100070,0x100070,};
+      jj_la1_0 = new int[] {0x400180,0x400180,};
    }
    private static void jj_la1_init_1() {
-      jj_la1_1 = new int[] {0x24180022,0x24180022,};
+      jj_la1_1 = new int[] {0x90600088,0x90600088,};
    }
    private static void jj_la1_init_2() {
       jj_la1_2 = new int[] {0x0,0x0,};
    }
    private static void jj_la1_init_3() {
-      jj_la1_3 = new int[] {0xf0,0xf0,};
+      jj_la1_3 = new int[] {0x3c0,0x3c0,};
    }
 
   /** Constructor with InputStream. */
@@ -440,7 +434,7 @@ System.out.println("@("+t.beginLine+","+t.beginColumn+") RETURN:\u005ct"+t.toStr
   /** Generate ParseException. */
   public ParseException generateParseException() {
     jj_expentries.clear();
-    boolean[] la1tokens = new boolean[109];
+    boolean[] la1tokens = new boolean[111];
     if (jj_kind >= 0) {
       la1tokens[jj_kind] = true;
       jj_kind = -1;
@@ -463,7 +457,7 @@ System.out.println("@("+t.beginLine+","+t.beginColumn+") RETURN:\u005ct"+t.toStr
         }
       }
     }
-    for (int i = 0; i < 109; i++) {
+    for (int i = 0; i < 111; i++) {
       if (la1tokens[i]) {
         jj_expentry = new int[1];
         jj_expentry[0] = i;

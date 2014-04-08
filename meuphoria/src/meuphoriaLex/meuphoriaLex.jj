@@ -80,6 +80,23 @@ SKIP : { " " | "\t" | "\r" } // \n esta nos tokens
         TOKENS
 ************************/
 
+
+SKIP :
+{
+  "/*" : WithinComment
+}
+
+<WithinComment> SKIP :
+{
+  "*/" : DEFAULT
+}
+
+<WithinComment> MORE :
+{
+  <~[]>
+}
+
+
 /* Comentarios */
 // NAO RECONHECE CARACTERE ESPECIAL! DAR ERRO!!!
 TOKEN : {
@@ -383,7 +400,7 @@ void Main():
     /************ COMENTARIOS ************/
     | t = <COMENTARIO_INICIAL>    { System.out.println("@("+t.beginLine+","+t.beginColumn+") COMENTARIO_INICIAL:\t"+t.toString());}
     | t = <COMENTARIO_LINHA>      { System.out.println("@("+t.beginLine+","+t.beginColumn+") COMENTARIO_LINHA:\t"+t.toString());}
-    | t = <COMENTARIO_BLOCO>      { System.out.println("@("+t.beginLine+","+t.beginColumn+") COMENTARIO_BLOCO:\t"+t.toString());}
+    //| t = <COMENTARIO_BLOCO>      { System.out.println("@("+t.beginLine+","+t.beginColumn+") COMENTARIO_BLOCO:\t"+t.toString());}
 
     /************ PALAVRAS RESERVADAS ************/
     | t = <CONSTANT>      { System.out.println("@("+t.beginLine+","+t.beginColumn+") CONSTANT:\t"+t.toString());}
