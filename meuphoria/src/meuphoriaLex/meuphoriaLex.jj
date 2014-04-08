@@ -141,14 +141,10 @@ TOKEN : { <USCORE: "_"> }               // 3 - USCORE
 TOKEN : { <EOL: "\\n"> }                 // 4 - EOL
 TOKEN : { <NAME : (<ALPHA>|<USCORE>) (<ALPHA>|<DIGIT>|<USCORE>)+ > }        // 5 - NAME
 TOKEN : { <SPACENAME : <NAME>":"> }       // 6 - SPACENAME
-<<<<<<< HEAD
 TOKEN : { <IDENTIFIER : <SPACENAME> <NAME> > }                 // 7 - IDENTIFIER
 
 /*
 
-=======
-TOKEN : { <IDENTIFIER : (<SPACENAME>)?<NAME> > }                 // 7 - IDENTIFIER
->>>>>>> 9477c02447d4b98ccc049a689bf86e615ddf0da2
 TOKEN : { <ATOM : <ATOM_INTEGER_LIT>|<ATOM_REAL_LIT> > }       // 8 - ATOM
 
 // GAMBI:
@@ -197,16 +193,7 @@ TOKEN : { <SSLITEND : <SSLITSTART>> }   // 38 -
 TOKEN : { <CHAR : "any_byte_value"> }   // 39 - 
 TOKEN : { <EESCHAR : <ESCLEAD> ( "t" | "n" | "r" | " " )> }     // 40 - 
 TOKEN : { <ESCLEAD : ""> }  // 41 - 
-<<<<<<< HEAD
-TOKEN : { <RAWSTRINGLIT : DQRAWSTRING | BQRAWSTRING> }  // 42 - 
-TOKEN : { <DQRAWSTRING : "\"\"\"" [ MARGINSTR ] { CHAR } "\"\"\""> }    // 43 - 
-TOKEN : { <BQRAWSTRING : "`" [ MARGINSTR ] { CHAR } "`"> }  // 44 -
-TOKEN : { <MARGINSTR : "_"> }   // 45 -  
 
-// tirei 2 linhas e coloquei para cima
-
-TOKEN : { <INCLUDESTMT : "include" FILEREF [ "as" NAMESPACEID ] EOL> }  // 48 - 
-=======
 TOKEN : { <RAWSTRINGLIT : <DQRAWSTRING> | <BQRAWSTRING>> }  // 42 - 
 TOKEN : { <DQRAWSTRING : "\"\"\"" <MARGINSTR> ( <CHAR> )+ "\"\"\""> }    // 43 - 
 TOKEN : { <BQRAWSTRING : "`"  <MARGINSTR> ( <CHAR> )+ "`"> }  // 44 -
@@ -214,7 +201,6 @@ TOKEN : { <MARGINSTR : <USCORE>> }   // 45 -
 TOKEN : { <SCOPEMODIFIER : "global" | "public" | "export" | "override"> }   // 46 - 
 TOKEN : { <DATATYPE : "atom" | "integer" | "sequence" | "object" | <IDENTIFIER>> }    // 47 - 
 TOKEN : { <INCLUDESTMT : "include" <FILEREF> ( "as" <NAMESPACEID> ) <EOL>> }  // 48 - 
->>>>>>> 9477c02447d4b98ccc049a689bf86e615ddf0da2
 TOKEN : { <FILEREF : "file_path_that_may_be_enclosed_in_double-quotes"> }   // 49 -
 TOKEN : { <NAMESPACEID : <IDENTIFIER>> }  // 50 -
 TOKEN : { <SLICE : <SLICESTART> <INTEXPR> <SLICEDELIM> ( <INTEXPR> | "$" ) <SLICEEND>> }  // 51 -  
@@ -287,22 +273,13 @@ TOKEN : { <ASSIGNMONO : <IDENTIFIER> "=" <EXPRESSION>> }    // 115 -
 TOKEN : { <ASSIGNMULTI : "{" <IDENTIFIER> ( "," <IDENTIFIER>)* "}" "=" <EXPRESSION> | "{" <EXPRESSION> ( "," <EXPRESSION> )* "}"> }    // 116 -
 TOKEN : { <ASSIGNWITHOP : <IDENTIFIER> ( "+" | "-" | "/" | "*" | "&" )? "=" <EXPRESSION>> }  // 117 -
 
-<<<<<<< HEAD
 */
-=======
->>>>>>> 9477c02447d4b98ccc049a689bf86e615ddf0da2
 
 /* THE CODE HAS TO BE CHANGED FROM THIS POINT ON */
 
-/************************
-
-Não comecei esssa parte aindaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa, é só para ter a ideia, é beeeem de boa, só crtl+c, ctrl+v no token, e mudar o sysout blz?
-
-
-
 
 /************************
-MAIN
+          MAIN
 ************************/
 void Main():
 {
@@ -313,7 +290,6 @@ void Main():
     /************ GERAIS ************/
     t = <EOL>         { System.out.println("@ EOL:\t"+t.toString());}
 
-<<<<<<< HEAD
     /************ COMANDOS ************/
 
     | t = <IDENTIFIER>    { System.out.println("@ IDENTIFIER:\t"+t.toString());}
@@ -333,105 +309,6 @@ void Main():
     | t = <ELSE>        { System.out.println("@("+t.beginLine+","+t.beginColumn+") ELSE:\t"+t.toString());}
 
     */
-=======
-//     /************ COMANDOS ************/
 
-//     | t = <WARRANTY>    { System.out.println("@("+t.beginLine+","+t.beginColumn+") WARRANTY:\t"+t.toString());}
-//     | t = <LIMITS>      { System.out.println("@("+t.beginLine+","+t.beginColumn+") LIMITS:\t"+t.toString());}
-//     | t = <BREAK>       { System.out.println("@("+t.beginLine+","+t.beginColumn+") BREAK:\t"+t.toString());}
-//     | t = <CONTINUE>    { System.out.println("@("+t.beginLine+","+t.beginColumn+") CONTINUE:\t"+t.toString());}
-//     | t = <QUIT>        { System.out.println("@("+t.beginLine+","+t.beginColumn+") QUIT:\t"+t.toString());}
-//     | t = <HALT>        { System.out.println("@("+t.beginLine+","+t.beginColumn+") HALT:\t"+t.toString());}
-//     | t = <RETURN>      { System.out.println("@("+t.beginLine+","+t.beginColumn+") RETURN:\t"+t.toString());}
-//     | t = <FOR>         { System.out.println("@("+t.beginLine+","+t.beginColumn+") FOR:\t"+t.toString());}
-//     | t = <IF>          { System.out.println("@("+t.beginLine+","+t.beginColumn+") IF:\t"+t.toString());}
-//     | t = <WHILE>       { System.out.println("@("+t.beginLine+","+t.beginColumn+") WHILE:\t"+t.toString());}
-//     | t = <PRINT>       { System.out.println("@("+t.beginLine+","+t.beginColumn+") PRINT:\t"+t.toString());}
-//     | t = <ELSE>        { System.out.println("@("+t.beginLine+","+t.beginColumn+") ELSE:\t"+t.toString());}
-
-//     /***********
-//     DEFINICAO DE FUNCAO
-//     ***********/
-//     | t = <DEFINE>      { System.out.println("@("+t.beginLine+","+t.beginColumn+") DEFINE:\t"+t.toString());}
-
-//     /***********
-//     EXPRESSOES GERAIS
-//     ***********/
-//     | t = <VIRGULA>        { System.out.println("@("+t.beginLine+","+t.beginColumn+") VIRGULA:\t"+t.toString());}
-//     | t = <PARENTESESESQ>        { System.out.println("@("+t.beginLine+","+t.beginColumn+") PARENTESESESQ:\t"+t.toString());}
-//     | t = <PARENTESESDIR>        { System.out.println("@("+t.beginLine+","+t.beginColumn+") PARENTESESDIR:\t"+t.toString());}
-//     | t = <COLCHETESESQ>        { System.out.println("@("+t.beginLine+","+t.beginColumn+") COLCHETESESQ:\t"+t.toString());}
-//     | t = <COLCHETESDIR>        { System.out.println("@("+t.beginLine+","+t.beginColumn+") COLCHETESDIR:\t"+t.toString());}
-//     | t = <CHAVESESQ>        { System.out.println("@("+t.beginLine+","+t.beginColumn+") CHAVESESQ:\t"+t.toString());}
-//     | t = <CHAVESDIR>        { System.out.println("@("+t.beginLine+","+t.beginColumn+") CHAVESDIR:\t"+t.toString());}
-//     | t = <PONTOEVIRGULA>        { System.out.println("@("+t.beginLine+","+t.beginColumn+") PONTOEVIRGULA:\t"+t.toString());}
-//     | t = <PONTO>        { System.out.println("@("+t.beginLine+","+t.beginColumn+") PONTO:\t"+t.toString());}
-//     | t = <UNDERLINE>        { System.out.println("@("+t.beginLine+","+t.beginColumn+") UNDERLINE:\t"+t.toString());}
-
-//     /*********** Palavras reservadas ***********/
-// //unary_exp
-//     | t = <LENGHT>        { System.out.println("@("+t.beginLine+","+t.beginColumn+") LENGHT:\t"+t.toString());}
-//     | t = <SQRT>        { System.out.println("@("+t.beginLine+","+t.beginColumn+") SQRT:\t"+t.toString());}
-//     | t = <SCALE>        { System.out.println("@("+t.beginLine+","+t.beginColumn+") SCALE:\t"+t.toString());}
-//     | t = <READ>        { System.out.println("@("+t.beginLine+","+t.beginColumn+") READ:\t"+t.toString());}
-
-// //named_expression
-//     | t = <IBASE>        { System.out.println("@("+t.beginLine+","+t.beginColumn+") IBASE:\t"+t.toString());}
-//     | t = <OBASE>        { System.out.println("@("+t.beginLine+","+t.beginColumn+") OBASE:\t"+t.toString());}
-//     | t = <LAST>        { System.out.println("@("+t.beginLine+","+t.beginColumn+") LAST:\t"+t.toString());}
-
-// //opt_auto_define_list
-//     | t = <AUTO>        { System.out.println("@("+t.beginLine+","+t.beginColumn+") AUTO:\t"+t.toString());}
-
-//     /*********** OPERADORES ***********/
-// // expression, and_exp, not_exp, 
-//     | t = <OU>        { System.out.println("@("+t.beginLine+","+t.beginColumn+") OU:\t"+t.toString());}
-//     | t = <E>        { System.out.println("@("+t.beginLine+","+t.beginColumn+") E:\t"+t.toString());}
-//     | t = <NOT>        { System.out.println("@("+t.beginLine+","+t.beginColumn+") NOT:\t"+t.toString());}
-
-// // rel_op
-//     | t = <MAIOR>        { System.out.println("@("+t.beginLine+","+t.beginColumn+") MAIOR:\t"+t.toString());}
-//     | t = <MAIORIGUAL>        { System.out.println("@("+t.beginLine+","+t.beginColumn+") MAIORIGUAL:\t"+t.toString());}
-//     | t = <MENOR>        { System.out.println("@("+t.beginLine+","+t.beginColumn+") MENOR:\t"+t.toString());}
-//     | t = <MENORIGUAL>        { System.out.println("@("+t.beginLine+","+t.beginColumn+") MENORIGUAL:\t"+t.toString());}
-//     | t = <COMPARACAO>        { System.out.println("@("+t.beginLine+","+t.beginColumn+") COMPARACAO:\t"+t.toString());}
-//     | t = <DIFERENTE>        { System.out.println("@("+t.beginLine+","+t.beginColumn+") DIFERENTE:\t"+t.toString());}
-
-
-// // assign_op
-//     | t = <ATRIBUICAO>        { System.out.println("@("+t.beginLine+","+t.beginColumn+") ATRIBUICAO:\t"+t.toString());}
-//     | t = <ATRIBUICAOSOMA>        { System.out.println("@("+t.beginLine+","+t.beginColumn+") ATRIBUICAOSOMA:\t"+t.toString());}
-//     | t = <ATRIBUICAOSUB>        { System.out.println("@("+t.beginLine+","+t.beginColumn+") ATRIBUICAOSUB:\t"+t.toString());}
-//     | t = <ATRIBUICAOMULT>        { System.out.println("@("+t.beginLine+","+t.beginColumn+") ATRIBUICAOMULT:\t"+t.toString());}
-//     | t = <ATRIBUICAODIV>        { System.out.println("@("+t.beginLine+","+t.beginColumn+") ATRIBUICAODIV:\t"+t.toString());}
-//     | t = <ATRIBUICAOMOD>        { System.out.println("@("+t.beginLine+","+t.beginColumn+") ATRIBUICAOMOD:\t"+t.toString());}
-//     | t = <ATRIBUICAOPOT>        { System.out.println("@("+t.beginLine+","+t.beginColumn+") ATRIBUICAOPOT:\t"+t.toString());}
-
-// // add_op
-//     | t = <ADD>        { System.out.println("@("+t.beginLine+","+t.beginColumn+") ADD:\t"+t.toString());}
-//     | t = <SUB>        { System.out.println("@("+t.beginLine+","+t.beginColumn+") SUB:\t"+t.toString());}
-
-// // mul_op
-//     | t = <MULT>        { System.out.println("@("+t.beginLine+","+t.beginColumn+") MULT:\t"+t.toString());}
-//     | t = <DIV>        { System.out.println("@("+t.beginLine+","+t.beginColumn+") DIV:\t"+t.toString());}
-//     | t = <RESTO>        { System.out.println("@("+t.beginLine+","+t.beginColumn+") RESTO:\t"+t.toString());}
-
-// // incr_decr_op
-//     | t = <INCREMENTO>        { System.out.println("@("+t.beginLine+","+t.beginColumn+") INCREMENTO:\t"+t.toString());}
-//     | t = <DECREMENTO>        { System.out.println("@("+t.beginLine+","+t.beginColumn+") DECREMENTO:\t"+t.toString());}
-
-// // power_exp
-//     | t = <POTENCIA>        { System.out.println("@("+t.beginLine+","+t.beginColumn+") POTENCIA:\t"+t.toString());}
-
-//     /**** NOMES GERAIS ****/
-//     | t = <LETRAS>        { System.out.println("@("+t.beginLine+","+t.beginColumn+") LETRAS:\t"+t.toString());}
-//     | t = <DIGITOS>        { System.out.println("@("+t.beginLine+","+t.beginColumn+") DIGITOS:\t"+t.toString());}
-//     | t = <CARACTERES>        { System.out.println("@("+t.beginLine+","+t.beginColumn+") CARACTERES:\t"+t.toString());}
-//     | t = <STRING>        { System.out.println("@("+t.beginLine+","+t.beginColumn+") STRING:\t"+t.toString());}
-//     | t = <IDENTIFICADOR>        { System.out.println("@("+t.beginLine+","+t.beginColumn+") IDENTIFICADOR:\t"+t.toString());}
-
-//     /************ TERMINAL ************/
-//     | t = <EOF>{return;}
->>>>>>> 9477c02447d4b98ccc049a689bf86e615ddf0da2
     )*
 }
