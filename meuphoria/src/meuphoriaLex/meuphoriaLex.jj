@@ -5,7 +5,7 @@ ANALISADOR LEXICO
 Integrantes: 
 Caio
 Diego Gomes
-Fernando Cury Gorodscy		7152354
+Fernando Cury Gorodscy			7152354
 Roberty Manzini Bertolo         7573399
 Vanessa Apolinário Lima         7239256
 
@@ -64,8 +64,7 @@ TOKEN : { <ALPHA: ["a"-"z","A"-"Z"]> }  // 1 - ALPHA
 TOKEN : { <DIGIT: (["0"-"9"])+ > }      // 2 - DIGIT
 TOKEN : { <USCORE: "_"> }               // 3 - USCORE
 TOKEN : { <EOL: "\n"> }                 // 4 - EOL
-//TOKEN : { <NAME : (<ALPHA>|USCORE) {ALPHA|DIGIT|USCORE}> }        // 5 - NAME
-TOKEN : { <NAME : (ALPHA|USCORE) {ALPHA|DIGIT|USCORE}> }        // 5 - NAME
+TOKEN : { <NAME : (<ALPHA>|<USCORE>)(<ALPHA>|<DIGIT>|<USCORE>)+ > }        // 5 - NAME
 
 TOKEN : { <SPACENAME = NAME":"> }       // 6 - SPACENAME
 TOKEN : { <IDENTIFIER = [SPACENAME] NAME> }                 // 7 - IDENTIFIER
