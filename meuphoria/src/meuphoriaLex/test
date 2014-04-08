@@ -2,19 +2,13 @@
 
 -- Testando comentario.
 
-<<<<<<< HEAD
--- testando um comentario de bloco
--- pra ver se o compilador pode
--- ignorar tudo isso sem problemas
-=======
 /***** testando um comentario de bloco
  pra ver se o compilador pode
  ignorar tudo isso sem problemas*/
->>>>>>> d01c6a524f0af5ea6352f285de95ba419927b5aa
 
 -- testando declarar variaveis.
 integer counter
-integer ~miles
+integer miles
 sequence name
 
 tempo   = 100          -- Setar um integer

@@ -49,19 +49,13 @@ class Meuphoria {
 
 
   /** Main entry point. */
-  public static void main(String args[]) throws /*ParseException,*/ TokenMgrError {
+  public static void main(String args[]) throws TokenMgrError {
     try
     {
       Meuphoria analisadorlexico = new Meuphoria(System.in);
-      //analisadorlexico.Main();
       analisadorlexico.processa();
       System.out.println("Analisado com sucesso!");
     }
-    /*catch(ParseException e)
-    {
-        System.out.println(e.getMessage());
-        System.out.println("Ocorreu uma excecao!");
-    }*/
     catch(TokenMgrError e)
     {
         System.out.println(e.getMessage());
@@ -235,57 +229,3 @@ TOKEN : { <NAME : (<ALPHA>|<USCORE>) (<ALPHA>|["0"-"9"]|<USCORE>)+ > }        //
 TOKEN : { <SPACENAME : <NAME>":"> }       // 6 - SPACENAME
 TOKEN : { <IDENTIFIER : <SPACENAME> <NAME> > }                 // 7 - IDENTIFIER
 
-
-/* THE CODE HAS TO BE CHANGED FROM THIS POINT ON */
-
-
-/************************
-          MAIN
-************************/
-void Main():
-{
-  Token t;
-}
-{
-  (
-    /************ GERAIS ************/
-    //t = <EOL>         { System.out.println("@ EOL:\t"+t.toString());}
-
-    /************ VARIAVEIS ************/
-
-      t = <ID>                    { System.out.println("@("+t.beginLine+","+t.beginColumn+") ID:\t"+t.toString());}
-    | t = <INT>                   { System.out.println("@("+t.beginLine+","+t.beginColumn+") INT:\t"+t.toString());}
-    | t = <FLOAT>                 { System.out.println("@("+t.beginLine+","+t.beginColumn+") FLOAT:\t"+t.toString());}
-    | t = <STRING>                { System.out.println("@("+t.beginLine+","+t.beginColumn+") STRING:\t"+t.toString());}
-
-    /************ PALAVRAS RESERVADAS ************/
-    | t = <CONSTANT>      { System.out.println("@("+t.beginLine+","+t.beginColumn+") CONSTANT:\t"+t.toString());}
-    | t = <ENUM>          { System.out.println("@("+t.beginLine+","+t.beginColumn+") ENUM:\t"+t.toString());}
-
-    /************ SEPARADORES ************/
-    | t = <COMMA>       { System.out.println("@("+t.beginLine+","+t.beginColumn+") COMMA:\t"+t.toString());}
-    | t = <LPAREN>      { System.out.println("@("+t.beginLine+","+t.beginColumn+") LPAREN:\t"+t.toString());}
-    | t = <RPAREN>      { System.out.println("@("+t.beginLine+","+t.beginColumn+") RPAREN:\t"+t.toString());}
-
-    /************ OPERADORES ************/
-    | t = <ASSIGN>                { System.out.println("@("+t.beginLine+","+t.beginColumn+") ASSIGN:\t"+t.toString());}
-
-
-    | t = <RETURN>                { System.out.println("@("+t.beginLine+","+t.beginColumn+") RETURN:\t"+t.toString());}
-
-    /*
-    | t = <LIMITS>      { System.out.println("@("+t.beginLine+","+t.beginColumn+") LIMITS:\t"+t.toString());}
-    | t = <BREAK>       { System.out.println("@("+t.beginLine+","+t.beginColumn+") BREAK:\t"+t.toString());}
-    | t = <CONTINUE>    { System.out.println("@("+t.beginLine+","+t.beginColumn+") CONTINUE:\t"+t.toString());}
-    | t = <QUIT>        { System.out.println("@("+t.beginLine+","+t.beginColumn+") QUIT:\t"+t.toString());}
-    | t = <HALT>        { System.out.println("@("+t.beginLine+","+t.beginColumn+") HALT:\t"+t.toString());}
-    | t = <FOR>         { System.out.println("@("+t.beginLine+","+t.beginColumn+") FOR:\t"+t.toString());}
-    | t = <IF>          { System.out.println("@("+t.beginLine+","+t.beginColumn+") IF:\t"+t.toString());}
-    | t = <WHILE>       { System.out.println("@("+t.beginLine+","+t.beginColumn+") WHILE:\t"+t.toString());}
-    | t = <PRINT>       { System.out.println("@("+t.beginLine+","+t.beginColumn+") PRINT:\t"+t.toString());}
-    | t = <ELSE>        { System.out.println("@("+t.beginLine+","+t.beginColumn+") ELSE:\t"+t.toString());}
-
-    */
-
-    )*
-}
