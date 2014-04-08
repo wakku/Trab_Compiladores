@@ -1,15 +1,12 @@
 #!/home/euphoria-4.0b2/bin/eui
 
 -- Testando comentario.
--- Testando comentário com acentos e alguns caracteres especiais áéíóúç~`!@#$%^&*()-+=.
 
-puts(1, "Testando, Euphoria!\n") -- testando comentário após codigo
-
-/* testando um comentário de bloco
+/* testando um comentario de bloco
  pra ver se o compilador pode
  ignorar tudo isso sem problemas*/
 
--- testando declarar variáveis.
+-- testando declarar variaveis.
 integer counter
 integer miles
 sequence name
@@ -21,7 +18,7 @@ constant MAX = 100     -- Setar uma constante
 enum ONE, TWO, THREE, FOUR -- Enumerar
 
 
-printf(1, "Value of tempo %d\n", tempo)
+printf( 1 , "Value of tempo %d\n", tempo)
 printf(1, "Value of miles %f\n", miles )
 printf(1, "Value of nome %s\n", {nome} )
 printf(1, "Value of ONE %d\n", ONE )
