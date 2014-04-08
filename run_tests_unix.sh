@@ -27,9 +27,9 @@ done
 
 for teste in test_cases/sad_path/*.in
 do
-result_path=${teste/sad_path/resultados\/sad_path}
-out_path=${result_path%.in}.out
-echo -e "Rodando ${teste/*teste/teste} - Sad path..."
-java Meuphoria < $teste > $out_path
-echo -e "Resultado salvo em $out_path.\n"
+    result_path=${teste/sad_path/resultados\/sad_path}
+    out_path=${result_path%.in}.out
+    echo -e "Rodando ${teste/*teste/teste} - Sad path..."
+    java Meuphoria < $teste > $out_path
+    echo -e "Resultado salvo em $out_path.\n"
 done
