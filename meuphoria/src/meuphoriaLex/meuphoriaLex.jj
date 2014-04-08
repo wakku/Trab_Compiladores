@@ -1,200 +1,191 @@
 /* ***********************************************
-        	ANALISADOR LEXICO
-    ********************************
-    
-	Integrantes: 
-		Caio
-		Diego Gomes
-		Fernando
-        Roberty Manzini Bertolo         7573399
-		Vanessa Apolinário Lima         7239256
+ANALISADOR LEXICO
+********************************
 
-    Documento:
-        Codigo fonte
+Integrantes: 
+Caio
+Diego Gomes
+Fernando
+Roberty Manzini Bertolo         7573399
+Vanessa Apolinário Lima         7239256
 
-	Nome:
-		MeuPhoria
+Documento:
+Codigo fonte
 
-*********************************************** */
+Nome:
+MeuPhoria
 
 /************************
-        Options
+Options
 ************************/
 options {
-    STATIC = false;
+  STATIC = false;
 }
 
 /************************
-        Inicialização do AnalisadorLexico
+Inicialização do AnalisadorLexico
 ************************/
 PARSER_BEGIN(Meuphoria)
 
-	/* MeuPhoria Parser */
-	class Meuphoria {
+/* MeuPhoria Parser */
+class Meuphoria {
 
-	  /** Main entry point. */
-		public static void main(String args[]) throws ParseException, TokenMgrError {
-			try
-			{
-				Meuphoria analisadorlexico = new Meuphoria(System.in);
-				analisadorlexico.Main();
-				System.out.println("Analisado com sucesso!");
-			}
-			catch(ParseException e)
-			{
-				System.out.println(e.getMessage());
-	   			System.out.println("Ocorreu uma excecao!");
-			}
-			catch(TokenMgrError e)
-			{
-		   		System.out.println(e.getMessage());
-				System.out.println("Existem erros no codigo! Por favor, verifica-los.");
-			}
-		}
-	}
+  /** Main entry point. */
+  public static void main(String args[]) throws ParseException, TokenMgrError {
+    try
+    {
+      Meuphoria analisadorlexico = new Meuphoria(System.in);
+      analisadorlexico.Main();
+      System.out.println("Analisado com sucesso!");
+  }
+  catch(ParseException e)
+  {
+      System.out.println(e.getMessage());
+      System.out.println("Ocorreu uma excecao!");
+  }
+  catch(TokenMgrError e)
+  {
+      System.out.println(e.getMessage());
+      System.out.println("Existem erros no codigo! Por favor, verifica-los.");
+  }
+}
+}
 PARSER_END(Meuphoria)
 
 /************************
-        SKIP
+SKIP
 ************************/
 SKIP : { " " | "\t" | "\n" | "\r" }
 
 /************************
         TOKENS
 ************************/
-TOKEN : { <ALPHA: ["a"-"z","A"-"Z"]> } 	// 1 - ALPHA
-TOKEN : { <DIGIT: (["0"-"9"])+ > } 		// 2 - DIGIT
-TOKEN : { <USCORE: "_"> } 				// 3 - USCORE
-TOKEN : { <EOL: "\n"> } 				// 4 - EOL
-TOKEN : { <NAME : (<ALPHA>|<USCORE>) {ALPHA|DIGIT|USCORE}> } 		// 5 - NAME
-TOKEN : { <SPACENAME = NAME":"> } 		// 6 - SPACENAME
-TOKEN : { <IDENTIFIER = [SPACENAME] NAME> }			 		// 7 - IDENTIFIER
-TOKEN : { <ATOM = ATOM_INTEGER_LIT | ATOM_REAL_LIT> } 		// 8 - ATOM
-TOKEN : { <ATOM_INTEGER_LIT = "-253"-"+253" | "-9.007e15"-"+9.007e15"> } 					// 9 - ATOM_INTEGER_INT - acho que está certo
-TOKEN : { <ATOM_REAL_LIT = "-21024+1"-"+21024-1" | "-1.798e308+1"-"+1.798e308-1"> } 		// 10 - ATOM_REAL_LIT - acho que está certo
-TOKEN : { <INTEGER = INTEGER_LIT> } 		// 11
-TOKEN : { <INTEGER_LIT = "-230"-"+230-1" | "-1_073_741_824"-"+1_073_741_823"> } 		// 12
-TOKEN : { <SEQUENCE = "{"{HEADITEM}(ITEM|LASTITEM) )"}"> } 		// 13
-TOKEN : { <object = atom8 | integer11 | sequence13> } 		// 14
-TOKEN : { <expression = atomexpr16 | intexpr17 | strexpr18 | seqexpr19 | boolexpr21> } 		// 15
-TOKEN : { <atomexpr = atom8> } 		// 16
-TOKEN : { <intexpr = integer11> } 		// 17
-TOKEN : { <strexpr = "an_expression_that_evaluates_to_a_string"> } 		// 18
-TOKEN : { <seqexpr = sequence13> } 		// 19
-TOKEN : { <bool_lit = "0" | "1" | "0" | "!0"> } 		// 20
+TOKEN : { <ALPHA: ["a"-"z","A"-"Z"]> }  // 1 - ALPHA
+TOKEN : { <DIGIT: (["0"-"9"])+ > }      // 2 - DIGIT
+TOKEN : { <USCORE: "_"> }               // 3 - USCORE
+TOKEN : { <EOL: "\n"> }                 // 4 - EOL
+//TOKEN : { <NAME : (<ALPHA>|USCORE) {ALPHA|DIGIT|USCORE}> }        // 5 - NAME
+TOKEN : { <NAME : (ALPHA|USCORE) {ALPHA|DIGIT|USCORE}> }        // 5 - NAME
 
-TOKEN : { <boolexpr = "atom_zero_represents_falsehood_and_non-zero_represents_truth"> } 	// 21 - 
-TOKEN : { <relationop = "<" | ">" | "<=" | ">=" | "=" | "!="> } 	// 22 - 
-TOKEN : { <binaryexpr = { expression15 binop24 expression15 }> } 	// 23 - 
-TOKEN : { <binop = "and" | "or" | "xor" | "+" | "-" | "*" | "/" | "&"> } 	// 24 - 
-TOKEN : { <unaryexpr = { unaryop26 expression15 }> } 	// 25 - 
-TOKEN : { <unaryop = "not" | "-" | "+"> } 	// 26 - 
+TOKEN : { <SPACENAME = NAME":"> }       // 6 - SPACENAME
+TOKEN : { <IDENTIFIER = [SPACENAME] NAME> }                 // 7 - IDENTIFIER
+TOKEN : { <ATOM = ATOM_INTEGER_LIT | ATOM_REAL_LIT> }       // 8 - ATOM
+TOKEN : { <ATOM_INTEGER_LIT = "-253"-"+253" | "-9.007e15"-"+9.007e15"> }                    // 9 - ATOM_INTEGER_INT - acho que está certo
+TOKEN : { <ATOM_REAL_LIT = "-21024+1"-"+21024-1" | "-1.798e308+1"-"+1.798e308-1"> }         // 10 - ATOM_REAL_LIT - acho que está certo
+TOKEN : { <INTEGER = INTEGER_LIT> }         // 11
+TOKEN : { <INTEGER_LIT = "-230"-"+230-1" | "-1_073_741_824"-"+1_073_741_823"> }         // 12
+TOKEN : { <SEQUENCE = "{"{HEADITEM}(ITEM|LASTITEM) )"}"> }      // 13
+TOKEN : { <OBJECT = ATOM | INTEGER | SEQUENCE> }        // 14
+TOKEN : { <EXPRESSION = ATOMEXPR | INTEXPR | STREXPR | SEQEXPR | BOOLEXPR> }        // 15
+TOKEN : { <ATOMEXPR = ATOM> }       // 16
+TOKEN : { <INTEXPR = INTEGER> }         // 17
+TOKEN : { <STREXPR = "an_expression_that_evaluates_to_a_string"> }      // 18 - nÃO SEI SE ESTÁ CERTOOO
+TOKEN : { <SEQEXPR = SEQUENCE> }        // 19
+TOKEN : { <BOOL_LIT = "0" | "1" | "0" | "!0"> }         // 20
+
+TOKEN : { <BOOLEXPR = "atom_zero_represents_falsehood_and_non-zero_represents_truth"> }     // 21 - NÃO SEI SE ESTÁ CERTO
+TOKEN : { <RELATIONOP = "<" | ">" | "<=" | ">=" | "=" | "!="> }     // 22 - 
+TOKEN : { <BINARYEXPR = { EXPRESSION BINOP EXPRESSION }> }  // 23 - 
+TOKEN : { <BINOP = "and" | "or" | "xor" | "+" | "-" | "*" | "/" | "&"> }    // 24 - 
+TOKEN : { <UNARYEXPR = { UNARYOP EXPRESSION }> }    // 25 - 
+TOKEN : { <UNARYOP = "not" | "-" | "+"> }   // 26 - 
 // 27 - RETIRADO DA GRAMATICA
-TOKEN : { <headitem = object14 "," > } 	// 28 - 
-TOKEN : { <item = object14> } 	// 29 - 
-TOKEN : { <lastitem = "$"> } 	// 30 - 
-TOKEN : { <statement = "complete_unit_of_code_executed_by_the_interpreter"> } 	// 31 - 
-TOKEN : { <stmblk = statement31 { statement31 }> } 	// 32 - 
-TOKEN : { <label = "label" stringlit35> } 	// 33 - 
-TOKEN : { <listdelim = ","> } 	// 34 - 
-TOKEN : { <stringlit = simplestringlit36 | rawstringlit42> } 	// 35 - 
-TOKEN : { <simplestringlit = sslitstart37 { char39 | escchar40 } sslitend38> } 	// 36 - 
-TOKEN : { <sslitstart = "\""> } 	// 37 - 
-TOKEN : { <sslitend = "\""> } 	// 38 - 
-TOKEN : { <char = "any_byte_value"> } 	// 39 - 
-TOKEN : { <escchar = esclead41 ( "t" | "n" | "r" | " " )> } 	// 40 - 
-TOKEN : { <esclead = ""> } 	// 41 - 
-TOKEN : { <rawstringlit = dqrawstring43 | bqrawstring44> } 	// 42 - 
-TOKEN : { <dqrawstring = "\"\"\"" [ marginstr45 ] { char39 } "\"\"\""> } 	// 43 - 
-TOKEN : { <bqrawstring = "`" [ marginstr45 ] { char39 } "`"> } 	// 44 -
-TOKEN : { <marginstr = "_"> } 	// 45 -  
-TOKEN : { <scopemodifier = "global" | "public" | "export" | "override"> } 	// 46 - 
-TOKEN : { <datatype = "atom" | "integer" | "sequence" | "object" | identifier7> } 	// 47 - 
-TOKEN : { <includestmt = "include" fileref49 [ "as" namespaceid50 ] eol4> } 	// 48 - 
-TOKEN : { <fileref = "file_path_that_may_be_enclosed_in_double-quotes"> } 	// 49 -
-TOKEN : { <namespaceid = identifier7> } 	// 50 -
+TOKEN : { <HEADITEM = OBJECT "," > }    // 28 - 
+TOKEN : { <ITEM = OBJECT> }     // 29 - 
+TOKEN : { <LASTITEM = "$"> }    // 30 - 
+TOKEN : { <STATEMENT = "complete_unit_of_code_executed_by_the_interpreter"> }   // 31 - NÃO SEI SE ESTÁ CERTO
+TOKEN : { <STMBLK = STATEMENT { STATEMENT }> }  // 32 - 
+TOKEN : { <LABEL = "label" STRINGLIT> }     // 33 - 
+TOKEN : { <LISTDELIM = ","> }   // 34 - 
+TOKEN : { <STRINGLIT = SIMPLESTRINGLIT | RAWSTRINGLIT> }    // 35 - 
+TOKEN : { <SIMPLESTRINGLIT = SSLITSTART { CHAR | ESCCHAR } SSLITEND> }  // 36 - 
+TOKEN : { <SSLITSTART = "\""> }     // 37 - 
+TOKEN : { <SSLITEND = "\""> }   // 38 - 
+TOKEN : { <CHAR = "any_byte_value"> }   // 39 - 
+TOKEN : { <EESCHAR = ESCLEAD41 ( "t" | "n" | "r" | " " )> }     // 40 - 
+TOKEN : { <ESCLEAD = ""> }  // 41 - 
+TOKEN : { <RAWSTRINGLIT = DQRAWSTRING | BQRAWSTRING> }  // 42 - 
+TOKEN : { <DQRAWSTRING = "\"\"\"" [ MARGINSTR ] { CHAR } "\"\"\""> }    // 43 - 
+TOKEN : { <BQRAWSTRING = "`" [ MARGINSTR ] { CHAR } "`"> }  // 44 -
+TOKEN : { <MARGINSTR = "_"> }   // 45 -  
+TOKEN : { <SCOPEMODIFIER = "global" | "public" | "export" | "override"> }   // 46 - 
+TOKEN : { <DATATYPE = "atom" | "integer" | "sequence" | "object" | IDENTIFIER> }    // 47 - 
+TOKEN : { <INCLUDESTMT = "include" FILEREF [ "as" NAMESPACEID ] EOL> }  // 48 - 
+TOKEN : { <FILEREF = "file_path_that_may_be_enclosed_in_double-quotes"> }   // 49 -
+TOKEN : { <NAMESPACEID = IDENTIFIER> }  // 50 -
+TOKEN : { <SLICE = SLICESTART INTEXPR SLICEDELIM ( INTEXPR | "$" ) SLICEEND> }  // 51 -  
+TOKEN : { <SLICESTART = "["> }  // 52 -  
+TOKEN : { <SLICEDELIM = ".."> }     // 53 -  
+TOKEN : { <SLICEEND = "]"> }    // 54 -  
+TOKEN : { <IFSTMT = IFTEST { ELSIF } [ ELSE ] ENDIF> }  // 55 -  
+TOKEN : { <IFTEST = "if" ATOMEXPR [ LABEL ] "then" [ STMBLK ]> }    // 56 -    
+TOKEN : { <ELSIF = "elsif" ATOMEXPR "then" [ STMBLK ]> }    // 57 -  
+TOKEN : { <ELSE = "else" [ STMBLK ]> }  // 58 -  
+TOKEN : { <ENDIF = "end" "if"> }    // 59 -  
+TOKEN : { <IFDEFSTMT = IFDEFTEST [ ELSDEFIT { CHAR } ] [ ELSEDEF ] ENDDEFIF> }  // 60 -  
+TOKEN : { <IFDEFTEST = "ifdef" DEFEXPR "then" [ STMBLK ]> }     // 61 -  
+TOKEN : { <ELSDEFIF = "elsifedf" DEFEXPR "then" [ STMBLK ]> }   // 62 -    
+TOKEN : { <ELSEDEF = "elsede" [STMBLK]> }  // 63 -  
+TOKEN : { <ENDDEFIF = "end" "ifdef"> }  // 64 -  
+TOKEN : { <DEFEXPR = DEFTERM [ DEFOP DEFTERM ]> }   // 65 -  
+TOKEN : { <DEFTERM = [ "not" IDENTIFIER ]> }    // 66 -  
+TOKEN : { <DEFOP = "and" | "or"> }  // 67 -  
+TOKEN : { <SWITCHSTMT = SWITCHTEST CASE { CASE } [ CASEELSE ] [ ENDSWITCH ]> }  // 68 -    
+TOKEN : { <SWITCHTEST = "switch" EXPRESSION [ WITHFALL ] [ LABEL ] "do"> }  // 69 -  
+TOKEN : { <WITHFALL = ( "with" | "without" ) "fallthru"> }  // 70 -  
+TOKEN : { <CASE = "case" CASELIST "then" [ STMBLK ]> }  // 71 -  
+TOKEN : { <CASELIST = EXPRESSION { LISTDELIM EXPRESSION }> }    // 72 -  
+TOKEN : { <CASEELSE = "case" "else"> }  // 73 -  
+TOKEN : { <ENDSWITCH = "end" "switch"> }    // 74 -    
+TOKEN : { <BREAKSTMT = "break" [ STRINGLIT ]> }     // 75 -  
+TOKEN : { <CONTINUESTMT = "continue" [ STRINGLIT ]> }   // 76 -  
+TOKEN : { <RETRYSTMT = "retry" [ STRINGLIT ]> }     // 77 -  
+TOKEN : { <EXITSTMT = "exit" [ STRINGLIT ]> }   // 78 -  
+TOKEN : { <FALLTHRUSTMT = "fallthru"> }     // 79 -  
+TOKEN : { <FORSTMT = "for" FORIDX [ LABEL ] "do" [ STMBLK ] "end" "for"> }  // 80 -    
+TOKEN : { <FORIDX = IDENTIFIER "=" ATOMEXPR "to" ATOMEXPR [ "by" ATOMEXPR ]> }  // 81 -  
+TOKEN : { <WHILESTMT = "while" BOOLEXPR [ WITHENTRY ] [ LABEL ] "do" STMBLK [ ENTRY ] "end" "while"> }  // 82 -  
+TOKEN : { <WITHENTRY = "with" "entry"> }    // 83 -  
+TOKEN : { <ENTRY = "entry" [ STMBLK ]> }    // 84 -  
+TOKEN : { <LOOPSTMT = "loop" [ withentry83 ] [ label33 ] "do" stmblk32 [ entry84 ] "until" boolexpr21 "end" "loop"> }   // 85 -  
+TOKEN : { <GOTOSTMT = "goto" LABEL> }   // 86 -
+TOKEN : { <VARDECLARE = [ SCOPEMODIFIER ] DATATYPE IDENTLIST> }     // 87 -        
+TOKEN : { <IDENTLIST = IDENT [ "," IDENTLIST ]> }   // 88 -        
+TOKEN : { <IDENT = IDENTIFIER [ "=" EXPRESSION ]> }     // 89 -
+TOKEN : { <CONSTDECLARE = [ SCOPEMODIFIER ] "constant" IDENTLIST> }     // 90 -                
+TOKEN : { <ENUMDECLARE = [ SCOPEMODIFIER ] [ ENUMVAL | ENUMTYPE ]> }    // 91 -                
+TOKEN : { <ENUMVAL = "enum" [ "by" ENUMDELTA ] IDENTLIST> }     // 92 -                
+TOKEN : { <ENUMDELTA = [ "+" | "-" | "*" | "/" ] ATOMEXPR> }    // 93 -                
+TOKEN : { <ENUMTYPE = "enum" "type" [ "by" ENUMDELTA ] IDENTLIST "end" "type"> }    // 94 -                
+TOKEN : { <CALL = IDENTIFIER "(" [ ARGLIST ] ")"> }     // 95 -                
+TOKEN : { <ARGLIST = ARGUMENT [ "," ARGLIST ]> }    // 96 -                
+TOKEN : { <ARGUMENT = EXPRESSION> }     // 97 -                
+TOKEN : { <PROCDECLARE = [ SCOPEMODIFIER ] "procedure" IDENTIFIER "(" [ PARAMLIST ] ")" [ STMBLK ] "end" "procedure"> }     // 98 -                
+TOKEN : { <PARAMLIST = PARAMETER [ "," PARAMLIST ]> }   // 99 -
+TOKEN : { <PARAMETER = DATATYPE IDENTIFIER> }   // 100 -
+TOKEN : { <FUNCDECLARE = [ SCOPEMODIFIER ] "function" IDENTIFIER "(" [ PARAMLIST ] ")" [ STMBLK ] "end" "function"> }   // 101 -
+TOKEN : { <TYPEDECLAR = [ SCOPEMODIFIER ] "type" IDENTIFIER "(" PARAMETER ")" [ STMBLK ] "end" "type"> }    // 102 -
+TOKEN : { <RETURN = "return" EXPRESSION> }  // 103 -
+TOKEN : { <NAMESPACE = "namespace" IDENTIFIER EOL> }    // 104 -
+TOKEN : { <WITHSTMT = [ "with" | "without" ] WITHOPTION> }  // 105 -
+TOKEN : { <WITHOPTION = [ "profile" | "profile_time" | "trace" | "batch" | "type_check" | "indirect_includes" | "inline" | WITHWARNING ]> }     // 106 -
+TOKEN : { <WITHWARNING = "warning" [ WARNOPT ]> }   // 107 -
+TOKEN : { <WARNOPT = SETWARN | ADDWARN? | SAVEWARN | RESTOREWARN | STRICTWARN> }    // 108 - addwarn não foi criado?
+TOKEN : { <SETWARN = [ "+=" | "&=" ] "{" WARNLIST? "}"> }   // 109 - warnlist não foi criado em nenhum lugar :/
+// TOKEN : { <WARNLIST = "warnlist"> } Pensei em criar assim, pelo que entendi é a lista impressa dos erros, não acho que vamos fazer algo no lexico
+// TOKEN : { <ADDWARN = "add"> } Pensei em criar assim
+TOKEN : { <SAVEWARN = "save"> }     // 110 -
+TOKEN : { <RESTOREWARN = "restore"> }   // 111 -
+TOKEN : { <STRICTWARN = "strict"> }     // 112 -
+TOKEN : { <SUBSCRIPTING = IDENTIFIER { INDEX }> }   // 113 -
+TOKEN : { <INDEX = "[" INTEXPR "]"> }   // 114 -
+TOKEN : { <ASSIGNMONO = IDENTIFIER "=" EXPRESSION> }    // 115 -
+TOKEN : { <ASSIGNMULTI = "{" IDENTIFIER [ { "," IDENTIFIER } ] "}" "=" EXPRESSION | "{" EXPRESSION [ { "," EXPRESSION } ] "}"> }    // 116 -
+TOKEN : { <ASSIGNWITHOP = IDENTIFIER ( "+" | "-" | "/" | "*" | "&" ) "=" EXPRESSION> }  // 117 -
 
-TOKEN : { <slice = slicestart52 intexpr17 slicedelim53 ( intexpr17 | "$" ) sliceend54> } 	// 51 -  
-TOKEN : { <slicestart = "["> } 	// 52 -  
-TOKEN : { <slicedelim = ".."> } 	// 53 -  
-TOKEN : { <sliceend = "]"> } 	// 54 -  
-TOKEN : { <ifstmt = iftest56 { elsif57 } [ else58 ] endif59> } 	// 55 -  
-TOKEN : { <iftest = "if" atomexpr16 [ label33 ] "then" [ stmblk32 ]> } 	// 56 -    
-TOKEN : { <elsif = "elsif" atomexpr16 "then" [ stmblk32 ]> } 	// 57 -  
-TOKEN : { <else = "else" [ stmblk32 ]> } 	// 58 -  
-TOKEN : { <endif = "end" "if"> } 	// 59 -  
-TOKEN : { <ifdefstmt = ifdeftest61 [ elsdefif62 { char39 } ] [ elsedef63 ] enddefif64> } 	// 60 -  
-TOKEN : { <ifdeftest = "ifdef" defexpr65 "then" [ stmblk32 ]> } 	// 61 -  
-TOKEN : { <elsdefif = "elsifedf" defexpr65 "then" [ stmblk32 ]> } 	// 62 -    
-TOKEN : { <elsedef = "elsede" [stmblk]"> } 	// 63 -  
-TOKEN : { <enddefif = "end" "ifdef"> } 	// 64 -  
-TOKEN : { <defexpr = defterm66 [ defop67 defterm66 ]> } 	// 65 -  
-TOKEN : { <defterm = [ "not" identifier7 ]> } 	// 66 -  
-TOKEN : { <defop = "and" | "or"> } 	// 67 -  
-TOKEN : { <switchstmt = switchtest69 case71 { case71 } [ caseelse73 ] [ endswitch74 ]> } 	// 68 -    
-TOKEN : { <switchtest = "switch" expression15 [ withfall70 ] [ label33 ] "do"> } 	// 69 -  
-TOKEN : { <withfall = ( "with" | "without" ) "fallthru"> } 	// 70 -  
-TOKEN : { <case = "case" caselist72 "then" [ stmblk32 ]> } 	// 71 -  
-TOKEN : { <caselist = expression15 { listdelim34 expression15 }> } 	// 72 -  
-TOKEN : { <caseelse = "case" "else"> } 	// 73 -  
-TOKEN : { <endswitch = "end" "switch"> } 	// 74 -    
-TOKEN : { <breakstmt = "break" [ stringlit35 ]> } 	// 75 -  
-TOKEN : { <continuestmt = "continue" [ stringlit35 ]> } 	// 76 -  
-TOKEN : { <retrystmt = "retry" [ stringlit35 ]> } 	// 77 -  
-TOKEN : { <exitstmt = "exit" [ stringlit35 ]> } 	// 78 -  
-TOKEN : { <fallthrustmt = "fallthru"> } 	// 79 -  
-TOKEN : { <forstmt = "for" foridx81 [ label33 ] "do" [ stmblk32 ] "end" "for"> } 	// 80 -    
-TOKEN : { <foridx = identifier7 "=" atomexpr16 "to" atomexpr16 [ "by" atomexpr16 ]> } 	// 81 -  
-TOKEN : { <whilestmt = "while" boolexpr21 [ withentry83 ] [ label33 ] "do" stmblk32 [ entry84 ] "end" "while"> } 	// 82 -  
-TOKEN : { <withentry = "with" "entry"> } 	// 83 -  
-TOKEN : { <entry = "entry" [ stmblk32 ]> } 	// 84 -  
-TOKEN : { <loopstmt = "loop" [ withentry83 ] [ label33 ] "do" stmblk32 [ entry84 ] "until" boolexpr21 "end" "loop"> } 	// 85 -  
-TOKEN : { <gotostmt = "goto" label33> } 	// 86 -
-TOKEN : { <vardeclare = [ scopemodifier46 ] datatype47 identlist88> } 	// 87 -        
-TOKEN : { <identlist = ident89 [ "," identlist88 ]> } 	// 88 -        
-TOKEN : { <ident = identifier7 [ "=" expression15 ]> } 	// 89 -
-TOKEN : { <constdeclare = [ scopemodifier46 ] "constant" identlist88> } 	// 90 -                
-TOKEN : { <enumdeclare = [ scopemodifier46 ] [ enumval92 | enumtype94 ]> } 	// 91 -                
-TOKEN : { <enumval = "enum" [ "by" enumdelta93 ] identlist88> } 	// 92 -                
-TOKEN : { <enumdelta = [ "+" | "-" | "*" | "/" ] atomexpr16> } 	// 93 -                
-TOKEN : { <enumtype = "enum" "type" [ "by" enumdelta93 ] identlist88 "end" "type"> } 	// 94 -                
-TOKEN : { <call = identifier7 "(" [ arglist96 ] ")"> } 	// 95 -                
-TOKEN : { <arglist = argument97 [ "," arglist96 ]> } 	// 96 -                
-TOKEN : { <argument = expression15> } 	// 97 -                
-TOKEN : { <procdeclare = [ scopemodifier46 ] "procedure" identifier7 "(" [ paramlist99 ] ")" [ stmblk32 ] "end" "procedure"> } 	// 98 -                
-TOKEN : { <paramlist = parameter100 [ "," paramlist99 ]> } 	// 99 -
-TOKEN : { <parameter = datatype47 identifier7> } 	// 100 -
-
-TOKEN : { <> } 	// 101 -
-TOKEN : { <> } 	// 101 -
-TOKEN : { <> } 	// 101 -
-TOKEN : { <> } 	// 101 -
-TOKEN : { <> } 	// 101 -
-TOKEN : { <> } 	// 101 -
-TOKEN : { <> } 	// 101 -
-TOKEN : { <> } 	// 101 -
-TOKEN : { <> } 	// 101 -
-TOKEN : { <> } 	// 101 -
-TOKEN : { <> } 	// 101 -
-TOKEN : { <> } 	// 101 -
-TOKEN : { <> } 	// 101 -
-TOKEN : { <> } 	// 101 -
-TOKEN : { <> } 	// 101 -
-
-
-
-
-
-
-
-
-  
-  
-  
 }
 
-
-
+/* THE CODE HAS TO BE CHANGED FROM THIS POINT ON */
 
 /************************
 
@@ -204,20 +195,20 @@ Não comecei esssa parte aindaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa, é só p
 
 
 /************************
-        MAIN
+MAIN
 ************************/
 void Main():
 {
-	Token t;
+  Token t;
 }
 {
-	(
+  (
     /************ GERAIS ************/
-      t = <EOL>         { System.out.println("@("+t.beginLine+","+t.beginColumn+") EOL:\t"+t.toString());}
+    t = <EOL>         { System.out.println("@("+t.beginLine+","+t.beginColumn+") EOL:\t"+t.toString());}
 
     /************ COMANDOS ************/
 
-	| t = <WARRANTY>    { System.out.println("@("+t.beginLine+","+t.beginColumn+") WARRANTY:\t"+t.toString());}
+    | t = <WARRANTY>    { System.out.println("@("+t.beginLine+","+t.beginColumn+") WARRANTY:\t"+t.toString());}
     | t = <LIMITS>      { System.out.println("@("+t.beginLine+","+t.beginColumn+") LIMITS:\t"+t.toString());}
     | t = <BREAK>       { System.out.println("@("+t.beginLine+","+t.beginColumn+") BREAK:\t"+t.toString());}
     | t = <CONTINUE>    { System.out.println("@("+t.beginLine+","+t.beginColumn+") CONTINUE:\t"+t.toString());}
@@ -230,14 +221,14 @@ void Main():
     | t = <PRINT>       { System.out.println("@("+t.beginLine+","+t.beginColumn+") PRINT:\t"+t.toString());}
     | t = <ELSE>        { System.out.println("@("+t.beginLine+","+t.beginColumn+") ELSE:\t"+t.toString());}
 
-/***********
-DEFINICAO DE FUNCAO
-***********/
+    /***********
+    DEFINICAO DE FUNCAO
+    ***********/
     | t = <DEFINE>      { System.out.println("@("+t.beginLine+","+t.beginColumn+") DEFINE:\t"+t.toString());}
 
-/***********
-EXPRESSOES GERAIS
-***********/
+    /***********
+    EXPRESSOES GERAIS
+    ***********/
     | t = <VIRGULA>        { System.out.println("@("+t.beginLine+","+t.beginColumn+") VIRGULA:\t"+t.toString());}
     | t = <PARENTESESESQ>        { System.out.println("@("+t.beginLine+","+t.beginColumn+") PARENTESESESQ:\t"+t.toString());}
     | t = <PARENTESESDIR>        { System.out.println("@("+t.beginLine+","+t.beginColumn+") PARENTESESDIR:\t"+t.toString());}
@@ -249,7 +240,7 @@ EXPRESSOES GERAIS
     | t = <PONTO>        { System.out.println("@("+t.beginLine+","+t.beginColumn+") PONTO:\t"+t.toString());}
     | t = <UNDERLINE>        { System.out.println("@("+t.beginLine+","+t.beginColumn+") UNDERLINE:\t"+t.toString());}
 
-/*********** Palavras reservadas ***********/
+    /*********** Palavras reservadas ***********/
 //unary_exp
     | t = <LENGHT>        { System.out.println("@("+t.beginLine+","+t.beginColumn+") LENGHT:\t"+t.toString());}
     | t = <SQRT>        { System.out.println("@("+t.beginLine+","+t.beginColumn+") SQRT:\t"+t.toString());}
@@ -264,7 +255,7 @@ EXPRESSOES GERAIS
 //opt_auto_define_list
     | t = <AUTO>        { System.out.println("@("+t.beginLine+","+t.beginColumn+") AUTO:\t"+t.toString());}
 
-/*********** OPERADORES ***********/
+    /*********** OPERADORES ***********/
 // expression, and_exp, not_exp, 
     | t = <OU>        { System.out.println("@("+t.beginLine+","+t.beginColumn+") OU:\t"+t.toString());}
     | t = <E>        { System.out.println("@("+t.beginLine+","+t.beginColumn+") E:\t"+t.toString());}
@@ -304,7 +295,7 @@ EXPRESSOES GERAIS
 // power_exp
     | t = <POTENCIA>        { System.out.println("@("+t.beginLine+","+t.beginColumn+") POTENCIA:\t"+t.toString());}
 
-/**** NOMES GERAIS ****/
+    /**** NOMES GERAIS ****/
     | t = <LETRAS>        { System.out.println("@("+t.beginLine+","+t.beginColumn+") LETRAS:\t"+t.toString());}
     | t = <DIGITOS>        { System.out.println("@("+t.beginLine+","+t.beginColumn+") DIGITOS:\t"+t.toString());}
     | t = <CARACTERES>        { System.out.println("@("+t.beginLine+","+t.beginColumn+") CARACTERES:\t"+t.toString());}
@@ -312,7 +303,6 @@ EXPRESSOES GERAIS
     | t = <IDENTIFICADOR>        { System.out.println("@("+t.beginLine+","+t.beginColumn+") IDENTIFICADOR:\t"+t.toString());}
 
     /************ TERMINAL ************/
-	| t = <EOF>{return;}
-)*
-}
+    | t = <EOF>{return;}
+    )*
 }
