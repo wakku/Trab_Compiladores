@@ -37,18 +37,18 @@ class Meuphoria {
       Meuphoria analisadorlexico = new Meuphoria(System.in);
       analisadorlexico.Main();
       System.out.println("Analisado com sucesso!");
+    }
+    catch(ParseException e)
+    {
+        System.out.println(e.getMessage());
+        System.out.println("Ocorreu uma excecao!");
+    }
+    catch(TokenMgrError e)
+    {
+        System.out.println(e.getMessage());
+        System.out.println("Existem erros no codigo! Por favor, verifica-los.");
+    }
   }
-  catch(ParseException e)
-  {
-      System.out.println(e.getMessage());
-      System.out.println("Ocorreu uma excecao!");
-  }
-  catch(TokenMgrError e)
-  {
-      System.out.println(e.getMessage());
-      System.out.println("Existem erros no codigo! Por favor, verifica-los.");
-  }
-}
 }
 PARSER_END(Meuphoria)
 
@@ -63,22 +63,27 @@ SKIP : { " " | "\t" | "\n" | "\r" }
 TOKEN : { <ALPHA: ["a"-"z","A"-"Z"]> }  // 1 - ALPHA
 TOKEN : { <DIGIT: (["0"-"9"])+ > }      // 2 - DIGIT
 TOKEN : { <USCORE: "_"> }               // 3 - USCORE
-TOKEN : { <EOL: "\n"> }                 // 4 - EOL
+TOKEN : { <EOL: "\\n"> }                 // 4 - EOL
 TOKEN : { <NAME : (<ALPHA>|<USCORE>) (<ALPHA>|<DIGIT>|<USCORE>)+ > }        // 5 - NAME
 TOKEN : { <SPACENAME : <NAME>":"> }       // 6 - SPACENAME
-TOKEN : { <IDENTIFIER : <SPACENAME> <NAME> > }                 // 7 - IDENTIFIER
+TOKEN : { <IDENTIFIER : (<SPACENAME>)?<NAME> > }                 // 7 - IDENTIFIER
 TOKEN : { <ATOM : <ATOM_INTEGER_LIT>|<ATOM_REAL_LIT> > }       // 8 - ATOM
 
-// IDK HOW TO DO THIS
-TOKEN : { <ATOM_INTEGER_LIT : ["-253"-"+253"] | ["-9.007e15"-"+9.007e15"] > }                    // 9 - ATOM_INTEGER_INT - acho que está certo
-TOKEN : { <ATOM_REAL_LIT : ["-21024+1"-"+21024-1"] | ["-1.798e308+1"-"+1.798e308-1"]> }         // 10 - ATOM_REAL_LIT - acho que está certo
+// GAMBI:
+TOKEN : { <ATOM_INTEGER_LIT : "something"> }
+TOKEN : { <ATOM_REAL_LIT : "something_else"> }
+TOKEN : { <INTEGER : "something_other_thing"> }
+TOKEN : { <INTEGER_LIT : "another_thing"> }
+// END GAMBI
 
-TOKEN : { <INTEGER : <INTEGER_LIT> > }         // 11
+// // IDK HOW TO DO THIS
+// TOKEN : { <ATOM_INTEGER_LIT : ["-253"-"+253"] | ["-9.007e15"-"+9.007e15"] > }                    // 9 - ATOM_INTEGER_INT - acho que está certo
+// TOKEN : { <ATOM_REAL_LIT : ["-21024+1"-"+21024-1"] | ["-1.798e308+1"-"+1.798e308-1"]> }         // 10 - ATOM_REAL_LIT - acho que está certo
+// TOKEN : { <INTEGER : <INTEGER_LIT> > }         // 11
+// // IDK HOW TO DO THIS
+// TOKEN : { <INTEGER_LIT : ["-230"-"+230-1"] | ["-1_073_741_824"-"+1_073_741_823"]> }         // 12
 
-// IDK HOW TO DO THIS
-TOKEN : { <INTEGER_LIT : ["-230"-"+230-1"] | ["-1_073_741_824"-"+1_073_741_823"]> }         // 12
-
-TOKEN : { <SEQUENCE : "{"(<HEADITEM>)+(<ITEM>|<LASTITEM>) "}"> }      // 13
+TOKEN : { <SEQUENCE : "{"<HEADITEM>(<ITEM>)+<LASTITEM> "}"> }      // 13
 TOKEN : { <OBJECT : <ATOM>|<INTEGER>|<SEQUENCE> > }        // 14
 TOKEN : { <EXPRESSION : <ATOMEXPR> | <INTEXPR> | <STREXPR> | <SEQEXPR> | <BOOLEXPR> > }        // 15
 TOKEN : { <ATOMEXPR : <ATOM> > }       // 16
@@ -92,104 +97,103 @@ TOKEN : { <BOOLEXPR : "atom_zero_represents_falsehood_and_non-zero_represents_tr
 TOKEN : { <RELATIONOP : "<" | ">" | "<=" | ">=" | "=" | "!="> }     // 22 - 
 TOKEN : { <BINARYEXPR : (<EXPRESSION> <BINOP> <EXPRESSION>)+ > }  // 23 - 
 TOKEN : { <BINOP : "and" | "or" | "xor" | "+" | "-" | "*" | "/" | "&"> }    // 24 - 
-TOKEN : { <UNARYEXPR : { <UNARYOP> <EXPRESSION> }> }    // 25 - 
+TOKEN : { <UNARYEXPR : ( <UNARYOP> <EXPRESSION> )+ > }    // 25 - 
 TOKEN : { <UNARYOP : "not" | "-" | "+"> }   // 26 - 
 // 27 - RETIRADO DA GRAMATICA
-TOKEN : { <HEADITEM : <OBJECT> "," > }    // 28 - 
-TOKEN : { <ITEM : <OBJECT> > }     // 29 - 
+TOKEN : { <HEADITEM : <ATOM>|<INTEGER> > }    // 28 - 
+TOKEN : { <ITEM : "," <ATOM>|<INTEGER> > }     // 29 - 
 TOKEN : { <LASTITEM : "$"> }    // 30 - 
 TOKEN : { <STATEMENT : "complete_unit_of_code_executed_by_the_interpreter"> }   // 31 - NÃO SEI SE ESTÁ CERTO
 TOKEN : { <STMBLK : (<STATEMENT>)+ > }  // 32 - 
 
-TOKEN : { <LABEL : "label" STRINGLIT> }     // 33 - 
+TOKEN : { <LABEL : "label"<STRINGLIT>> }     // 33 - 
 TOKEN : { <LISTDELIM : ","> }   // 34 - 
-TOKEN : { <STRINGLIT : SIMPLESTRINGLIT | RAWSTRINGLIT> }    // 35 - 
-TOKEN : { <SIMPLESTRINGLIT : SSLITSTART { CHAR | ESCCHAR } SSLITEND> }  // 36 - 
+TOKEN : { <STRINGLIT : <SIMPLESTRINGLIT> | <RAWSTRINGLIT>> }    // 35 - 
+TOKEN : { <SIMPLESTRINGLIT : <SSLITSTART> ( <CHAR> )+ <SSLITEND>> }  // 36 - 
 TOKEN : { <SSLITSTART : "\""> }     // 37 - 
-TOKEN : { <SSLITEND : "\""> }   // 38 - 
+TOKEN : { <SSLITEND : <SSLITSTART>> }   // 38 - 
 TOKEN : { <CHAR : "any_byte_value"> }   // 39 - 
-TOKEN : { <EESCHAR : ESCLEAD41 ( "t" | "n" | "r" | " " )> }     // 40 - 
+TOKEN : { <EESCHAR : <ESCLEAD> ( "t" | "n" | "r" | " " )> }     // 40 - 
 TOKEN : { <ESCLEAD : ""> }  // 41 - 
-TOKEN : { <RAWSTRINGLIT : DQRAWSTRING | BQRAWSTRING> }  // 42 - 
-TOKEN : { <DQRAWSTRING : "\"\"\"" [ MARGINSTR ] { CHAR } "\"\"\""> }    // 43 - 
-TOKEN : { <BQRAWSTRING : "`" [ MARGINSTR ] { CHAR } "`"> }  // 44 -
-TOKEN : { <MARGINSTR : "_"> }   // 45 -  
+TOKEN : { <RAWSTRINGLIT : <DQRAWSTRING> | <BQRAWSTRING>> }  // 42 - 
+TOKEN : { <DQRAWSTRING : "\"\"\"" <MARGINSTR> ( <CHAR> )+ "\"\"\""> }    // 43 - 
+TOKEN : { <BQRAWSTRING : "`"  <MARGINSTR> ( <CHAR> )+ "`"> }  // 44 -
+TOKEN : { <MARGINSTR : <USCORE>> }   // 45 -  
 TOKEN : { <SCOPEMODIFIER : "global" | "public" | "export" | "override"> }   // 46 - 
-TOKEN : { <DATATYPE : "atom" | "integer" | "sequence" | "object" | IDENTIFIER> }    // 47 - 
-TOKEN : { <INCLUDESTMT : "include" FILEREF [ "as" NAMESPACEID ] EOL> }  // 48 - 
+TOKEN : { <DATATYPE : "atom" | "integer" | "sequence" | "object" | <IDENTIFIER>> }    // 47 - 
+TOKEN : { <INCLUDESTMT : "include" <FILEREF> ( "as" <NAMESPACEID> ) <EOL>> }  // 48 - 
 TOKEN : { <FILEREF : "file_path_that_may_be_enclosed_in_double-quotes"> }   // 49 -
-TOKEN : { <NAMESPACEID : IDENTIFIER> }  // 50 -
-TOKEN : { <SLICE : SLICESTART INTEXPR SLICEDELIM ( INTEXPR | "$" ) SLICEEND> }  // 51 -  
+TOKEN : { <NAMESPACEID : <IDENTIFIER>> }  // 50 -
+TOKEN : { <SLICE : <SLICESTART> <INTEXPR> <SLICEDELIM> ( <INTEXPR> | "$" ) <SLICEEND>> }  // 51 -  
 TOKEN : { <SLICESTART : "["> }  // 52 -  
 TOKEN : { <SLICEDELIM : ".."> }     // 53 -  
 TOKEN : { <SLICEEND : "]"> }    // 54 -  
-TOKEN : { <IFSTMT : IFTEST { ELSIF } [ ELSE ] ENDIF> }  // 55 -  
-TOKEN : { <IFTEST : "if" ATOMEXPR [ LABEL ] "then" [ STMBLK ]> }    // 56 -    
-TOKEN : { <ELSIF : "elsif" ATOMEXPR "then" [ STMBLK ]> }    // 57 -  
-TOKEN : { <ELSE : "else" [ STMBLK ]> }  // 58 -  
+TOKEN : { <IFSTMT : <IFTEST> ( <ELSIF> )* ( <ELSE> )? <ENDIF>> }  // 55 -  
+TOKEN : { <IFTEST : "if" <ATOMEXPR>  (<LABEL>)? "then" (<STMBLK>)?> }    // 56 -    
+TOKEN : { <ELSIF : "elsif" <ATOMEXPR> "then" (<STMBLK>)?> }    // 57 -  
+TOKEN : { <ELSE : "else" (<STMBLK>)?> }  // 58 -  
 TOKEN : { <ENDIF : "end" "if"> }    // 59 -  
-TOKEN : { <IFDEFSTMT : IFDEFTEST [ ELSDEFIT { CHAR } ] [ ELSEDEF ] ENDDEFIF> }  // 60 -  
-TOKEN : { <IFDEFTEST : "ifdef" DEFEXPR "then" [ STMBLK ]> }     // 61 -  
-TOKEN : { <ELSDEFIF : "elsifedf" DEFEXPR "then" [ STMBLK ]> }   // 62 -    
-TOKEN : { <ELSEDEF : "elsede" [STMBLK]> }  // 63 -  
+TOKEN : { <IFDEFSTMT : <IFDEFTEST> (<ELSDEFIF> (<CHAR>)+)? (<ELSEDEF>)? <ENDDEFIF>> }  // 60 -  
+TOKEN : { <IFDEFTEST : "ifdef" <DEFEXPR> "then" (<STMBLK>)? > }     // 61 -  
+TOKEN : { <ELSDEFIF : "elsifedf" <DEFEXPR> "then" (<STMBLK>)? > }   // 62 -    
+TOKEN : { <ELSEDEF : "elsede" (<STMBLK>)? > }  // 63 -  
 TOKEN : { <ENDDEFIF : "end" "ifdef"> }  // 64 -  
-TOKEN : { <DEFEXPR : DEFTERM [ DEFOP DEFTERM ]> }   // 65 -  
-TOKEN : { <DEFTERM : [ "not" IDENTIFIER ]> }    // 66 -  
+TOKEN : { <DEFEXPR : <DEFTERM> (<DEFOP> <DEFTERM>)? > }   // 65 -  
+TOKEN : { <DEFTERM : ("not" <IDENTIFIER>)? > }    // 66 -  
 TOKEN : { <DEFOP : "and" | "or"> }  // 67 -  
-TOKEN : { <SWITCHSTMT : SWITCHTEST CASE { CASE } [ CASEELSE ] [ ENDSWITCH ]> }  // 68 -    
-TOKEN : { <SWITCHTEST : "switch" EXPRESSION [ WITHFALL ] [ LABEL ] "do"> }  // 69 -  
+TOKEN : { <SWITCHSTMT : <SWITCHTEST> (<CASE>)+ (<CASEELSE>)? (<ENDSWITCH>)? > }  // 68 -    
+TOKEN : { <SWITCHTEST : "switch" <EXPRESSION> (<WITHFALL>)? (<LABEL>)? "do"> }  // 69 -  
 TOKEN : { <WITHFALL : ( "with" | "without" ) "fallthru"> }  // 70 -  
-TOKEN : { <CASE : "case" CASELIST "then" [ STMBLK ]> }  // 71 -  
-TOKEN : { <CASELIST : EXPRESSION { LISTDELIM EXPRESSION }> }    // 72 -  
+TOKEN : { <CASE : "case" <CASELIST> "then" (<STMBLK>)?> }  // 71 -  
+TOKEN : { <CASELIST : <EXPRESSION> (<LISTDELIM> <EXPRESSION>)+ > }    // 72 -  
 TOKEN : { <CASEELSE : "case" "else"> }  // 73 -  
 TOKEN : { <ENDSWITCH : "end" "switch"> }    // 74 -    
-TOKEN : { <BREAKSTMT : "break" [ STRINGLIT ]> }     // 75 -  
-TOKEN : { <CONTINUESTMT : "continue" [ STRINGLIT ]> }   // 76 -  
-TOKEN : { <RETRYSTMT : "retry" [ STRINGLIT ]> }     // 77 -  
-TOKEN : { <EXITSTMT : "exit" [ STRINGLIT ]> }   // 78 -  
+TOKEN : { <BREAKSTMT : "break" (<STRINGLIT>)?> }     // 75 -  
+TOKEN : { <CONTINUESTMT : "continue" (<STRINGLIT>)? > }   // 76 -  
+TOKEN : { <RETRYSTMT : "retry" (<STRINGLIT>)? > }     // 77 -  
+TOKEN : { <EXITSTMT : "exit" (<STRINGLIT>)? > }   // 78 -  
 TOKEN : { <FALLTHRUSTMT : "fallthru"> }     // 79 -  
-TOKEN : { <FORSTMT : "for" FORIDX [ LABEL ] "do" [ STMBLK ] "end" "for"> }  // 80 -    
-TOKEN : { <FORIDX : IDENTIFIER "=" ATOMEXPR "to" ATOMEXPR [ "by" ATOMEXPR ]> }  // 81 -  
-TOKEN : { <WHILESTMT : "while" BOOLEXPR [ WITHENTRY ] [ LABEL ] "do" STMBLK [ ENTRY ] "end" "while"> }  // 82 -  
+TOKEN : { <FORSTMT : "for" <FORIDX> (<LABEL>)? "do" (<STMBLK>)? "end" "for"> }  // 80 -    
+TOKEN : { <FORIDX : <IDENTIFIER> "=" <ATOMEXPR> "to" <ATOMEXPR> ("by"<ATOMEXPR>)? > }  // 81 -  
+TOKEN : { <WHILESTMT : "while" <BOOLEXPR> (<WITHENTRY>)? (<LABEL>)? "do" <STMBLK> (<ENTRY>)? "end" "while"> }  // 82 -  
 TOKEN : { <WITHENTRY : "with" "entry"> }    // 83 -  
-TOKEN : { <ENTRY : "entry" [ STMBLK ]> }    // 84 -  
-TOKEN : { <LOOPSTMT : "loop" [ withentry83 ] [ label33 ] "do" stmblk32 [ entry84 ] "until" boolexpr21 "end" "loop"> }   // 85 -  
-TOKEN : { <GOTOSTMT : "goto" LABEL> }   // 86 -
-TOKEN : { <VARDECLARE : [ SCOPEMODIFIER ] DATATYPE IDENTLIST> }     // 87 -        
-TOKEN : { <IDENTLIST : IDENT [ "," IDENTLIST ]> }   // 88 -        
-TOKEN : { <IDENT : IDENTIFIER [ "=" EXPRESSION ]> }     // 89 -
-TOKEN : { <CONSTDECLARE : [ SCOPEMODIFIER ] "constant" IDENTLIST> }     // 90 -                
-TOKEN : { <ENUMDECLARE : [ SCOPEMODIFIER ] [ ENUMVAL | ENUMTYPE ]> }    // 91 -                
-TOKEN : { <ENUMVAL : "enum" [ "by" ENUMDELTA ] IDENTLIST> }     // 92 -                
-TOKEN : { <ENUMDELTA : [ "+" | "-" | "*" | "/" ] ATOMEXPR> }    // 93 -                
-TOKEN : { <ENUMTYPE : "enum" "type" [ "by" ENUMDELTA ] IDENTLIST "end" "type"> }    // 94 -                
-TOKEN : { <CALL : IDENTIFIER "(" [ ARGLIST ] ")"> }     // 95 -                
-TOKEN : { <ARGLIST : ARGUMENT [ "," ARGLIST ]> }    // 96 -                
-TOKEN : { <ARGUMENT : EXPRESSION> }     // 97 -                
-TOKEN : { <PROCDECLARE : [ SCOPEMODIFIER ] "procedure" IDENTIFIER "(" [ PARAMLIST ] ")" [ STMBLK ] "end" "procedure"> }     // 98 -                
-TOKEN : { <PARAMLIST : PARAMETER [ "," PARAMLIST ]> }   // 99 -
-TOKEN : { <PARAMETER : DATATYPE IDENTIFIER> }   // 100 -
-TOKEN : { <FUNCDECLARE : [ SCOPEMODIFIER ] "function" IDENTIFIER "(" [ PARAMLIST ] ")" [ STMBLK ] "end" "function"> }   // 101 -
-TOKEN : { <TYPEDECLAR : [ SCOPEMODIFIER ] "type" IDENTIFIER "(" PARAMETER ")" [ STMBLK ] "end" "type"> }    // 102 -
-TOKEN : { <RETURN : "return" EXPRESSION> }  // 103 -
-TOKEN : { <NAMESPACE : "namespace" IDENTIFIER EOL> }    // 104 -
-TOKEN : { <WITHSTMT : [ "with" | "without" ] WITHOPTION> }  // 105 -
-TOKEN : { <WITHOPTION : [ "profile" | "profile_time" | "trace" | "batch" | "type_check" | "indirect_includes" | "inline" | WITHWARNING ]> }     // 106 -
-TOKEN : { <WITHWARNING : "warning" [ WARNOPT ]> }   // 107 -
-TOKEN : { <WARNOPT : SETWARN | ADDWARN? | SAVEWARN | RESTOREWARN | STRICTWARN> }    // 108 - addwarn não foi criado?
-TOKEN : { <SETWARN : [ "+=" | "&=" ] "{" WARNLIST? "}"> }   // 109 - warnlist não foi criado em nenhum lugar :/
-// TOKEN : { <WARNLIST : "warnlist"> } Pensei em criar assim, pelo que entendi é a lista impressa dos erros, não acho que vamos fazer algo no lexico
-// TOKEN : { <ADDWARN : "add"> } Pensei em criar assim
+TOKEN : { <ENTRY : "entry" (<STMBLK>)?> }    // 84 -  
+TOKEN : { <LOOPSTMT : "loop" (<WITHENTRY>)? (<LABEL>)? "do" <STMBLK> (<ENTRY>)? "until" <BOOLEXPR> "end" "loop"> }   // 85 -  
+TOKEN : { <GOTOSTMT : "goto" <LABEL>> }   // 86 -
+TOKEN : { <VARDECLARE : (<SCOPEMODIFIER>)? <DATATYPE> <IDENTLIST>> }     // 87 -        
+TOKEN : { <IDENTLIST : <IDENT> ("," <IDENT>)+> }   // 88 -        
+TOKEN : { <IDENT : <IDENTIFIER> ("=" <EXPRESSION>)?> }     // 89 -
+TOKEN : { <CONSTDECLARE : (<SCOPEMODIFIER>)? "constant" <IDENTLIST>> }     // 90 -                
+TOKEN : { <ENUMDECLARE : (<SCOPEMODIFIER>)? (<ENUMVAL> | <ENUMTYPE>)?> }    // 91 -                
+TOKEN : { <ENUMVAL : "enum" ("by" <ENUMDELTA>)? <IDENTLIST>> }     // 92 -                
+TOKEN : { <ENUMDELTA : ("+" | "-" | "*" | "/")? <ATOMEXPR>> }    // 93 -                
+TOKEN : { <ENUMTYPE : "enum" "type" ("by" <ENUMDELTA>)? <IDENTLIST> "end" "type"> }    // 94 -                
+TOKEN : { <CALL : <IDENTIFIER> "(" (<ARGLIST>)? ")"> }     // 95 -                
+TOKEN : { <ARGLIST : <ARGUMENT> ("," <ARGUMENT>)+> }    // 96 -                
+TOKEN : { <ARGUMENT : <EXPRESSION>> }     // 97 -                
+TOKEN : { <PROCDECLARE : (<SCOPEMODIFIER>)? "procedure" <IDENTIFIER> "(" (<PARAMLIST>)? ")" (<STMBLK>)? "end" "procedure"> }     // 98 -                
+TOKEN : { <PARAMLIST : <PARAMETER> ("," <PARAMETER>)+> }   // 99 -
+TOKEN : { <PARAMETER : <DATATYPE> <IDENTIFIER>> }   // 100 -
+TOKEN : { <FUNCDECLARE : (<SCOPEMODIFIER>)? "function" <IDENTIFIER> "(" (<PARAMLIST>)? ")" (<STMBLK>)? "end" "function"> }   // 101 -
+TOKEN : { <TYPEDECLAR : (<SCOPEMODIFIER>)? "type" <IDENTIFIER> "(" <PARAMETER> ")" (<STMBLK>)? "end" "type"> }    // 102 -
+TOKEN : { <RETURN : "return" <EXPRESSION>> }  // 103 -
+TOKEN : { <NAMESPACE : "namespace" <IDENTIFIER> <EOL>> }    // 104 -
+TOKEN : { <WITHSTMT : ("with" | "without")? <WITHOPTION>> }  // 105 -
+TOKEN : { <WITHOPTION : ("profile" | "profile_time" | "trace" | "batch" | "type_check" | "indirect_includes" | "inline" | <WITHWARNING>)? > }     // 106 -
+TOKEN : { <WITHWARNING : "warning" (<WARNOPT>)?> }   // 107 -
+TOKEN : { <WARNOPT : <SETWARN> | (<ADDWARN>)? | <SAVEWARN> | <RESTOREWARN> | <STRICTWARN>> }    // 108 - addwarn não foi criado?
+TOKEN : { <SETWARN : ("+=" | "&=")? "{" (<WARNLIST>)? "}"> }   // 109 - warnlist não foi criado em nenhum lugar :/
+TOKEN : { <WARNLIST : "warnlist"> }// Pensei em criar assim, pelo que entendi é a lista impressa dos erros, não acho que vamos fazer algo no lexico
+TOKEN : { <ADDWARN : "add"> }// Pensei em criar assim
 TOKEN : { <SAVEWARN : "save"> }     // 110 -
 TOKEN : { <RESTOREWARN : "restore"> }   // 111 -
 TOKEN : { <STRICTWARN : "strict"> }     // 112 -
-TOKEN : { <SUBSCRIPTING : IDENTIFIER { INDEX }> }   // 113 -
-TOKEN : { <INDEX : "[" INTEXPR "]"> }   // 114 -
-TOKEN : { <ASSIGNMONO : IDENTIFIER "=" EXPRESSION> }    // 115 -
-TOKEN : { <ASSIGNMULTI : "{" IDENTIFIER [ { "," IDENTIFIER } ] "}" "=" EXPRESSION | "{" EXPRESSION [ { "," EXPRESSION } ] "}"> }    // 116 -
-TOKEN : { <ASSIGNWITHOP : IDENTIFIER ( "+" | "-" | "/" | "*" | "&" ) "=" EXPRESSION> }  // 117 -
+TOKEN : { <SUBSCRIPTING : <IDENTIFIER> (<INDEX>)+ > }   // 113 -
+TOKEN : { <INDEX : "[" <INTEXPR> "]"> }   // 114 -
+TOKEN : { <ASSIGNMONO : <IDENTIFIER> "=" <EXPRESSION>> }    // 115 -
+TOKEN : { <ASSIGNMULTI : "{" <IDENTIFIER> ( "," <IDENTIFIER>)* "}" "=" <EXPRESSION> | "{" <EXPRESSION> ( "," <EXPRESSION> )* "}"> }    // 116 -
+TOKEN : { <ASSIGNWITHOP : <IDENTIFIER> ( "+" | "-" | "/" | "*" | "&" )? "=" <EXPRESSION>> }  // 117 -
 
-}
 
 /* THE CODE HAS TO BE CHANGED FROM THIS POINT ON */
 
@@ -212,103 +216,103 @@ void Main():
     /************ GERAIS ************/
     t = <EOL>         { System.out.println("@("+t.beginLine+","+t.beginColumn+") EOL:\t"+t.toString());}
 
-    /************ COMANDOS ************/
+//     /************ COMANDOS ************/
 
-    | t = <WARRANTY>    { System.out.println("@("+t.beginLine+","+t.beginColumn+") WARRANTY:\t"+t.toString());}
-    | t = <LIMITS>      { System.out.println("@("+t.beginLine+","+t.beginColumn+") LIMITS:\t"+t.toString());}
-    | t = <BREAK>       { System.out.println("@("+t.beginLine+","+t.beginColumn+") BREAK:\t"+t.toString());}
-    | t = <CONTINUE>    { System.out.println("@("+t.beginLine+","+t.beginColumn+") CONTINUE:\t"+t.toString());}
-    | t = <QUIT>        { System.out.println("@("+t.beginLine+","+t.beginColumn+") QUIT:\t"+t.toString());}
-    | t = <HALT>        { System.out.println("@("+t.beginLine+","+t.beginColumn+") HALT:\t"+t.toString());}
-    | t = <RETURN>      { System.out.println("@("+t.beginLine+","+t.beginColumn+") RETURN:\t"+t.toString());}
-    | t = <FOR>         { System.out.println("@("+t.beginLine+","+t.beginColumn+") FOR:\t"+t.toString());}
-    | t = <IF>          { System.out.println("@("+t.beginLine+","+t.beginColumn+") IF:\t"+t.toString());}
-    | t = <WHILE>       { System.out.println("@("+t.beginLine+","+t.beginColumn+") WHILE:\t"+t.toString());}
-    | t = <PRINT>       { System.out.println("@("+t.beginLine+","+t.beginColumn+") PRINT:\t"+t.toString());}
-    | t = <ELSE>        { System.out.println("@("+t.beginLine+","+t.beginColumn+") ELSE:\t"+t.toString());}
+//     | t = <WARRANTY>    { System.out.println("@("+t.beginLine+","+t.beginColumn+") WARRANTY:\t"+t.toString());}
+//     | t = <LIMITS>      { System.out.println("@("+t.beginLine+","+t.beginColumn+") LIMITS:\t"+t.toString());}
+//     | t = <BREAK>       { System.out.println("@("+t.beginLine+","+t.beginColumn+") BREAK:\t"+t.toString());}
+//     | t = <CONTINUE>    { System.out.println("@("+t.beginLine+","+t.beginColumn+") CONTINUE:\t"+t.toString());}
+//     | t = <QUIT>        { System.out.println("@("+t.beginLine+","+t.beginColumn+") QUIT:\t"+t.toString());}
+//     | t = <HALT>        { System.out.println("@("+t.beginLine+","+t.beginColumn+") HALT:\t"+t.toString());}
+//     | t = <RETURN>      { System.out.println("@("+t.beginLine+","+t.beginColumn+") RETURN:\t"+t.toString());}
+//     | t = <FOR>         { System.out.println("@("+t.beginLine+","+t.beginColumn+") FOR:\t"+t.toString());}
+//     | t = <IF>          { System.out.println("@("+t.beginLine+","+t.beginColumn+") IF:\t"+t.toString());}
+//     | t = <WHILE>       { System.out.println("@("+t.beginLine+","+t.beginColumn+") WHILE:\t"+t.toString());}
+//     | t = <PRINT>       { System.out.println("@("+t.beginLine+","+t.beginColumn+") PRINT:\t"+t.toString());}
+//     | t = <ELSE>        { System.out.println("@("+t.beginLine+","+t.beginColumn+") ELSE:\t"+t.toString());}
 
-    /***********
-    DEFINICAO DE FUNCAO
-    ***********/
-    | t = <DEFINE>      { System.out.println("@("+t.beginLine+","+t.beginColumn+") DEFINE:\t"+t.toString());}
+//     /***********
+//     DEFINICAO DE FUNCAO
+//     ***********/
+//     | t = <DEFINE>      { System.out.println("@("+t.beginLine+","+t.beginColumn+") DEFINE:\t"+t.toString());}
 
-    /***********
-    EXPRESSOES GERAIS
-    ***********/
-    | t = <VIRGULA>        { System.out.println("@("+t.beginLine+","+t.beginColumn+") VIRGULA:\t"+t.toString());}
-    | t = <PARENTESESESQ>        { System.out.println("@("+t.beginLine+","+t.beginColumn+") PARENTESESESQ:\t"+t.toString());}
-    | t = <PARENTESESDIR>        { System.out.println("@("+t.beginLine+","+t.beginColumn+") PARENTESESDIR:\t"+t.toString());}
-    | t = <COLCHETESESQ>        { System.out.println("@("+t.beginLine+","+t.beginColumn+") COLCHETESESQ:\t"+t.toString());}
-    | t = <COLCHETESDIR>        { System.out.println("@("+t.beginLine+","+t.beginColumn+") COLCHETESDIR:\t"+t.toString());}
-    | t = <CHAVESESQ>        { System.out.println("@("+t.beginLine+","+t.beginColumn+") CHAVESESQ:\t"+t.toString());}
-    | t = <CHAVESDIR>        { System.out.println("@("+t.beginLine+","+t.beginColumn+") CHAVESDIR:\t"+t.toString());}
-    | t = <PONTOEVIRGULA>        { System.out.println("@("+t.beginLine+","+t.beginColumn+") PONTOEVIRGULA:\t"+t.toString());}
-    | t = <PONTO>        { System.out.println("@("+t.beginLine+","+t.beginColumn+") PONTO:\t"+t.toString());}
-    | t = <UNDERLINE>        { System.out.println("@("+t.beginLine+","+t.beginColumn+") UNDERLINE:\t"+t.toString());}
+//     /***********
+//     EXPRESSOES GERAIS
+//     ***********/
+//     | t = <VIRGULA>        { System.out.println("@("+t.beginLine+","+t.beginColumn+") VIRGULA:\t"+t.toString());}
+//     | t = <PARENTESESESQ>        { System.out.println("@("+t.beginLine+","+t.beginColumn+") PARENTESESESQ:\t"+t.toString());}
+//     | t = <PARENTESESDIR>        { System.out.println("@("+t.beginLine+","+t.beginColumn+") PARENTESESDIR:\t"+t.toString());}
+//     | t = <COLCHETESESQ>        { System.out.println("@("+t.beginLine+","+t.beginColumn+") COLCHETESESQ:\t"+t.toString());}
+//     | t = <COLCHETESDIR>        { System.out.println("@("+t.beginLine+","+t.beginColumn+") COLCHETESDIR:\t"+t.toString());}
+//     | t = <CHAVESESQ>        { System.out.println("@("+t.beginLine+","+t.beginColumn+") CHAVESESQ:\t"+t.toString());}
+//     | t = <CHAVESDIR>        { System.out.println("@("+t.beginLine+","+t.beginColumn+") CHAVESDIR:\t"+t.toString());}
+//     | t = <PONTOEVIRGULA>        { System.out.println("@("+t.beginLine+","+t.beginColumn+") PONTOEVIRGULA:\t"+t.toString());}
+//     | t = <PONTO>        { System.out.println("@("+t.beginLine+","+t.beginColumn+") PONTO:\t"+t.toString());}
+//     | t = <UNDERLINE>        { System.out.println("@("+t.beginLine+","+t.beginColumn+") UNDERLINE:\t"+t.toString());}
 
-    /*********** Palavras reservadas ***********/
-//unary_exp
-    | t = <LENGHT>        { System.out.println("@("+t.beginLine+","+t.beginColumn+") LENGHT:\t"+t.toString());}
-    | t = <SQRT>        { System.out.println("@("+t.beginLine+","+t.beginColumn+") SQRT:\t"+t.toString());}
-    | t = <SCALE>        { System.out.println("@("+t.beginLine+","+t.beginColumn+") SCALE:\t"+t.toString());}
-    | t = <READ>        { System.out.println("@("+t.beginLine+","+t.beginColumn+") READ:\t"+t.toString());}
+//     /*********** Palavras reservadas ***********/
+// //unary_exp
+//     | t = <LENGHT>        { System.out.println("@("+t.beginLine+","+t.beginColumn+") LENGHT:\t"+t.toString());}
+//     | t = <SQRT>        { System.out.println("@("+t.beginLine+","+t.beginColumn+") SQRT:\t"+t.toString());}
+//     | t = <SCALE>        { System.out.println("@("+t.beginLine+","+t.beginColumn+") SCALE:\t"+t.toString());}
+//     | t = <READ>        { System.out.println("@("+t.beginLine+","+t.beginColumn+") READ:\t"+t.toString());}
 
-//named_expression
-    | t = <IBASE>        { System.out.println("@("+t.beginLine+","+t.beginColumn+") IBASE:\t"+t.toString());}
-    | t = <OBASE>        { System.out.println("@("+t.beginLine+","+t.beginColumn+") OBASE:\t"+t.toString());}
-    | t = <LAST>        { System.out.println("@("+t.beginLine+","+t.beginColumn+") LAST:\t"+t.toString());}
+// //named_expression
+//     | t = <IBASE>        { System.out.println("@("+t.beginLine+","+t.beginColumn+") IBASE:\t"+t.toString());}
+//     | t = <OBASE>        { System.out.println("@("+t.beginLine+","+t.beginColumn+") OBASE:\t"+t.toString());}
+//     | t = <LAST>        { System.out.println("@("+t.beginLine+","+t.beginColumn+") LAST:\t"+t.toString());}
 
-//opt_auto_define_list
-    | t = <AUTO>        { System.out.println("@("+t.beginLine+","+t.beginColumn+") AUTO:\t"+t.toString());}
+// //opt_auto_define_list
+//     | t = <AUTO>        { System.out.println("@("+t.beginLine+","+t.beginColumn+") AUTO:\t"+t.toString());}
 
-    /*********** OPERADORES ***********/
-// expression, and_exp, not_exp, 
-    | t = <OU>        { System.out.println("@("+t.beginLine+","+t.beginColumn+") OU:\t"+t.toString());}
-    | t = <E>        { System.out.println("@("+t.beginLine+","+t.beginColumn+") E:\t"+t.toString());}
-    | t = <NOT>        { System.out.println("@("+t.beginLine+","+t.beginColumn+") NOT:\t"+t.toString());}
+//     /*********** OPERADORES ***********/
+// // expression, and_exp, not_exp, 
+//     | t = <OU>        { System.out.println("@("+t.beginLine+","+t.beginColumn+") OU:\t"+t.toString());}
+//     | t = <E>        { System.out.println("@("+t.beginLine+","+t.beginColumn+") E:\t"+t.toString());}
+//     | t = <NOT>        { System.out.println("@("+t.beginLine+","+t.beginColumn+") NOT:\t"+t.toString());}
 
-// rel_op
-    | t = <MAIOR>        { System.out.println("@("+t.beginLine+","+t.beginColumn+") MAIOR:\t"+t.toString());}
-    | t = <MAIORIGUAL>        { System.out.println("@("+t.beginLine+","+t.beginColumn+") MAIORIGUAL:\t"+t.toString());}
-    | t = <MENOR>        { System.out.println("@("+t.beginLine+","+t.beginColumn+") MENOR:\t"+t.toString());}
-    | t = <MENORIGUAL>        { System.out.println("@("+t.beginLine+","+t.beginColumn+") MENORIGUAL:\t"+t.toString());}
-    | t = <COMPARACAO>        { System.out.println("@("+t.beginLine+","+t.beginColumn+") COMPARACAO:\t"+t.toString());}
-    | t = <DIFERENTE>        { System.out.println("@("+t.beginLine+","+t.beginColumn+") DIFERENTE:\t"+t.toString());}
+// // rel_op
+//     | t = <MAIOR>        { System.out.println("@("+t.beginLine+","+t.beginColumn+") MAIOR:\t"+t.toString());}
+//     | t = <MAIORIGUAL>        { System.out.println("@("+t.beginLine+","+t.beginColumn+") MAIORIGUAL:\t"+t.toString());}
+//     | t = <MENOR>        { System.out.println("@("+t.beginLine+","+t.beginColumn+") MENOR:\t"+t.toString());}
+//     | t = <MENORIGUAL>        { System.out.println("@("+t.beginLine+","+t.beginColumn+") MENORIGUAL:\t"+t.toString());}
+//     | t = <COMPARACAO>        { System.out.println("@("+t.beginLine+","+t.beginColumn+") COMPARACAO:\t"+t.toString());}
+//     | t = <DIFERENTE>        { System.out.println("@("+t.beginLine+","+t.beginColumn+") DIFERENTE:\t"+t.toString());}
 
 
-// assign_op
-    | t = <ATRIBUICAO>        { System.out.println("@("+t.beginLine+","+t.beginColumn+") ATRIBUICAO:\t"+t.toString());}
-    | t = <ATRIBUICAOSOMA>        { System.out.println("@("+t.beginLine+","+t.beginColumn+") ATRIBUICAOSOMA:\t"+t.toString());}
-    | t = <ATRIBUICAOSUB>        { System.out.println("@("+t.beginLine+","+t.beginColumn+") ATRIBUICAOSUB:\t"+t.toString());}
-    | t = <ATRIBUICAOMULT>        { System.out.println("@("+t.beginLine+","+t.beginColumn+") ATRIBUICAOMULT:\t"+t.toString());}
-    | t = <ATRIBUICAODIV>        { System.out.println("@("+t.beginLine+","+t.beginColumn+") ATRIBUICAODIV:\t"+t.toString());}
-    | t = <ATRIBUICAOMOD>        { System.out.println("@("+t.beginLine+","+t.beginColumn+") ATRIBUICAOMOD:\t"+t.toString());}
-    | t = <ATRIBUICAOPOT>        { System.out.println("@("+t.beginLine+","+t.beginColumn+") ATRIBUICAOPOT:\t"+t.toString());}
+// // assign_op
+//     | t = <ATRIBUICAO>        { System.out.println("@("+t.beginLine+","+t.beginColumn+") ATRIBUICAO:\t"+t.toString());}
+//     | t = <ATRIBUICAOSOMA>        { System.out.println("@("+t.beginLine+","+t.beginColumn+") ATRIBUICAOSOMA:\t"+t.toString());}
+//     | t = <ATRIBUICAOSUB>        { System.out.println("@("+t.beginLine+","+t.beginColumn+") ATRIBUICAOSUB:\t"+t.toString());}
+//     | t = <ATRIBUICAOMULT>        { System.out.println("@("+t.beginLine+","+t.beginColumn+") ATRIBUICAOMULT:\t"+t.toString());}
+//     | t = <ATRIBUICAODIV>        { System.out.println("@("+t.beginLine+","+t.beginColumn+") ATRIBUICAODIV:\t"+t.toString());}
+//     | t = <ATRIBUICAOMOD>        { System.out.println("@("+t.beginLine+","+t.beginColumn+") ATRIBUICAOMOD:\t"+t.toString());}
+//     | t = <ATRIBUICAOPOT>        { System.out.println("@("+t.beginLine+","+t.beginColumn+") ATRIBUICAOPOT:\t"+t.toString());}
 
-// add_op
-    | t = <ADD>        { System.out.println("@("+t.beginLine+","+t.beginColumn+") ADD:\t"+t.toString());}
-    | t = <SUB>        { System.out.println("@("+t.beginLine+","+t.beginColumn+") SUB:\t"+t.toString());}
+// // add_op
+//     | t = <ADD>        { System.out.println("@("+t.beginLine+","+t.beginColumn+") ADD:\t"+t.toString());}
+//     | t = <SUB>        { System.out.println("@("+t.beginLine+","+t.beginColumn+") SUB:\t"+t.toString());}
 
-// mul_op
-    | t = <MULT>        { System.out.println("@("+t.beginLine+","+t.beginColumn+") MULT:\t"+t.toString());}
-    | t = <DIV>        { System.out.println("@("+t.beginLine+","+t.beginColumn+") DIV:\t"+t.toString());}
-    | t = <RESTO>        { System.out.println("@("+t.beginLine+","+t.beginColumn+") RESTO:\t"+t.toString());}
+// // mul_op
+//     | t = <MULT>        { System.out.println("@("+t.beginLine+","+t.beginColumn+") MULT:\t"+t.toString());}
+//     | t = <DIV>        { System.out.println("@("+t.beginLine+","+t.beginColumn+") DIV:\t"+t.toString());}
+//     | t = <RESTO>        { System.out.println("@("+t.beginLine+","+t.beginColumn+") RESTO:\t"+t.toString());}
 
-// incr_decr_op
-    | t = <INCREMENTO>        { System.out.println("@("+t.beginLine+","+t.beginColumn+") INCREMENTO:\t"+t.toString());}
-    | t = <DECREMENTO>        { System.out.println("@("+t.beginLine+","+t.beginColumn+") DECREMENTO:\t"+t.toString());}
+// // incr_decr_op
+//     | t = <INCREMENTO>        { System.out.println("@("+t.beginLine+","+t.beginColumn+") INCREMENTO:\t"+t.toString());}
+//     | t = <DECREMENTO>        { System.out.println("@("+t.beginLine+","+t.beginColumn+") DECREMENTO:\t"+t.toString());}
 
-// power_exp
-    | t = <POTENCIA>        { System.out.println("@("+t.beginLine+","+t.beginColumn+") POTENCIA:\t"+t.toString());}
+// // power_exp
+//     | t = <POTENCIA>        { System.out.println("@("+t.beginLine+","+t.beginColumn+") POTENCIA:\t"+t.toString());}
 
-    /**** NOMES GERAIS ****/
-    | t = <LETRAS>        { System.out.println("@("+t.beginLine+","+t.beginColumn+") LETRAS:\t"+t.toString());}
-    | t = <DIGITOS>        { System.out.println("@("+t.beginLine+","+t.beginColumn+") DIGITOS:\t"+t.toString());}
-    | t = <CARACTERES>        { System.out.println("@("+t.beginLine+","+t.beginColumn+") CARACTERES:\t"+t.toString());}
-    | t = <STRING>        { System.out.println("@("+t.beginLine+","+t.beginColumn+") STRING:\t"+t.toString());}
-    | t = <IDENTIFICADOR>        { System.out.println("@("+t.beginLine+","+t.beginColumn+") IDENTIFICADOR:\t"+t.toString());}
+//     /**** NOMES GERAIS ****/
+//     | t = <LETRAS>        { System.out.println("@("+t.beginLine+","+t.beginColumn+") LETRAS:\t"+t.toString());}
+//     | t = <DIGITOS>        { System.out.println("@("+t.beginLine+","+t.beginColumn+") DIGITOS:\t"+t.toString());}
+//     | t = <CARACTERES>        { System.out.println("@("+t.beginLine+","+t.beginColumn+") CARACTERES:\t"+t.toString());}
+//     | t = <STRING>        { System.out.println("@("+t.beginLine+","+t.beginColumn+") STRING:\t"+t.toString());}
+//     | t = <IDENTIFICADOR>        { System.out.println("@("+t.beginLine+","+t.beginColumn+") IDENTIFICADOR:\t"+t.toString());}
 
-    /************ TERMINAL ************/
-    | t = <EOF>{return;}
+//     /************ TERMINAL ************/
+//     | t = <EOF>{return;}
     )*
 }
