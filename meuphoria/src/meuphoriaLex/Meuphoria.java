@@ -5,7 +5,7 @@ public class Meuphoria implements MeuphoriaConstants {
 
         /** Main entry point. */
         public static void main(String args[]) throws ParseException {
-                Simple3 parser = new Meuphoria(test);
+                Simple3 parser = new Meuphoria(System.in);
                 parser.Input();
         }
 

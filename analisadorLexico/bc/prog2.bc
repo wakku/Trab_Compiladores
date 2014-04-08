@@ -1,0 +1,5 @@
+#prog2.bc
+print(1+3);
+testândo = 5;
+print(testândo);
+quit

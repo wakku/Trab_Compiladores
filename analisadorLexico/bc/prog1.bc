@@ -1,0 +1,8 @@
+# Esse programa eh apenas um teste
+var = (2+3);            # atribui informacao para var
+var2 = (7*3)/12 + 15;   # atribui informacao para var2
+print(var);
+var += var2;
+var /= var;
+print(var);
+quit
