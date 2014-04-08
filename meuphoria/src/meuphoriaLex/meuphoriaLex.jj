@@ -39,7 +39,8 @@ class Meuphoria {
       try {
         t = getNextToken();
         String nomeToken = tokenImage[t.kind];
-        System.out.println( "@(" + t.beginLine + "," + t.beginColumn + ") \t" + nomeToken + " \t\t- " + t.image );
+        String location = "@(" + t.beginLine + ", " + t.beginColumn + ")";
+        System.out.println(String.format("%-15s %-20s %s", location, nomeToken, t.image));
         if(nomeToken.equals("<EOF>"))break;
       } 
       catch (Exception e) {
