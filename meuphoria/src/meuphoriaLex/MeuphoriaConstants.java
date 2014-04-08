@@ -9,11 +9,9 @@ public interface MeuphoriaConstants {
   /** End of File. */
   int EOF = 0;
   /** RegularExpression Id. */
-  int COMENTARIO_INICIAL = 7;
+  int COMENTARIO_INICIAL = 6;
   /** RegularExpression Id. */
-  int COMENTARIO_LINHA = 8;
-  /** RegularExpression Id. */
-  int COMENTARIO_BLOCO = 9;
+  int COMENTARIO_LINHA = 7;
   /** RegularExpression Id. */
   int AND = 10;
   /** RegularExpression Id. */
@@ -209,15 +207,13 @@ public interface MeuphoriaConstants {
   /** RegularExpression Id. */
   int STRING = 106;
   /** RegularExpression Id. */
-  int EOL = 107;
+  int DATATYPE = 107;
   /** RegularExpression Id. */
-  int DATATYPE = 108;
+  int NAME = 108;
   /** RegularExpression Id. */
-  int NAME = 109;
+  int SPACENAME = 109;
   /** RegularExpression Id. */
-  int SPACENAME = 110;
-  /** RegularExpression Id. */
-  int IDENTIFIER = 111;
+  int IDENTIFIER = 110;
 
   /** Lexical state. */
   int DEFAULT = 0;
@@ -230,12 +226,12 @@ public interface MeuphoriaConstants {
     "\" \"",
     "\"\\t\"",
     "\"\\r\"",
+    "\"\\n\"",
     "\"/*\"",
-    "\"*/\"",
-    "<token of kind 6>",
     "<COMENTARIO_INICIAL>",
     "<COMENTARIO_LINHA>",
-    "<COMENTARIO_BLOCO>",
+    "\"*/\"",
+    "<token of kind 9>",
     "\"and\"",
     "\"case\"",
     "\"do\"",
@@ -333,7 +329,6 @@ public interface MeuphoriaConstants {
     "<INT>",
     "<FLOAT>",
     "<STRING>",
-    "\"\\n\"",
     "<DATATYPE>",
     "<NAME>",
     "<SPACENAME>",

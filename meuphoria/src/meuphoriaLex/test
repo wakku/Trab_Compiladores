@@ -2,13 +2,13 @@
 
 -- Testando comentario.
 
-/* testando um comentario de bloco
+/***** testando um comentario de bloco
  pra ver se o compilador pode
- ignorar tudo isso sem problemas
+ ignorar tudo isso sem problemas*/
 
 -- testando declarar variaveis.
 integer counter
-integer miles
+integer ~miles
 sequence name
 
 tempo   = 100          -- Setar um integer
@@ -24,4 +24,4 @@ printf(1, "Value of nome %s\n", {nome} )
 printf(1, "Value of ONE %d\n", ONE )
 printf(1, "Value of TWO %d\n", TWO )
 printf(1, "Value of THREE %d\n", THREE )
-printf(1, "Value of FOUR %d\n", FOUR )*/
+printf(1, "Value of FOUR %d\n", FOUR )

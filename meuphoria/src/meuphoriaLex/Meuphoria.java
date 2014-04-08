@@ -188,9 +188,6 @@ TOKEN : { <ASSIGNWITHOP : <IDENTIFIER> ( "+" | "-" | "/" | "*" | "&" )? "=" <EXP
     label_1:
     while (true) {
       switch ((jj_ntk==-1)?jj_ntk_f():jj_ntk) {
-      case COMENTARIO_INICIAL:
-      case COMENTARIO_LINHA:
-      case COMENTARIO_BLOCO:
       case CONSTANT:
       case ENUM:
       case RETURN:
@@ -233,21 +230,6 @@ System.out.println("@("+t.beginLine+","+t.beginColumn+") FLOAT:\u005ct"+t.toStri
       case STRING:{
         t = jj_consume_token(STRING);
 System.out.println("@("+t.beginLine+","+t.beginColumn+") STRING:\u005ct"+t.toString());
-        break;
-        }
-      case COMENTARIO_INICIAL:{
-        t = jj_consume_token(COMENTARIO_INICIAL);
-System.out.println("@("+t.beginLine+","+t.beginColumn+") COMENTARIO_INICIAL:\u005ct"+t.toString());
-        break;
-        }
-      case COMENTARIO_LINHA:{
-        t = jj_consume_token(COMENTARIO_LINHA);
-System.out.println("@("+t.beginLine+","+t.beginColumn+") COMENTARIO_LINHA:\u005ct"+t.toString());
-        break;
-        }
-      case COMENTARIO_BLOCO:{
-        t = jj_consume_token(COMENTARIO_BLOCO);
-System.out.println("@("+t.beginLine+","+t.beginColumn+") COMENTARIO_BLOCO:\u005ct"+t.toString());
         break;
         }
       case CONSTANT:{
@@ -314,7 +296,7 @@ System.out.println("@("+t.beginLine+","+t.beginColumn+") RETURN:\u005ct"+t.toStr
       jj_la1_init_3();
    }
    private static void jj_la1_init_0() {
-      jj_la1_0 = new int[] {0x800380,0x800380,};
+      jj_la1_0 = new int[] {0x800000,0x800000,};
    }
    private static void jj_la1_init_1() {
       jj_la1_1 = new int[] {0x20c00110,0x20c00110,};
@@ -440,7 +422,7 @@ System.out.println("@("+t.beginLine+","+t.beginColumn+") RETURN:\u005ct"+t.toStr
   /** Generate ParseException. */
   public ParseException generateParseException() {
     jj_expentries.clear();
-    boolean[] la1tokens = new boolean[112];
+    boolean[] la1tokens = new boolean[111];
     if (jj_kind >= 0) {
       la1tokens[jj_kind] = true;
       jj_kind = -1;
@@ -463,7 +445,7 @@ System.out.println("@("+t.beginLine+","+t.beginColumn+") RETURN:\u005ct"+t.toStr
         }
       }
     }
-    for (int i = 0; i < 112; i++) {
+    for (int i = 0; i < 111; i++) {
       if (la1tokens[i]) {
         jj_expentry = new int[1];
         jj_expentry[0] = i;
