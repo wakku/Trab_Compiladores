@@ -3,8 +3,8 @@ ANALISADOR LEXICO
 ********************************
 
 Integrantes: 
-Caio
-Diego Gomes
+Caio Gomes                      7239072
+Diego Gomes                     7656467
 Fernando Cury Gorodscy			    7152354
 Roberty Manzini Bertolo         7573399
 Vanessa Apolinário Lima         7239256
@@ -30,19 +30,38 @@ PARSER_BEGIN(Meuphoria)
 /* MeuPhoria Parser */
 class Meuphoria {
 
+  public void processa()  {
+    Token t;
+    while (true) {
+      try {
+        t = getNextToken();
+        String nomeToken = tokenImage[t.kind];
+        System.out.println( " Line: " + t.beginLine + "  Column: " + t.beginColumn + "   " + nomeToken + " " + t.kind );
+        if(nomeToken.equals("<EOF>"))break;
+      } 
+      catch (Exception e) {
+        System.out.print("Erro: ");
+        System.out.println(e.getMessage());
+                  
+      }
+    }
+  }
+
+
   /** Main entry point. */
-  public static void main(String args[]) throws ParseException, TokenMgrError {
+  public static void main(String args[]) throws /*ParseException,*/ TokenMgrError {
     try
     {
       Meuphoria analisadorlexico = new Meuphoria(System.in);
-      analisadorlexico.Main();
+      //analisadorlexico.Main();
+      analisadorlexico.processa();
       System.out.println("Analisado com sucesso!");
     }
-    catch(ParseException e)
+    /*catch(ParseException e)
     {
         System.out.println(e.getMessage());
         System.out.println("Ocorreu uma excecao!");
-    }
+    }*/
     catch(TokenMgrError e)
     {
         System.out.println(e.getMessage());
@@ -176,16 +195,16 @@ TOKEN : {
 
 TOKEN : { <USCORE: "_"> }
 TOKEN : { <ALPHA: ["a"-"z","A"-"Z"]> }
-TOKEN : { <DIGITO: ["0"-"9"] > }
+//TOKEN : { <DIGITO: ["0"-"9"] > }
 
 /* Identificador */
-TOKEN : { <ID : (<ALPHA>|<USCORE>)(<ALPHA>|<USCORE>|<DIGITO>)* > }
+TOKEN : { <ID : (<ALPHA>|<USCORE>)(<ALPHA>|<USCORE>|["0"-"9"])* > }
 
 /* Inteiro */
-TOKEN : { <INT : (<DIGITO>)+ > }
+TOKEN : { <INT : (["0"-"9"])+ > }
 
 /* Float */
-TOKEN : { <FLOAT : (<DIGITO>)+ <DOT> (<DIGITO>)+ > }
+TOKEN : { <FLOAT : (["0"-"9"])+ <DOT> (["0"-"9"])+ > }
 
 /* String */
 TOKEN : { <STRING : <QUOTE>(~["\n","\r"])* <QUOTE> > }
@@ -201,7 +220,7 @@ TOKEN : { <DATATYPE : "atom" | "integer" | "sequence" | "object" > }
 
 
 
-TOKEN : { <NAME : (<ALPHA>|<USCORE>) (<ALPHA>|<DIGITO>|<USCORE>)+ > }        // 5 - NAME
+TOKEN : { <NAME : (<ALPHA>|<USCORE>) (<ALPHA>|["0"-"9"]|<USCORE>)+ > }        // 5 - NAME
 TOKEN : { <SPACENAME : <NAME>":"> }       // 6 - SPACENAME
 TOKEN : { <IDENTIFIER : <SPACENAME> <NAME> > }                 // 7 - IDENTIFIER
 

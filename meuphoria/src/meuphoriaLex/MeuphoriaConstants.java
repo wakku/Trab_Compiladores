@@ -201,23 +201,21 @@ public interface MeuphoriaConstants {
   /** RegularExpression Id. */
   int ALPHA = 100;
   /** RegularExpression Id. */
-  int DIGITO = 101;
+  int ID = 101;
   /** RegularExpression Id. */
-  int ID = 102;
+  int INT = 102;
   /** RegularExpression Id. */
-  int INT = 103;
+  int FLOAT = 103;
   /** RegularExpression Id. */
-  int FLOAT = 104;
+  int STRING = 104;
   /** RegularExpression Id. */
-  int STRING = 105;
+  int DATATYPE = 105;
   /** RegularExpression Id. */
-  int DATATYPE = 106;
+  int NAME = 106;
   /** RegularExpression Id. */
-  int NAME = 107;
+  int SPACENAME = 107;
   /** RegularExpression Id. */
-  int SPACENAME = 108;
-  /** RegularExpression Id. */
-  int IDENTIFIER = 109;
+  int IDENTIFIER = 108;
 
   /** Lexical state. */
   int DEFAULT = 0;
@@ -325,7 +323,6 @@ public interface MeuphoriaConstants {
     "\">>>=\"",
     "\"_\"",
     "<ALPHA>",
-    "<DIGITO>",
     "<ID>",
     "<INT>",
     "<FLOAT>",

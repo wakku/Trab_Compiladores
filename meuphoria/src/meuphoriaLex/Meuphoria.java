@@ -3,19 +3,38 @@
 /* MeuPhoria Parser */
 class Meuphoria implements MeuphoriaConstants {
 
+  public void processa()  {
+    Token t;
+    while (true) {
+      try {
+        t = getNextToken();
+        String nomeToken = tokenImage[t.kind];
+        System.out.println( " Line: " + t.beginLine + "  Column: " + t.beginColumn + "   " + nomeToken + " " + t.kind );
+        if(nomeToken.equals("<EOF>"))break;
+      }
+      catch (Exception e) {
+        System.out.print("Erro: ");
+        System.out.println(e.getMessage());
+
+      }
+    }
+  }
+
+
   /** Main entry point. */
-  public static void main(String args[]) throws ParseException, TokenMgrError {
+  public static void main(String args[]) throws /*ParseException,*/ TokenMgrError {
     try
     {
       Meuphoria analisadorlexico = new Meuphoria(System.in);
-      analisadorlexico.Main();
+      //analisadorlexico.Main();
+      analisadorlexico.processa();
       System.out.println("Analisado com sucesso!");
     }
-    catch(ParseException e)
+    /*catch(ParseException e)
     {
         System.out.println(e.getMessage());
         System.out.println("Ocorreu uma excecao!");
-    }
+    }*/
     catch(TokenMgrError e)
     {
         System.out.println(e.getMessage());
@@ -304,7 +323,7 @@ System.out.println("@("+t.beginLine+","+t.beginColumn+") RETURN:\u005ct"+t.toStr
       jj_la1_2 = new int[] {0x0,0x0,};
    }
    private static void jj_la1_init_3() {
-      jj_la1_3 = new int[] {0x3c0,0x3c0,};
+      jj_la1_3 = new int[] {0x1e0,0x1e0,};
    }
 
   /** Constructor with InputStream. */
@@ -421,7 +440,7 @@ System.out.println("@("+t.beginLine+","+t.beginColumn+") RETURN:\u005ct"+t.toStr
   /** Generate ParseException. */
   public ParseException generateParseException() {
     jj_expentries.clear();
-    boolean[] la1tokens = new boolean[110];
+    boolean[] la1tokens = new boolean[109];
     if (jj_kind >= 0) {
       la1tokens[jj_kind] = true;
       jj_kind = -1;
@@ -444,7 +463,7 @@ System.out.println("@("+t.beginLine+","+t.beginColumn+") RETURN:\u005ct"+t.toStr
         }
       }
     }
-    for (int i = 0; i < 110; i++) {
+    for (int i = 0; i < 109; i++) {
       if (la1tokens[i]) {
         jj_expentry = new int[1];
         jj_expentry[0] = i;

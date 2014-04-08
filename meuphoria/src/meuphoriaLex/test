@@ -18,7 +18,7 @@ constant MAX = 100     -- Setar uma constante
 enum ONE, TWO, THREE, FOUR -- Enumerar
 
 
-printf( 1 , "Value of tempo %d\n", tempo)
+printf(1, "Value of tempo %d\n", tempo)
 printf(1, "Value of miles %f\n", miles )
 printf(1, "Value of nome %s\n", {nome} )
 printf(1, "Value of ONE %d\n", ONE )
