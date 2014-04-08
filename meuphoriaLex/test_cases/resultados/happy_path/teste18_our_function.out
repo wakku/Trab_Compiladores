@@ -1,0 +1,16 @@
+@(1, 1)         <ID>                 sequence
+@(1, 10)        <ID>                 nome
+@(1, 14)        "\n"                 <EOL>
+@(2, 1)         <ID>                 integer
+@(2, 9)         <ID>                 idade
+@(2, 14)        "\n"                 <EOL>
+@(3, 1)         "\n"                 <EOL>
+@(4, 1)         <ID>                 nome
+@(4, 5)         ","                  ,
+@(4, 7)         <ID>                 idade
+@(4, 13)        "="                  =
+@(4, 15)        <STR>                "Vanessa"
+@(4, 24)        ","                  ,
+@(4, 26)        <INT>                10
+@(4, 27)        <EOF>                
+Analisado com sucesso!

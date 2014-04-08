@@ -1,0 +1,9 @@
+@(3, 1)         "\n"                 <EOL>
+@(4, 1)         <ID>                 puts
+@(4, 5)         "("                  (
+@(4, 6)         <INT>                1,
+@(4, 9)         <STR>                "Testando a Meuphoria!\n"
+@(4, 34)        ")"                  )
+@(5, 1)         "\n"                 <EOL>
+@(8, 33)        <EOF>                
+Analisado com sucesso!
