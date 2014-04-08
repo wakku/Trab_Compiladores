@@ -1,42 +1,45 @@
-/* ***********************************************
-ANALISADOR LEXICO
-********************************
+/***********************************************************************
+                          ANALISADOR LÉXICO
+************************************************************************
 
 Integrantes: 
-Caio Gomes                      7239072
-Diego Gomes                     7656467
-Fernando Cury Gorodscy			    7152354
-Roberty Manzini Bertolo         7573399
-Vanessa Apolinário Lima         7239256
+  Caio Gomes                      7239072
+  Diego Gomes                     7656467
+  Fernando Cury Gorodscy			    7152354
+  Roberty Manzini Bertolo         7573399
+  Vanessa Apolinário Lima         7239256
 
 Documento:
-Codigo fonte
+  Codigo fonte
 
 Nome:
-MeuPhoria
+  MeuPhoria
 
-/************************
-Options
-************************/
+************************************************************************/
+
+/*****************************************
+                Opções
+*****************************************/
 options {
   STATIC = false;
 }
 
-/************************
-Inicialização do AnalisadorLexico
-************************/
+/*****************************************
+    Inicialização do Analisador Léxico
+*****************************************/
 PARSER_BEGIN(Meuphoria)
 
 /* MeuPhoria Parser */
 class Meuphoria {
 
+  // Processa o código e gera a tabela de tokens
   public void processa()  {
     Token t;
     while (true) {
       try {
         t = getNextToken();
         String nomeToken = tokenImage[t.kind];
-        System.out.println( " Line: " + t.beginLine + "  Column: " + t.beginColumn + "   " + nomeToken + " " + t.image );
+        System.out.println( "@(" + t.beginLine + "," + t.beginColumn + ") \t" + nomeToken + " \t\t- " + t.image );
         if(nomeToken.equals("<EOF>"))break;
       } 
       catch (Exception e) {
@@ -65,17 +68,12 @@ class Meuphoria {
 }
 PARSER_END(Meuphoria)
 
-/************************
-SKIP
-************************/
+/*****************************************
+                SKIP
+*****************************************/
 SKIP : { " " | "\t" | "\r" | "\n" }
 
-/************************
-        TOKENS
-************************/
-
-/* Skip Comentários de bloco */
-
+/* Skip Comentários de linha e de bloco */
 SKIP :
 {
   "/*" : WithinComment
@@ -93,7 +91,9 @@ SKIP :
   <~[]>
 }
 
-/* Palavras Reservadas */
+/*****************************************
+          PALAVRAS RERSERVADAS
+*****************************************/
 TOKEN : {
     <AND : "and">
   | <CASE : "case">
@@ -141,7 +141,9 @@ TOKEN : {
   | <WITHOUT : "without">
 }
 
-/* Separadores */
+/*****************************************
+              SEPARADORES
+*****************************************/
 TOKEN : { 
     <LPAREN: "(" >
   | <RPAREN: ")" >
@@ -203,7 +205,7 @@ TOKEN : { <ALPHA: ["a"-"z","A"-"Z"]> }
 //TOKEN : { <DIGITO: ["0"-"9"] > }
 
 /* Identificador */
-TOKEN : { <ID : (["a"-"z","A"-"Z","_"])(["a"-"z","A"-"Z","_","0"-"9"])* > }
+TOKEN : { <ID : (["a"-"z","A"-"Z","_"])(["a"-"z","A"-"Z","_","0"-"9"]){0,29}(~["a"-"z","A"-"Z","_","0"-"9"]) > }
 
 /* Inteiro */
 TOKEN : { <INT : (["0"-"9"])+(~["a"-"z","A"-"Z","_"])> }
@@ -212,7 +214,7 @@ TOKEN : { <INT : (["0"-"9"])+(~["a"-"z","A"-"Z","_"])> }
 TOKEN : { <FLOAT : (["0"-"9"])+ <DOT> (["0"-"9"])+ > }
 
 /* String */
-TOKEN : { <STRING : <QUOTE>(~["\n","\r"])* <QUOTE> > }
+TOKEN : { <STR : <QUOTE>(~["\n","\r"])* <QUOTE> > }
 
 
 

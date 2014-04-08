@@ -205,7 +205,7 @@ public interface MeuphoriaConstants {
   /** RegularExpression Id. */
   int FLOAT = 105;
   /** RegularExpression Id. */
-  int STRING = 106;
+  int STR = 106;
   /** RegularExpression Id. */
   int DATATYPE = 107;
   /** RegularExpression Id. */
@@ -328,7 +328,7 @@ public interface MeuphoriaConstants {
     "<ID>",
     "<INT>",
     "<FLOAT>",
-    "<STRING>",
+    "<STR>",
     "<DATATYPE>",
     "<NAME>",
     "<SPACENAME>",

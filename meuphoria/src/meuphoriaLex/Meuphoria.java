@@ -3,13 +3,14 @@
 /* MeuPhoria Parser */
 class Meuphoria implements MeuphoriaConstants {
 
+  // Processa o código e gera a tabela de tokens
   public void processa()  {
     Token t;
     while (true) {
       try {
         t = getNextToken();
         String nomeToken = tokenImage[t.kind];
-        System.out.println( " Line: " + t.beginLine + "  Column: " + t.beginColumn + "   " + nomeToken + " " + t.image );
+        System.out.println( "@(" + t.beginLine + "," + t.beginColumn + ") \u005ct" + nomeToken + " \u005ct\u005ct- " + t.image );
         if(nomeToken.equals("<EOF>"))break;
       }
       catch (Exception e) {
@@ -22,123 +23,17 @@ class Meuphoria implements MeuphoriaConstants {
 
 
   /** Main entry point. */
-  public static void main(String args[]) throws /*ParseException,*/ TokenMgrError {
+  public static void main(String args[]) throws TokenMgrError {
     try
     {
       Meuphoria analisadorlexico = new Meuphoria(System.in);
-      //analisadorlexico.Main();
       analisadorlexico.processa();
       System.out.println("Analisado com sucesso!");
     }
-    /*catch(ParseException e)
-    {
-        System.out.println(e.getMessage());
-        System.out.println("Ocorreu uma excecao!");
-    }*/
     catch(TokenMgrError e)
     {
         System.out.println(e.getMessage());
         System.out.println("Existem erros no codigo! Por favor, verifica-los.");
-    }
-  }
-
-// 7 - IDENTIFIER
-
-
-/* THE CODE HAS TO BE CHANGED FROM THIS POINT ON */
-
-
-/************************
-          MAIN
-************************/
-  final public void Main() throws ParseException {Token t;
-    label_1:
-    while (true) {
-      switch ((jj_ntk==-1)?jj_ntk_f():jj_ntk) {
-      case CONSTANT:
-      case ENUM:
-      case RETURN:
-      case LPAREN:
-      case RPAREN:
-      case COMMA:
-      case ASSIGN:
-      case ID:
-      case INT:
-      case FLOAT:
-      case STRING:{
-        ;
-        break;
-        }
-      default:
-        jj_la1[0] = jj_gen;
-        break label_1;
-      }
-      switch ((jj_ntk==-1)?jj_ntk_f():jj_ntk) {
-      case ID:{
-        /************ GERAIS ************/
-            //t = <EOL>         { System.out.println("@ EOL:\t"+t.toString());}
-        
-            /************ VARIAVEIS ************/
-        
-              t = jj_consume_token(ID);
-System.out.println("@("+t.beginLine+","+t.beginColumn+") ID:\u005ct"+t.toString());
-        break;
-        }
-      case INT:{
-        t = jj_consume_token(INT);
-System.out.println("@("+t.beginLine+","+t.beginColumn+") INT:\u005ct"+t.toString());
-        break;
-        }
-      case FLOAT:{
-        t = jj_consume_token(FLOAT);
-System.out.println("@("+t.beginLine+","+t.beginColumn+") FLOAT:\u005ct"+t.toString());
-        break;
-        }
-      case STRING:{
-        t = jj_consume_token(STRING);
-System.out.println("@("+t.beginLine+","+t.beginColumn+") STRING:\u005ct"+t.toString());
-        break;
-        }
-      case CONSTANT:{
-        t = jj_consume_token(CONSTANT);
-System.out.println("@("+t.beginLine+","+t.beginColumn+") CONSTANT:\u005ct"+t.toString());
-        break;
-        }
-      case ENUM:{
-        t = jj_consume_token(ENUM);
-System.out.println("@("+t.beginLine+","+t.beginColumn+") ENUM:\u005ct"+t.toString());
-        break;
-        }
-      case COMMA:{
-        t = jj_consume_token(COMMA);
-System.out.println("@("+t.beginLine+","+t.beginColumn+") COMMA:\u005ct"+t.toString());
-        break;
-        }
-      case LPAREN:{
-        t = jj_consume_token(LPAREN);
-System.out.println("@("+t.beginLine+","+t.beginColumn+") LPAREN:\u005ct"+t.toString());
-        break;
-        }
-      case RPAREN:{
-        t = jj_consume_token(RPAREN);
-System.out.println("@("+t.beginLine+","+t.beginColumn+") RPAREN:\u005ct"+t.toString());
-        break;
-        }
-      case ASSIGN:{
-        t = jj_consume_token(ASSIGN);
-System.out.println("@("+t.beginLine+","+t.beginColumn+") ASSIGN:\u005ct"+t.toString());
-        break;
-        }
-      case RETURN:{
-        t = jj_consume_token(RETURN);
-System.out.println("@("+t.beginLine+","+t.beginColumn+") RETURN:\u005ct"+t.toString());
-        break;
-        }
-      default:
-        jj_la1[1] = jj_gen;
-        jj_consume_token(-1);
-        throw new ParseException();
-      }
     }
   }
 
@@ -151,7 +46,7 @@ System.out.println("@("+t.beginLine+","+t.beginColumn+") RETURN:\u005ct"+t.toStr
   public Token jj_nt;
   private int jj_ntk;
   private int jj_gen;
-  final private int[] jj_la1 = new int[2];
+  final private int[] jj_la1 = new int[0];
   static private int[] jj_la1_0;
   static private int[] jj_la1_1;
   static private int[] jj_la1_2;
@@ -163,16 +58,16 @@ System.out.println("@("+t.beginLine+","+t.beginColumn+") RETURN:\u005ct"+t.toStr
       jj_la1_init_3();
    }
    private static void jj_la1_init_0() {
-      jj_la1_0 = new int[] {0x800000,0x800000,};
+      jj_la1_0 = new int[] {};
    }
    private static void jj_la1_init_1() {
-      jj_la1_1 = new int[] {0x20c00110,0x20c00110,};
+      jj_la1_1 = new int[] {};
    }
    private static void jj_la1_init_2() {
-      jj_la1_2 = new int[] {0x1,0x1,};
+      jj_la1_2 = new int[] {};
    }
    private static void jj_la1_init_3() {
-      jj_la1_3 = new int[] {0x780,0x780,};
+      jj_la1_3 = new int[] {};
    }
 
   /** Constructor with InputStream. */
@@ -186,7 +81,6 @@ System.out.println("@("+t.beginLine+","+t.beginColumn+") RETURN:\u005ct"+t.toStr
     token = new Token();
     jj_ntk = -1;
     jj_gen = 0;
-    for (int i = 0; i < 2; i++) jj_la1[i] = -1;
   }
 
   /** Reinitialise. */
@@ -200,7 +94,7 @@ System.out.println("@("+t.beginLine+","+t.beginColumn+") RETURN:\u005ct"+t.toStr
     token = new Token();
     jj_ntk = -1;
     jj_gen = 0;
-    for (int i = 0; i < 2; i++) jj_la1[i] = -1;
+    for (int i = 0; i < 0; i++) jj_la1[i] = -1;
   }
 
   /** Constructor. */
@@ -210,7 +104,6 @@ System.out.println("@("+t.beginLine+","+t.beginColumn+") RETURN:\u005ct"+t.toStr
     token = new Token();
     jj_ntk = -1;
     jj_gen = 0;
-    for (int i = 0; i < 2; i++) jj_la1[i] = -1;
   }
 
   /** Reinitialise. */
@@ -220,7 +113,6 @@ System.out.println("@("+t.beginLine+","+t.beginColumn+") RETURN:\u005ct"+t.toStr
     token = new Token();
     jj_ntk = -1;
     jj_gen = 0;
-    for (int i = 0; i < 2; i++) jj_la1[i] = -1;
   }
 
   /** Constructor with generated Token Manager. */
@@ -229,7 +121,6 @@ System.out.println("@("+t.beginLine+","+t.beginColumn+") RETURN:\u005ct"+t.toStr
     token = new Token();
     jj_ntk = -1;
     jj_gen = 0;
-    for (int i = 0; i < 2; i++) jj_la1[i] = -1;
   }
 
   /** Reinitialise. */
@@ -238,7 +129,6 @@ System.out.println("@("+t.beginLine+","+t.beginColumn+") RETURN:\u005ct"+t.toStr
     token = new Token();
     jj_ntk = -1;
     jj_gen = 0;
-    for (int i = 0; i < 2; i++) jj_la1[i] = -1;
   }
 
   private Token jj_consume_token(int kind) throws ParseException {
@@ -294,7 +184,7 @@ System.out.println("@("+t.beginLine+","+t.beginColumn+") RETURN:\u005ct"+t.toStr
       la1tokens[jj_kind] = true;
       jj_kind = -1;
     }
-    for (int i = 0; i < 2; i++) {
+    for (int i = 0; i < 0; i++) {
       if (jj_la1[i] == jj_gen) {
         for (int j = 0; j < 32; j++) {
           if ((jj_la1_0[i] & (1<<j)) != 0) {
