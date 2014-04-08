@@ -2,9 +2,9 @@
 
 -- Testando comentario.
 
-/* testando um comentario de bloco
- pra ver se o compilador pode
- ignorar tudo isso sem problemas
+-- testando um comentario de bloco
+-- pra ver se o compilador pode
+-- ignorar tudo isso sem problemas
 
 -- testando declarar variaveis.
 integer counter

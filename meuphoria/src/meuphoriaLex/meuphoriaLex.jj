@@ -215,10 +215,10 @@ TOKEN : { <ALPHA: ["a"-"z","A"-"Z"]> }
 //TOKEN : { <DIGITO: ["0"-"9"] > }
 
 /* Identificador */
-TOKEN : { <ID : (<ALPHA>|<USCORE>)(<ALPHA>|<USCORE>|["0"-"9"])* > }
+TOKEN : { <ID : (["a"-"z","A"-"Z","_"])(["a"-"z","A"-"Z","_","0"-"9"])* > }
 
 /* Inteiro */
-TOKEN : { <INT : (["0"-"9"])+ > }
+TOKEN : { <INT : (["0"-"9"])+(~["a"-"z","A"-"Z","_"])> }
 
 /* Float */
 TOKEN : { <FLOAT : (["0"-"9"])+ <DOT> (["0"-"9"])+ > }
