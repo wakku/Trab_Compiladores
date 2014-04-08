@@ -17,12 +17,20 @@ Nome:
 
 ************************************************************************/
 
+
 /*****************************************
                 Opções
 *****************************************/
 options {
   STATIC = false;
 }
+
+/*
+TOKEN_MGR_DECLS:
+{
+  static int count = 0 ;
+}
+*/
 
 /*****************************************
     Inicialização do Analisador Léxico
@@ -33,32 +41,43 @@ PARSER_BEGIN(Meuphoria)
 class Meuphoria {
 
   // Processa o código e gera a tabela de tokens
-  public void processa()  {
+  public void processa() throws ParseException, TokenMgrError{
     Token t;
     while (true) {
-      try {
+      //try {
         t = getNextToken();
+        if(t.kind == ID) {
+            if(t.image.length() > 30)
+                throw new TokenMgrError();
+        }
         String nomeToken = tokenImage[t.kind];
         String location = "@(" + t.beginLine + ", " + t.beginColumn + ")";
-        System.out.println(String.format("%-15s %-20s %s", location, nomeToken, t.image));
+        if(t.kind == EOL)
+          System.out.println(String.format("%-15s %-20s <EOL>", location, nomeToken));
+        else
+          System.out.println(String.format("%-15s %-20s %s", location, nomeToken, t.image));
         if(nomeToken.equals("<EOF>"))break;
-      } 
+      /*} 
       catch (Exception e) {
         System.out.print("Erro: ");
         System.out.println(e.getMessage());
                   
-      }
+      }*/
     }
   }
 
-
   /** Main entry point. */
-  public static void main(String args[]) throws TokenMgrError {
+  public static void main(String args[]) {
     try
     {
       Meuphoria analisadorlexico = new Meuphoria(System.in);
       analisadorlexico.processa();
       System.out.println("Analisado com sucesso!");
+    }
+    catch(ParseException e)
+    {
+      System.out.println(e.getMessage());
+        System.out.println("Ocorreu uma excecao!");
     }
     catch(TokenMgrError e)
     {
@@ -72,7 +91,7 @@ PARSER_END(Meuphoria)
 /*****************************************
                 SKIP
 *****************************************/
-SKIP : { " " | "\t" | "\r" | "\n" }
+SKIP : { " " | "\t" | "\r" }
 
 /* Skip Comentários de linha e de bloco */
 SKIP :
@@ -96,18 +115,15 @@ SKIP :
           PALAVRAS RERSERVADAS
 *****************************************/
 TOKEN : {
-    <AND : "and">
-  | <CASE : "case">
+    <CASE : "case">
   | <DO : "do">
   | <END : "end">
   | <EXPORT : "export">
   | <GLOBAL : "global">
   | <INCLUDE : "include">
-  | <NOT : "not">
   | <PUBLIC : "public">
   | <SWITCH : "switch">
   | <UNTIL : "until">
-  | <XOR : "xor">
   | <AS : "as">
   | <CONSTANT : "constant">
   | <ELSE : "else">
@@ -115,7 +131,6 @@ TOKEN : {
   | <FALLTHRU : "fallthru">
   | <GOTO : "goto">
   | <LABEL : "label">
-  | <OR : "or">
   | <RETRY : "retry">
   | <THEN : "then">
   | <WHILE : "while">
@@ -155,80 +170,60 @@ TOKEN : {
   | <SEMICOLON: ";" >
   | <COMMA: "," >
   | <DOT: "." >
+  | <SINGLE_QUOTE: "\'" >
+  | <SLICE: ".." >
   | <QUOTE: "\"">
 }
 
-/* Operadores */
-// ESTA COPIADO DO JAVA, PRECISA COLOCAR DE ACORDO COM O EUPHORIA
+/*****************************************
+              OPERADORES
+*****************************************/
 TOKEN : {
-    <ASSIGN: "=" >
-  | <GT: ">" >
-  | <LT: "<" >
-  | <BANG: "!" >
-  | <TILDE: "~" >
-  | <HOOK: "?" >
-  | <COLON: ":" >
-  | <EQ: "==" >
-  | <LE: "<=" >
-  | <GE: ">=" >
-  | <NE: "!=" >
-  | <SC_OR: "||" >
-  | <SC_AND: "&&" >
-  | <INCR: "++" >
-  | <DECR: "--" >
+  <NOT_OP: "not" >
   | <PLUS: "+" >
   | <MINUS: "-" >
   | <STAR: "*" >
   | <SLASH: "/" >
-  | <BIT_AND: "&" >
-  | <BIT_OR: "|" >
-  | <XOR_OP: "^" >
-  | <REM: "%" >
-  | <LSHIFT: "<<" >
-  | <RSIGNEDSHIFT: ">>" >
-  | <RUNSIGNEDSHIFT: ">>>" >
-  | <PLUSASSIGN: "+=" >
-  | <MINUSASSIGN: "-=" >
-  | <STARASSIGN: "*=" >
-  | <SLASHASSIGN: "/=" >
-  | <ANDASSIGN: "&=" >
-  | <ORASSIGN: "|=" >
-  | <XORASSIGN: "^=" >
-  | <REMASSIGN: "%=" >
-  | <LSHIFTASSIGN: "<<=" >
-  | <RSIGNEDSHIFTASSIGN: ">>=" >
-  | <RUNSIGNEDSHIFTASSIGN: ">>>=" >
+  | <CONCAT: "&" >
+  | <GT: ">" >
+  | <LT: "<" >
+  | <LE: "<=" >
+  | <GE: ">=" >
+  // Depois no sintático, terá que ser adicionado como comando
+  | <EQUAL: "=" >
+  | <NE: "!=" >
+  | <SC_OR: "or" >
+  | <SC_AND: "and" >
+  | <XOR_OP: "xor" >
+ 
 }
 
+/*****************************************
+            IDENTIFICADORES
+*****************************************/
+TOKEN : { <ID : (["a"-"z","A"-"Z","_"])(["a"-"z","A"-"Z","_","0"-"9"])+ > }
 
-TOKEN : { <USCORE: "_"> }
-TOKEN : { <ALPHA: ["a"-"z","A"-"Z"]> }
-//TOKEN : { <DIGITO: ["0"-"9"] > }
-
-/* Identificador */
-TOKEN : { <ID : (["a"-"z","A"-"Z","_"])(["a"-"z","A"-"Z","_","0"-"9"]){0,29}(~["a"-"z","A"-"Z","_","0"-"9"]) > }
-
-/* Inteiro */
+/*****************************************
+              INTEIROS
+*****************************************/
 TOKEN : { <INT : (["0"-"9"])+(~["a"-"z","A"-"Z","_"])> }
 
-/* Float */
+/*****************************************
+                FLOAT
+*****************************************/
 TOKEN : { <FLOAT : (["0"-"9"])+ <DOT> (["0"-"9"])+ > }
 
-/* String */
+/*****************************************
+               STRING
+*****************************************/
 TOKEN : { <STR : <QUOTE>(~["\n","\r"])* <QUOTE> > }
 
+/*****************************************
+            FIM DE LINHA
+*****************************************/
+TOKEN : { <EOL: "\n"> }
 
-
-// Fim de linha
-// TOKEN : { <EOL: "\n"> } // Skipped
-
-
-//TOKEN : { <SCOPEMODIFIER : <GLOBAL> | <PUBLIC> | <EXPORT> | <OVERRIDE> > }   
+/*****************************************
+              DATATYPE
+*****************************************/
 TOKEN : { <DATATYPE : "atom" | "integer" | "sequence" | "object" > }
-
-
-
-TOKEN : { <NAME : (<ALPHA>|<USCORE>) (<ALPHA>|["0"-"9"]|<USCORE>)+ > }        // 5 - NAME
-TOKEN : { <SPACENAME : <NAME>":"> }       // 6 - SPACENAME
-TOKEN : { <IDENTIFIER : <SPACENAME> <NAME> > }                 // 7 - IDENTIFIER
-

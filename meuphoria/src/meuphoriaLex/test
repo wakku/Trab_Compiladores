@@ -7,16 +7,17 @@
  ignorar tudo isso sem problemas*/
 
 -- testando declarar variaveis.
-integer counterwwwwwwwwwwwwwwwwwwwwwwwwwwwwww
+integer counterwwwwww
 integer miles
 sequence name
 
 tempo   = 100          -- Setar um integer
 miles   = 1000.0+2       -- Setar um ponto flutuante
 nome    = "Van"        -- Setar uma String
-constant MAX = 100     -- Setar uma constante
+constant MAX = 100 ..    -- Setar uma constante
 enum ONE, TWO, THREE, FOUR -- Enumerar
 
+miles+nome
 
 printf(1, "Value of tempo %d\n", tempo)
 printf(1, "Value of miles %f\n", miles )
