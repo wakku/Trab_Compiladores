@@ -7,7 +7,7 @@
  ignorar tudo isso sem problemas*/
 
 -- testando declarar variaveis.
-integer counterwwwwww
+integer 9counterwwwwww
 integer miles
 sequence name
 
