@@ -1,4 +1,4 @@
-************************************ MeuPhoria ******************************************
+﻿************************************ MeuPhoria ******************************************
 
 	Este arquivo tem como função discorrer sobre o desenvolvimento e compilação passo-a-passo do parser MeuPhoria.
 
@@ -12,3 +12,4 @@
 	javac *.java
 
 	ENCONTREI ERRO AQUI… =/
+	Consertei seu erro aqui VAAAN! =D
