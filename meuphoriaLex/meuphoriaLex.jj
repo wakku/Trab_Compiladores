@@ -48,7 +48,7 @@ class Meuphoria {
         t = getNextToken();
         if(t.kind == ID) {
             if(t.image.length() > 30)
-                throw new TokenMgrError();
+                throw new TokenMgrError(TokenMgrError.IDENT_ERROR);
         }
         String nomeToken = tokenImage[t.kind];
         String location = "@(" + t.beginLine + ", " + t.beginColumn + ")";
