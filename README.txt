@@ -1,4 +1,4 @@
-************************************ MeuPhoria ******************************************
+﻿************************************ MeuPhoria ******************************************
 
 Integrantes: 
   Caio Gomes                      7239072
@@ -11,6 +11,14 @@ Documento:
   Instruções de Compilação
 
 *****************************************************************************************
+Para otimizar o processo de correção do trabalho, foi criado um script que automatiza todos o processo de compilação/execução
+
+Foi criado um script para Unix e outro para Windows. Os scripts acessam a pasta do meuphoriaLex, executam o javaCC para gerar os .java
+O compilador java processa esses arquivos gerados. Depois são executados todos os testes que se encontram na pasta test_cases e o resultado de cada uma das execuções é salvo na pasta resultados, que será criada automaticamente após a execução do script. A única restrição para os scripts funcionarem é que a instalação do compilador do java esteja instalado e seja reconhecido pelo terminal.
+
+Os passos abaixo só devem ser utilizados caso a execução do script não seja bem sucedida.
+*****************************************************************************************
+
 
 	Este arquivo tem como função discorrer sobre o desenvolvimento e compilação passo-a-passo do parser MeuPhoria.
 
