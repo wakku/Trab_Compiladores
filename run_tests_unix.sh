@@ -3,7 +3,7 @@ echo -e "---------------------------------\n"
 echo -e "Acessando path $EUPHORIA_PATH onde está o analisador léxico\n"
 cd $EUPHORIA_PATH
 echo -e "Removendo arquivos desatualizados\n"
-rm *.java *.class
+rm *.class
 echo -e "Rodando Javacc: \n"
 java -cp ../javacc.jar javacc meuphoriaLex.jj
 echo -e "Compilando .java files\n"

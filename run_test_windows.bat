@@ -4,7 +4,7 @@
 cd ./meuphoriaLex
 @echo Removendo arquivos desatualizados
 @echo.
-del *.java *.class
+del *.class
 @echo Rodando Javacc
 @echo.
 java -cp ../javacc.jar javacc meuphoriaLex.jj
