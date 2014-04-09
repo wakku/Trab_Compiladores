@@ -1,4 +1,0 @@
-@(1, 1)         <ID>                 integer
-@(1, 9)         <ID>                 teste
-Lexical error at line 1, column 14.  Encountered: "%" (37), after : ""
-Existem erros no codigo! Por favor, verifica-los.
