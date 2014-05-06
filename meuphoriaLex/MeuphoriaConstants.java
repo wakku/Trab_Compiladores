@@ -93,71 +93,99 @@ public interface MeuphoriaConstants {
   /** RegularExpression Id. */
   int WITHOUT = 48;
   /** RegularExpression Id. */
-  int LPAREN = 49;
+  int PROFILE = 49;
   /** RegularExpression Id. */
-  int RPAREN = 50;
+  int PROFILE_TIME = 50;
   /** RegularExpression Id. */
-  int LBRACE = 51;
+  int TRACE = 51;
   /** RegularExpression Id. */
-  int RBRACE = 52;
+  int BATCH = 52;
   /** RegularExpression Id. */
-  int LBRACKET = 53;
+  int TYPE_CHECK = 53;
   /** RegularExpression Id. */
-  int RBRACKET = 54;
+  int INDIRECT_INCLUDES = 54;
   /** RegularExpression Id. */
-  int SEMICOLON = 55;
+  int INLINE = 55;
   /** RegularExpression Id. */
-  int COMMA = 56;
+  int WARNING = 56;
   /** RegularExpression Id. */
-  int DOT = 57;
+  int SAVE = 57;
   /** RegularExpression Id. */
-  int SINGLE_QUOTE = 58;
+  int RESTORE = 58;
   /** RegularExpression Id. */
-  int SLICE = 59;
+  int STRICT = 59;
   /** RegularExpression Id. */
-  int QUOTE = 60;
+  int ELSEIFDEF = 60;
   /** RegularExpression Id. */
-  int NOT_OP = 61;
+  int FOR = 61;
   /** RegularExpression Id. */
-  int PLUS = 62;
+  int LPAREN = 62;
   /** RegularExpression Id. */
-  int MINUS = 63;
+  int RPAREN = 63;
   /** RegularExpression Id. */
-  int STAR = 64;
+  int LBRACE = 64;
   /** RegularExpression Id. */
-  int SLASH = 65;
+  int RBRACE = 65;
   /** RegularExpression Id. */
-  int CONCAT = 66;
+  int LBRACKET = 66;
   /** RegularExpression Id. */
-  int GT = 67;
+  int RBRACKET = 67;
   /** RegularExpression Id. */
-  int LT = 68;
+  int SEMICOLON = 68;
   /** RegularExpression Id. */
-  int LE = 69;
+  int COMMA = 69;
   /** RegularExpression Id. */
-  int GE = 70;
+  int DOT = 70;
   /** RegularExpression Id. */
-  int EQUAL = 71;
+  int SINGLE_QUOTE = 71;
   /** RegularExpression Id. */
-  int NE = 72;
+  int SLICE = 72;
   /** RegularExpression Id. */
-  int SC_OR = 73;
+  int QUOTE = 73;
   /** RegularExpression Id. */
-  int SC_AND = 74;
+  int COLON = 74;
   /** RegularExpression Id. */
-  int XOR_OP = 75;
+  int NOT_OP = 75;
   /** RegularExpression Id. */
-  int ID = 76;
+  int PLUS = 76;
   /** RegularExpression Id. */
-  int INT = 77;
+  int MINUS = 77;
   /** RegularExpression Id. */
-  int FLOAT = 78;
+  int STAR = 78;
   /** RegularExpression Id. */
-  int STR = 79;
+  int SLASH = 79;
   /** RegularExpression Id. */
-  int EOL = 80;
+  int CONCAT = 80;
   /** RegularExpression Id. */
-  int DATATYPE = 81;
+  int GT = 81;
+  /** RegularExpression Id. */
+  int LT = 82;
+  /** RegularExpression Id. */
+  int LE = 83;
+  /** RegularExpression Id. */
+  int GE = 84;
+  /** RegularExpression Id. */
+  int EQUAL = 85;
+  /** RegularExpression Id. */
+  int NE = 86;
+  /** RegularExpression Id. */
+  int SC_OR = 87;
+  /** RegularExpression Id. */
+  int SC_AND = 88;
+  /** RegularExpression Id. */
+  int XOR_OP = 89;
+  /** RegularExpression Id. */
+  int ID = 90;
+  /** RegularExpression Id. */
+  int INT = 91;
+  /** RegularExpression Id. */
+  int FLOAT = 92;
+  /** RegularExpression Id. */
+  int STR = 93;
+  /** RegularExpression Id. */
+  int EOL = 94;
+  /** RegularExpression Id. */
+  int DATATYPE = 95;
 
   /** Lexical state. */
   int DEFAULT = 0;
@@ -215,6 +243,19 @@ public interface MeuphoriaConstants {
     "\"routine\"",
     "\"type\"",
     "\"without\"",
+    "\"profile\"",
+    "\"profile_time\"",
+    "\"trace\"",
+    "\"batch\"",
+    "\"type_check\"",
+    "\"indirect_includes\"",
+    "\"inline\"",
+    "\"warning\"",
+    "\"save\"",
+    "\"restore\"",
+    "\"strict\"",
+    "\"elsifdef\"",
+    "\"for\"",
     "\"(\"",
     "\")\"",
     "\"{\"",
@@ -227,6 +268,7 @@ public interface MeuphoriaConstants {
     "\"\\\'\"",
     "\"..\"",
     "\"\\\"\"",
+    "\":\"",
     "\"not\"",
     "\"+\"",
     "\"-\"",

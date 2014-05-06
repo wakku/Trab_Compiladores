@@ -155,6 +155,19 @@ TOKEN : {
   | <ROUTINE : "routine">
   | <TYPE : "type">
   | <WITHOUT : "without">
+  | <PROFILE : "profile">
+  | <PROFILE_TIME : "profile_time">
+  | <TRACE : "trace">
+  | <BATCH : "batch">
+  | <TYPE_CHECK : "type_check">
+  | <INDIRECT_INCLUDES : "indirect_includes">
+  | <INLINE : "inline">
+  | <WARNING : "warning">
+  | <SAVE : "save">
+  | <RESTORE : "restore">
+  | <STRICT : "strict">
+  | <ELSEIFDEF : "elsifdef">
+  | <FOR : "for">
 }
 
 /*****************************************
@@ -173,6 +186,7 @@ TOKEN : {
   | <SINGLE_QUOTE: "\'" >
   | <SLICE: ".." >
   | <QUOTE: "\"">
+  | <COLON : ":">
 }
 
 /*****************************************
@@ -206,17 +220,23 @@ TOKEN : { <ID : (["a"-"z","A"-"Z","_"])(["a"-"z","A"-"Z","_","0"-"9"])+ > }
 /*****************************************
               INTEIROS
 *****************************************/
-TOKEN : { <INT : (["0"-"9"])+(~["a"-"z","A"-"Z","_"])> }
+TOKEN : { <INT : (["0"-"9", "_"])+(~["a"-"z","A"-"Z"])> }
 
 /*****************************************
                 FLOAT
 *****************************************/
-TOKEN : { <FLOAT : (["0"-"9"])+ <DOT> (["0"-"9"])+ > }
+                // FALTA REPRESENTACAO EXPONENCIAL (ORDEM DE GRANDEZA)
+TOKEN : { <FLOAT : (<INT>)+ (<DOT>) (<INT>)+ > }
 
 /*****************************************
                STRING
 *****************************************/
-TOKEN : { <STR : <QUOTE>(~["\n","\r"])* <QUOTE> > }
+TOKEN : { 
+  <STR : <QUOTE>(~["\n","\r"])* <QUOTE> >  }
+//  | <BINARY : >
+//  | <>
+//}
+
 
 /*****************************************
             FIM DE LINHA
