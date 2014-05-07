@@ -25,13 +25,6 @@ options {
   STATIC = false;
 }
 
-/*
-TOKEN_MGR_DECLS:
-{
-  static int count = 0 ;
-}
-*/
-
 /*****************************************
     Inicialização do Analisador Léxico
 *****************************************/
@@ -57,12 +50,6 @@ class Meuphoria {
         else
           System.out.println(String.format("%-15s %-20s %s", location, nomeToken, t.image));
         if(nomeToken.equals("<EOF>"))break;
-      /*} 
-      catch (Exception e) {
-        System.out.print("Erro: ");
-        System.out.println(e.getMessage());
-                  
-      }*/
     }
   }
 
@@ -215,27 +202,29 @@ TOKEN : {
 /*****************************************
             IDENTIFICADORES
 *****************************************/
-TOKEN : { <ID : (["a"-"z","A"-"Z","_"])(["a"-"z","A"-"Z","_","0"-"9"])+ > }
+TOKEN : { <ID : (["a"-"z","A"-"Z","_"])(["a"-"z","A"-"Z","_","0"-"9"])* > }
 
 /*****************************************
-              INTEIROS
+                NUMBERS
 *****************************************/
-TOKEN : { <INT : (["0"-"9", "_"])+(~["a"-"z","A"-"Z"])> }
-
-/*****************************************
-                FLOAT
-*****************************************/
-                // FALTA REPRESENTACAO EXPONENCIAL (ORDEM DE GRANDEZA)
-TOKEN : { <FLOAT : (<INT>)+ (<DOT>) (<INT>)+ > }
+TOKEN : {
+  <INT : (["0"-"9"])(["0"-"9", "_"])* > 
+  | <FLOAT : ( (["0"-"9"])+(["."])(["0"-"9", "_"])+ ) | ( (["0"-"9"])+(["."])(["0"-"9", "_"])+(["e", "E"])("+"|"-")? <INT> ) >
+  | <BIN_NUMBER : (["0", "1"])+(["0", "1", "_"])*>
+  | <OCT_NUMBER : (["0"-"7"])+(["0"-"7", "_"])*>
+  | <HEX_NUMBER : (["0"-"9", "A"-"F"])+(["0"-"9", "A"-"F", "_"])*>
+}
 
 /*****************************************
                STRING
 *****************************************/
 TOKEN : { 
-  <STR : <QUOTE>(~["\n","\r"])* <QUOTE> >  }
-//  | <BINARY : >
-//  | <>
-//}
+  <STR : <QUOTE>(~["\n","\r"])* <QUOTE> > 
+  | <BINARY : ("0b" <BIN_NUMBER>) | ("b" <QUOTE> <BIN_NUMBER> <QUOTE>) >
+  | <OCTAL : ("0t" <OCT_NUMBER>) | ("t" <QUOTE> <OCT_NUMBER> <QUOTE>) >
+  | <DECIMAL : ("0d" <INT>) | ("d" <QUOTE> <INT> <QUOTE>) >
+  | <HEXADECIMAL : ("0x" <HEX_NUMBER>) | ("x" <QUOTE> <HEX_NUMBER> <QUOTE>) >
+}
 
 
 /*****************************************

@@ -33,3 +33,11 @@ printf(1, "Value of THREE %d\n", THREE )
 printf(1, "Value of FOUR %d\n", FOUR )
 
 lala[1..2]
+0b10_1
+1.0e+6
+
+1.0e-6
+
+1.0e6
+
+a = 10;
