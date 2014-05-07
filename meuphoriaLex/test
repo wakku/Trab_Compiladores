@@ -24,20 +24,15 @@ enum ONE, TWO, THREE, FOUR -- Enumerar
 
 miles+nome
 
-printf(1, "Value of tempo %d\n", tempo)
-printf(1, "Value of miles %f\n", miles )
-printf(1, "Value of nome %s\n", {nome} )
-printf(1, "Value of ONE %d\n", ONE )
-printf(1, "Value of TWO %d\n", TWO )
-printf(1, "Value of THREE %d\n", THREE )
-printf(1, "Value of FOUR %d\n", FOUR )
+printf(1, """Value of tempo %d\n""", tempo)
 
 lala[1..2]
-0b10_1
-1.0e+6
 
-1.0e-6
+sequence v1 = "ola \xAA"
 
-1.0e6
+dr
+b"1 10 110100 0101011001111000"
 
-a = 10;
+a = 0b01A00
+
+sequence v1 = "ola \xA"

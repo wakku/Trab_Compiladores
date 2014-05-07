@@ -60,6 +60,10 @@ class Meuphoria {
       Meuphoria analisadorlexico = new Meuphoria(System.in);
       analisadorlexico.processa();
       System.out.println("Analisado com sucesso!");
+
+      //analisadorlexico.javacc_input();
+      //System.out.println("input... ");
+
     }
     catch(ParseException e)
     {
@@ -84,7 +88,7 @@ SKIP : { " " | "\t" | "\r" }
 SKIP :
 {
   "/*" : WithinComment
-  | <COMENTARIO_INICIAL : "#" (~["\n","\r"])* ("\n"|"\r"|"\r\n")>
+  //| <COMENTARIO_INICIAL : "#" (~["\n","\r"])* ("\n"|"\r"|"\r\n")>
   | <COMENTARIO_LINHA: "--" (~["\n","\r"])* ("\n"|"\r"|"\r\n")>
 }
 
@@ -97,6 +101,8 @@ SKIP :
 {
   <~[]>
 }
+
+TOKEN : { <COMENTARIO_INICIAL : "#" (~["\n","\r"])* ("\n"|"\r"|"\r\n")> }
 
 /*****************************************
           PALAVRAS RERSERVADAS
@@ -170,9 +176,10 @@ TOKEN : {
   | <SEMICOLON: ";" >
   | <COMMA: "," >
   | <DOT: "." >
-  | <SINGLE_QUOTE: "\'" >
+  | <#SINGLE_QUOTE: "\'" >
   | <SLICE: ".." >
-  | <QUOTE: "\"">
+  | <#QUOTE: "\"">
+  | <#TRIPLE_QUOTE: "\"\"\"">
   | <COLON : ":">
 }
 
@@ -208,8 +215,9 @@ TOKEN : { <ID : (["a"-"z","A"-"Z","_"])(["a"-"z","A"-"Z","_","0"-"9"])* > }
                 NUMBERS
 *****************************************/
 TOKEN : {
-  <INT : (["0"-"9"])(["0"-"9", "_"])* > 
-  | <FLOAT : ( (["0"-"9"])+(["."])(["0"-"9", "_"])+ ) | ( (["0"-"9"])+(["."])(["0"-"9", "_"])+(["e", "E"])("+"|"-")? <INT> ) >
+  <INT : (["+", "-"])?(["0"-"9"])(["0"-"9", "_"])* > 
+  | <FLOAT : ( (["0"-"9"])+(["."])(["0"-"9", "_"])+ ) >
+  | <REAL : (<INT> (["E", "e"]) <INT>) | (<FLOAT> (["E", "e"]) <INT>) >
   | <BIN_NUMBER : (["0", "1"])+(["0", "1", "_"])*>
   | <OCT_NUMBER : (["0"-"7"])+(["0"-"7", "_"])*>
   | <HEX_NUMBER : (["0"-"9", "A"-"F"])+(["0"-"9", "A"-"F", "_"])*>
@@ -219,13 +227,14 @@ TOKEN : {
                STRING
 *****************************************/
 TOKEN : { 
-  <STR : <QUOTE>(~["\n","\r"])* <QUOTE> > 
-  | <BINARY : ("0b" <BIN_NUMBER>) | ("b" <QUOTE> <BIN_NUMBER> <QUOTE>) >
+  <BINARY : ("0b" <BIN_NUMBER>) | ("b" <QUOTE> <BIN_NUMBER> <QUOTE>) >
   | <OCTAL : ("0t" <OCT_NUMBER>) | ("t" <QUOTE> <OCT_NUMBER> <QUOTE>) >
   | <DECIMAL : ("0d" <INT>) | ("d" <QUOTE> <INT> <QUOTE>) >
+  // FALTA O HEXADECIMAL COM #
   | <HEXADECIMAL : ("0x" <HEX_NUMBER>) | ("x" <QUOTE> <HEX_NUMBER> <QUOTE>) >
+  | <HEXA : (<QUOTE> "\\x"(["0"-"9", "A"-"F"])(["0"-"9", "A"-"F"]) <QUOTE>)>
+  | <STR : (<TRIPLE_QUOTE>(<ID>|<INT>|<FLOAT>|<REAL>|<HEXA>|"%"|"\\n"|" ")+ <TRIPLE_QUOTE>) | (<QUOTE>(~["\n","\r", "\""])+ <QUOTE>) | (<SINGLE_QUOTE>(~["\n","\r"])+ <SINGLE_QUOTE>)  > 
 }
-
 
 /*****************************************
             FIM DE LINHA
@@ -236,3 +245,17 @@ TOKEN : { <EOL: "\n"> }
               DATATYPE
 *****************************************/
 TOKEN : { <DATATYPE : "atom" | "integer" | "sequence" | "object" > }
+
+
+
+/*******************************************************
+          MEUPHORIA GRAMMAR
+*******************************************************/
+
+void javacc_input() :
+{}
+{
+  (<COMENTARIO_INICIAL>)?
+
+}
+
