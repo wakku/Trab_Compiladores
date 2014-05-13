@@ -3,11 +3,11 @@
 ************************************************************************
 
 Integrantes: 
-  Caio Gomes                      7239072
-  Diego Gomes                     7656467
-  Fernando Cury Gorodscy		  7152354
-  Roberty Manzini Bertolo         7573399
-  Vanessa Apolinário Lima         7239256
+  Caio Gomes                  7239072
+  Diego Gomes                 7656467
+  Fernando Cury Gorodscy      7152354
+  Roberty Manzini Bertolo     7573399
+  Vanessa Apolinário Lima     7239256
 
 Documento:
   Codigo fonte
@@ -61,8 +61,11 @@ class Meuphoria {
   public static void main(String args[]) {
     try
     {
+      // Define o analisador lexico de acordo com a entrada do sistema
       Meuphoria analisadorlexico = new Meuphoria(System.in);
+      // Roda o loop de processamento enquanto não encontrar EOF
       analisadorlexico.processa();
+      // Processamento finalizado
       System.out.println("Analisado com sucesso!");
 
       //analisadorlexico.javacc_input();
