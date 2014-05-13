@@ -203,13 +203,37 @@ TOKEN : {
   | <SC_OR: "or" >
   | <SC_AND: "and" >
   | <XOR_OP: "xor" >
- 
+  | <QMARK : "?"> // print command
+  | <END_SEQUENCE : "$">
 }
 
 /*****************************************
-            IDENTIFICADORES
+                ESCAPES
 *****************************************/
-TOKEN : { <ID : (["a"-"z","A"-"Z","_"])(["a"-"z","A"-"Z","_","0"-"9"])* > }
+TOKEN : {
+  <ESCAPE_EOL : "\\n">
+  | <CARRIAGE_RETURN : "\\r">
+  | <TAB : "\\t">
+  | <BACKSLASH : "\\\\">
+  | <ESCAPE_QUOTE : "\"">
+  | <ESCAPE_SINGLE_QUOTE : "\\\'">
+  | <ESCAPE_NULL : "\\0">
+  | <ESCAPE : "\\e"|"\\E" > // command ESC
+  | <ESCAPE_BIN : "\\b"> // FAZER!!!!!!!!
+  //FALTA O HEXADECIMAL COM NUMERO DE DIGITOS QUE DEVE SER DENTRO DE UMA STRING
+  //| <>
+}
+
+/*
+"\0"
+"\e"
+"\E"
+"\b1001"
+"\xAA" dois digitos hexadecimais
+"\uAAAA" quatro digitos hexadecimais
+"\UAAAAAAAA" oito digitos hexadecimais
+*/
+
 
 /*****************************************
                 NUMBERS
@@ -218,23 +242,28 @@ TOKEN : {
   <INT : (["+", "-"])?(["0"-"9"])(["0"-"9", "_"])* > 
   | <FLOAT : ( (["0"-"9"])+(["."])(["0"-"9", "_"])+ ) >
   | <REAL : (<INT> (["E", "e"]) <INT>) | (<FLOAT> (["E", "e"]) <INT>) >
-  | <BIN_NUMBER : (["0", "1"])+(["0", "1", "_"])*>
-  | <OCT_NUMBER : (["0"-"7"])+(["0"-"7", "_"])*>
-  | <HEX_NUMBER : (["0"-"9", "A"-"F"])+(["0"-"9", "A"-"F", "_"])*>
+  | <#BIN_NUMBER : (["0", "1"])+(["0", "1", "_"])*>
+  | <#OCT_NUMBER : (["0"-"7"])+(["0"-"7", "_"])*>
+  | <#HEX_NUMBER : (["0"-"9", "A"-"F"])+(["0"-"9", "A"-"F", "_"])*>
 }
 
 /*****************************************
                STRING
 *****************************************/
 TOKEN : { 
-  <BINARY : ("0b" <BIN_NUMBER>) | ("b" <QUOTE> <BIN_NUMBER> <QUOTE>) >
-  | <OCTAL : ("0t" <OCT_NUMBER>) | ("t" <QUOTE> <OCT_NUMBER> <QUOTE>) >
-  | <DECIMAL : ("0d" <INT>) | ("d" <QUOTE> <INT> <QUOTE>) >
+  <BINARY : ("b" <QUOTE> (<BIN_NUMBER>| " ")+ <QUOTE>) | ("0b" <BIN_NUMBER>(" "|<EOL>)) >
+  | <OCTAL : ("0t" <OCT_NUMBER>) | ("t" <QUOTE> (<OCT_NUMBER>| " ")+ <QUOTE>) >
+  | <DECIMAL : ("0d" <INT>) | ("d" <QUOTE> (<INT>| " ")+ <QUOTE>) >
   // FALTA O HEXADECIMAL COM #
-  | <HEXADECIMAL : ("0x" <HEX_NUMBER>) | ("x" <QUOTE> <HEX_NUMBER> <QUOTE>) >
-  | <HEXA : (<QUOTE> "\\x"(["0"-"9", "A"-"F"])(["0"-"9", "A"-"F"]) <QUOTE>)>
-  | <STR : (<TRIPLE_QUOTE>(<ID>|<INT>|<FLOAT>|<REAL>|<HEXA>|"%"|"\\n"|" ")+ <TRIPLE_QUOTE>) | (<QUOTE>(~["\n","\r", "\""])+ <QUOTE>) | (<SINGLE_QUOTE>(~["\n","\r"])+ <SINGLE_QUOTE>)  > 
+  | <HEXADECIMAL : ("0x" <HEX_NUMBER>) | ("x" <QUOTE> (<HEX_NUMBER>|" ")+ <QUOTE>) | (<QUOTE> "\\x"(["0"-"9", "A"-"F"])(["0"-"9", "A"-"F"]) <QUOTE>) >
+  | <STR : (<TRIPLE_QUOTE>(<ID>|<INT>|<FLOAT>|<REAL>|<ESCAPE_EOL>|" "|"%")+ <TRIPLE_QUOTE>) | (<QUOTE>(~["\n","\r", "\""])+ <QUOTE>) | (<SINGLE_QUOTE>(~["\n","\r"])+ <SINGLE_QUOTE>)  > 
 }
+
+
+/*****************************************
+            IDENTIFICADORES
+*****************************************/
+TOKEN : { <ID : (["a"-"z","A"-"Z","_"])(["a"-"z","A"-"Z","_","0"-"9"])* )> }
 
 /*****************************************
             FIM DE LINHA

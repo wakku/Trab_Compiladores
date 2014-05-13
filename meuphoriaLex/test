@@ -16,23 +16,23 @@ integer counterwwwwww
 integer miles
 sequence name
 
-tempo   = 100_000          -- Setar um integer
+tempo   = 100_000-tempo         -- Setar um integer
 miles   = 1000.0+2       -- Setar um ponto flutuante
-nome    = "Van"        -- Setar uma String
+--nome    = "Van"        -- Setar uma String
 constant MAX = 100 ..    -- Setar uma constante
 enum ONE, TWO, THREE, FOUR -- Enumerar
 
 miles+nome
 
-printf(1, """Value of tempo %d\n""", tempo)
+--printf(1, """Value of tempo %d\n""", tempo)
 
 lala[1..2]
 
-sequence v1 = "ola \xAA"
+--sequence v1 = "ola \xAA"
 
 dr
 b"1 10 110100 0101011001111000"
 
-a = 0b01A00
+a = 0b0100
 
 sequence v1 = "ola \xA"

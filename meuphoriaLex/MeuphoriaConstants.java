@@ -177,35 +177,39 @@ public interface MeuphoriaConstants {
   /** RegularExpression Id. */
   int XOR_OP = 90;
   /** RegularExpression Id. */
-  int ID = 91;
+  int ESCAPE_EOL = 91;
   /** RegularExpression Id. */
-  int INT = 92;
+  int CARRIAGE_RETURN = 92;
   /** RegularExpression Id. */
-  int FLOAT = 93;
+  int TAB = 93;
   /** RegularExpression Id. */
-  int REAL = 94;
+  int INT = 94;
   /** RegularExpression Id. */
-  int BIN_NUMBER = 95;
+  int FLOAT = 95;
   /** RegularExpression Id. */
-  int OCT_NUMBER = 96;
+  int REAL = 96;
   /** RegularExpression Id. */
-  int HEX_NUMBER = 97;
+  int BIN_NUMBER = 97;
   /** RegularExpression Id. */
-  int BINARY = 98;
+  int OCT_NUMBER = 98;
   /** RegularExpression Id. */
-  int OCTAL = 99;
+  int HEX_NUMBER = 99;
   /** RegularExpression Id. */
-  int DECIMAL = 100;
+  int BINARY = 100;
   /** RegularExpression Id. */
-  int HEXADECIMAL = 101;
+  int OCTAL = 101;
   /** RegularExpression Id. */
-  int HEXA = 102;
+  int DECIMAL = 102;
   /** RegularExpression Id. */
-  int STR = 103;
+  int HEXADECIMAL = 103;
   /** RegularExpression Id. */
-  int EOL = 104;
+  int STR = 104;
   /** RegularExpression Id. */
-  int DATATYPE = 105;
+  int ID = 105;
+  /** RegularExpression Id. */
+  int EOL = 106;
+  /** RegularExpression Id. */
+  int DATATYPE = 107;
 
   /** Lexical state. */
   int DEFAULT = 0;
@@ -305,7 +309,9 @@ public interface MeuphoriaConstants {
     "\"or\"",
     "\"and\"",
     "\"xor\"",
-    "<ID>",
+    "\"\\\\n\"",
+    "\"\\\\r\"",
+    "\"\\\\t\"",
     "<INT>",
     "<FLOAT>",
     "<REAL>",
@@ -316,8 +322,8 @@ public interface MeuphoriaConstants {
     "<OCTAL>",
     "<DECIMAL>",
     "<HEXADECIMAL>",
-    "<HEXA>",
     "<STR>",
+    "<ID>",
     "\"\\n\"",
     "<DATATYPE>",
   };
