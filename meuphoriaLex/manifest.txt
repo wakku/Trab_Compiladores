@@ -1,5 +1,0 @@
-Manifest-Version: 1.0
-Created-By: Grupo 02
- 
-Name: Meuphoria.class
-MD5-Digest: (base64 representation of MD5 digest)

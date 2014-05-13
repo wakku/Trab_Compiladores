@@ -4,66 +4,37 @@
 class Meuphoria implements MeuphoriaConstants {
 
   // Processa o código e gera a tabela de tokens
-  public void processa() throws ParseException, TokenMgrError{
+  public void processa()  {
     Token t;
-    do {
-      //try {
-      // Pega o próximo token gerado pelo Léxico.
+    while (true) {
+      try {
         t = getNextToken();
-        if(t.kind == ID) {
-                  // Se tamanho for maior que 30, váriavel é invalida. Gera um erro.
-            if(t.image.length() > 30)
-                throw new TokenMgrError(TokenMgrError.IDENT_ERROR);
-        }
-        // Pega o proximo token do tipo t.kind
         String nomeToken = tokenImage[t.kind];
-        // Seta a localização do token
         String location = "@(" + t.beginLine + ", " + t.beginColumn + ")";
-        // Imprime as informações do token. Se for EOF não imprime image, pois ela não existe.
-        if(t.kind == EOL)
-          System.out.println(String.format("%-15s %-20s <EOL>", location, nomeToken));
-        else
-          System.out.println(String.format("%-15s %-20s %s", location, nomeToken, t.image));
-    } while (nomeToken.equals("<EOF>")); // Termina o loop se EOF
+        System.out.println(String.format("%-15s %-20s %s", location, nomeToken, t.image));
+        if(nomeToken.equals("<EOF>"))break;
+      }
+      catch (Exception e) {
+        System.out.print("Erro: ");
+        System.out.println(e.getMessage());
+
+      }
+    }
   }
 
+
   /** Main entry point. */
-  public static void main(String args[]) {
+  public static void main(String args[]) throws TokenMgrError {
     try
     {
       Meuphoria analisadorlexico = new Meuphoria(System.in);
       analisadorlexico.processa();
       System.out.println("Analisado com sucesso!");
-
-      //analisadorlexico.javacc_input();
-      //System.out.println("input... ");
-
-    }
-    catch(ParseException e)
-    {
-      System.out.println(e.getMessage());
-        System.out.println("Ocorreu uma excecao!");
     }
     catch(TokenMgrError e)
     {
         System.out.println(e.getMessage());
         System.out.println("Existem erros no codigo! Por favor, verifica-los.");
-    }
-  }
-
-/*******************************************************
-          MEUPHORIA GRAMMAR
-*******************************************************/
-  final public 
-void javacc_input() throws ParseException {
-    switch ((jj_ntk==-1)?jj_ntk_f():jj_ntk) {
-    case COMENTARIO_INICIAL:{
-      jj_consume_token(COMENTARIO_INICIAL);
-      break;
-      }
-    default:
-      jj_la1[0] = jj_gen;
-      ;
     }
   }
 
@@ -76,7 +47,7 @@ void javacc_input() throws ParseException {
   public Token jj_nt;
   private int jj_ntk;
   private int jj_gen;
-  final private int[] jj_la1 = new int[1];
+  final private int[] jj_la1 = new int[0];
   static private int[] jj_la1_0;
   static private int[] jj_la1_1;
   static private int[] jj_la1_2;
@@ -88,16 +59,16 @@ void javacc_input() throws ParseException {
       jj_la1_init_3();
    }
    private static void jj_la1_init_0() {
-      jj_la1_0 = new int[] {0x100,};
+      jj_la1_0 = new int[] {};
    }
    private static void jj_la1_init_1() {
-      jj_la1_1 = new int[] {0x0,};
+      jj_la1_1 = new int[] {};
    }
    private static void jj_la1_init_2() {
-      jj_la1_2 = new int[] {0x0,};
+      jj_la1_2 = new int[] {};
    }
    private static void jj_la1_init_3() {
-      jj_la1_3 = new int[] {0x0,};
+      jj_la1_3 = new int[] {};
    }
 
   /** Constructor with InputStream. */
@@ -111,7 +82,6 @@ void javacc_input() throws ParseException {
     token = new Token();
     jj_ntk = -1;
     jj_gen = 0;
-    for (int i = 0; i < 1; i++) jj_la1[i] = -1;
   }
 
   /** Reinitialise. */
@@ -125,7 +95,7 @@ void javacc_input() throws ParseException {
     token = new Token();
     jj_ntk = -1;
     jj_gen = 0;
-    for (int i = 0; i < 1; i++) jj_la1[i] = -1;
+    for (int i = 0; i < 0; i++) jj_la1[i] = -1;
   }
 
   /** Constructor. */
@@ -135,7 +105,6 @@ void javacc_input() throws ParseException {
     token = new Token();
     jj_ntk = -1;
     jj_gen = 0;
-    for (int i = 0; i < 1; i++) jj_la1[i] = -1;
   }
 
   /** Reinitialise. */
@@ -145,7 +114,6 @@ void javacc_input() throws ParseException {
     token = new Token();
     jj_ntk = -1;
     jj_gen = 0;
-    for (int i = 0; i < 1; i++) jj_la1[i] = -1;
   }
 
   /** Constructor with generated Token Manager. */
@@ -154,7 +122,6 @@ void javacc_input() throws ParseException {
     token = new Token();
     jj_ntk = -1;
     jj_gen = 0;
-    for (int i = 0; i < 1; i++) jj_la1[i] = -1;
   }
 
   /** Reinitialise. */
@@ -163,7 +130,6 @@ void javacc_input() throws ParseException {
     token = new Token();
     jj_ntk = -1;
     jj_gen = 0;
-    for (int i = 0; i < 1; i++) jj_la1[i] = -1;
   }
 
   private Token jj_consume_token(int kind) throws ParseException {
@@ -214,12 +180,12 @@ void javacc_input() throws ParseException {
   /** Generate ParseException. */
   public ParseException generateParseException() {
     jj_expentries.clear();
-    boolean[] la1tokens = new boolean[108];
+    boolean[] la1tokens = new boolean[111];
     if (jj_kind >= 0) {
       la1tokens[jj_kind] = true;
       jj_kind = -1;
     }
-    for (int i = 0; i < 1; i++) {
+    for (int i = 0; i < 0; i++) {
       if (jj_la1[i] == jj_gen) {
         for (int j = 0; j < 32; j++) {
           if ((jj_la1_0[i] & (1<<j)) != 0) {
@@ -237,7 +203,7 @@ void javacc_input() throws ParseException {
         }
       }
     }
-    for (int i = 0; i < 108; i++) {
+    for (int i = 0; i < 111; i++) {
       if (la1tokens[i]) {
         jj_expentry = new int[1];
         jj_expentry[0] = i;
