@@ -36,21 +36,25 @@ class Meuphoria {
   // Processa o código e gera a tabela de tokens
   public void processa() throws ParseException, TokenMgrError{
     Token t;
-    while (true) {
+    do {
       //try {
+      // Pega o próximo token gerado pelo Léxico.
         t = getNextToken();
         if(t.kind == ID) {
+        	  // Se tamanho for maior que 30, váriavel é invalida. Gera um erro.
             if(t.image.length() > 30)
                 throw new TokenMgrError(TokenMgrError.IDENT_ERROR);
         }
+        // Pega o proximo token do tipo t.kind
         String nomeToken = tokenImage[t.kind];
+        // Seta a localização do token
         String location = "@(" + t.beginLine + ", " + t.beginColumn + ")";
+        // Imprime as informações do token. Se for EOF não imprime image, pois ela não existe.
         if(t.kind == EOL)
           System.out.println(String.format("%-15s %-20s <EOL>", location, nomeToken));
         else
           System.out.println(String.format("%-15s %-20s %s", location, nomeToken, t.image));
-        if(nomeToken.equals("<EOF>"))break;
-    }
+    } while (nomeToken.equals("<EOF>")); // Termina o loop se EOF
   }
 
   /** Main entry point. */
