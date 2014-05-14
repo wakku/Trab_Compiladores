@@ -36,17 +36,19 @@ class Meuphoria {
   // Processa o código e gera a tabela de tokens
   public void processa() throws ParseException, TokenMgrError{
     Token t;
+    String nomeToken;
     do {
       //try {
       // Pega o próximo token gerado pelo Léxico.
         t = getNextToken();
-        if(t.kind == ID) {
+        if(t.kind == IDENTIFIER) {
         	  // Se tamanho for maior que 30, váriavel é invalida. Gera um erro.
             if(t.image.length() > 30)
-                throw new TokenMgrError(TokenMgrError.IDENT_ERROR);
+                throw new TokenMgrError();
+                //throw new TokenMgrError(TokenMgrError.IDENT_ERROR);
         }
         // Pega o proximo token do tipo t.kind
-        String nomeToken = tokenImage[t.kind];
+        nomeToken = tokenImage[t.kind];
         // Seta a localização do token
         String location = "@(" + t.beginLine + ", " + t.beginColumn + ")";
         // Imprime as informações do token. Se for EOF não imprime image, pois ela não existe.
@@ -64,12 +66,12 @@ class Meuphoria {
       // Define o analisador lexico de acordo com a entrada do sistema
       Meuphoria analisadorlexico = new Meuphoria(System.in);
       // Roda o loop de processamento enquanto não encontrar EOF
-      analisadorlexico.processa();
+      //analisadorlexico.processa();
       // Processamento finalizado
-      System.out.println("Analisado com sucesso!");
+      //System.out.println("Analisado com sucesso!");
 
-      //analisadorlexico.javacc_input();
-      //System.out.println("input... ");
+      analisadorlexico.javacc_input();
+      System.out.println("input... ");
 
     }
     catch(ParseException e)
@@ -95,7 +97,7 @@ SKIP : { " " | "\t" | "\r" }
 SKIP :
 {
   "/*" : WithinComment
-  //| <COMENTARIO_INICIAL : "#" (~["\n","\r"])* ("\n"|"\r"|"\r\n")>
+  | <COMENTARIO_INICIAL : "#" (~["\n","\r"])* ("\n"|"\r"|"\r\n")>
   | <COMENTARIO_LINHA: "--" (~["\n","\r"])* ("\n"|"\r"|"\r\n")>
 }
 
@@ -109,7 +111,15 @@ SKIP :
   <~[]>
 }
 
-TOKEN : { <COMENTARIO_INICIAL : "#" (~["\n","\r"])* ("\n"|"\r"|"\r\n")> }
+/*****************************************
+              TERMINAIS
+*****************************************/
+TOKEN : {
+    < ALPHA : ["a"-"z", "A"-"Z"] >
+  | < DIGIT : ["0"-"9"] >
+  | < USCORE : "_" >
+  | < EOL : "\n" >
+}
 
 /*****************************************
           PALAVRAS RERSERVADAS
@@ -211,76 +221,56 @@ TOKEN : {
   | <SC_AND: "and" >
   | <XOR_OP: "xor" >
   | <QMARK : "?"> // print command
-  | <END_SEQUENCE : "$">
+  | <END_SYMBOL : "$">
 }
 
 /*****************************************
-                ESCAPES
+            IDENTIFICADORES
 *****************************************/
-TOKEN : {
-  <ESCAPE_EOL : "\\n">
-  | <CARRIAGE_RETURN : "\\r">
-  | <TAB : "\\t">
-  | <BACKSLASH : "\\\\">
-  | <ESCAPE_QUOTE : "\"">
-  | <ESCAPE_SINGLE_QUOTE : "\\\'">
-  | <ESCAPE_NULL : "\\0">
-  | <ESCAPE : "\\e"|"\\E" > // command ESC
-  | <ESCAPE_BIN : "\\b"> // FAZER!!!!!!!!
-  //FALTA O HEXADECIMAL COM NUMERO DE DIGITOS QUE DEVE SER DENTRO DE UMA STRING
-  //| <>
+TOKEN : { 
+    < IDENTIFIER : ( <ALPHA> | <USCORE> ) ( <ALPHA> | <DIGIT> | <USCORE> )* > 
 }
 
-/*
-"\0"
-"\e"
-"\E"
-"\b1001"
-"\xAA" dois digitos hexadecimais
-"\uAAAA" quatro digitos hexadecimais
-"\UAAAAAAAA" oito digitos hexadecimais
+/*****************************************
+        MANIPULACAO DE NUMEROS
+*****************************************
+TOKEN : {
+    < INTEGER : (PLUS | MINUS)+ DIGIT (DIGIT | USCORE)+ >
+  | < FLOAT   : INTEGER DOT DIGIT (DIGIT | USCORE)+ >
+  | < EXP     : (INTEGER | FLOAT) ("E" | "e") INTEGER >
+  | < REAL    : FLOAT | EXP >
+  | < ATOM    : INTEGER | REAL >
+}
 */
 
-
-/*****************************************
-                NUMBERS
-*****************************************/
 TOKEN : {
-  <INT : (["+", "-"])?(["0"-"9"])(["0"-"9", "_"])* > 
-  | <FLOAT : ( (["0"-"9"])+(["."])(["0"-"9", "_"])+ ) >
-  | <REAL : (<INT> (["E", "e"]) <INT>) | (<FLOAT> (["E", "e"]) <INT>) >
-  | <#BIN_NUMBER : (["0", "1"])+(["0", "1", "_"])*>
+    <#BIN_NUMBER : (["0", "1"])+(["0", "1", "_"])*>
   | <#OCT_NUMBER : (["0"-"7"])+(["0"-"7", "_"])*>
   | <#HEX_NUMBER : (["0"-"9", "A"-"F"])+(["0"-"9", "A"-"F", "_"])*>
 }
 
 /*****************************************
+        MANIPULACAO DE VARIÁVEIS
+*****************************************
+TOKEN : {
+PARAMLIST ::= PARAMETER {"," PARAMETER }
+  PARAMETER ::= DATATYPE IDENTIFIER
+
+}
+*/
+
+/*****************************************
                STRING
 *****************************************/
-TOKEN : { 
-  <BINARY : ("b" <QUOTE> (<BIN_NUMBER>| " ")+ <QUOTE>) | ("0b" <BIN_NUMBER>(" "|<EOL>)) >
-  | <OCTAL : ("0t" <OCT_NUMBER>) | ("t" <QUOTE> (<OCT_NUMBER>| " ")+ <QUOTE>) >
-  | <DECIMAL : ("0d" <INT>) | ("d" <QUOTE> (<INT>| " ")+ <QUOTE>) >
-  // FALTA O HEXADECIMAL COM #
-  | <HEXADECIMAL : ("0x" <HEX_NUMBER>) | ("x" <QUOTE> (<HEX_NUMBER>|" ")+ <QUOTE>) | (<QUOTE> "\\x"(["0"-"9", "A"-"F"])(["0"-"9", "A"-"F"]) <QUOTE>) >
-  | <STR : (<TRIPLE_QUOTE>(<ID>|<INT>|<FLOAT>|<REAL>|<ESCAPE_EOL>|" "|"%")+ <TRIPLE_QUOTE>) | (<QUOTE>(~["\n","\r", "\""])+ <QUOTE>) | (<SINGLE_QUOTE>(~["\n","\r"])+ <SINGLE_QUOTE>)  > 
-}
 
 
-/*****************************************
-            IDENTIFICADORES
-*****************************************/
-TOKEN : { <ID : (["a"-"z","A"-"Z","_"])(["a"-"z","A"-"Z","_","0"-"9"])* )> }
-
-/*****************************************
-            FIM DE LINHA
-*****************************************/
-TOKEN : { <EOL: "\n"> }
 
 /*****************************************
               DATATYPE
 *****************************************/
-TOKEN : { <DATATYPE : "atom" | "integer" | "sequence" | "object" > }
+TOKEN : { 
+  //< SCOPEMODIFIER : <GLOBAL> | <PUBLIC> | <EXPORT> | <OVERRIDE> >
+   < DATATYPE : "atom" | "integer" | "sequence" | "object" > }//| <IDENTIFIER> > }
 
 
 
@@ -291,7 +281,32 @@ TOKEN : { <DATATYPE : "atom" | "integer" | "sequence" | "object" > }
 void javacc_input() :
 {}
 {
-  (<COMENTARIO_INICIAL>)?
+  //( <INCLUDESTMT> )?
+
+  stmblk()
+
+  <EOF>
+
 
 }
+void stmblk() :
+{}
+{
+    ( statement() )+
+}
+
+void statement() :
+{}
+{
+    //FLOW | LOOP | BRANCH | ASSIGNMENTSTMT | RETURN | VARDECLARE | CONSTDECLARE | ENUMDECLARE | PROCDECLARE | FUNCDECLARE | TYPEDECLARE | CALL | NAMESPACESTMT | WITHSTMT
+}
+
+
+
+
+
+
+
+
+
 
