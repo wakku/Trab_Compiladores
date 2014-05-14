@@ -243,18 +243,18 @@ TOKEN : {
 }
 
 TOKEN : {
-  < SEQUENCE : <LBRACE> <OBJECT> (<COMMA> <OBJECT>)* (<COMMA> <END_SYMBOL>)? <RBRACE> >
-  < OBJECT   : <ATOM> | <SEQUENCE> | <BIN_NUMBER> | <OCT_NUMBER> | <DEC_NUMBER> | <HEX_NUMBER> > 
+    < SEQUENCE : <LBRACE> <OBJECT> (<COMMA> <OBJECT>)* (<COMMA> <END_SYMBOL>)? <RBRACE> >
+  | < OBJECT   : <ATOM> | <SEQUENCE> | <BIN_NUMBER> | <OCT_NUMBER> | <DEC_NUMBER> | <HEX_NUMBER> > 
 }
 
 TOKEN : {
-    < BIN        : "0b" (["0", "1"])+(["0", "1", "_"])* >  
-  | < BIN_NUMBER : <BIN> >
-  | < OCT        : "0t" (["0"-"7"])+(["0"-"7", "_"])*
-  | < OCT_NUMBER : <OCT> >
-  | < DEC_NUMBER : "0d" < INTEGER >
-  | < HEX        : "0x" (["0"-"9", "A"-"F"])+(["0"-"9", "A"-"F", "_"])* >
-  | < HEX_NUMBER : <HEX> >
+    < BIN        : (["0", "1"])+(["0", "1", "_"])* >  
+  | < BIN_NUMBER : "0b" <BIN> >
+  | < OCT        : (["0"-"7"])+(["0"-"7", "_"])* >
+  | < OCT_NUMBER : "0t" <OCT> >
+  | < DEC_NUMBER : "0d" <INTEGER> >
+  | < HEX        : (["0"-"9", "A"-"F"])+(["0"-"9", "A"-"F", "_"])* >
+  | < HEX_NUMBER : "0x" <HEX> >
 }
 
 /*****************************************
@@ -374,20 +374,44 @@ void statement() :
     | Loop()
     | Branch()
     | Assignment()
-    | Return()
-    | VarDeclare()
-    | ConstDeclare()
+    | RETURNSTMT
+    | VARDECLARE
+    | CONSTDECLARE
     | EnumDeclare()
-    | ProcDeclare()
-    | FuncDeclare()
-    | TypeDeclare()
+    | PROCDECLARE
+    | FUNCDECLARE
+    | TYPEDECLARE
     | Call()
 }
 
 void Flow() :
 {}
 {
-  ( BREAK | CONTINUE | RETRY | EXIT | FALLTHRU ) (STRINGLIT)?
+  BREAKSTMT | CONTINUESTMT | RETRYSTMT | EXITSTMT | FALLTHRUSTMT
+}
+
+void Loop() :
+{}
+{
+  FORSTMT | WHILESTMT | LOOPSTMT | GOTOSTMT
+}
+
+void Branch() :
+{}
+{
+  IFSTMT | SWITCHSTMT | IFDEFSTMT
+}
+
+void Assignment() :
+{}
+{
+  ASSIGNMONO | ASSIGNMULTI | ASSIGNWITHOP
+}
+
+void EnumDeclare() :
+{}
+{
+  (SCOPEMODIFIER)? (ENUMVAL | ENUMTYPE)
 }
 
 
