@@ -298,7 +298,24 @@ void stmblk() :
 void statement() :
 {}
 {
-    //FLOW | LOOP | BRANCH | ASSIGNMENTSTMT | RETURN | VARDECLARE | CONSTDECLARE | ENUMDECLARE | PROCDECLARE | FUNCDECLARE | TYPEDECLARE | CALL | NAMESPACESTMT | WITHSTMT
+      Flow() 
+    | Loop()
+    | Branch()
+    | Assignment()
+    | Return()
+    | VarDeclare()
+    | ConstDeclare()
+    | EnumDeclare()
+    | ProcDeclare()
+    | FuncDeclare()
+    | TypeDeclare()
+    | Call()
+}
+
+void Flow() :
+{}
+{
+  ( BREAK | CONTINUE | RETRY | EXIT | FALLTHRU ) (STRINGLIT)?
 }
 
 
