@@ -280,7 +280,19 @@ TOKEN : {
 /*****************************************
         MANIPULAÇÃO DE STRINGS
 *****************************************/
-
+TOKEN : {
+  < STRINGLIT : <SIMPLESTRINGLIT> | <RAWSTRINGLIT> >
+  | < SIMPLESTRINGLIT : <QUOTE> (<CHAR> | <ESCCHAR>)* <QUOTE> >
+  | < ESCCHAR : <ESCLEAD> ( "n" | "r" | "t" | "\\" | "\"" | "\'" | "0" | "e" | "E" 
+    | <BINARY> | <HEX2> | <HEX4> | <HEX8> ) >
+  | < BINARY : "\\b" <BIN> >
+  | < HEX2 : "\\x" ["0" - "7"] ["0" - "7"] >
+  | < HEX4 : "\\u" ["0" - "7"] ["0" - "7"]["0" - "7"] ["0" - "7"] >
+  | < HEX8 : "\\U" ["0" - "7"] ["0" - "7"]["0" - "7"] ["0" - "7"]["0" - "7"] ["0" - >
+  "7"]["0" - "7"] ["0" - "7"]
+  | < RAWSTRINGLIT : DQRAWSTRING | BQRAWSTRING >
+  | < DQRAWSTRING : "`" {CHAR} "`" BQRAWSTRING ::= "\"\"\"" {CHAR} "\"\"\"" >
+}
 
 /*****************************************
               DATA TYPE
