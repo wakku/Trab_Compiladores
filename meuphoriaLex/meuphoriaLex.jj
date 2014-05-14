@@ -233,45 +233,117 @@ TOKEN : {
 
 /*****************************************
         MANIPULACAO DE NUMEROS
-*****************************************
+*****************************************/
 TOKEN : {
-    < INTEGER : (PLUS | MINUS)+ DIGIT (DIGIT | USCORE)+ >
-  | < FLOAT   : INTEGER DOT DIGIT (DIGIT | USCORE)+ >
-  | < EXP     : (INTEGER | FLOAT) ("E" | "e") INTEGER >
-  | < REAL    : FLOAT | EXP >
-  | < ATOM    : INTEGER | REAL >
+    < INTEGER : ( <PLUS> | <MINUS> )+ <DIGIT> (<DIGIT> | <USCORE>)* >
+  | < FLOAT   : <INTEGER> <DOT> <DIGIT> (<DIGIT> | <USCORE>)* >
+  | < EXP     : (<INTEGER> | <FLOAT>) ("E" | "e") <INTEGER> >
+  | < REAL    : <FLOAT> | <EXP> >
+  | < ATOM    : <INTEGER> | <REAL> >
 }
-*/
 
 TOKEN : {
-    <#BIN_NUMBER : (["0", "1"])+(["0", "1", "_"])*>
-  | <#OCT_NUMBER : (["0"-"7"])+(["0"-"7", "_"])*>
-  | <#HEX_NUMBER : (["0"-"9", "A"-"F"])+(["0"-"9", "A"-"F", "_"])*>
+  < SEQUENCE : <LBRACE> <OBJECT> (<COMMA> <OBJECT>)* (<COMMA> <END_SYMBOL>)? <RBRACE> >
+  < OBJECT   : <ATOM> | <SEQUENCE> | <BIN_NUMBER> | <OCT_NUMBER> | <DEC_NUMBER> | <HEX_NUMBER> > 
+}
+
+TOKEN : {
+    < BIN        : "0b" (["0", "1"])+(["0", "1", "_"])* >  
+  | < BIN_NUMBER : <BIN> >
+  | < OCT        : "0t" (["0"-"7"])+(["0"-"7", "_"])*
+  | < OCT_NUMBER : <OCT> >
+  | < DEC_NUMBER : "0d" < INTEGER >
+  | < HEX        : "0x" (["0"-"9", "A"-"F"])+(["0"-"9", "A"-"F", "_"])* >
+  | < HEX_NUMBER : <HEX> >
 }
 
 /*****************************************
         MANIPULACAO DE VARIÁVEIS
-*****************************************
+*****************************************/
 TOKEN : {
-PARAMLIST ::= PARAMETER {"," PARAMETER }
-  PARAMETER ::= DATATYPE IDENTIFIER
-
+    < PARAMLIST : <PARAMETER> (<COMMA> <PARAMETER> )* >
+  | < PARAMETER : <DATATYPE> <IDENTIFIER> >
 }
-*/
+
+TOKEN : {
+  < IDENTLIST : <IDENT> ( <COMMA> <IDENT> )* >
+  | < IDENT     : <IDENTIFIER> (<EQUAL> <EXPRESSION>)? >
+}
+
+TOKEN : {
+  < VARIABLE : <IDENTIFIER>  (<SLICESTMT> | <SUBSCRIPTING>)? >
+  | < SLICESTMT : <LBRACKET> <EXPRESSION> <SLICE> ( <EXPRESSION> | <END_SYMBOL>) <RBRACKET> >
+  | < SUBSCRIPTING : (<INDEX>)+ >
+  | < INDEX : <LBRACKET> <EXPRESSION> <RBRACKET> >
+}
 
 /*****************************************
-               STRING
+        MANIPULAÇÃO DE STRINGS
 *****************************************/
 
 
-
 /*****************************************
-              DATATYPE
+              DATA TYPE
 *****************************************/
 TOKEN : { 
   //< SCOPEMODIFIER : <GLOBAL> | <PUBLIC> | <EXPORT> | <OVERRIDE> >
    < DATATYPE : "atom" | "integer" | "sequence" | "object" > }//| <IDENTIFIER> > }
 
+/*****************************************
+             EXPRESSÕES
+*****************************************/
+
+/*****************************************
+               STATEMENT
+*****************************************/
+
+/*************************
+    Statements Básicos
+**************************/
+
+/*************************
+     Controle de Fluxo
+**************************/
+
+/*************************
+    Loop
+**************************/
+
+/*************************
+    Branching
+**************************/
+
+/*************************
+    Statements Básicos
+**************************/
+
+/*************************
+    Statements Básicos
+**************************/
+
+/*************************
+    Statements Básicos
+**************************/
+
+/*************************
+    Statements Básicos
+**************************/
+
+/*************************
+    Statements Básicos
+**************************/
+
+/*************************
+    Statements Básicos
+**************************/
+
+/*************************
+    Statements Básicos
+**************************/
+
+/*************************
+    Statements Básicos
+**************************/
 
 
 /*******************************************************
