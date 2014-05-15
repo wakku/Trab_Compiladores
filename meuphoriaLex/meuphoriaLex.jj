@@ -115,10 +115,10 @@ SKIP :
               TERMINAIS
 *****************************************/
 TOKEN : {
-    < ALPHA : ["a"-"z", "A"-"Z"] >
-  | < DIGIT : ["0"-"9"] >
-  | < USCORE : "_" >
-  | < EOL : "\n" >
+    //< ALPHA : ["a"-"z", "A"-"Z"] >
+  //| < DIGIT : ["0"-"9"] >
+  //| < USCORE : "_" >
+  < EOL : "\n" >
 }
 
 /*****************************************
@@ -209,6 +209,7 @@ TOKEN : {
   | <MINUS: "-" >
   | <STAR: "*" >
   | <SLASH: "/" >
+  | <ESCLEAD: "\\">
   | <CONCAT: "&" >
   | <GT: ">" >
   | <LT: "<" >
@@ -222,40 +223,37 @@ TOKEN : {
   | <XOR_OP: "xor" >
   | <QMARK : "?"> // print command
   | <END_SYMBOL : "$">
+  | <RELATIONOP : <LT> | <GT> | <LE> | <GE> | <EQUAL> | <NE> >
 }
 
 /*****************************************
             IDENTIFICADORES
 *****************************************/
 TOKEN : { 
-      < IDENTIFIER : ( <ALPHA> | <USCORE> ) ( <ALPHA> | <DIGIT> | <USCORE> )* > 
-    | < CHAR : (<ALPHA> | <DIGIT> | <USCORE> | <ESCLEAD> )+ >
+      < IDENTIFIER : ( ["a"-"z", "A"-"Z"] | "_" ) ( ["a"-"z", "A"-"Z"] | ["0"-"9"] | "_" )* > 
+    //| < CHAR : (["a"-"z", "A"-"Z"] | ["0"-"9"] | "_" | "%" | "&" | "$" | "*" )+ > // adicionar caracteres especiais!!!!!
+      | < CHAR : (<IDENTIFIER> | "_" | "%" | "&" | "$" | "*" )+ >
 }
 
 /*****************************************
         MANIPULACAO DE NUMEROS
 *****************************************/
 TOKEN : {
-    < INTEGER : ( <PLUS> | <MINUS> )+ <DIGIT> (<DIGIT> | <USCORE>)* >
-  | < FLOAT   : <INTEGER> <DOT> <DIGIT> (<DIGIT> | <USCORE>)* >
+    < INTEGER : ( <PLUS> | <MINUS> )+ ["0"-"9"] (["0"-"9"] | "_")* >
+  | < FLOAT   : <INTEGER> <DOT> ["0"-"9"] (["0"-"9"] | "_")* >
   | < EXP     : (<INTEGER> | <FLOAT>) ("E" | "e") <INTEGER> >
   | < REAL    : <FLOAT> | <EXP> >
   | < ATOM    : <INTEGER> | <REAL> >
 }
 
 TOKEN : {
-    < SEQUENCE : <LBRACE> <OBJECT> (<COMMA> <OBJECT>)* (<COMMA> <END_SYMBOL>)? <RBRACE> >
-  | < OBJECT   : <ATOM> | <SEQUENCE> | <BIN_NUMBER> | <OCT_NUMBER> | <DEC_NUMBER> | <HEX_NUMBER> > 
-}
-
-TOKEN : {
-    < BIN        : (["0", "1"])+(["0", "1", "_"])* >  
-  | < BIN_NUMBER : "0b" <BIN> >
-  | < OCT        : (["0"-"7"])+(["0"-"7", "_"])* >
-  | < OCT_NUMBER : "0t" <OCT> >
+    //< BIN        : (["0", "1"])+(["0", "1", "_"])* >  
+    < BIN_NUMBER : "0b" (["0", "1"])+(["0", "1", "_"])* > //<BIN> >
+  //| < OCT        : (["0"-"7"])+(["0"-"7", "_"])* >
+  | < OCT_NUMBER : "0t" (["0"-"7"])+(["0"-"7", "_"])* >//<OCT> >
   | < DEC_NUMBER : "0d" <INTEGER> >
-  | < HEX        : (["0"-"9", "A"-"F"])+(["0"-"9", "A"-"F", "_"])* >
-  | < HEX_NUMBER : "0x" <HEX> >
+  //| < HEX        : (["0"-"9", "A"-"F"])+(["0"-"9", "A"-"F", "_"])* >
+  | < HEX_NUMBER : "0x" (["0"-"9", "A"-"F"])+(["0"-"9", "A"-"F", "_"])* >//<HEX> >
 }
 
 /*****************************************
@@ -266,6 +264,7 @@ TOKEN : {
   | < PARAMETER : <DATATYPE> <IDENTIFIER> >
 }
 
+/*
 TOKEN : {
   < IDENTLIST : <IDENT> ( <COMMA> <IDENT> )* >
   | < IDENT     : <IDENTIFIER> (<EQUAL> <EXPRESSION>)? >
@@ -286,7 +285,7 @@ TOKEN : {
   | < SIMPLESTRINGLIT : <QUOTE> (<CHAR> | <ESCCHAR>)* <QUOTE> >
   | < ESCCHAR : <ESCLEAD> ( "n" | "r" | "t" | "\\" | "\"" | "\'" | "0" | "e" | "E" 
     | <BINARY> | <HEX2> | <HEX4> | <HEX8> ) >
-  | < BINARY : "\\b" <BIN> >
+  | < BINARY : "\\b" (["0", "1"])+(["0", "1", "_"])* >//<BIN> >
   | < HEX2 : "\\x" ["0" - "7"] ["0" - "7"] >
   | < HEX4 : "\\u" ["0" - "7"] ["0" - "7"]["0" - "7"] ["0" - "7"] >
   | < HEX8 : "\\U" ["0" - "7"] ["0" - "7"]["0" - "7"] ["0" - "7"]["0" - "7"] ["0" - "7"]["0" - "7"] ["0" - "7"] >
@@ -306,20 +305,7 @@ TOKEN : {
              EXPRESSÕES
 *****************************************/
 
-TOKEN : {
-  < EXPRESSION : <SEQUENCE> | <E0> >
-  | < E0 :  <E1> ( (<SC_AND> | <SC_OR> | <XOR_OP>) <E1> )* >
-  | < E1 : <E2> ( <RELATIONOP> <E2> )* >
-      | < RELATIONOP : <LT> | <GT> | <LE> | <GE> | <EQUAL> | <NE> >
-  | < E2 : <E3> ( <CONCAT> <E3> )* >
-  | < E3 : <E4> ( (<PLUS> | <MINUS>) <E4> )* >
-  | < E4 : <E5> ( (<STAR> | <SLASH>) <E5> )* >
-  | < E5 : (<PLUS> | <MINUS> | <NOT_OP>)? <E6>  >
-  | < E6 :  <ATOM> | <STRINGLIT> | <SEQUENCE> | <VARIABLE> | "0" | "1" |  (<LPAREN> <EXPRESSION> <RPAREN>) 
-          | <IDENTIFIER> | <CALL> >
-  | < CALL : <IDENTIFIER> <LPAREN> (<ARGLIST>)? <RPAREN> >
-      | < ARGLIST : <EXPRESSION> ( <COMMA> <EXPRESSION> )* >
-}
+
 
 /*****************************************
                STATEMENT
@@ -334,8 +320,9 @@ TOKEN : {
 
 // used in the loop
 TOKEN : {
-  < WITHENTRY : <WITH> <ENTRY> >
-  | < ENTRYSTMT : <ENTRY> (<STMBLK>)? >
+    < WITHENTRY : <WITH> <ENTRY> >
+  //| < ENTRYSTMT : <ENTRY> (<STMBLK>)? >
+  | < LABELSTMT : <LABEL> <STRINGLIT> >
 }
 
 /*************************
@@ -354,50 +341,51 @@ TOKEN : {
 **************************/
 
 TOKEN : {
-  < FORSTMT : <FOR> <FORIDX> (<LABEL>)? <DO> (<STMBLK>)? <END> <FOR> >
-  | < FORIDX : <IDENTIFIER> <EQUAL> <EXPRESSION> <TO> <EXPRESSION> (<BY> <EXPRESSION>)? >
-  | < WHILESTMT : <WHILE> <EXPRESSION> (<WITHENTRY>)? (<LABEL>)? <DO> <STMBLK> (<ENTRYSTMT>)? <END> <WHILE> >
-  | < LOOPSTMT : <LOOP> (<WITHENTRY>)? (<LABEL>)? <DO> <STMBLK> (<ENTRYSTMT>)? <UNTIL> <EXPRESSION> <END> <LOOP> >
-  | < GOTOSTMT : <GOTO> <LABEL> >
+  //< FORSTMT : <FOR> <FORIDX> (<LABELSTMT>)? <DO> (<STMBLK>)? <END> <FOR> >
+    //< FORIDX : <IDENTIFIER> <EQUAL> <EXPRESSION> <TO> <EXPRESSION> (<BY> <EXPRESSION>)? >
+  //| < WHILESTMT : <WHILE> <EXPRESSION> (<WITHENTRY>)? (<LABELSTMT>)? <DO> <STMBLK> (<ENTRYSTMT>)? <END> <WHILE> >
+  //| < LOOPSTMT : <LOOP> (<WITHENTRY>)? (<LABELSTMT>)? <DO> <STMBLK> (<ENTRYSTMT>)? <UNTIL> <EXPRESSION> <END> <LOOP> >
+    < GOTOSTMT : <GOTO> <LABELSTMT> >
 }
 /*************************
     Branching
 **************************/
 TOKEN : {
-    < IFTEST    : <IF> <EXPRESSION> (<LABEL>)? <THEN> (<STMBLK>)? >
-  | < ELSIFSTMT : <ELSIF> <EXPRESSION> <THEN> (<STMBLK>)? >
-  | < ELSESTMT  : <ELSE> (<STMBLK>)? >
-  | < ENDIF     : <END> <IF> >
-  | < IFSTMT    : <IFTEST> (<ELSIFSTMT>)* (<ELSESTMT>)? <ENDIF> >
+    //< IFTEST    : <IF> <EXPRESSION> (<LABELSTMT>)? <THEN> (<STMBLK>)? >
+  //| < ELSIFSTMT : <ELSIF> <EXPRESSION> <THEN> (<STMBLK>)? >
+  //| < ELSESTMT  : <ELSE> (<STMBLK>)? >
+    < ENDIF     : <END> <IF> >
+  //| < IFSTMT    : <IFTEST> (<ELSIFSTMT>)* (<ELSESTMT>)? <ENDIF> >
 }
 
-TOKEN : {
-    < SWITCHSTMT : <SWITCHTEST> <CASESTMT> (<CASESTMT>)* (<CASEELSE>)? <ENDSWITCH> >
-  | < SWITCHTEST : <SWITCH> <EXPRESSION> (<WITHFALL>)? (<LABEL>)? <DO> >
-  | < WITHFALL   : (<WITH> | <WITHOUT>) <FALLTHRU> >
-}
 
 TOKEN : {
-    < CASESTMT  : <CASE> <CASELIST> <THEN> (<STMBLK>)? >
-  | < CASELIST  : <EXPRESSION> (<COMMA> <EXPRESSION>)* >
-  | < CASEELSE  : <CASE> <ELSE> >
+    //< SWITCHSTMT : <SWITCHTEST> <CASESTMT> (<CASESTMT>)* (<CASEELSE>)? <ENDSWITCH> >
+ //   < SWITCHTEST : <SWITCH> <EXPRESSION> (<WITHFALL>)? (<LABELSTMT>)? <DO> >
+    < WITHFALL   : (<WITH> | <WITHOUT>) <FALLTHRU> >
   | < ENDSWITCH : <END> <SWITCH> >
 }
 
 TOKEN : {
-    < IFDEFSTMT     : <IFDEFTEST> (<ELSDEFIFSTMT> (<CHAR>)+)? (<ELSEDEFSTMT>)? <ENDDEFIF> >
-  | < IFDEFTEST     : <IFDEF> <DEFEXPR> <THEN> (<STMBLK>)? >
-  | < ELSDEFIFSTMT  : <ELSEIFDEF> <DEFEXPR> <THEN> (<STMBLK>)? >
-  | < ELSEDEFSTMT   : <ELSEDEF> (<STMBLK>)? >
-  | < ENDDEFIF      : <END> <IFDEF> >
-  | < DEFEXPR       : <DEFTERM> (<DEFOP> <DEFTERM>)? >
+   // < CASESTMT  : <CASE> <CASELIST> <THEN> (<STMBLK>)? >
+   // < CASELIST  : <EXPRESSION> (<COMMA> <EXPRESSION>)* >
+    < CASEELSE  : <CASE> <ELSE> >
+}
+
+TOKEN : {
+    //< IFDEFSTMT     : <IFDEFTEST> (<ELSDEFIFSTMT> (<CHAR>)+)? (<ELSEDEFSTMT>)? <ENDDEFIF> >
+  //| < IFDEFTEST     : <IFDEF> <DEFEXPR> <THEN> (<STMBLK>)? >
+  //| < ELSDEFIFSTMT  : <ELSEIFDEF> <DEFEXPR> <THEN> (<STMBLK>)? >
+  //| < ELSEDEFSTMT   : <ELSEDEF> (<STMBLK>)? >
+    < ENDDEFIF      : <END> <IFDEF> >
+  | < DEFEXPR       : <DEFTERM> ( (<SC_AND> | <SC_OR>) <DEFTERM>)? >
   | < DEFTERM       : (<NOT_OP> <IDENTIFIER>)? >
-  | < DEFOP         : <SC_AND> | <SC_OR> >
+  //| < DEFOP         : <SC_AND> | <SC_OR> >
 }
 
 /*************************
         Atribuição
-**************************/
+**************************
 TOKEN : {
     < ASSIGNMONO    : <IDENTIFIER> <EQUAL> <EXPRESSION> >
   | < ASSIGNMULTI   : <IDENTIFIER> (<COMMA> <IDENTIFIER>)? <EQUAL> <EXPRESSION> (<COMMA> <EXPRESSION>)? >
@@ -406,28 +394,28 @@ TOKEN : {
 
 /*************************
           Return
-**************************/
+**************************
 TOKEN : {
   < RETURNSTMT : <RETURN> <EXPRESSION> (<COMMA> <EXPRESSION>)* >
 }
 
 /*************************
   Declaração de Variáveis
-**************************/
+**************************
 TOKEN : {
   < VARDECLARE : (<SCOPEMODIFIER>)? <DATATYPE> <IDENTLIST> >
 }
 
 /*************************
   Delaração de Constantes
-**************************/
+**************************
 TOKEN : {
   < CONSTDECLARE : (<SCOPEMODIFIER>)? <CONSTANT> <IDENTLIST> >
 }
 
 /*************************
  Declaração de Enumeração
-**************************/
+**************************
 TOKEN : {
     < ENUMDELTA : (<PLUS> | <MINUS> | <STAR> | <SLASH>)? <EXPRESSION> >
   | < ENUMVAL   : <ENUM> (<BY> <ENUMDELTA>)? <IDENTLIST> >
@@ -436,27 +424,27 @@ TOKEN : {
 
 /*************************
   Declaração de Processos
-**************************/
+**************************
 TOKEN : {
   < PROCDECLARE :  (<SCOPEMODIFIER>)? <PROCEDURE> <IDENTIFIER> <LPAREN> (<PARAMLIST>)? <RPAREN> (<STMBLK>)? <END> <PROCEDURE> >
 }
 
 /*************************
   Declaração de Função
-**************************/
+**************************
 TOKEN : {
   < FUNCDECLARE :  (<SCOPEMODIFIER>)? <FUNCTION> <IDENTIFIER> <LPAREN> (<PARAMLIST>)? <RPAREN> (<STMBLK>)? <END> <FUNCTION> >
 }
 
 /*************************
     Declaração de Tipo
-**************************/
+**************************
 TOKEN : {
   < TYPEDECLARE :  (<SCOPEMODIFIER>)? <TYPE> <IDENTIFIER> <LPAREN> (<PARAMLIST>)? <RPAREN> (<STMBLK>)? <END> <TYPE> >
 }
 
 /*******************************************************
-          MEUPHORIA GRAMMAR
+                MEUPHORIA GRAMMAR
 *******************************************************/
 
 void javacc_input() :
@@ -464,70 +452,369 @@ void javacc_input() :
 {
   //( <INCLUDESTMT> )?
 
-  stmblk()
+    stmblk()
+
+    // Usar Lookahed com SCOPEMODIFIER para estes comandos !!!!!!!!!!
+  | 
+      LOOKAHEAD( (<SCOPEMODIFIER>)? <CONSTANT> )
+      (ConstantDeclare())+
+  | 
+    LOOKAHEAD( (<SCOPEMODIFIER>)? <ENUM> )
+    (EnumDeclare())+
+  | 
+    LOOKAHEAD( (<SCOPEMODIFIER>)? <PROCEDURE> )
+    (ProcDeclare())+
+  | 
+    LOOKAHEAD( (<SCOPEMODIFIER>)? <FUNCTION> )
+    (FuncDeclare())+
 
   <EOF>
-
-
 }
-void stmblk() :
+
+      void ConstantDeclare() :
+      {}
+      {
+        (<SCOPEMODIFIER>)? <CONSTANT> IdentList()
+      }
+
+      void EnumDeclare() :
+      {}
+      {
+        (<SCOPEMODIFIER>)? 
+        // Usar lookahed com <ENUM> para estes 2!!!!!!!
+        (EnumVal() | EnumType())
+      }
+
+            void EnumVal() :
+            {}
+            {
+              <ENUM> (<BY> EnumDelta())? IdentList()
+            }
+
+            void EnumType() :
+            {}
+            {
+              <ENUM> <TYPE> (<BY> EnumDelta())? IdentList() <END> <TYPE>
+            }
+
+                  void EnumDelta() :
+                  {}
+                  {
+                    (<PLUS> | <MINUS> | <STAR> | <SLASH>)? Expression()              
+                  }
+
+      void ProcDeclare() : 
+      {}
+      {
+        (<SCOPEMODIFIER>)? <PROCEDURE> <IDENTIFIER> <LPAREN> (<PARAMLIST>)? <RPAREN> (stmblk())? <END> <PROCEDURE> 
+      }
+
+      void FuncDeclare() :
+      {}
+      {
+        (<SCOPEMODIFIER>)? <FUNCTION> <IDENTIFIER> <LPAREN> (<PARAMLIST>)? <RPAREN> (stmblk())? <END> <FUNCTION>
+      }
+
+      void stmblk() :
+      {}
+      {
+          ( statement() )+
+      }
+
+      void statement() :
+      {}
+      {
+            Flow() 
+          | Loop()
+          | Branch()
+          | Assignment()
+          | Return()
+          | VarDeclare()
+          | TypeDeclare()
+          | Call()
+      }
+
+            void Flow() :
+            {}
+            {
+              <BREAKSTMT> | <CONTINUESTMT> | <RETRYSTMT> | <EXITSTMT> | <FALLTHRUSTMT>
+            }
+
+            void Loop() :
+            {}
+            {
+              ForStatement() | WhileStatement() | LoopStatement() | <GOTOSTMT>
+            }
+
+                  void ForStatement() :
+                  {}
+                  {
+                    <FOR> ForIDX() (<LABELSTMT>)? <DO> (stmblk())? <END> <FOR> 
+                  }
+
+                        void ForIDX() :
+                        {}
+                        {
+                          <IDENTIFIER> <EQUAL> Expression() <TO> Expression() (<BY> Expression())?
+                        }
+
+                  void WhileStatement() :
+                  {}
+                  {
+                    <WHILE> Expression() (<WITHENTRY>)? (<LABELSTMT>)? <DO> stmblk() (EntryStatement())? <END> <WHILE>
+                  }
+
+                  void LoopStatement() :
+                  {}
+                  {
+                    <LOOP> (<WITHENTRY>)? (<LABELSTMT>)? <DO> stmblk() (EntryStatement())? <UNTIL> Expression() <END> <LOOP>
+                  }
+
+                        void EntryStatement() :
+                        {}
+                        {
+                          <ENTRY> (stmblk())? 
+                        }
+
+            void Branch() :
+            {}
+            {
+              IfStatement() | SwitchStatement() | IfDefStatement()
+            }
+
+                  void IfStatement() :
+                  {}
+                  {
+                    IfTest() (ElsifStatement())* (ElseStatement())? <ENDIF>
+                  }
+
+                        void IfTest() :
+                        {}
+                        {
+                          <IF> Expression() (<LABELSTMT>)? <THEN> (stmblk())?
+                        }
+
+                        void ElsifStatement() :
+                        {}
+                        {
+                          <ELSIF> Expression() <THEN> (stmblk())?
+                        }
+
+                        void ElseStatement() :
+                        {}
+                        {
+                          <ELSE> (stmblk())?
+                        }
+
+
+                  void IfDefStatement() :
+                  {}
+                  {
+                    IfDefTest() ( ElsDefIfStatement() (<CHAR>)+)? ( ElsDefStatement())? <ENDDEFIF>
+                  }
+
+                        void IfDefTest() :
+                        {}
+                        {
+                          <IFDEF> <DEFEXPR> <THEN> (stmblk())?
+                        }
+
+                        void ElsDefIfStatement() :
+                        {}
+                        {
+                          <ELSEIFDEF> <DEFEXPR> <THEN> (stmblk())?
+                        }
+
+                        void ElsDefStatement() :
+                        {}
+                        {
+                          <ELSEDEF> (stmblk())? 
+                        }
+
+                  void SwitchStatement() :
+                  {}
+                  {
+                    SwitchTest() CaseStatement() (CaseStatement())* (<CASEELSE>)? <ENDSWITCH>
+                  }
+
+                        void SwitchTest() :
+                        {}
+                        {
+                          <SWITCH> Expression() (<WITHFALL>)? (<LABELSTMT>)? <DO>
+                        }
+
+                        void CaseStatement() :
+                        {}
+                        {
+                          <CASE> CaseList() <THEN> (stmblk())? 
+                        }
+
+                              void CaseList() :
+                              {}
+                              {
+                                Expression() (<COMMA> Expression())* 
+                              }
+
+
+            void Assignment() :
+            {}
+            {
+              AssignmentMono() | AssignmentMulti() | AssignmentWihOp()
+            }
+
+                  void AssignmentMono() :
+                  {}
+                  {
+                    <IDENTIFIER> <EQUAL> Expression() 
+                  }
+
+                  void AssignmentMulti() :
+                  {}
+                  {
+                    <IDENTIFIER> (<COMMA> <IDENTIFIER>)? <EQUAL> Expression() (<COMMA> Expression())?
+                  }
+
+                  void AssignmentWihOp() :
+                  {}
+                  {
+                    <IDENTIFIER> (<PLUS> | <MINUS> | <SLASH> | <STAR> | <CONCAT> ) <EQUAL> Expression() 
+                  }
+
+            void Return() :
+            {}
+            {
+              <RETURN> Expression() (<COMMA> Expression())*
+            }
+
+            void VarDeclare() :
+            {}
+            {
+              (<SCOPEMODIFIER>)? <DATATYPE> IdentList()
+            }
+
+                  void IdentList() :
+                  {}
+                  {
+                    Ident() ( <COMMA> Ident() )* 
+                  }
+
+                        void Ident() :
+                        {}
+                        {
+                          <IDENTIFIER> (<EQUAL> Expression())?
+                        }
+
+            void TypeDeclare() : 
+            {}
+            {
+              (<SCOPEMODIFIER>)? <TYPE> <IDENTIFIER> <LPAREN> (<PARAMLIST>)? <RPAREN> (stmblk())? <END> <TYPE> 
+            }
+
+            void Call() :
+            {}
+            {
+              <IDENTIFIER> <LPAREN> (ArgList())? <RPAREN>
+            }
+
+                  void ArgList() :
+                  {}
+                  {
+                    Expression() ( <COMMA> Expression() )*
+                  }
+
+
+/************************************************************
+                        SEQUENCIA
+************************************************************/
+
+void Sequence() :
 {}
 {
-    ( statement() )+
+  <LBRACE> Object() (<COMMA> Object())* (<COMMA> <END_SYMBOL>)? <RBRACE> 
 }
 
-void statement() :
+      void Object() :
+      {}
+      {
+        Sequence() | <ATOM> | <BIN_NUMBER> | <OCT_NUMBER> | <DEC_NUMBER> | <HEX_NUMBER>
+      }
+
+
+/************************************************************
+                          EXPRESSÕES
+************************************************************/
+
+void Expression() :
 {}
 {
-      Flow() 
-    | Loop()
-    | Branch()
-    | Assignment()
-    | <RETURNSTMT>
-    | <VARDECLARE>
-    | <CONSTDECLARE>
-    | EnumDeclare()
-    | <PROCDECLARE>
-    | <FUNCDECLARE>
-    | <TYPEDECLARE>
-    | Call()
+  Sequence() | Expression00()
 }
 
-void Flow() :
+void Expression00() :
 {}
 {
-  <BREAKSTMT> | <CONTINUESTMT> | <RETRYSTMT> | <EXITSTMT> | <FALLTHRUSTMT>
+  Expression01() ( (<SC_AND> | <SC_OR> | <XOR_OP>) Expression01() )*
 }
 
-void Loop() :
+void Expression01() :
 {}
 {
-  <FORSTMT> | <WHILESTMT> | <LOOPSTMT> | <GOTOSTMT>
+  Expression02() ( <RELATIONOP> Expression02() )*
 }
 
-void Branch() :
+void Expression02() :
 {}
 {
-  <IFSTMT> | <SWITCHSTMT> | <IFDEFSTMT>
+  Expression03() ( <CONCAT> Expression03() )*
 }
 
-void Assignment() :
+void Expression03() :
 {}
 {
-  <ASSIGNMONO> | <ASSIGNMULTI> | <ASSIGNWITHOP>
+  Expression04() ( (<PLUS> | <MINUS>) Expression04() )*
 }
 
-void EnumDeclare() :
+void Expression04() :
 {}
 {
-  (<SCOPEMODIFIER>)? (<ENUMVAL> | <ENUMTYPE>)
+  Expression05() ( (<STAR> | <SLASH>) Expression05() )*
 }
 
+void Expression05() :
+{}
+{
+  (<PLUS> | <MINUS> | <NOT_OP>)? Expression06()
+}
 
+void Expression06() :
+{}
+{
+  <ATOM> | <STRINGLIT> | Sequence() | Variable() | "0" | "1" |  (<LPAREN> Expression() <RPAREN>) | <IDENTIFIER> | Call()
+}
 
+      void Variable() :
+      {}
+      {
+        <IDENTIFIER> (Slice() | Subscripting())?
+      }
 
+            void Slice() :
+            {}
+            {
+              <LBRACKET> Expression() <SLICE> ( Expression() | <END_SYMBOL>) <RBRACKET>
+            }
 
+            void Subscripting() :
+            {}
+            {
+              ( Index() )+
+            }
 
+                  void Index() :
+                  {}
+                  {
+                    <LBRACKET> Expression() <RBRACKET>
+                  }
 
 
 
