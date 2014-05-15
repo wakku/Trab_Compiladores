@@ -223,7 +223,6 @@ TOKEN : {
   | <XOR_OP: "xor" >
   | <QMARK : "?"> // print command
   | <END_SYMBOL : "$">
-  | <RELATIONOP : <LT> | <GT> | <LE> | <GE> | <EQUAL> | <NE> >
 }
 
 /*****************************************
@@ -242,8 +241,8 @@ TOKEN : {
     < INTEGER : ( <PLUS> | <MINUS> )+ ["0"-"9"] (["0"-"9"] | "_")* >
   | < FLOAT   : <INTEGER> <DOT> ["0"-"9"] (["0"-"9"] | "_")* >
   | < EXP     : (<INTEGER> | <FLOAT>) ("E" | "e") <INTEGER> >
-  | < REAL    : <FLOAT> | <EXP> >
-  | < ATOM    : <INTEGER> | <REAL> >
+  //| < REAL    : <FLOAT> | <EXP> >
+  //| < ATOM    : <INTEGER> | <REAL> >
 }
 
 TOKEN : {
@@ -258,13 +257,12 @@ TOKEN : {
 
 /*****************************************
         MANIPULACAO DE VARIÁVEIS
-*****************************************/
+*****************************************
 TOKEN : {
     < PARAMLIST : <PARAMETER> (<COMMA> <PARAMETER> )* >
   | < PARAMETER : <DATATYPE> <IDENTIFIER> >
 }
 
-/*
 TOKEN : {
   < IDENTLIST : <IDENT> ( <COMMA> <IDENT> )* >
   | < IDENT     : <IDENTIFIER> (<EQUAL> <EXPRESSION>)? >
@@ -296,7 +294,7 @@ TOKEN : {
 
 /*****************************************
               DATA TYPE
-*****************************************/
+*****************************************
 TOKEN : { 
   < SCOPEMODIFIER : <GLOBAL> | <PUBLIC> | <EXPORT> | <OVERRIDE> >
   | < DATATYPE : "atom" | "integer" | "sequence" | "object" | <IDENTIFIER> > }
@@ -379,7 +377,7 @@ TOKEN : {
   //| < ELSEDEFSTMT   : <ELSEDEF> (<STMBLK>)? >
     < ENDDEFIF      : <END> <IFDEF> >
   | < DEFEXPR       : <DEFTERM> ( (<SC_AND> | <SC_OR>) <DEFTERM>)? >
-  | < DEFTERM       : (<NOT_OP> <IDENTIFIER>)? >
+  | < DEFTERM       : (<NOT_OP>)? <IDENTIFIER> >
   //| < DEFOP         : <SC_AND> | <SC_OR> >
 }
 
@@ -453,20 +451,8 @@ void javacc_input() :
   //( <INCLUDESTMT> )?
 
     stmblk()
-
-    // Usar Lookahed com SCOPEMODIFIER para estes comandos !!!!!!!!!!
   | 
-      LOOKAHEAD( (<SCOPEMODIFIER>)? <CONSTANT> )
-      (ConstantDeclare())+
-  | 
-    LOOKAHEAD( (<SCOPEMODIFIER>)? <ENUM> )
-    (EnumDeclare())+
-  | 
-    LOOKAHEAD( (<SCOPEMODIFIER>)? <PROCEDURE> )
-    (ProcDeclare())+
-  | 
-    LOOKAHEAD( (<SCOPEMODIFIER>)? <FUNCTION> )
-    (FuncDeclare())+
+      (ScopeModifier())? (ConstantDeclare() | EnumDeclare() | ProcDeclare() | FuncDeclare() )+
 
   <EOF>
 }
@@ -474,27 +460,25 @@ void javacc_input() :
       void ConstantDeclare() :
       {}
       {
-        (<SCOPEMODIFIER>)? <CONSTANT> IdentList()
+        <CONSTANT> IdentList()
       }
 
       void EnumDeclare() :
       {}
       {
-        (<SCOPEMODIFIER>)? 
-        // Usar lookahed com <ENUM> para estes 2!!!!!!!
-        (EnumVal() | EnumType())
+        <ENUM> (EnumVal() | EnumType())
       }
 
             void EnumVal() :
             {}
             {
-              <ENUM> (<BY> EnumDelta())? IdentList()
+              (<BY> EnumDelta())? IdentList()
             }
 
             void EnumType() :
             {}
             {
-              <ENUM> <TYPE> (<BY> EnumDelta())? IdentList() <END> <TYPE>
+              <TYPE> (<BY> EnumDelta())? IdentList() <END> <TYPE>
             }
 
                   void EnumDelta() :
@@ -506,13 +490,13 @@ void javacc_input() :
       void ProcDeclare() : 
       {}
       {
-        (<SCOPEMODIFIER>)? <PROCEDURE> <IDENTIFIER> <LPAREN> (<PARAMLIST>)? <RPAREN> (stmblk())? <END> <PROCEDURE> 
+        <PROCEDURE> <IDENTIFIER> <LPAREN> (ParamList())? <RPAREN> (stmblk())? <END> <PROCEDURE> 
       }
 
       void FuncDeclare() :
       {}
       {
-        (<SCOPEMODIFIER>)? <FUNCTION> <IDENTIFIER> <LPAREN> (<PARAMLIST>)? <RPAREN> (stmblk())? <END> <FUNCTION>
+        <FUNCTION> <IDENTIFIER> <LPAREN> (ParamList())? <RPAREN> (stmblk())? <END> <FUNCTION>
       }
 
       void stmblk() :
@@ -527,11 +511,9 @@ void javacc_input() :
             Flow() 
           | Loop()
           | Branch()
-          | Assignment()
+          | <IDENTIFIER> (Assignment() | Call())
           | Return()
-          | VarDeclare()
-          | TypeDeclare()
-          | Call()
+          | (ScopeModifier())? ( VarDeclare() | TypeDeclare() )
       }
 
             void Flow() :
@@ -665,19 +647,19 @@ void javacc_input() :
                   void AssignmentMono() :
                   {}
                   {
-                    <IDENTIFIER> <EQUAL> Expression() 
+                    <EQUAL> Expression() 
                   }
 
                   void AssignmentMulti() :
                   {}
                   {
-                    <IDENTIFIER> (<COMMA> <IDENTIFIER>)? <EQUAL> Expression() (<COMMA> Expression())?
+                    (<COMMA> <IDENTIFIER>)? <EQUAL> Expression() (<COMMA> Expression())?
                   }
 
                   void AssignmentWihOp() :
                   {}
                   {
-                    <IDENTIFIER> (<PLUS> | <MINUS> | <SLASH> | <STAR> | <CONCAT> ) <EQUAL> Expression() 
+                    (<PLUS> | <MINUS> | <SLASH> | <STAR> | <CONCAT> ) <EQUAL> Expression() 
                   }
 
             void Return() :
@@ -689,7 +671,7 @@ void javacc_input() :
             void VarDeclare() :
             {}
             {
-              (<SCOPEMODIFIER>)? <DATATYPE> IdentList()
+              DataType() IdentList()
             }
 
                   void IdentList() :
@@ -707,13 +689,13 @@ void javacc_input() :
             void TypeDeclare() : 
             {}
             {
-              (<SCOPEMODIFIER>)? <TYPE> <IDENTIFIER> <LPAREN> (<PARAMLIST>)? <RPAREN> (stmblk())? <END> <TYPE> 
+              <TYPE> <IDENTIFIER> <LPAREN> (ParamList())? <RPAREN> (stmblk())? <END> <TYPE> 
             }
 
             void Call() :
             {}
             {
-              <IDENTIFIER> <LPAREN> (ArgList())? <RPAREN>
+              <LPAREN> (ArgList())? <RPAREN>
             }
 
                   void ArgList() :
@@ -736,7 +718,7 @@ void Sequence() :
       void Object() :
       {}
       {
-        Sequence() | <ATOM> | <BIN_NUMBER> | <OCT_NUMBER> | <DEC_NUMBER> | <HEX_NUMBER>
+        Sequence() | Atom() | <BIN_NUMBER> | <OCT_NUMBER> | <DEC_NUMBER> | <HEX_NUMBER>
       }
 
 
@@ -759,7 +741,7 @@ void Expression00() :
 void Expression01() :
 {}
 {
-  Expression02() ( <RELATIONOP> Expression02() )*
+  Expression02() ( ( <LT> | <GT> | <LE> | <GE> | <EQUAL> | <NE> ) Expression02() )*
 }
 
 void Expression02() :
@@ -789,15 +771,11 @@ void Expression05() :
 void Expression06() :
 {}
 {
-  <ATOM> | <STRINGLIT> | Sequence() | Variable() | "0" | "1" |  (<LPAREN> Expression() <RPAREN>) | <IDENTIFIER> | Call()
+  Atom() | <STRINGLIT> | Sequence() | "0" | "1" |  (<LPAREN> Expression() <RPAREN>) | <IDENTIFIER> (Slice() | Subscripting())? | Call()
 }
 
-      void Variable() :
-      {}
-      {
-        <IDENTIFIER> (Slice() | Subscripting())?
-      }
 
+            // LOAKAHED HERE COM O LBRACKET E EXPRESSION??? mas e a repetição??? !!!!!!!!!!
             void Slice() :
             {}
             {
@@ -815,6 +793,48 @@ void Expression06() :
                   {
                     <LBRACKET> Expression() <RBRACKET>
                   }
+
+      void ParamList() :
+      {}
+      {
+        Parameter() (<COMMA> Parameter() )*
+      }
+
+            void Parameter() :
+            {}
+            {
+              DataType() <IDENTIFIER>
+            }
+
+
+/*****************************************
+              DATA TYPE
+*****************************************/
+
+void ScopeModifier() :
+{}
+{
+  <GLOBAL> | <PUBLIC> | <EXPORT> | <OVERRIDE>
+}
+
+void DataType() :
+{}
+{
+  "atom" | "integer" | "sequence" | "object" | <IDENTIFIER>
+}
+
+void Real() :
+{}
+{
+  <FLOAT> | <EXP>
+}
+
+void Atom() :
+{}
+{
+  <INTEGER> | Real()
+}
+
 
 
 
