@@ -712,7 +712,7 @@ void javacc_input() :
 void Sequence() :
 {}
 {
-  <LBRACE> Object() (<COMMA> Object())* (<COMMA> <END_SYMBOL>)? <RBRACE> 
+  <LBRACE> (<END_SYMBOL> | Object() (<COMMA> Object())* (<COMMA> <END_SYMBOL>)? ) <RBRACE> 
 }
 
       void Object() :
