@@ -288,10 +288,14 @@ TOKEN : {
   | < BINARY : "\\b" <BIN> >
   | < HEX2 : "\\x" ["0" - "7"] ["0" - "7"] >
   | < HEX4 : "\\u" ["0" - "7"] ["0" - "7"]["0" - "7"] ["0" - "7"] >
-  | < HEX8 : "\\U" ["0" - "7"] ["0" - "7"]["0" - "7"] ["0" - "7"]["0" - "7"] ["0" - "7"]["0" - "7"] ["0" - "7"]
+  | < HEX8 : "\\U" ["0" - "7"] ["0" - "7"]["0" - "7"] ["0" - "7"]["0" - "7"] ["0" - "7"]["0" - "7"] ["0" - "7"] >
   | < RAWSTRINGLIT : <DQRAWSTRING> | <BQRAWSTRING> >
   | < DQRAWSTRING : "`" (<CHAR>)+ "`" >
   | <BQRAWSTRING : "\"\"\"" (<CHAR>)+ "\"\"\"" >
+}
+
+TOKEN : {
+  < LABELSTMT : <LABEL> <STRINGLIT> >
 }
 
 /*****************************************
@@ -309,14 +313,14 @@ TOKEN : {
   < EXPRESSION : <SEQUENCE> | <E0> >
   | < E0 :  <E1> ( (<SC_AND> | <SC_OR> | <SC_XOR>) <E1> )* >
   | < E1 : <E2> ( <RELATIONOP> <E2> )* >
-      | < <RELATIONOP> : <LT> | <GT> | <LE> | <GE> | <EQUAL> | <NE> >
+      | < RELATIONOP : <LT> | <GT> | <LE> | <GE> | <EQUAL> | <NE> >
   | < E2 : <E3> ( <CONCAT> <E3> )* >
   | < E3 : <E4> ( (<PLUS> | <MINUS>) <E4> )* >
   | < E4 : <E5> ( (<STAR> | <SLASH>) <E5> )* >
-  | < E5 : [<PLUS> | <MINUS> | <NOT_OP>] <E6>  >
+  | < E5 : (<PLUS>)? | <MINUS> | (<NOT_OP>)? <E6>  >
   | < E6 :  <ATOM> | <STRINGLIT> | <SEQUENCE> | <VARIABLE> | "0" | "1" |  (<LPAREN> <EXPRESSION> <RPAREN>) 
           | <IDENTIFIER> | <CALL> >
-  | < CALL : <IDENTIFIER> <LPAREN> [ <ARGLIST> ] <RPAREN>
+  | < CALL : <IDENTIFIER> <LPAREN> (<ARGLIST>)? <RPAREN> >
       | < ARGLIST : <EXPRESSION> ( <COMMA> <EXPRESSION> )* >
 }
 
@@ -353,17 +357,17 @@ TOKEN : {
 **************************/
 
 TOKEN : {
-  < FORSTMT : <FOR> <FORIDX> (LABEL)? <DO> (STMBLK)? <END> <FOR> >
+  < FORSTMT : <FOR> <FORIDX> (<LABELSTMT>)? <DO> (<STMBLK>)? <END> <FOR> >
   | < FORIDX : <IDENTIFIER> <EQUAL> <EXPRESSION> <TO> <EXPRESSION> (<BY> <EXPRESSION>)? >
-  | < WHILESTMT : <WHILE> <EXPRESSION> (<WITHENTRY>)? (LABEL)? <DO> <STMBLK> (<ENTRYSTMT>)? <END> <WHILE> >
-  | < LOOPSTMT : <LOOP> (<WITHENTRY>)? (LABEL)? <DO> <STMBLK> (<ENTRYSTMT>)? <UNTIL> <EXPRESSION> <END> <LOOP> >
-  | < GOTOSTMT : <GOTO> <LABEL> >
+  | < WHILESTMT : <WHILE> <EXPRESSION> (<WITHENTRY>)? (<LABELSTMT>)? <DO> <STMBLK> (<ENTRYSTMT>)? <END> <WHILE> >
+  | < LOOPSTMT : <LOOP> (<WITHENTRY>)? (<LABELSTMT>)? <DO> <STMBLK> (<ENTRYSTMT>)? <UNTIL> <EXPRESSION> <END> <LOOP> >
+  | < GOTOSTMT : <GOTO> <LABELSTMT> >
 }
 /*************************
     Branching
 **************************/
 TOKEN : {
-    < IFTEST    : <IF> <EXPRESSION> (<LABEL>)? <THEN> (<STMBLK>)? >
+    < IFTEST    : <IF> <EXPRESSION> (<LABELSTMT>)? <THEN> (<STMBLK>)? >
   | < ELSIFSTMT : <ELSIF> <EXPRESSION> <THEN> (<STMBLK>)? >
   | < ELSESTMT  : <ELSE> (<STMBLK>)? >
   | < ENDIF     : <END> <IF> >
@@ -372,7 +376,7 @@ TOKEN : {
 
 TOKEN : {
     < SWITCHSTMT : <SWITCHTEST> <CASESTMT> (<CASESTMT>)* (<CASEELSE>)? <ENDSWITCH> >
-  | < SWITCHTEST : <SWITCH> <EXPRESSION> (<WITHFALL>)? (<LABEL>)? <DO> >
+  | < SWITCHTEST : <SWITCH> <EXPRESSION> (<WITHFALL>)? (<LABELSTMT>)? <DO> >
   | < WITHFALL   : (<WITH> | <WITHOUT>) <FALLTHRU> >
 }
 
