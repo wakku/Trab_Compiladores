@@ -228,7 +228,8 @@ TOKEN : {
             IDENTIFICADORES
 *****************************************/
 TOKEN : { 
-    < IDENTIFIER : ( <ALPHA> | <USCORE> ) ( <ALPHA> | <DIGIT> | <USCORE> )* > 
+      < IDENTIFIER : ( <ALPHA> | <USCORE> ) ( <ALPHA> | <DIGIT> | <USCORE> )* > 
+    | < CHAR : (<ALPHA> | <DIGIT> | <USCORE> | <ESCLEAD> )+ >
 }
 
 /*****************************************
@@ -288,7 +289,7 @@ TOKEN : {
   | < BINARY : "\\b" <BIN> >
   | < HEX2 : "\\x" ["0" - "7"] ["0" - "7"] >
   | < HEX4 : "\\u" ["0" - "7"] ["0" - "7"]["0" - "7"] ["0" - "7"] >
-  | < HEX8 : "\\U" ["0" - "7"] ["0" - "7"]["0" - "7"] ["0" - "7"]["0" - "7"] ["0" - "7"]["0" - "7"] ["0" - "7"]
+  | < HEX8 : "\\U" ["0" - "7"] ["0" - "7"]["0" - "7"] ["0" - "7"]["0" - "7"] ["0" - "7"]["0" - "7"] ["0" - "7"] >
   | < RAWSTRINGLIT : <DQRAWSTRING> | <BQRAWSTRING> >
   | < DQRAWSTRING : "`" (<CHAR>)+ "`" >
   | <BQRAWSTRING : "\"\"\"" (<CHAR>)+ "\"\"\"" >
@@ -307,22 +308,22 @@ TOKEN : {
 
 TOKEN : {
   < EXPRESSION : <SEQUENCE> | <E0> >
-  | < E0 :  <E1> ( (<SC_AND> | <SC_OR> | <SC_XOR>) <E1> )* >
+  | < E0 :  <E1> ( (<SC_AND> | <SC_OR> | <XOR_OP>) <E1> )* >
   | < E1 : <E2> ( <RELATIONOP> <E2> )* >
-      | < <RELATIONOP> : <LT> | <GT> | <LE> | <GE> | <EQUAL> | <NE> >
+      | < RELATIONOP : <LT> | <GT> | <LE> | <GE> | <EQUAL> | <NE> >
   | < E2 : <E3> ( <CONCAT> <E3> )* >
   | < E3 : <E4> ( (<PLUS> | <MINUS>) <E4> )* >
   | < E4 : <E5> ( (<STAR> | <SLASH>) <E5> )* >
-  | < E5 : [<PLUS> | <MINUS> | <NOT_OP>] <E6>  >
+  | < E5 : (<PLUS> | <MINUS> | <NOT_OP>)? <E6>  >
   | < E6 :  <ATOM> | <STRINGLIT> | <SEQUENCE> | <VARIABLE> | "0" | "1" |  (<LPAREN> <EXPRESSION> <RPAREN>) 
           | <IDENTIFIER> | <CALL> >
-  | < CALL : <IDENTIFIER> <LPAREN> [ <ARGLIST> ] <RPAREN>
+  | < CALL : <IDENTIFIER> <LPAREN> (<ARGLIST>)? <RPAREN> >
       | < ARGLIST : <EXPRESSION> ( <COMMA> <EXPRESSION> )* >
 }
 
 /*****************************************
                STATEMENT
-*****************************************/
+*****************************************
 
 TOKEN : {
   < STMBLK : (<STATEMENT>)+ >
@@ -353,10 +354,10 @@ TOKEN : {
 **************************/
 
 TOKEN : {
-  < FORSTMT : <FOR> <FORIDX> (LABEL)? <DO> (STMBLK)? <END> <FOR> >
+  < FORSTMT : <FOR> <FORIDX> (<LABEL>)? <DO> (<STMBLK>)? <END> <FOR> >
   | < FORIDX : <IDENTIFIER> <EQUAL> <EXPRESSION> <TO> <EXPRESSION> (<BY> <EXPRESSION>)? >
-  | < WHILESTMT : <WHILE> <EXPRESSION> (<WITHENTRY>)? (LABEL)? <DO> <STMBLK> (<ENTRYSTMT>)? <END> <WHILE> >
-  | < LOOPSTMT : <LOOP> (<WITHENTRY>)? (LABEL)? <DO> <STMBLK> (<ENTRYSTMT>)? <UNTIL> <EXPRESSION> <END> <LOOP> >
+  | < WHILESTMT : <WHILE> <EXPRESSION> (<WITHENTRY>)? (<LABEL>)? <DO> <STMBLK> (<ENTRYSTMT>)? <END> <WHILE> >
+  | < LOOPSTMT : <LOOP> (<WITHENTRY>)? (<LABEL>)? <DO> <STMBLK> (<ENTRYSTMT>)? <UNTIL> <EXPRESSION> <END> <LOOP> >
   | < GOTOSTMT : <GOTO> <LABEL> >
 }
 /*************************
@@ -376,7 +377,7 @@ TOKEN : {
   | < WITHFALL   : (<WITH> | <WITHOUT>) <FALLTHRU> >
 }
 
-TOEN : {
+TOKEN : {
     < CASESTMT  : <CASE> <CASELIST> <THEN> (<STMBLK>)? >
   | < CASELIST  : <EXPRESSION> (<COMMA> <EXPRESSION>)* >
   | < CASEELSE  : <CASE> <ELSE> >
@@ -390,7 +391,7 @@ TOKEN : {
   | < ELSEDEFSTMT   : <ELSEDEF> (<STMBLK>)? >
   | < ENDDEFIF      : <END> <IFDEF> >
   | < DEFEXPR       : <DEFTERM> (<DEFOP> <DEFTERM>)? >
-  | < DEFTERM       : (<NOT> <IDENTIFIER>)? >
+  | < DEFTERM       : (<NOT_OP> <IDENTIFIER>)? >
   | < DEFOP         : <SC_AND> | <SC_OR> >
 }
 
@@ -482,44 +483,44 @@ void statement() :
     | Loop()
     | Branch()
     | Assignment()
-    | RETURNSTMT
-    | VARDECLARE
-    | CONSTDECLARE
+    | <RETURNSTMT>
+    | <VARDECLARE>
+    | <CONSTDECLARE>
     | EnumDeclare()
-    | PROCDECLARE
-    | FUNCDECLARE
-    | TYPEDECLARE
+    | <PROCDECLARE>
+    | <FUNCDECLARE>
+    | <TYPEDECLARE>
     | Call()
 }
 
 void Flow() :
 {}
 {
-  BREAKSTMT | CONTINUESTMT | RETRYSTMT | EXITSTMT | FALLTHRUSTMT
+  <BREAKSTMT> | <CONTINUESTMT> | <RETRYSTMT> | <EXITSTMT> | <FALLTHRUSTMT>
 }
 
 void Loop() :
 {}
 {
-  FORSTMT | WHILESTMT | LOOPSTMT | GOTOSTMT
+  <FORSTMT> | <WHILESTMT> | <LOOPSTMT> | <GOTOSTMT>
 }
 
 void Branch() :
 {}
 {
-  IFSTMT | SWITCHSTMT | IFDEFSTMT
+  <IFSTMT> | <SWITCHSTMT> | <IFDEFSTMT>
 }
 
 void Assignment() :
 {}
 {
-  ASSIGNMONO | ASSIGNMULTI | ASSIGNWITHOP
+  <ASSIGNMONO> | <ASSIGNMULTI> | <ASSIGNWITHOP>
 }
 
 void EnumDeclare() :
 {}
 {
-  (SCOPEMODIFIER)? (ENUMVAL | ENUMTYPE)
+  (<SCOPEMODIFIER>)? (<ENUMVAL> | <ENUMTYPE>)
 }
 
 
