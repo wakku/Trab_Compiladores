@@ -134,17 +134,17 @@ void javacc_input() throws ParseException {
     case IFDEF:
     case TYPE:
     case FOR:
+    case ATOM:
+    case INT:
+    case SEQUENCE:
+    case OBJECT:
     case IDENTIFIER:
     case BREAKSTMT:
     case CONTINUESTMT:
     case RETRYSTMT:
     case EXITSTMT:
     case FALLTHRUSTMT:
-    case GOTOSTMT:
-    case 131:
-    case 132:
-    case 133:
-    case 134:{
+    case GOTOSTMT:{
       stmblk();
       break;
       }
@@ -238,7 +238,6 @@ void javacc_input() throws ParseException {
   final public void EnumVal() throws ParseException {
     switch ((jj_ntk==-1)?jj_ntk_f():jj_ntk) {
     case BY:{
-      jj_consume_token(BY);
       EnumDelta();
       break;
       }
@@ -253,7 +252,6 @@ void javacc_input() throws ParseException {
     jj_consume_token(TYPE);
     switch ((jj_ntk==-1)?jj_ntk_f():jj_ntk) {
     case BY:{
-      jj_consume_token(BY);
       EnumDelta();
       break;
       }
@@ -267,20 +265,11 @@ void javacc_input() throws ParseException {
   }
 
   final public void EnumDelta() throws ParseException {
+    jj_consume_token(BY);
     switch ((jj_ntk==-1)?jj_ntk_f():jj_ntk) {
-    case PLUS:
-    case MINUS:
     case STAR:
     case SLASH:{
       switch ((jj_ntk==-1)?jj_ntk_f():jj_ntk) {
-      case PLUS:{
-        jj_consume_token(PLUS);
-        break;
-        }
-      case MINUS:{
-        jj_consume_token(MINUS);
-        break;
-        }
       case STAR:{
         jj_consume_token(STAR);
         break;
@@ -308,11 +297,11 @@ void javacc_input() throws ParseException {
     jj_consume_token(IDENTIFIER);
     jj_consume_token(LPAREN);
     switch ((jj_ntk==-1)?jj_ntk_f():jj_ntk) {
-    case IDENTIFIER:
-    case 131:
-    case 132:
-    case 133:
-    case 134:{
+    case ATOM:
+    case INT:
+    case SEQUENCE:
+    case OBJECT:
+    case IDENTIFIER:{
       ParamList();
       break;
       }
@@ -334,17 +323,17 @@ void javacc_input() throws ParseException {
     case IFDEF:
     case TYPE:
     case FOR:
+    case ATOM:
+    case INT:
+    case SEQUENCE:
+    case OBJECT:
     case IDENTIFIER:
     case BREAKSTMT:
     case CONTINUESTMT:
     case RETRYSTMT:
     case EXITSTMT:
     case FALLTHRUSTMT:
-    case GOTOSTMT:
-    case 131:
-    case 132:
-    case 133:
-    case 134:{
+    case GOTOSTMT:{
       stmblk();
       break;
       }
@@ -361,11 +350,11 @@ void javacc_input() throws ParseException {
     jj_consume_token(IDENTIFIER);
     jj_consume_token(LPAREN);
     switch ((jj_ntk==-1)?jj_ntk_f():jj_ntk) {
-    case IDENTIFIER:
-    case 131:
-    case 132:
-    case 133:
-    case 134:{
+    case ATOM:
+    case INT:
+    case SEQUENCE:
+    case OBJECT:
+    case IDENTIFIER:{
       ParamList();
       break;
       }
@@ -387,17 +376,17 @@ void javacc_input() throws ParseException {
     case IFDEF:
     case TYPE:
     case FOR:
+    case ATOM:
+    case INT:
+    case SEQUENCE:
+    case OBJECT:
     case IDENTIFIER:
     case BREAKSTMT:
     case CONTINUESTMT:
     case RETRYSTMT:
     case EXITSTMT:
     case FALLTHRUSTMT:
-    case GOTOSTMT:
-    case 131:
-    case 132:
-    case 133:
-    case 134:{
+    case GOTOSTMT:{
       stmblk();
       break;
       }
@@ -426,17 +415,17 @@ void javacc_input() throws ParseException {
       case IFDEF:
       case TYPE:
       case FOR:
+      case ATOM:
+      case INT:
+      case SEQUENCE:
+      case OBJECT:
       case IDENTIFIER:
       case BREAKSTMT:
       case CONTINUESTMT:
       case RETRYSTMT:
       case EXITSTMT:
       case FALLTHRUSTMT:
-      case GOTOSTMT:
-      case 131:
-      case 132:
-      case 133:
-      case 134:{
+      case GOTOSTMT:{
         ;
         break;
         }
@@ -470,6 +459,10 @@ void javacc_input() throws ParseException {
       Branch();
       break;
       }
+    case RETURN:{
+      Return();
+      break;
+      }
     case IDENTIFIER:{
       jj_consume_token(IDENTIFIER);
       switch ((jj_ntk==-1)?jj_ntk_f():jj_ntk) {
@@ -494,19 +487,15 @@ void javacc_input() throws ParseException {
       }
       break;
       }
-    case RETURN:{
-      Return();
-      break;
-      }
     case EXPORT:
     case GLOBAL:
     case PUBLIC:
     case OVERRIDE:
     case TYPE:
-    case 131:
-    case 132:
-    case 133:
-    case 134:{
+    case ATOM:
+    case INT:
+    case SEQUENCE:
+    case OBJECT:{
       switch ((jj_ntk==-1)?jj_ntk_f():jj_ntk) {
       case EXPORT:
       case GLOBAL:
@@ -520,11 +509,11 @@ void javacc_input() throws ParseException {
         ;
       }
       switch ((jj_ntk==-1)?jj_ntk_f():jj_ntk) {
-      case IDENTIFIER:
-      case 131:
-      case 132:
-      case 133:
-      case 134:{
+      case ATOM:
+      case INT:
+      case SEQUENCE:
+      case OBJECT:
+      case IDENTIFIER:{
         VarDeclare();
         break;
         }
@@ -626,17 +615,17 @@ void javacc_input() throws ParseException {
     case IFDEF:
     case TYPE:
     case FOR:
+    case ATOM:
+    case INT:
+    case SEQUENCE:
+    case OBJECT:
     case IDENTIFIER:
     case BREAKSTMT:
     case CONTINUESTMT:
     case RETRYSTMT:
     case EXITSTMT:
     case FALLTHRUSTMT:
-    case GOTOSTMT:
-    case 131:
-    case 132:
-    case 133:
-    case 134:{
+    case GOTOSTMT:{
       stmblk();
       break;
       }
@@ -754,17 +743,17 @@ void javacc_input() throws ParseException {
     case IFDEF:
     case TYPE:
     case FOR:
+    case ATOM:
+    case INT:
+    case SEQUENCE:
+    case OBJECT:
     case IDENTIFIER:
     case BREAKSTMT:
     case CONTINUESTMT:
     case RETRYSTMT:
     case EXITSTMT:
     case FALLTHRUSTMT:
-    case GOTOSTMT:
-    case 131:
-    case 132:
-    case 133:
-    case 134:{
+    case GOTOSTMT:{
       stmblk();
       break;
       }
@@ -848,17 +837,17 @@ void javacc_input() throws ParseException {
     case IFDEF:
     case TYPE:
     case FOR:
+    case ATOM:
+    case INT:
+    case SEQUENCE:
+    case OBJECT:
     case IDENTIFIER:
     case BREAKSTMT:
     case CONTINUESTMT:
     case RETRYSTMT:
     case EXITSTMT:
     case FALLTHRUSTMT:
-    case GOTOSTMT:
-    case 131:
-    case 132:
-    case 133:
-    case 134:{
+    case GOTOSTMT:{
       stmblk();
       break;
       }
@@ -885,17 +874,17 @@ void javacc_input() throws ParseException {
     case IFDEF:
     case TYPE:
     case FOR:
+    case ATOM:
+    case INT:
+    case SEQUENCE:
+    case OBJECT:
     case IDENTIFIER:
     case BREAKSTMT:
     case CONTINUESTMT:
     case RETRYSTMT:
     case EXITSTMT:
     case FALLTHRUSTMT:
-    case GOTOSTMT:
-    case 131:
-    case 132:
-    case 133:
-    case 134:{
+    case GOTOSTMT:{
       stmblk();
       break;
       }
@@ -920,17 +909,17 @@ void javacc_input() throws ParseException {
     case IFDEF:
     case TYPE:
     case FOR:
+    case ATOM:
+    case INT:
+    case SEQUENCE:
+    case OBJECT:
     case IDENTIFIER:
     case BREAKSTMT:
     case CONTINUESTMT:
     case RETRYSTMT:
     case EXITSTMT:
     case FALLTHRUSTMT:
-    case GOTOSTMT:
-    case 131:
-    case 132:
-    case 133:
-    case 134:{
+    case GOTOSTMT:{
       stmblk();
       break;
       }
@@ -993,17 +982,17 @@ void javacc_input() throws ParseException {
     case IFDEF:
     case TYPE:
     case FOR:
+    case ATOM:
+    case INT:
+    case SEQUENCE:
+    case OBJECT:
     case IDENTIFIER:
     case BREAKSTMT:
     case CONTINUESTMT:
     case RETRYSTMT:
     case EXITSTMT:
     case FALLTHRUSTMT:
-    case GOTOSTMT:
-    case 131:
-    case 132:
-    case 133:
-    case 134:{
+    case GOTOSTMT:{
       stmblk();
       break;
       }
@@ -1030,17 +1019,17 @@ void javacc_input() throws ParseException {
     case IFDEF:
     case TYPE:
     case FOR:
+    case ATOM:
+    case INT:
+    case SEQUENCE:
+    case OBJECT:
     case IDENTIFIER:
     case BREAKSTMT:
     case CONTINUESTMT:
     case RETRYSTMT:
     case EXITSTMT:
     case FALLTHRUSTMT:
-    case GOTOSTMT:
-    case 131:
-    case 132:
-    case 133:
-    case 134:{
+    case GOTOSTMT:{
       stmblk();
       break;
       }
@@ -1065,17 +1054,17 @@ void javacc_input() throws ParseException {
     case IFDEF:
     case TYPE:
     case FOR:
+    case ATOM:
+    case INT:
+    case SEQUENCE:
+    case OBJECT:
     case IDENTIFIER:
     case BREAKSTMT:
     case CONTINUESTMT:
     case RETRYSTMT:
     case EXITSTMT:
     case FALLTHRUSTMT:
-    case GOTOSTMT:
-    case 131:
-    case 132:
-    case 133:
-    case 134:{
+    case GOTOSTMT:{
       stmblk();
       break;
       }
@@ -1154,17 +1143,17 @@ void javacc_input() throws ParseException {
     case IFDEF:
     case TYPE:
     case FOR:
+    case ATOM:
+    case INT:
+    case SEQUENCE:
+    case OBJECT:
     case IDENTIFIER:
     case BREAKSTMT:
     case CONTINUESTMT:
     case RETRYSTMT:
     case EXITSTMT:
     case FALLTHRUSTMT:
-    case GOTOSTMT:
-    case 131:
-    case 132:
-    case 133:
-    case 134:{
+    case GOTOSTMT:{
       stmblk();
       break;
       }
@@ -1194,11 +1183,8 @@ void javacc_input() throws ParseException {
 
   final public void Assignment() throws ParseException {
     switch ((jj_ntk==-1)?jj_ntk_f():jj_ntk) {
+    case COMMA:
     case EQUAL:{
-      AssignmentMono();
-      break;
-      }
-    case COMMA:{
       AssignmentMulti();
       break;
       }
@@ -1217,12 +1203,13 @@ void javacc_input() throws ParseException {
     }
   }
 
-  final public void AssignmentMono() throws ParseException {
-    jj_consume_token(EQUAL);
-    Expression();
-  }
-
-  final public void AssignmentMulti() throws ParseException {
+/*void AssignmentMono() :
+                  {}
+                  {
+                    <EQUAL> Expression() 
+                  }*/
+  final public 
+                  void AssignmentMulti() throws ParseException {
     switch ((jj_ntk==-1)?jj_ntk_f():jj_ntk) {
     case COMMA:{
       jj_consume_token(COMMA);
@@ -1339,11 +1326,11 @@ void javacc_input() throws ParseException {
     jj_consume_token(IDENTIFIER);
     jj_consume_token(LPAREN);
     switch ((jj_ntk==-1)?jj_ntk_f():jj_ntk) {
-    case IDENTIFIER:
-    case 131:
-    case 132:
-    case 133:
-    case 134:{
+    case ATOM:
+    case INT:
+    case SEQUENCE:
+    case OBJECT:
+    case IDENTIFIER:{
       ParamList();
       break;
       }
@@ -1365,17 +1352,17 @@ void javacc_input() throws ParseException {
     case IFDEF:
     case TYPE:
     case FOR:
+    case ATOM:
+    case INT:
+    case SEQUENCE:
+    case OBJECT:
     case IDENTIFIER:
     case BREAKSTMT:
     case CONTINUESTMT:
     case RETRYSTMT:
     case EXITSTMT:
     case FALLTHRUSTMT:
-    case GOTOSTMT:
-    case 131:
-    case 132:
-    case 133:
-    case 134:{
+    case GOTOSTMT:{
       stmblk();
       break;
       }
@@ -1399,9 +1386,7 @@ void javacc_input() throws ParseException {
     case INTEGER:
     case FLOAT:
     case EXP:
-    case STRINGLIT:
-    case 129:
-    case 130:{
+    case STRINGLIT:{
       ArgList();
       break;
       }
@@ -1537,9 +1522,7 @@ void Expression() throws ParseException {
     case INTEGER:
     case FLOAT:
     case EXP:
-    case STRINGLIT:
-    case 129:
-    case 130:{
+    case STRINGLIT:{
       Expression00();
       break;
       }
@@ -1765,18 +1748,6 @@ void Expression() throws ParseException {
       jj_consume_token(STRINGLIT);
       break;
       }
-    case LBRACE:{
-      Sequence();
-      break;
-      }
-    case 129:{
-      jj_consume_token(129);
-      break;
-      }
-    case 130:{
-      jj_consume_token(130);
-      break;
-      }
     case LPAREN:{
       jj_consume_token(LPAREN);
       Expression();
@@ -1786,29 +1757,39 @@ void Expression() throws ParseException {
     case IDENTIFIER:{
       jj_consume_token(IDENTIFIER);
       switch ((jj_ntk==-1)?jj_ntk_f():jj_ntk) {
-      case LBRACKET:{
-        switch ((jj_ntk==-1)?jj_ntk_f():jj_ntk) {
-        case LBRACKET:{
-          Slice();
-          break;
-          }{
-          Subscripting();
-          break;
-          }
-        default:
-          jj_la1[76] = jj_gen;
-          jj_consume_token(-1);
-          throw new ParseException();
+      case LPAREN:{
+        Call();
+        break;
         }
+      case LBRACKET:
+      case RBRACKET:{
+        Variable();
         break;
         }
       default:
-        jj_la1[77] = jj_gen;
-        ;
+        jj_la1[76] = jj_gen;
+        jj_consume_token(-1);
+        throw new ParseException();
       }
       break;
-      }{
-      Call();
+      }
+    default:
+      jj_la1[77] = jj_gen;
+      jj_consume_token(-1);
+      throw new ParseException();
+    }
+  }
+
+  final public void Variable() throws ParseException {
+    switch ((jj_ntk==-1)?jj_ntk_f():jj_ntk) {
+    case LBRACKET:{
+      jj_consume_token(LBRACKET);
+      Expression();
+      Slice();
+      break;
+      }
+    case RBRACKET:{
+      Subscripting();
       break;
       }
     default:
@@ -1818,10 +1799,7 @@ void Expression() throws ParseException {
     }
   }
 
-// LOAKAHED HERE COM O LBRACKET E EXPRESSION??? mas e a repetição??? !!!!!!!!!!
-  final public             void Slice() throws ParseException {
-    jj_consume_token(LBRACKET);
-    Expression();
+  final public void Slice() throws ParseException {
     jj_consume_token(SLICE);
     switch ((jj_ntk==-1)?jj_ntk_f():jj_ntk) {
     case LPAREN:
@@ -1833,9 +1811,7 @@ void Expression() throws ParseException {
     case INTEGER:
     case FLOAT:
     case EXP:
-    case STRINGLIT:
-    case 129:
-    case 130:{
+    case STRINGLIT:{
       Expression();
       break;
       }
@@ -1852,9 +1828,9 @@ void Expression() throws ParseException {
   }
 
   final public void Subscripting() throws ParseException {
+    jj_consume_token(RBRACKET);
     label_16:
     while (true) {
-      Index();
       switch ((jj_ntk==-1)?jj_ntk_f():jj_ntk) {
       case LBRACKET:{
         ;
@@ -1864,6 +1840,7 @@ void Expression() throws ParseException {
         jj_la1[80] = jj_gen;
         break label_16;
       }
+      Index();
     }
   }
 
@@ -1927,20 +1904,20 @@ void ScopeModifier() throws ParseException {
 
   final public void DataType() throws ParseException {
     switch ((jj_ntk==-1)?jj_ntk_f():jj_ntk) {
-    case 131:{
-      jj_consume_token(131);
+    case ATOM:{
+      jj_consume_token(ATOM);
       break;
       }
-    case 132:{
-      jj_consume_token(132);
+    case INT:{
+      jj_consume_token(INT);
       break;
       }
-    case 133:{
-      jj_consume_token(133);
+    case SEQUENCE:{
+      jj_consume_token(SEQUENCE);
       break;
       }
-    case 134:{
-      jj_consume_token(134);
+    case OBJECT:{
+      jj_consume_token(OBJECT);
       break;
       }
     case IDENTIFIER:{
@@ -2015,16 +1992,16 @@ void ScopeModifier() throws ParseException {
       jj_la1_0 = new int[] {0x16000,0x100000,0x100000,0x10136000,0x0,0x0,0x0,0x0,0x0,0x0,0x10036000,0x0,0x10036000,0x10036000,0x0,0x16000,0x0,0x10036000,0x0,0x10000000,0x0,0x10036000,0x0,0x0,0x0,0x400000,0x0,0x0,0x400000,0x10036000,0x20000,0x0,0x200000,0x0,0x10036000,0x10036000,0x10036000,0x0,0x0,0x80000000,0x10036000,0x10036000,0x10036000,0x400,0x0,0x0,0x0,0x10036000,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x10036000,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x16000,0x0,0x0,0x0,};
    }
    private static void jj_la1_init_1() {
-      jj_la1_1 = new int[] {0x8,0x4801,0x4801,0x4001581f,0x10080,0x80,0x80,0x0,0x0,0x0,0x4001101e,0x0,0x4001101e,0x4001101e,0x80000000,0x8,0x10000,0x4001101e,0x0,0x40000004,0x0,0x4001101e,0x80,0x0,0x0,0x0,0x0,0x0,0x0,0x4001101e,0x1002,0x200,0x0,0x0,0x4001101e,0x4001101e,0x4001101e,0x0,0x20000000,0x0,0x4001101e,0x4001101e,0x4001101e,0x0,0x0,0x0,0x0,0x4001101e,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x4001101e,0x80000000,0x0,0x0,0x0,0x0,0x0,0x80000000,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x80000000,0x80000000,0x0,0x0,0x8,0x0,0x0,0x0,};
+      jj_la1_1 = new int[] {0x8,0x4801,0x4801,0x4001581f,0x10080,0x80,0x80,0x0,0x0,0x0,0x4001101e,0x0,0x4001101e,0x4001101e,0x80000000,0x8,0x10000,0x4001101e,0x0,0x40000004,0x0,0x4001101e,0x80,0x0,0x0,0x0,0x0,0x0,0x0,0x4001101e,0x1002,0x200,0x0,0x0,0x4001101e,0x4001101e,0x4001101e,0x0,0x20000000,0x0,0x4001101e,0x4001101e,0x4001101e,0x0,0x0,0x0,0x0,0x4001101e,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x4001101e,0x80000000,0x0,0x0,0x0,0x0,0x0,0x80000000,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x80000000,0x80000000,0x0,0x80000000,0x0,0x0,0x8,0x0,0x0,0x0,};
    }
    private static void jj_la1_init_2() {
-      jj_la1_2 = new int[] {0x0,0x0,0x0,0x80000000,0x80000000,0x0,0x0,0x3c000,0x3c000,0x80000000,0x80000000,0x80000000,0x80000000,0x80000000,0x10bc040,0x0,0x80000000,0x80000000,0x0,0x0,0x0,0x80000000,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x80000000,0x0,0x0,0x0,0x0,0x80000000,0x80000000,0x80000000,0x0,0x0,0x0,0x80000000,0x80000000,0x80000000,0x0,0x0,0x0,0x0,0x80000000,0x40,0x10bc040,0x40,0x40,0xbc000,0x40,0x40,0x1000000,0x80000000,0x80000000,0x8000e002,0x40,0x40,0x40,0x40000002,0x2,0x8000e002,0x1c000000,0x1c000000,0x3f00000,0x3f00000,0x80000,0xc000,0xc000,0x30000,0x30000,0xe000,0xe000,0x8,0x8,0x80000002,0xc000e002,0x8,0x40,0x0,0x80000000,0x0,0x0,};
+      jj_la1_2 = new int[] {0x0,0x0,0x0,0x80000000,0x0,0x0,0x0,0x30000,0x30000,0x80000000,0x80000000,0x80000000,0x80000000,0x80000000,0x10bc040,0x0,0x80000000,0x80000000,0x0,0x0,0x0,0x80000000,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x80000000,0x0,0x0,0x0,0x0,0x80000000,0x80000000,0x80000000,0x0,0x0,0x0,0x80000000,0x80000000,0x80000000,0x0,0x0,0x0,0x0,0x80000000,0x40,0x10bc040,0x40,0x40,0xbc000,0x40,0x40,0x1000000,0x80000000,0x80000000,0xe002,0x40,0x40,0x40,0x40000002,0x2,0xe002,0x1c000000,0x1c000000,0x3f00000,0x3f00000,0x80000,0xc000,0xc000,0x30000,0x30000,0xe000,0xe000,0x18,0x0,0x18,0x4000e002,0x8,0x40,0x0,0x80000000,0x0,0x0,};
    }
    private static void jj_la1_init_3() {
-      jj_la1_3 = new int[] {0x0,0x0,0x0,0x3f00000,0x0,0x0,0x0,0x0,0x0,0x0,0x3f00000,0x0,0x3f00000,0x3f00000,0x0,0x0,0x0,0x3f00000,0x1f00000,0x2000000,0x80000,0x3f00000,0x0,0x40000,0x80000,0x0,0x40000,0x80000,0x0,0x3f00000,0x0,0x0,0x0,0x80000,0x3f00000,0x3f00000,0x3f00000,0x1,0x0,0x0,0x3f00000,0x3f00000,0x3f00000,0x0,0x20000000,0x8000000,0x80000,0x3f00000,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x3f00000,0x10e,0x0,0x0,0x0,0xfe,0xfe,0x10e,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x10e,0x10e,0x0,0x0,0x0,0x0,0xc,0xe,};
+      jj_la1_3 = new int[] {0x0,0x0,0x0,0x3f00000f,0x8,0x0,0x0,0x0,0x0,0xf,0x3f00000f,0xf,0x3f00000f,0x3f00000f,0x0,0x0,0xf,0x3f00000f,0x1f000000,0x20000000,0x800000,0x3f00000f,0x0,0x400000,0x800000,0x0,0x400000,0x800000,0x0,0x3f00000f,0x0,0x0,0x0,0x800000,0x3f00000f,0x3f00000f,0x3f00000f,0x10,0x0,0x0,0x3f00000f,0x3f00000f,0x3f00000f,0x0,0x0,0x80000000,0x800000,0x3f00000f,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0xf,0x3f00000f,0x10e8,0x0,0x0,0x0,0xfe0,0xfe0,0x10e8,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x10e8,0x0,0x10e8,0x0,0x0,0x0,0xf,0xc0,0xe0,};
    }
    private static void jj_la1_init_4() {
-      jj_la1_4 = new int[] {0x0,0x0,0x0,0x78,0x0,0x0,0x0,0x0,0x0,0x78,0x78,0x78,0x78,0x78,0x0,0x0,0x78,0x78,0x0,0x0,0x0,0x78,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x78,0x0,0x0,0x0,0x0,0x78,0x78,0x78,0x0,0x0,0x0,0x78,0x78,0x78,0x0,0x0,0x0,0x0,0x78,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x78,0x78,0x6,0x0,0x0,0x0,0x0,0x0,0x6,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x6,0x6,0x0,0x0,0x0,0x78,0x0,0x0,};
+      jj_la1_4 = new int[] {0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x2,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,};
    }
 
   /** Constructor with InputStream. */
@@ -2141,7 +2118,7 @@ void ScopeModifier() throws ParseException {
   /** Generate ParseException. */
   public ParseException generateParseException() {
     jj_expentries.clear();
-    boolean[] la1tokens = new boolean[135];
+    boolean[] la1tokens = new boolean[133];
     if (jj_kind >= 0) {
       la1tokens[jj_kind] = true;
       jj_kind = -1;
@@ -2167,7 +2144,7 @@ void ScopeModifier() throws ParseException {
         }
       }
     }
-    for (int i = 0; i < 135; i++) {
+    for (int i = 0; i < 133; i++) {
       if (la1tokens[i]) {
         jj_expentry = new int[1];
         jj_expentry[0] = i;

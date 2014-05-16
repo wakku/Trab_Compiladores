@@ -225,13 +225,24 @@ TOKEN : {
   | <END_SYMBOL : "$">
 }
 
+
+/*****************************************
+        VARIAVEIS PRE-DEFINIDAS
+*****************************************/
+TOKEN : {
+    < ATOM      : "atom" >
+  | < INT       : "integer" >
+  | < SEQUENCE  : "sequence" >
+  | < OBJECT    : "object" >
+}
+
 /*****************************************
             IDENTIFICADORES
 *****************************************/
 TOKEN : { 
       < IDENTIFIER : ( ["a"-"z", "A"-"Z"] | "_" ) ( ["a"-"z", "A"-"Z"] | ["0"-"9"] | "_" )* > 
     //| < CHAR : (["a"-"z", "A"-"Z"] | ["0"-"9"] | "_" | "%" | "&" | "$" | "*" )+ > // adicionar caracteres especiais!!!!!
-      | < CHAR : (<IDENTIFIER> | "_" | "%" | "&" | "$" | "*" )+ >
+      | < CHAR : (<IDENTIFIER> | <FLOAT> | <EXP> | <INTEGER> | "_" | "%" | "&" | "$" | "*" )+ >
 }
 
 /*****************************************
@@ -472,19 +483,19 @@ void javacc_input() :
             void EnumVal() :
             {}
             {
-              (<BY> EnumDelta())? IdentList()
+              (EnumDelta())? IdentList()
             }
 
             void EnumType() :
             {}
             {
-              <TYPE> (<BY> EnumDelta())? IdentList() <END> <TYPE>
+              <TYPE> (EnumDelta())? IdentList() <END> <TYPE>
             }
 
                   void EnumDelta() :
                   {}
                   {
-                    (<PLUS> | <MINUS> | <STAR> | <SLASH>)? Expression()              
+                    <BY> /*(<PLUS> | <MINUS> |*/( <STAR> | <SLASH>)? Expression()  // !!!!!!!!!!!!!!!!            
                   }
 
       void ProcDeclare() : 
@@ -511,8 +522,8 @@ void javacc_input() :
             Flow() 
           | Loop()
           | Branch()
-          | <IDENTIFIER> (Assignment() | Call())
           | Return()
+          | <IDENTIFIER> (Assignment() | Call())
           | (ScopeModifier())? ( VarDeclare() | TypeDeclare() )
       }
 
@@ -641,14 +652,14 @@ void javacc_input() :
             void Assignment() :
             {}
             {
-              AssignmentMono() | AssignmentMulti() | AssignmentWihOp()
+              /*AssignmentMono() |*/ AssignmentMulti() | AssignmentWihOp()
             }
 
-                  void AssignmentMono() :
+                  /*void AssignmentMono() :
                   {}
                   {
                     <EQUAL> Expression() 
-                  }
+                  }*/
 
                   void AssignmentMulti() :
                   {}
@@ -771,21 +782,26 @@ void Expression05() :
 void Expression06() :
 {}
 {
-  Atom() | <STRINGLIT> | Sequence() | "0" | "1" |  (<LPAREN> Expression() <RPAREN>) | <IDENTIFIER> (Slice() | Subscripting())? | Call()
+  Atom() | <STRINGLIT> | (<LPAREN> Expression() <RPAREN>) | <IDENTIFIER> (Call() | Variable())
 }
 
 
-            // LOAKAHED HERE COM O LBRACKET E EXPRESSION??? mas e a repetição??? !!!!!!!!!!
+      void Variable() :
+      {}
+      {
+        <LBRACKET> Expression() Slice() | Subscripting()
+      }
+
             void Slice() :
             {}
             {
-              <LBRACKET> Expression() <SLICE> ( Expression() | <END_SYMBOL>) <RBRACKET>
+              <SLICE> ( Expression() | <END_SYMBOL>) <RBRACKET>
             }
 
             void Subscripting() :
             {}
             {
-              ( Index() )+
+              <RBRACKET> ( Index() )*
             }
 
                   void Index() :
@@ -820,7 +836,7 @@ void ScopeModifier() :
 void DataType() :
 {}
 {
-  "atom" | "integer" | "sequence" | "object" | <IDENTIFIER>
+  <ATOM> | <INT> | <SEQUENCE> | <OBJECT> | <IDENTIFIER>
 }
 
 void Real() :
@@ -834,6 +850,7 @@ void Atom() :
 {
   <INTEGER> | Real()
 }
+
 
 
 
