@@ -374,12 +374,12 @@ TOKEN : {
     < WITHFALL   : (<WITH> | <WITHOUT>) <FALLTHRU> >
   | < ENDSWITCH : <END> <SWITCH> >
 }
-
+/*
 TOKEN : {
    // < CASESTMT  : <CASE> <CASELIST> <THEN> (<STMBLK>)? >
    // < CASELIST  : <EXPRESSION> (<COMMA> <EXPRESSION>)* >
     < CASEELSE  : <CASE> <ELSE> >
-}
+}*/
 
 TOKEN : {
     //< IFDEFSTMT     : <IFDEFTEST> (<ELSDEFIFSTMT> (<CHAR>)+)? (<ELSEDEFSTMT>)? <ENDDEFIF> >
@@ -459,11 +459,12 @@ TOKEN : {
 void javacc_input() :
 {}
 {
-  //( <INCLUDESTMT> )?
-
-    stmblk()
+      stmblk()
   | 
-      (ScopeModifier())? (ConstantDeclare() | EnumDeclare() | ProcDeclare() | FuncDeclare() )+
+      (ScopeModifier())? (ConstantDeclare() | EnumDeclare() | ProcDeclare() | FuncDeclare() )+ //| VarDeclare() | TypeDeclare() )+ 
+      // !!!!!! VarDeclare() | TypeDeclare() podem estar aninhados
+  //| 
+      //Flow()
 
   <EOF>
 }
@@ -483,20 +484,20 @@ void javacc_input() :
             void EnumVal() :
             {}
             {
-              (EnumDelta())? IdentList()
+              /*(EnumDelta())?*/ IdentList() // !!!!!!!!
             }
 
             void EnumType() :
             {}
             {
-              <TYPE> (EnumDelta())? IdentList() <END> <TYPE>
+              <TYPE> /*(EnumDelta())?*/ IdentList() <END> <TYPE>
             }
 
-                  void EnumDelta() :
-                  {}
-                  {
-                    <BY> /*(<PLUS> | <MINUS> |*/( <STAR> | <SLASH>)? Expression()  // !!!!!!!!!!!!!!!!            
-                  }
+                  //void EnumDelta() :
+                  //{}
+                  //{
+                  //  <BY> /*(<PLUS> | <MINUS> |*/( <STAR> | <SLASH>)? Expression()  // !!!!!!!!!!!!!!!!            
+                  //}
 
       void ProcDeclare() : 
       {}
@@ -519,12 +520,12 @@ void javacc_input() :
       void statement() :
       {}
       {
-            Flow() 
+            Flow() //- !!!!! pode estar dentro de outras funcoes!
           | Loop()
           | Branch()
           | Return()
           | <IDENTIFIER> (Assignment() | Call())
-          | (ScopeModifier())? ( VarDeclare() | TypeDeclare() )
+          | (ScopeModifier())? ( VarDeclare() | TypeDeclare() ) //!!!!!!!!!!!
       }
 
             void Flow() :
@@ -627,7 +628,7 @@ void javacc_input() :
                   void SwitchStatement() :
                   {}
                   {
-                    SwitchTest() CaseStatement() (CaseStatement())* (<CASEELSE>)? <ENDSWITCH>
+                    SwitchTest() CaseStatement() (CaseStatement())* (<ELSE> ( stmblk() )? )? <ENDSWITCH>
                   }
 
                         void SwitchTest() :
@@ -723,8 +724,10 @@ void javacc_input() :
 void Sequence() :
 {}
 {
-  <LBRACE> (<END_SYMBOL> | Object() (<COMMA> Object())* (<COMMA> <END_SYMBOL>)? ) <RBRACE> 
+  // USE LOOKAHED
+  <LBRACE> ( <END_SYMBOL> | Object() (<COMMA> Object())* (<COMMA> <END_SYMBOL>)? )? <RBRACE> 
 }
+
 
       void Object() :
       {}

@@ -253,13 +253,11 @@ public interface MeuphoriaConstants {
   /** RegularExpression Id. */
   int ENDSWITCH = 128;
   /** RegularExpression Id. */
-  int CASEELSE = 129;
+  int ENDDEFIF = 129;
   /** RegularExpression Id. */
-  int ENDDEFIF = 130;
+  int DEFEXPR = 130;
   /** RegularExpression Id. */
-  int DEFEXPR = 131;
-  /** RegularExpression Id. */
-  int DEFTERM = 132;
+  int DEFTERM = 131;
 
   /** Lexical state. */
   int DEFAULT = 0;
@@ -397,7 +395,6 @@ public interface MeuphoriaConstants {
     "<ENDIF>",
     "<WITHFALL>",
     "<ENDSWITCH>",
-    "<CASEELSE>",
     "<ENDDEFIF>",
     "<DEFEXPR>",
     "<DEFTERM>",
