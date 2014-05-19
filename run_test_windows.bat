@@ -16,7 +16,7 @@ javac *.java
 @echo Rodando os testes
 @echo.
 
-
+cd..
 cd test_cases
 
 rmdir resultados /S /Q
