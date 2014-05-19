@@ -23,7 +23,6 @@ Nome:
 *****************************************/
 options {
   STATIC = false;
-  LOOKAHEAD = 1;
 }
 
 /*****************************************
@@ -55,7 +54,8 @@ class Meuphoria {
 			System.out.println(String.format("%-15s %-20s <EOL>", location, nomeToken));
         else
 			System.out.println(String.format("%-15s %-20s %s", location, nomeToken, t.image));
-    } while (nomeToken.equals("<EOF>")); // Termina o loop se EOF
+    } while (!(nomeToken.equals("<EOF>"))); // Termina o loop se EOF
+    System.out.println(String.format("%s", t.image));
   }
 
   /** Main entry point. */
@@ -65,13 +65,12 @@ class Meuphoria {
       // Define o analisador lexico de acordo com a entrada do sistema
       Meuphoria analisadorlexico = new Meuphoria(System.in);
       // Roda o loop de processamento enquanto não encontrar EOF
-      //analisadorlexico.processa();
+      analisadorlexico.processa();
       // Processamento finalizado
-      //System.out.println("Analisado com sucesso!");
+      System.out.println("Analisado com sucesso!");
 
-      analisadorlexico.javacc_input();
+      //analisadorlexico.javacc_input();
       //System.out.println("input... ");
-
     }
     catch(ParseException e)
     {
@@ -239,8 +238,8 @@ TOKEN : {
 *****************************************/
 TOKEN : { 
       < IDENTIFIER : ( ["a"-"z", "A"-"Z"] | "_" ) ( ["a"-"z", "A"-"Z"] | ["0"-"9"] | "_" )* > 
-    //| < CHAR : (["a"-"z", "A"-"Z"] | ["0"-"9"] | "_" | "%" | "&" | "$" | "*" )+ > // adicionar caracteres especiais!!!!!
-      | < CHAR : (<IDENTIFIER> | <FLOAT> | <EXP> | <INTEGER> | "_" | "%" | "&" | "$" | "*" )+ > //tá erradoooo, char não é identifier nem float...
+    | < CHAR : (["a"-"z", "A"-"Z"] | ["0"-"9"] | "_" | "%" | "&" | "$" | "*" )+ > // adicionar caracteres especiais!!!!!
+    //| < CHAR : (<IDENTIFIER> | <FLOAT> | <EXP> | <INTEGER> | "_" | "%" | "&" | "$" | "*" ) > //tá erradoooo, char não é identifier nem float...
 }
 
 /*****************************************
@@ -463,12 +462,15 @@ void javacc_input() :
 {}
 {
     
-      LOOKAHEAD(2) stmblk() | (ScopeModifier())? (ConstantDeclare() | EnumDeclare() | ProcDeclare() | FuncDeclare() )+ //| VarDeclare() | TypeDeclare() )+ 
-      // !!!!!! VarDeclare() | TypeDeclare() podem estar aninhados
-  //| 
-      //Flow()
-
-  <EOF>
+      ( 
+          stmblk() 
+          //| (ScopeModifier())? (ConstantDeclare() | EnumDeclare() | ProcDeclare() | FuncDeclare() )+ //| VarDeclare() | TypeDeclare() )+
+          // !!!!!! VarDeclare() | TypeDeclare() podem estar aninhados
+          //| 
+          //Flow()
+      )*
+      <EOF>
+      
 }
 
       void ConstantDeclare() :
@@ -516,7 +518,7 @@ void javacc_input() :
       void stmblk() :
       {}
       {
-          ( statement() )+
+          ( LOOKAHEAD(2) statement() )+
       }
 
       void statement() :
@@ -526,7 +528,7 @@ void javacc_input() :
           | Loop()
           | Branch()
           | Return()
-         // | LOOKAHEAD(2) <IDENTIFIER> (Assignment() | Call())
+          | LOOKAHEAD(2) <IDENTIFIER> (Assignment() | Call())
           | (ScopeModifier())? ( VarDeclare() | TypeDeclare() ) //!!!!!!!!!!!
       }
 
