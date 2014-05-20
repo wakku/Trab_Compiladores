@@ -354,14 +354,150 @@ Call:   javacc_input
                                               Consumed token: <"\n": "
 " at line 3 column 16>
                                             Return: stmblk
-                                          Return: WhileStatement
-                                        Return: Loop
-                                      Return: statement
-                                    Return: stmblk
-                                  Return: javacc_input
-Encountered " <IDENTIFIER> "printf "" at line 4, column 4.
-Was expecting one of:
-    "end" ...
-    "entry" ...
-    
-Ocorreu uma excecao!
+                                            Call:   stmblk
+                                              Call:   statement
+                                                Visited token: <<IDENTIFIER>: "printf" at line 4 column 4>; Expected token: <<IDENTIFIER>>
+                                                Call:   Assignment(LOOKING AHEAD...)
+                                                  Call:   AssignmentMulti(LOOKING AHEAD...)
+                                                    Call:   Variable(LOOKING AHEAD...)
+                                                      Visited token: <"(" at line 4 column 10>; Expected token: <"[">
+                                                    Return: Variable(LOOKAHEAD FAILED)
+                                                    Visited token: <"(" at line 4 column 10>; Expected token: <",">
+                                                    Visited token: <"(" at line 4 column 10>; Expected token: <"=">
+                                                  Return: AssignmentMulti(LOOKAHEAD FAILED)
+                                                  Call:   AssignmentWihOp(LOOKING AHEAD...)
+                                                    Visited token: <"(" at line 4 column 10>; Expected token: <"+">
+                                                    Visited token: <"(" at line 4 column 10>; Expected token: <"-">
+                                                    Visited token: <"(" at line 4 column 10>; Expected token: <"/">
+                                                    Visited token: <"(" at line 4 column 10>; Expected token: <"*">
+                                                    Visited token: <"(" at line 4 column 10>; Expected token: <"&">
+                                                  Return: AssignmentWihOp(LOOKAHEAD FAILED)
+                                                Return: Assignment(LOOKAHEAD FAILED)
+                                                Call:   Call(LOOKING AHEAD...)
+                                                  Visited token: <"(" at line 4 column 10>; Expected token: <"(">
+                                                  Consumed token: <<IDENTIFIER>: "printf" at line 4 column 4>
+                                                  Call:   Call
+                                                    Consumed token: <"(" at line 4 column 10>
+                                                    Call:   ArgList
+                                                      Call:   Expression
+                                                        Call:   Expression00
+                                                          Call:   Expression01
+                                                            Call:   Expression02
+                                                              Call:   Expression03
+                                                                Call:   Expression04
+                                                                  Call:   Expression05
+                                                                    Call:   Expression06
+                                                                      Call:   Atom
+                                                                        Consumed token: <<INTEGER>: "1" at line 4 column 11>
+                                                                      Return: Atom
+                                                                    Return: Expression06
+                                                                  Return: Expression05
+                                                                Return: Expression04
+                                                              Return: Expression03
+                                                            Return: Expression02
+                                                          Return: Expression01
+                                                        Return: Expression00
+                                                      Return: Expression
+                                                      Consumed token: <"," at line 4 column 12>
+                                                      Call:   Expression
+                                                        Call:   Expression00
+                                                          Call:   Expression01
+                                                            Call:   Expression02
+                                                              Call:   Expression03
+                                                                Call:   Expression04
+                                                                  Call:   Expression05
+                                                                    Call:   Expression06
+                                                                      Consumed token: <<STRINGLIT>: ""Valor de a : %d\n"" at line 4 column 14>
+                                                                    Return: Expression06
+                                                                  Return: Expression05
+                                                                Return: Expression04
+                                                              Return: Expression03
+                                                            Return: Expression02
+                                                          Return: Expression01
+                                                        Return: Expression00
+                                                      Return: Expression
+                                                      Consumed token: <"," at line 4 column 33>
+                                                      Call:   Expression
+                                                        Call:   Expression00
+                                                          Call:   Expression01
+                                                            Call:   Expression02
+                                                              Call:   Expression03
+                                                                Call:   Expression04
+                                                                  Call:   Expression05
+                                                                    Call:   Expression06
+                                                                      Consumed token: <<IDENTIFIER>: "a" at line 4 column 35>
+                                                                    Return: Expression06
+                                                                  Return: Expression05
+                                                                Return: Expression04
+                                                              Return: Expression03
+                                                            Return: Expression02
+                                                          Return: Expression01
+                                                        Return: Expression00
+                                                      Return: Expression
+                                                    Return: ArgList
+                                                    Consumed token: <")" at line 4 column 36>
+                                                  Return: Call
+                                                Return: statement
+                                              Return: stmblk
+                                              Call:   stmblk
+                                                Consumed token: <"\n": "
+" at line 4 column 37>
+                                              Return: stmblk
+                                              Call:   stmblk
+                                                Call:   statement
+                                                  Visited token: <<IDENTIFIER>: "a" at line 5 column 4>; Expected token: <<IDENTIFIER>>
+                                                  Call:   Assignment(LOOKING AHEAD...)
+                                                    Call:   AssignmentMulti(LOOKING AHEAD...)
+                                                      Call:   Variable(LOOKING AHEAD...)
+                                                        Visited token: <"=" at line 5 column 6>; Expected token: <"[">
+                                                      Return: Variable(LOOKAHEAD FAILED)
+                                                      Visited token: <"=" at line 5 column 6>; Expected token: <",">
+                                                      Visited token: <"=" at line 5 column 6>; Expected token: <"=">
+                                                      Consumed token: <<IDENTIFIER>: "a" at line 5 column 4>
+                                                      Call:   Assignment
+                                                        Call:   AssignmentMulti
+                                                          Consumed token: <"=" at line 5 column 6>
+                                                          Call:   Expression
+                                                            Call:   Expression00
+                                                              Call:   Expression01
+                                                                Call:   Expression02
+                                                                  Call:   Expression03
+                                                                    Call:   Expression04
+                                                                      Call:   Expression05
+                                                                        Call:   Expression06
+                                                                          Consumed token: <<IDENTIFIER>: "a" at line 5 column 8>
+                                                                        Return: Expression06
+                                                                      Return: Expression05
+                                                                    Return: Expression04
+                                                                    Consumed token: <"+" at line 5 column 10>
+                                                                    Call:   Expression04
+                                                                      Call:   Expression05
+                                                                        Call:   Expression06
+                                                                          Call:   Atom
+                                                                            Consumed token: <<INTEGER>: "1" at line 5 column 12>
+                                                                          Return: Atom
+                                                                        Return: Expression06
+                                                                      Return: Expression05
+                                                                    Return: Expression04
+                                                                  Return: Expression03
+                                                                Return: Expression02
+                                                              Return: Expression01
+                                                            Return: Expression00
+                                                          Return: Expression
+                                                        Return: AssignmentMulti
+                                                      Return: Assignment
+                                                    Return: statement
+                                                  Return: stmblk
+                                                  Call:   stmblk
+                                                    Consumed token: <"\n": "
+" at line 5 column 13>
+                                                  Return: stmblk
+                                                  Consumed token: <"end" at line 6 column 1>
+                                                  Consumed token: <"while" at line 6 column 5>
+                                                Return: WhileStatement
+                                              Return: Loop
+                                            Return: statement
+                                          Return: stmblk
+                                          Consumed token: <<EOF> at line 6 column 9>
+                                        Return: javacc_input
+input... 

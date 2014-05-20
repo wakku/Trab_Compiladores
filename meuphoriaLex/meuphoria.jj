@@ -597,13 +597,13 @@ void javacc_input() :
                   void WhileStatement() :
                   {}
                   {
-                    <WHILE> Expression() (<WITHENTRY>)? (<LABELSTMT>)? <DO> stmblk() (EntryStatement())? <END> <WHILE>
+                    <WHILE> Expression() (<WITHENTRY>)? (<LABELSTMT>)? <DO> (stmblk())* (EntryStatement())? <END> <WHILE>
                   }
 
                   void LoopStatement() :
                   {}
                   {
-                    <LOOP> (<WITHENTRY>)? (<LABELSTMT>)? <DO> stmblk() (EntryStatement())? <UNTIL> Expression() <END> <LOOP>
+                    <LOOP> (<WITHENTRY>)? (<LABELSTMT>)? <DO> (stmblk())* (EntryStatement())? <UNTIL> Expression() <END> <LOOP>
                   }
 
                         void EntryStatement() :
