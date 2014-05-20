@@ -10,7 +10,7 @@ enum ONE, TWO, THREE, FOUR 	-- Enumerar
 
 
 printf(1, "Valor de tempo %d\n", tempo)
-printf(1, "Valor de miles %f\n", distancia)
+printf(1, "Valor de miles %f\n", distancia )
 printf(1, "Valor de nome %s\n", {nome} )
 printf(1, "Valor de ONE %d\n", ONE )
 printf(1, "Valor de TWO %d\n", TWO )

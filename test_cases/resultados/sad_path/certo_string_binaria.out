@@ -43,6 +43,9 @@ Call:   javacc_input
       Visited token: <<IDENTIFIER>: "drb" at line 1 column 1>; Expected token: <<IDENTIFIER>>
       Call:   Assignment(LOOKING AHEAD...)
         Call:   AssignmentMulti(LOOKING AHEAD...)
+          Call:   Variable(LOOKING AHEAD...)
+            Visited token: <<STRINGLIT>: ""1 10 110100 0101011001111000"" at line 1 column 4>; Expected token: <"[">
+          Return: Variable(LOOKAHEAD FAILED)
           Visited token: <<STRINGLIT>: ""1 10 110100 0101011001111000"" at line 1 column 4>; Expected token: <",">
           Visited token: <<STRINGLIT>: ""1 10 110100 0101011001111000"" at line 1 column 4>; Expected token: <"=">
         Return: AssignmentMulti(LOOKAHEAD FAILED)

@@ -49,6 +49,9 @@ Call:   javacc_input
       Visited token: <<IDENTIFIER>: "puts" at line 4 column 1>; Expected token: <<IDENTIFIER>>
       Call:   Assignment(LOOKING AHEAD...)
         Call:   AssignmentMulti(LOOKING AHEAD...)
+          Call:   Variable(LOOKING AHEAD...)
+            Visited token: <"(" at line 4 column 5>; Expected token: <"[">
+          Return: Variable(LOOKAHEAD FAILED)
           Visited token: <"(" at line 4 column 5>; Expected token: <",">
           Visited token: <"(" at line 4 column 5>; Expected token: <"=">
         Return: AssignmentMulti(LOOKAHEAD FAILED)
@@ -67,6 +70,9 @@ Call:   javacc_input
             Visited token: <<IDENTIFIER>: "puts" at line 4 column 1>; Expected token: <<IDENTIFIER>>
             Call:   Assignment(LOOKING AHEAD...)
               Call:   AssignmentMulti(LOOKING AHEAD...)
+                Call:   Variable(LOOKING AHEAD...)
+                  Visited token: <"(" at line 4 column 5>; Expected token: <"[">
+                Return: Variable(LOOKAHEAD FAILED)
                 Visited token: <"(" at line 4 column 5>; Expected token: <",">
                 Visited token: <"(" at line 4 column 5>; Expected token: <"=">
               Return: AssignmentMulti(LOOKAHEAD FAILED)

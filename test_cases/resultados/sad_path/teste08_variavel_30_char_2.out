@@ -119,6 +119,9 @@ Call:   javacc_input
                 Visited token: <<IDENTIFIER>: "EssaVariavelTemMaisDeTrintaCaracteres" at line 3 column 1>; Expected token: <<IDENTIFIER>>
                 Call:   Assignment(LOOKING AHEAD...)
                   Call:   AssignmentMulti(LOOKING AHEAD...)
+                    Call:   Variable(LOOKING AHEAD...)
+                      Visited token: <"=" at line 3 column 39>; Expected token: <"[">
+                    Return: Variable(LOOKAHEAD FAILED)
                     Visited token: <"=" at line 3 column 39>; Expected token: <",">
                     Visited token: <"=" at line 3 column 39>; Expected token: <"=">
                     Call:   stmblk
@@ -126,6 +129,9 @@ Call:   javacc_input
                         Visited token: <<IDENTIFIER>: "EssaVariavelTemMaisDeTrintaCaracteres" at line 3 column 1>; Expected token: <<IDENTIFIER>>
                         Call:   Assignment(LOOKING AHEAD...)
                           Call:   AssignmentMulti(LOOKING AHEAD...)
+                            Call:   Variable(LOOKING AHEAD...)
+                              Visited token: <"=" at line 3 column 39>; Expected token: <"[">
+                            Return: Variable(LOOKAHEAD FAILED)
                             Visited token: <"=" at line 3 column 39>; Expected token: <",">
                             Visited token: <"=" at line 3 column 39>; Expected token: <"=">
                             Consumed token: <<IDENTIFIER>: "EssaVariavelTemMaisDeTrintaCaracteres" at line 3 column 1>
@@ -201,6 +207,9 @@ Call:   javacc_input
                             Visited token: <<IDENTIFIER>: "printf" at line 5 column 1>; Expected token: <<IDENTIFIER>>
                             Call:   Assignment(LOOKING AHEAD...)
                               Call:   AssignmentMulti(LOOKING AHEAD...)
+                                Call:   Variable(LOOKING AHEAD...)
+                                  Visited token: <"(" at line 5 column 7>; Expected token: <"[">
+                                Return: Variable(LOOKAHEAD FAILED)
                                 Visited token: <"(" at line 5 column 7>; Expected token: <",">
                                 Visited token: <"(" at line 5 column 7>; Expected token: <"=">
                               Return: AssignmentMulti(LOOKAHEAD FAILED)
@@ -219,6 +228,9 @@ Call:   javacc_input
                                   Visited token: <<IDENTIFIER>: "printf" at line 5 column 1>; Expected token: <<IDENTIFIER>>
                                   Call:   Assignment(LOOKING AHEAD...)
                                     Call:   AssignmentMulti(LOOKING AHEAD...)
+                                      Call:   Variable(LOOKING AHEAD...)
+                                        Visited token: <"(" at line 5 column 7>; Expected token: <"[">
+                                      Return: Variable(LOOKAHEAD FAILED)
                                       Visited token: <"(" at line 5 column 7>; Expected token: <",">
                                       Visited token: <"(" at line 5 column 7>; Expected token: <"=">
                                     Return: AssignmentMulti(LOOKAHEAD FAILED)
@@ -277,24 +289,21 @@ Call:   javacc_input
                                         Call:   Expression
                                           Call:   Sequence
                                             Consumed token: <"{" at line 5 column 37>
+                                            Visited token: <<IDENTIFIER>: "EssaVariavelTemMaisDeTrintaCaracteres" at line 5 column 38>; Expected token: <"$">
+                                            Call:   Object
+                                              Consumed token: <<IDENTIFIER>: "EssaVariavelTemMaisDeTrintaCaracteres" at line 5 column 38>
+                                            Return: Object
+                                            Visited token: <"}" at line 5 column 75>; Expected token: <",">
+                                            Consumed token: <"}" at line 5 column 75>
                                           Return: Sequence
                                         Return: Expression
                                       Return: ArgList
+                                      Consumed token: <")" at line 5 column 76>
                                     Return: Call
                                   Return: statement
                                 Return: stmblk
+                                Consumed token: <"\n": "
+" at line 5 column 77>
+                                Consumed token: <<EOF> at line 5 column 77>
                               Return: javacc_input
-Encountered " <IDENTIFIER> "EssaVariavelTemMaisDeTrintaCaracteres "" at line 5, column 38.
-Was expecting one of:
-    "{" ...
-    "}" ...
-    "$" ...
-    <INTEGER> ...
-    <FLOAT> ...
-    <EXP> ...
-    <BIN_NUMBER> ...
-    <OCT_NUMBER> ...
-    <DEC_NUMBER> ...
-    <HEX_NUMBER> ...
-    
-Ocorreu uma excecao!
+input... 

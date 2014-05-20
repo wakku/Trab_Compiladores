@@ -43,6 +43,9 @@ Call:   javacc_input
       Visited token: <<IDENTIFIER>: "printf" at line 1 column 1>; Expected token: <<IDENTIFIER>>
       Call:   Assignment(LOOKING AHEAD...)
         Call:   AssignmentMulti(LOOKING AHEAD...)
+          Call:   Variable(LOOKING AHEAD...)
+            Visited token: <"(" at line 1 column 7>; Expected token: <"[">
+          Return: Variable(LOOKAHEAD FAILED)
           Visited token: <"(" at line 1 column 7>; Expected token: <",">
           Visited token: <"(" at line 1 column 7>; Expected token: <"=">
         Return: AssignmentMulti(LOOKAHEAD FAILED)
@@ -61,6 +64,9 @@ Call:   javacc_input
             Visited token: <<IDENTIFIER>: "printf" at line 1 column 1>; Expected token: <<IDENTIFIER>>
             Call:   Assignment(LOOKING AHEAD...)
               Call:   AssignmentMulti(LOOKING AHEAD...)
+                Call:   Variable(LOOKING AHEAD...)
+                  Visited token: <"(" at line 1 column 7>; Expected token: <"[">
+                Return: Variable(LOOKAHEAD FAILED)
                 Visited token: <"(" at line 1 column 7>; Expected token: <",">
                 Visited token: <"(" at line 1 column 7>; Expected token: <"=">
               Return: AssignmentMulti(LOOKAHEAD FAILED)
@@ -166,6 +172,9 @@ Call:   javacc_input
               Visited token: <<IDENTIFIER>: "printf" at line 2 column 1>; Expected token: <<IDENTIFIER>>
               Call:   Assignment(LOOKING AHEAD...)
                 Call:   AssignmentMulti(LOOKING AHEAD...)
+                  Call:   Variable(LOOKING AHEAD...)
+                    Visited token: <"(" at line 2 column 7>; Expected token: <"[">
+                  Return: Variable(LOOKAHEAD FAILED)
                   Visited token: <"(" at line 2 column 7>; Expected token: <",">
                   Visited token: <"(" at line 2 column 7>; Expected token: <"=">
                 Return: AssignmentMulti(LOOKAHEAD FAILED)
@@ -184,6 +193,9 @@ Call:   javacc_input
                     Visited token: <<IDENTIFIER>: "printf" at line 2 column 1>; Expected token: <<IDENTIFIER>>
                     Call:   Assignment(LOOKING AHEAD...)
                       Call:   AssignmentMulti(LOOKING AHEAD...)
+                        Call:   Variable(LOOKING AHEAD...)
+                          Visited token: <"(" at line 2 column 7>; Expected token: <"[">
+                        Return: Variable(LOOKAHEAD FAILED)
                         Visited token: <"(" at line 2 column 7>; Expected token: <",">
                         Visited token: <"(" at line 2 column 7>; Expected token: <"=">
                       Return: AssignmentMulti(LOOKAHEAD FAILED)
@@ -289,6 +301,9 @@ Call:   javacc_input
                       Visited token: <<IDENTIFIER>: "printf" at line 3 column 1>; Expected token: <<IDENTIFIER>>
                       Call:   Assignment(LOOKING AHEAD...)
                         Call:   AssignmentMulti(LOOKING AHEAD...)
+                          Call:   Variable(LOOKING AHEAD...)
+                            Visited token: <"(" at line 3 column 7>; Expected token: <"[">
+                          Return: Variable(LOOKAHEAD FAILED)
                           Visited token: <"(" at line 3 column 7>; Expected token: <",">
                           Visited token: <"(" at line 3 column 7>; Expected token: <"=">
                         Return: AssignmentMulti(LOOKAHEAD FAILED)
@@ -307,6 +322,9 @@ Call:   javacc_input
                             Visited token: <<IDENTIFIER>: "printf" at line 3 column 1>; Expected token: <<IDENTIFIER>>
                             Call:   Assignment(LOOKING AHEAD...)
                               Call:   AssignmentMulti(LOOKING AHEAD...)
+                                Call:   Variable(LOOKING AHEAD...)
+                                  Visited token: <"(" at line 3 column 7>; Expected token: <"[">
+                                Return: Variable(LOOKAHEAD FAILED)
                                 Visited token: <"(" at line 3 column 7>; Expected token: <",">
                                 Visited token: <"(" at line 3 column 7>; Expected token: <"=">
                               Return: AssignmentMulti(LOOKAHEAD FAILED)
@@ -412,6 +430,9 @@ Call:   javacc_input
                               Visited token: <<IDENTIFIER>: "printf" at line 4 column 1>; Expected token: <<IDENTIFIER>>
                               Call:   Assignment(LOOKING AHEAD...)
                                 Call:   AssignmentMulti(LOOKING AHEAD...)
+                                  Call:   Variable(LOOKING AHEAD...)
+                                    Visited token: <"(" at line 4 column 7>; Expected token: <"[">
+                                  Return: Variable(LOOKAHEAD FAILED)
                                   Visited token: <"(" at line 4 column 7>; Expected token: <",">
                                   Visited token: <"(" at line 4 column 7>; Expected token: <"=">
                                 Return: AssignmentMulti(LOOKAHEAD FAILED)
@@ -430,6 +451,9 @@ Call:   javacc_input
                                     Visited token: <<IDENTIFIER>: "printf" at line 4 column 1>; Expected token: <<IDENTIFIER>>
                                     Call:   Assignment(LOOKING AHEAD...)
                                       Call:   AssignmentMulti(LOOKING AHEAD...)
+                                        Call:   Variable(LOOKING AHEAD...)
+                                          Visited token: <"(" at line 4 column 7>; Expected token: <"[">
+                                        Return: Variable(LOOKAHEAD FAILED)
                                         Visited token: <"(" at line 4 column 7>; Expected token: <",">
                                         Visited token: <"(" at line 4 column 7>; Expected token: <"=">
                                       Return: AssignmentMulti(LOOKAHEAD FAILED)
@@ -535,6 +559,9 @@ Call:   javacc_input
                                       Visited token: <<IDENTIFIER>: "printf" at line 5 column 1>; Expected token: <<IDENTIFIER>>
                                       Call:   Assignment(LOOKING AHEAD...)
                                         Call:   AssignmentMulti(LOOKING AHEAD...)
+                                          Call:   Variable(LOOKING AHEAD...)
+                                            Visited token: <"(" at line 5 column 7>; Expected token: <"[">
+                                          Return: Variable(LOOKAHEAD FAILED)
                                           Visited token: <"(" at line 5 column 7>; Expected token: <",">
                                           Visited token: <"(" at line 5 column 7>; Expected token: <"=">
                                         Return: AssignmentMulti(LOOKAHEAD FAILED)
@@ -553,6 +580,9 @@ Call:   javacc_input
                                             Visited token: <<IDENTIFIER>: "printf" at line 5 column 1>; Expected token: <<IDENTIFIER>>
                                             Call:   Assignment(LOOKING AHEAD...)
                                               Call:   AssignmentMulti(LOOKING AHEAD...)
+                                                Call:   Variable(LOOKING AHEAD...)
+                                                  Visited token: <"(" at line 5 column 7>; Expected token: <"[">
+                                                Return: Variable(LOOKAHEAD FAILED)
                                                 Visited token: <"(" at line 5 column 7>; Expected token: <",">
                                                 Visited token: <"(" at line 5 column 7>; Expected token: <"=">
                                               Return: AssignmentMulti(LOOKAHEAD FAILED)
@@ -658,6 +688,9 @@ Call:   javacc_input
                                               Visited token: <<IDENTIFIER>: "printf" at line 6 column 1>; Expected token: <<IDENTIFIER>>
                                               Call:   Assignment(LOOKING AHEAD...)
                                                 Call:   AssignmentMulti(LOOKING AHEAD...)
+                                                  Call:   Variable(LOOKING AHEAD...)
+                                                    Visited token: <"(" at line 6 column 7>; Expected token: <"[">
+                                                  Return: Variable(LOOKAHEAD FAILED)
                                                   Visited token: <"(" at line 6 column 7>; Expected token: <",">
                                                   Visited token: <"(" at line 6 column 7>; Expected token: <"=">
                                                 Return: AssignmentMulti(LOOKAHEAD FAILED)
@@ -676,6 +709,9 @@ Call:   javacc_input
                                                     Visited token: <<IDENTIFIER>: "printf" at line 6 column 1>; Expected token: <<IDENTIFIER>>
                                                     Call:   Assignment(LOOKING AHEAD...)
                                                       Call:   AssignmentMulti(LOOKING AHEAD...)
+                                                        Call:   Variable(LOOKING AHEAD...)
+                                                          Visited token: <"(" at line 6 column 7>; Expected token: <"[">
+                                                        Return: Variable(LOOKAHEAD FAILED)
                                                         Visited token: <"(" at line 6 column 7>; Expected token: <",">
                                                         Visited token: <"(" at line 6 column 7>; Expected token: <"=">
                                                       Return: AssignmentMulti(LOOKAHEAD FAILED)
@@ -781,6 +817,9 @@ Call:   javacc_input
                                                       Visited token: <<IDENTIFIER>: "printf" at line 7 column 1>; Expected token: <<IDENTIFIER>>
                                                       Call:   Assignment(LOOKING AHEAD...)
                                                         Call:   AssignmentMulti(LOOKING AHEAD...)
+                                                          Call:   Variable(LOOKING AHEAD...)
+                                                            Visited token: <"(" at line 7 column 7>; Expected token: <"[">
+                                                          Return: Variable(LOOKAHEAD FAILED)
                                                           Visited token: <"(" at line 7 column 7>; Expected token: <",">
                                                           Visited token: <"(" at line 7 column 7>; Expected token: <"=">
                                                         Return: AssignmentMulti(LOOKAHEAD FAILED)
@@ -799,6 +838,9 @@ Call:   javacc_input
                                                             Visited token: <<IDENTIFIER>: "printf" at line 7 column 1>; Expected token: <<IDENTIFIER>>
                                                             Call:   Assignment(LOOKING AHEAD...)
                                                               Call:   AssignmentMulti(LOOKING AHEAD...)
+                                                                Call:   Variable(LOOKING AHEAD...)
+                                                                  Visited token: <"(" at line 7 column 7>; Expected token: <"[">
+                                                                Return: Variable(LOOKAHEAD FAILED)
                                                                 Visited token: <"(" at line 7 column 7>; Expected token: <",">
                                                                 Visited token: <"(" at line 7 column 7>; Expected token: <"=">
                                                               Return: AssignmentMulti(LOOKAHEAD FAILED)
@@ -904,6 +946,9 @@ Call:   javacc_input
                                                               Visited token: <<IDENTIFIER>: "printf" at line 8 column 1>; Expected token: <<IDENTIFIER>>
                                                               Call:   Assignment(LOOKING AHEAD...)
                                                                 Call:   AssignmentMulti(LOOKING AHEAD...)
+                                                                  Call:   Variable(LOOKING AHEAD...)
+                                                                    Visited token: <"(" at line 8 column 7>; Expected token: <"[">
+                                                                  Return: Variable(LOOKAHEAD FAILED)
                                                                   Visited token: <"(" at line 8 column 7>; Expected token: <",">
                                                                   Visited token: <"(" at line 8 column 7>; Expected token: <"=">
                                                                 Return: AssignmentMulti(LOOKAHEAD FAILED)
@@ -922,6 +967,9 @@ Call:   javacc_input
                                                                     Visited token: <<IDENTIFIER>: "printf" at line 8 column 1>; Expected token: <<IDENTIFIER>>
                                                                     Call:   Assignment(LOOKING AHEAD...)
                                                                       Call:   AssignmentMulti(LOOKING AHEAD...)
+                                                                        Call:   Variable(LOOKING AHEAD...)
+                                                                          Visited token: <"(" at line 8 column 7>; Expected token: <"[">
+                                                                        Return: Variable(LOOKAHEAD FAILED)
                                                                         Visited token: <"(" at line 8 column 7>; Expected token: <",">
                                                                         Visited token: <"(" at line 8 column 7>; Expected token: <"=">
                                                                       Return: AssignmentMulti(LOOKAHEAD FAILED)
@@ -1027,6 +1075,9 @@ Call:   javacc_input
                                                                       Visited token: <<IDENTIFIER>: "printf" at line 9 column 1>; Expected token: <<IDENTIFIER>>
                                                                       Call:   Assignment(LOOKING AHEAD...)
                                                                         Call:   AssignmentMulti(LOOKING AHEAD...)
+                                                                          Call:   Variable(LOOKING AHEAD...)
+                                                                            Visited token: <"(" at line 9 column 7>; Expected token: <"[">
+                                                                          Return: Variable(LOOKAHEAD FAILED)
                                                                           Visited token: <"(" at line 9 column 7>; Expected token: <",">
                                                                           Visited token: <"(" at line 9 column 7>; Expected token: <"=">
                                                                         Return: AssignmentMulti(LOOKAHEAD FAILED)
@@ -1045,6 +1096,9 @@ Call:   javacc_input
                                                                             Visited token: <<IDENTIFIER>: "printf" at line 9 column 1>; Expected token: <<IDENTIFIER>>
                                                                             Call:   Assignment(LOOKING AHEAD...)
                                                                               Call:   AssignmentMulti(LOOKING AHEAD...)
+                                                                                Call:   Variable(LOOKING AHEAD...)
+                                                                                  Visited token: <"(" at line 9 column 7>; Expected token: <"[">
+                                                                                Return: Variable(LOOKAHEAD FAILED)
                                                                                 Visited token: <"(" at line 9 column 7>; Expected token: <",">
                                                                                 Visited token: <"(" at line 9 column 7>; Expected token: <"=">
                                                                               Return: AssignmentMulti(LOOKAHEAD FAILED)
@@ -1150,6 +1204,9 @@ Call:   javacc_input
                                                                               Visited token: <<IDENTIFIER>: "printf" at line 10 column 1>; Expected token: <<IDENTIFIER>>
                                                                               Call:   Assignment(LOOKING AHEAD...)
                                                                                 Call:   AssignmentMulti(LOOKING AHEAD...)
+                                                                                  Call:   Variable(LOOKING AHEAD...)
+                                                                                    Visited token: <"(" at line 10 column 7>; Expected token: <"[">
+                                                                                  Return: Variable(LOOKAHEAD FAILED)
                                                                                   Visited token: <"(" at line 10 column 7>; Expected token: <",">
                                                                                   Visited token: <"(" at line 10 column 7>; Expected token: <"=">
                                                                                 Return: AssignmentMulti(LOOKAHEAD FAILED)
@@ -1168,6 +1225,9 @@ Call:   javacc_input
                                                                                     Visited token: <<IDENTIFIER>: "printf" at line 10 column 1>; Expected token: <<IDENTIFIER>>
                                                                                     Call:   Assignment(LOOKING AHEAD...)
                                                                                       Call:   AssignmentMulti(LOOKING AHEAD...)
+                                                                                        Call:   Variable(LOOKING AHEAD...)
+                                                                                          Visited token: <"(" at line 10 column 7>; Expected token: <"[">
+                                                                                        Return: Variable(LOOKAHEAD FAILED)
                                                                                         Visited token: <"(" at line 10 column 7>; Expected token: <",">
                                                                                         Visited token: <"(" at line 10 column 7>; Expected token: <"=">
                                                                                       Return: AssignmentMulti(LOOKAHEAD FAILED)
@@ -1273,6 +1333,9 @@ Call:   javacc_input
                                                                                       Visited token: <<IDENTIFIER>: "printf" at line 11 column 1>; Expected token: <<IDENTIFIER>>
                                                                                       Call:   Assignment(LOOKING AHEAD...)
                                                                                         Call:   AssignmentMulti(LOOKING AHEAD...)
+                                                                                          Call:   Variable(LOOKING AHEAD...)
+                                                                                            Visited token: <"(" at line 11 column 7>; Expected token: <"[">
+                                                                                          Return: Variable(LOOKAHEAD FAILED)
                                                                                           Visited token: <"(" at line 11 column 7>; Expected token: <",">
                                                                                           Visited token: <"(" at line 11 column 7>; Expected token: <"=">
                                                                                         Return: AssignmentMulti(LOOKAHEAD FAILED)
@@ -1291,6 +1354,9 @@ Call:   javacc_input
                                                                                             Visited token: <<IDENTIFIER>: "printf" at line 11 column 1>; Expected token: <<IDENTIFIER>>
                                                                                             Call:   Assignment(LOOKING AHEAD...)
                                                                                               Call:   AssignmentMulti(LOOKING AHEAD...)
+                                                                                                Call:   Variable(LOOKING AHEAD...)
+                                                                                                  Visited token: <"(" at line 11 column 7>; Expected token: <"[">
+                                                                                                Return: Variable(LOOKAHEAD FAILED)
                                                                                                 Visited token: <"(" at line 11 column 7>; Expected token: <",">
                                                                                                 Visited token: <"(" at line 11 column 7>; Expected token: <"=">
                                                                                               Return: AssignmentMulti(LOOKAHEAD FAILED)
@@ -1396,6 +1462,9 @@ Call:   javacc_input
                                                                                               Visited token: <<IDENTIFIER>: "printf" at line 12 column 1>; Expected token: <<IDENTIFIER>>
                                                                                               Call:   Assignment(LOOKING AHEAD...)
                                                                                                 Call:   AssignmentMulti(LOOKING AHEAD...)
+                                                                                                  Call:   Variable(LOOKING AHEAD...)
+                                                                                                    Visited token: <"(" at line 12 column 7>; Expected token: <"[">
+                                                                                                  Return: Variable(LOOKAHEAD FAILED)
                                                                                                   Visited token: <"(" at line 12 column 7>; Expected token: <",">
                                                                                                   Visited token: <"(" at line 12 column 7>; Expected token: <"=">
                                                                                                 Return: AssignmentMulti(LOOKAHEAD FAILED)
@@ -1414,6 +1483,9 @@ Call:   javacc_input
                                                                                                     Visited token: <<IDENTIFIER>: "printf" at line 12 column 1>; Expected token: <<IDENTIFIER>>
                                                                                                     Call:   Assignment(LOOKING AHEAD...)
                                                                                                       Call:   AssignmentMulti(LOOKING AHEAD...)
+                                                                                                        Call:   Variable(LOOKING AHEAD...)
+                                                                                                          Visited token: <"(" at line 12 column 7>; Expected token: <"[">
+                                                                                                        Return: Variable(LOOKAHEAD FAILED)
                                                                                                         Visited token: <"(" at line 12 column 7>; Expected token: <",">
                                                                                                         Visited token: <"(" at line 12 column 7>; Expected token: <"=">
                                                                                                       Return: AssignmentMulti(LOOKAHEAD FAILED)

@@ -192,12 +192,18 @@ Call:   javacc_input
                           Visited token: <<IDENTIFIER>: "nome" at line 4 column 1>; Expected token: <<IDENTIFIER>>
                           Call:   Assignment(LOOKING AHEAD...)
                             Call:   AssignmentMulti(LOOKING AHEAD...)
+                              Call:   Variable(LOOKING AHEAD...)
+                                Visited token: <"," at line 4 column 5>; Expected token: <"[">
+                              Return: Variable(LOOKAHEAD FAILED)
                               Visited token: <"," at line 4 column 5>; Expected token: <",">
                               Call:   stmblk
                                 Call:   statement
                                   Visited token: <<IDENTIFIER>: "nome" at line 4 column 1>; Expected token: <<IDENTIFIER>>
                                   Call:   Assignment(LOOKING AHEAD...)
                                     Call:   AssignmentMulti(LOOKING AHEAD...)
+                                      Call:   Variable(LOOKING AHEAD...)
+                                        Visited token: <"," at line 4 column 5>; Expected token: <"[">
+                                      Return: Variable(LOOKAHEAD FAILED)
                                       Visited token: <"," at line 4 column 5>; Expected token: <",">
                                       Consumed token: <<IDENTIFIER>: "nome" at line 4 column 1>
                                       Call:   Assignment
