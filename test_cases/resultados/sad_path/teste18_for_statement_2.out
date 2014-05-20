@@ -2,11 +2,11 @@ Call:   javacc_input
   Call:   stmblk(LOOKING AHEAD...)
     Call:   statement(LOOKING AHEAD...)
       Call:   Flow(LOOKING AHEAD...)
-        Visited token: <"for" at line 1 column 1>; Expected token: <<BREAKSTMT>>
-        Visited token: <"for" at line 1 column 1>; Expected token: <<CONTINUESTMT>>
-        Visited token: <"for" at line 1 column 1>; Expected token: <<RETRYSTMT>>
-        Visited token: <"for" at line 1 column 1>; Expected token: <<EXITSTMT>>
-        Visited token: <"for" at line 1 column 1>; Expected token: <<FALLTHRUSTMT>>
+        Visited token: <"for" at line 1 column 1>; Expected token: <"break">
+        Visited token: <"for" at line 1 column 1>; Expected token: <"continue">
+        Visited token: <"for" at line 1 column 1>; Expected token: <"retry">
+        Visited token: <"for" at line 1 column 1>; Expected token: <"exit">
+        Visited token: <"for" at line 1 column 1>; Expected token: <"fallthru">
       Return: Flow(LOOKAHEAD FAILED)
       Call:   Loop(LOOKING AHEAD...)
         Call:   ForStatement(LOOKING AHEAD...)
@@ -66,13 +66,122 @@ Call:   javacc_input
                       Consumed token: <"\n": "
 " at line 1 column 18>
                     Return: stmblk
-                  Return: ForStatement
-                Return: Loop
-              Return: statement
-            Return: stmblk
-          Return: javacc_input
-Encountered " <IDENTIFIER> "printf "" at line 2, column 4.
-Was expecting:
+                    Call:   stmblk
+                      Call:   statement
+                        Visited token: <<IDENTIFIER>: "printf" at line 2 column 4>; Expected token: <<IDENTIFIER>>
+                        Call:   Assignment(LOOKING AHEAD...)
+                          Call:   AssignmentMulti(LOOKING AHEAD...)
+                            Call:   Variable(LOOKING AHEAD...)
+                              Visited token: <"(" at line 2 column 10>; Expected token: <"[">
+                            Return: Variable(LOOKAHEAD FAILED)
+                            Visited token: <"(" at line 2 column 10>; Expected token: <",">
+                            Visited token: <"(" at line 2 column 10>; Expected token: <"=">
+                          Return: AssignmentMulti(LOOKAHEAD FAILED)
+                          Call:   AssignmentWihOp(LOOKING AHEAD...)
+                            Visited token: <"(" at line 2 column 10>; Expected token: <"+">
+                            Visited token: <"(" at line 2 column 10>; Expected token: <"-">
+                            Visited token: <"(" at line 2 column 10>; Expected token: <"/">
+                            Visited token: <"(" at line 2 column 10>; Expected token: <"*">
+                            Visited token: <"(" at line 2 column 10>; Expected token: <"&">
+                          Return: AssignmentWihOp(LOOKAHEAD FAILED)
+                        Return: Assignment(LOOKAHEAD FAILED)
+                        Call:   Call(LOOKING AHEAD...)
+                          Visited token: <"(" at line 2 column 10>; Expected token: <"(">
+                          Consumed token: <<IDENTIFIER>: "printf" at line 2 column 4>
+                          Call:   Call
+                            Consumed token: <"(" at line 2 column 10>
+                            Call:   ArgList
+                              Call:   Expression
+                                Call:   Expression00
+                                  Call:   Expression01
+                                    Call:   Expression02
+                                      Call:   Expression03
+                                        Call:   Expression04
+                                          Call:   Expression05
+                                            Call:   Expression06
+                                              Call:   Atom
+                                                Consumed token: <<INTEGER>: "1" at line 2 column 11>
+                                              Return: Atom
+                                            Return: Expression06
+                                          Return: Expression05
+                                        Return: Expression04
+                                      Return: Expression03
+                                    Return: Expression02
+                                  Return: Expression01
+                                Return: Expression00
+                              Return: Expression
+                              Consumed token: <"," at line 2 column 12>
+                              Call:   Expression
+                                Call:   Expression00
+                                  Call:   Expression01
+                                    Call:   Expression02
+                                      Call:   Expression03
+                                        Call:   Expression04
+                                          Call:   Expression05
+                                            Call:   Expression06
+                                              Consumed token: <<STRINGLIT>: ""valor de a %d\n"" at line 2 column 14>
+                                            Return: Expression06
+                                          Return: Expression05
+                                        Return: Expression04
+                                      Return: Expression03
+                                    Return: Expression02
+                                  Return: Expression01
+                                Return: Expression00
+                              Return: Expression
+                              Consumed token: <"," at line 2 column 31>
+                              Call:   Expression
+                                Call:   Expression00
+                                  Call:   Expression01
+                                    Call:   Expression02
+                                      Call:   Expression03
+                                        Call:   Expression04
+                                          Call:   Expression05
+                                            Call:   Expression06
+                                              Consumed token: <<IDENTIFIER>: "a" at line 2 column 33>
+                                            Return: Expression06
+                                          Return: Expression05
+                                        Return: Expression04
+                                      Return: Expression03
+                                    Return: Expression02
+                                  Return: Expression01
+                                Return: Expression00
+                              Return: Expression
+                            Return: ArgList
+                            Consumed token: <")" at line 2 column 34>
+                          Return: Call
+                        Return: statement
+                      Return: stmblk
+                    Return: ForStatement
+                  Return: Loop
+                Return: statement
+              Return: stmblk
+            Return: javacc_input
+Encountered "<EOF>" at line 2, column 34.
+Was expecting one of:
+    "\n" ...
     "end" ...
+    "export" ...
+    "global" ...
+    "public" ...
+    "switch" ...
+    "fallthru" ...
+    "goto" ...
+    "retry" ...
+    "while" ...
+    "break" ...
+    "continue" ...
+    "if" ...
+    "loop" ...
+    "override" ...
+    "return" ...
+    "exit" ...
+    "ifdef" ...
+    "type" ...
+    "for" ...
+    "atom" ...
+    "integer" ...
+    "sequence" ...
+    "object" ...
+    <IDENTIFIER> ...
     
 Ocorreu uma excecao!

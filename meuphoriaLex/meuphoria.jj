@@ -374,7 +374,7 @@ TOKEN : {
 
 /*************************
      Controle de Fluxo
-**************************/
+**************************
 
 TOKEN : {
   < BREAKSTMT : <BREAK> (<STRINGLIT>)? >
@@ -544,13 +544,13 @@ void javacc_input() :
       void ProcDeclare() : 
       {}
       {
-        <PROCEDURE> <IDENTIFIER> <LPAREN> (ParamList())? <RPAREN> (stmblk())? <END> <PROCEDURE> 
+        <PROCEDURE> <IDENTIFIER> <LPAREN> (ParamList())? <RPAREN> (stmblk())* <END> <PROCEDURE> 
       }
 
       void FuncDeclare() :
       {}
       {
-        <FUNCTION> <IDENTIFIER> <LPAREN> (ParamList())? <RPAREN> (stmblk())? <END> <FUNCTION>
+        <FUNCTION> <IDENTIFIER> <LPAREN> (ParamList())? <RPAREN> (stmblk())* <END> <FUNCTION>
       }
 
       void stmblk() :
@@ -573,7 +573,7 @@ void javacc_input() :
             void Flow() :
             {}
             {
-              <BREAKSTMT> | <CONTINUESTMT> | <RETRYSTMT> | <EXITSTMT> | <FALLTHRUSTMT>
+              ( <BREAK> (<INTEGER>)? | <CONTINUE> | <RETRY> | <EXIT> | <FALLTHRU> ) (<STRINGLIT>)?
             }
 
             void Loop() :
@@ -585,7 +585,7 @@ void javacc_input() :
                   void ForStatement() :
                   {}
                   {
-                    <FOR> ForIDX() (<LABELSTMT>)? <DO> (stmblk())? <END> <FOR> 
+                    <FOR> ForIDX() (<LABELSTMT>)? <DO> (stmblk())* <END> <FOR> 
                   }
 
                         void ForIDX() :
@@ -609,7 +609,7 @@ void javacc_input() :
                         void EntryStatement() :
                         {}
                         {
-                          <ENTRY> (stmblk())? 
+                          <ENTRY> (stmblk())* 
                         }
 
             void Branch() :
@@ -652,13 +652,13 @@ void javacc_input() :
                         void IfDefTest() :
                         {}
                         {
-                          <IFDEF> (<NOT_OP>)? <IDENTIFIER> ( (<SC_AND> | <SC_OR>) (<NOT_OP>)? <IDENTIFIER>)? <THEN> (stmblk())?
+                          <IFDEF> (<NOT_OP>)? <IDENTIFIER> ( (<SC_AND> | <SC_OR>) (<NOT_OP>)? <IDENTIFIER>)? <THEN> (stmblk())*
                         }
 
                         void ElsDefIfStatement() :
                         {}
                         {
-                          <ELSEIFDEF> (<NOT_OP>)? <IDENTIFIER> ( (<SC_AND> | <SC_OR>) (<NOT_OP>)? <IDENTIFIER>)? <THEN> (stmblk())?
+                          <ELSEIFDEF> (<NOT_OP>)? <IDENTIFIER> ( (<SC_AND> | <SC_OR>) (<NOT_OP>)? <IDENTIFIER>)? <THEN> (stmblk())*
                         }
 
                         void ElsDefStatement() :
@@ -743,7 +743,7 @@ void javacc_input() :
             void TypeDeclare() : 
             {}
             {
-              <TYPE> <IDENTIFIER> <LPAREN> (ParamList())? <RPAREN> (stmblk())? <END> <TYPE> 
+              <TYPE> <IDENTIFIER> <LPAREN> (ParamList())? <RPAREN> (stmblk())* <END> <TYPE> 
             }
 
             void Call() :

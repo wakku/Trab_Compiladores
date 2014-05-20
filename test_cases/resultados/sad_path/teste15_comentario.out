@@ -3,15 +3,15 @@ Call:   javacc_input
     Call:   statement(LOOKING AHEAD...)
       Call:   Flow(LOOKING AHEAD...)
         Visited token: <"\n": "
-" at line 1 column 24>; Expected token: <<BREAKSTMT>>
+" at line 1 column 24>; Expected token: <"break">
         Visited token: <"\n": "
-" at line 1 column 24>; Expected token: <<CONTINUESTMT>>
+" at line 1 column 24>; Expected token: <"continue">
         Visited token: <"\n": "
-" at line 1 column 24>; Expected token: <<RETRYSTMT>>
+" at line 1 column 24>; Expected token: <"retry">
         Visited token: <"\n": "
-" at line 1 column 24>; Expected token: <<EXITSTMT>>
+" at line 1 column 24>; Expected token: <"exit">
         Visited token: <"\n": "
-" at line 1 column 24>; Expected token: <<FALLTHRUSTMT>>
+" at line 1 column 24>; Expected token: <"fallthru">
       Return: Flow(LOOKAHEAD FAILED)
       Call:   Loop(LOOKING AHEAD...)
         Call:   ForStatement(LOOKING AHEAD...)
@@ -95,15 +95,15 @@ Call:   javacc_input
     Call:   statement(LOOKING AHEAD...)
       Call:   Flow(LOOKING AHEAD...)
         Visited token: <"\n": "
-" at line 2 column 88>; Expected token: <<BREAKSTMT>>
+" at line 2 column 88>; Expected token: <"break">
         Visited token: <"\n": "
-" at line 2 column 88>; Expected token: <<CONTINUESTMT>>
+" at line 2 column 88>; Expected token: <"continue">
         Visited token: <"\n": "
-" at line 2 column 88>; Expected token: <<RETRYSTMT>>
+" at line 2 column 88>; Expected token: <"retry">
         Visited token: <"\n": "
-" at line 2 column 88>; Expected token: <<EXITSTMT>>
+" at line 2 column 88>; Expected token: <"exit">
         Visited token: <"\n": "
-" at line 2 column 88>; Expected token: <<FALLTHRUSTMT>>
+" at line 2 column 88>; Expected token: <"fallthru">
       Return: Flow(LOOKAHEAD FAILED)
       Call:   Loop(LOOKING AHEAD...)
         Call:   ForStatement(LOOKING AHEAD...)
@@ -187,15 +187,15 @@ Call:   javacc_input
     Call:   statement(LOOKING AHEAD...)
       Call:   Flow(LOOKING AHEAD...)
         Visited token: <"\n": "
-" at line 3 column 1>; Expected token: <<BREAKSTMT>>
+" at line 3 column 1>; Expected token: <"break">
         Visited token: <"\n": "
-" at line 3 column 1>; Expected token: <<CONTINUESTMT>>
+" at line 3 column 1>; Expected token: <"continue">
         Visited token: <"\n": "
-" at line 3 column 1>; Expected token: <<RETRYSTMT>>
+" at line 3 column 1>; Expected token: <"retry">
         Visited token: <"\n": "
-" at line 3 column 1>; Expected token: <<EXITSTMT>>
+" at line 3 column 1>; Expected token: <"exit">
         Visited token: <"\n": "
-" at line 3 column 1>; Expected token: <<FALLTHRUSTMT>>
+" at line 3 column 1>; Expected token: <"fallthru">
       Return: Flow(LOOKAHEAD FAILED)
       Call:   Loop(LOOKING AHEAD...)
         Call:   ForStatement(LOOKING AHEAD...)

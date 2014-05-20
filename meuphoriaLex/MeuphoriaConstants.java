@@ -237,17 +237,7 @@ public interface MeuphoriaConstants {
   /** RegularExpression Id. */
   int LABELSTMT = 120;
   /** RegularExpression Id. */
-  int BREAKSTMT = 121;
-  /** RegularExpression Id. */
-  int CONTINUESTMT = 122;
-  /** RegularExpression Id. */
-  int RETRYSTMT = 123;
-  /** RegularExpression Id. */
-  int EXITSTMT = 124;
-  /** RegularExpression Id. */
-  int FALLTHRUSTMT = 125;
-  /** RegularExpression Id. */
-  int ENDDEFIF = 126;
+  int ENDDEFIF = 121;
 
   /** Lexical state. */
   int DEFAULT = 0;
@@ -377,11 +367,6 @@ public interface MeuphoriaConstants {
     "<VANSTRING>",
     "<WITHENTRY>",
     "<LABELSTMT>",
-    "<BREAKSTMT>",
-    "<CONTINUESTMT>",
-    "<RETRYSTMT>",
-    "<EXITSTMT>",
-    "<FALLTHRUSTMT>",
     "<ENDDEFIF>",
   };
 
