@@ -239,9 +239,9 @@ TOKEN : {
 *****************************************/
 TOKEN : { 
       < IDENTIFIER : ( ["a"-"z", "A"-"Z"] | "_" ) ( ["a"-"z", "A"-"Z"] | ["0"-"9"] | "_" )* > 
-    | < CHAR : "\'" (~["\n","\r"]) "\'" >
-    //| < CHAR : (["a"-"z", "A"-"Z"] | "_" | "%" | "&" | "$" | "*" | " " | "\\"
-    //            | "." | "!" | "@" | "#" | "$" | "%" | "^" | "*" | "(" | ")" | "-" | "=" ) > // adicionar caracteres especiais!!!!!
+    //| < CHAR : "\'" (~["\n","\r"]) "\'" >
+    | < CHAR : (["a"-"z", "A"-"Z"] | "_" | "%" | "&" | "$" | "*" | " " | "\\"
+                | "." | "!" | "@" | "#" | "$" | "%" | "^" | "*" | "(" | ")" | "-" | "=" ) > // adicionar caracteres especiais!!!!!
     //| < CHAR : (<IDENTIFIER> | <FLOAT> | <EXP> | <INTEGER> | "_" | "%" | "&" | "$" | "*" ) > //tá erradoooo, char não é identifier nem float...
 }
 
@@ -310,7 +310,7 @@ TOKEN : {
   | < HEX4 : "\\u" ["0"-"9","a"-"f"] ["0"-"9","a"-"f"]["0"-"9","a"-"f"] ["0"-"9","a"-"f"] >
   | < HEX8 : "\\U" ["0"-"9","a"-"f"] ["0"-"9","a"-"f"]["0"-"9","a"-"f"]
                    ["0"-"9","a"-"f"]["0"-"9","a"-"f"] ["0"-"9","a"-"f"]["0"-"9","a"-"f"] ["0"-"9","a"-"f"] >
-  | < RAWSTRINGLIT : <DQRAWSTRING> | <BQRAWSTRING> >
+  | < RAWSTRINGLIT : <DQRAWSTRING> | <BQRAWSTRING> | <VANSTRING> >
   | < DQRAWSTRING : "´" 
                 (
                 ["a"-"z", "A"-"Z"] | "_" | "%" | "&" | "$" | "*" | " " | "\\"
@@ -333,6 +333,11 @@ TOKEN : {
                 | <HEX4>
                 | <HEX8>)+
                   "\"\"\"" >
+  | <VANSTRING : "\'" 
+                  (
+                ["a"-"z", "A"-"Z"] | "_" | "%" | "&" | "$" | "*" | " " | "\\"
+                   )+
+                  "\'" >
 }
 
 /*****************************************
@@ -665,13 +670,13 @@ void javacc_input() :
                   void SwitchStatement() :
                   {}
                   {
-                    SwitchTest() CaseStatement() (CaseStatement())* (<ELSE> (stmblk())* )? <END> <SWITCH>
+                    SwitchTest() CaseStatement() (LOOKAHEAD(2) CaseStatement())* (<CASE> <ELSE> (stmblk())* )? <END> <SWITCH>
                   }
 
                         void SwitchTest() :
                         {}
                         {
-                          <SWITCH> Expression() ((<WITH> | <WITHOUT>) <FALLTHRU>)? (<LABELSTMT>)? <DO>
+                          <SWITCH> Expression() ((<WITH> | <WITHOUT>) <FALLTHRU>)? (<LABELSTMT>)? <DO> (<EOL>)?
                         }
 
                         void CaseStatement() :

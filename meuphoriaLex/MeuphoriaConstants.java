@@ -231,21 +231,21 @@ public interface MeuphoriaConstants {
   /** RegularExpression Id. */
   int BQRAWSTRING = 117;
   /** RegularExpression Id. */
-  int WITHENTRY = 118;
+  int VANSTRING = 118;
   /** RegularExpression Id. */
-  int LABELSTMT = 119;
+  int WITHENTRY = 119;
   /** RegularExpression Id. */
-  int BREAKSTMT = 120;
+  int LABELSTMT = 120;
   /** RegularExpression Id. */
-  int CONTINUESTMT = 121;
+  int BREAKSTMT = 121;
   /** RegularExpression Id. */
-  int RETRYSTMT = 122;
+  int CONTINUESTMT = 122;
   /** RegularExpression Id. */
-  int EXITSTMT = 123;
+  int RETRYSTMT = 123;
   /** RegularExpression Id. */
-  int FALLTHRUSTMT = 124;
+  int EXITSTMT = 124;
   /** RegularExpression Id. */
-  int ENDIF = 125;
+  int FALLTHRUSTMT = 125;
   /** RegularExpression Id. */
   int ENDDEFIF = 126;
 
@@ -374,6 +374,7 @@ public interface MeuphoriaConstants {
     "<RAWSTRINGLIT>",
     "<DQRAWSTRING>",
     "<BQRAWSTRING>",
+    "<VANSTRING>",
     "<WITHENTRY>",
     "<LABELSTMT>",
     "<BREAKSTMT>",
@@ -381,7 +382,6 @@ public interface MeuphoriaConstants {
     "<RETRYSTMT>",
     "<EXITSTMT>",
     "<FALLTHRUSTMT>",
-    "<ENDIF>",
     "<ENDDEFIF>",
   };
 

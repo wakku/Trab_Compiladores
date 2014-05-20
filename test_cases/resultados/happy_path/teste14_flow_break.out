@@ -237,27 +237,617 @@ Call:   javacc_input
                                 Call:   Expression
                                   Call:   Sequence
                                     Consumed token: <"{" at line 2 column 14>
-                                  Return: Sequence
-                                Return: Expression
-                              Return: Ident
-                            Return: IdentList
-                          Return: VarDeclare
-                        Return: statement
-                      Return: stmblk
-                    Return: javacc_input
-Encountered " <CHAR> "\'E\' "" at line 2, column 15.
+                                    Visited token: <<STRINGLIT>: "'E'" at line 2 column 15>; Expected token: <"$">
+                                    Call:   Object
+                                      Consumed token: <<STRINGLIT>: "'E'" at line 2 column 15>
+                                    Return: Object
+                                    Visited token: <"," at line 2 column 18>; Expected token: <",">
+                                    Call:   Object(LOOKING AHEAD...)
+                                      Call:   Sequence(LOOKING AHEAD...)
+                                        Visited token: <<STRINGLIT>: "'u'" at line 2 column 19>; Expected token: <"{">
+                                      Return: Sequence(LOOKAHEAD FAILED)
+                                      Call:   Atom(LOOKING AHEAD...)
+                                        Visited token: <<STRINGLIT>: "'u'" at line 2 column 19>; Expected token: <<INTEGER>>
+                                        Call:   Real(LOOKING AHEAD...)
+                                          Visited token: <<STRINGLIT>: "'u'" at line 2 column 19>; Expected token: <<FLOAT>>
+                                          Visited token: <<STRINGLIT>: "'u'" at line 2 column 19>; Expected token: <<EXP>>
+                                        Return: Real(LOOKAHEAD FAILED)
+                                      Return: Atom(LOOKAHEAD FAILED)
+                                      Visited token: <<STRINGLIT>: "'u'" at line 2 column 19>; Expected token: <<BIN_NUMBER>>
+                                      Visited token: <<STRINGLIT>: "'u'" at line 2 column 19>; Expected token: <<OCT_NUMBER>>
+                                      Visited token: <<STRINGLIT>: "'u'" at line 2 column 19>; Expected token: <<DEC_NUMBER>>
+                                      Visited token: <<STRINGLIT>: "'u'" at line 2 column 19>; Expected token: <<HEX_NUMBER>>
+                                      Visited token: <<STRINGLIT>: "'u'" at line 2 column 19>; Expected token: <<IDENTIFIER>>
+                                      Visited token: <<STRINGLIT>: "'u'" at line 2 column 19>; Expected token: <<STRINGLIT>>
+                                      Consumed token: <"," at line 2 column 18>
+                                      Call:   Object
+                                        Consumed token: <<STRINGLIT>: "'u'" at line 2 column 19>
+                                      Return: Object
+                                      Visited token: <"," at line 2 column 22>; Expected token: <",">
+                                      Call:   Object(LOOKING AHEAD...)
+                                        Call:   Sequence(LOOKING AHEAD...)
+                                          Visited token: <<STRINGLIT>: "'p'" at line 2 column 24>; Expected token: <"{">
+                                        Return: Sequence(LOOKAHEAD FAILED)
+                                        Call:   Atom(LOOKING AHEAD...)
+                                          Visited token: <<STRINGLIT>: "'p'" at line 2 column 24>; Expected token: <<INTEGER>>
+                                          Call:   Real(LOOKING AHEAD...)
+                                            Visited token: <<STRINGLIT>: "'p'" at line 2 column 24>; Expected token: <<FLOAT>>
+                                            Visited token: <<STRINGLIT>: "'p'" at line 2 column 24>; Expected token: <<EXP>>
+                                          Return: Real(LOOKAHEAD FAILED)
+                                        Return: Atom(LOOKAHEAD FAILED)
+                                        Visited token: <<STRINGLIT>: "'p'" at line 2 column 24>; Expected token: <<BIN_NUMBER>>
+                                        Visited token: <<STRINGLIT>: "'p'" at line 2 column 24>; Expected token: <<OCT_NUMBER>>
+                                        Visited token: <<STRINGLIT>: "'p'" at line 2 column 24>; Expected token: <<DEC_NUMBER>>
+                                        Visited token: <<STRINGLIT>: "'p'" at line 2 column 24>; Expected token: <<HEX_NUMBER>>
+                                        Visited token: <<STRINGLIT>: "'p'" at line 2 column 24>; Expected token: <<IDENTIFIER>>
+                                        Visited token: <<STRINGLIT>: "'p'" at line 2 column 24>; Expected token: <<STRINGLIT>>
+                                        Consumed token: <"," at line 2 column 22>
+                                        Call:   Object
+                                          Consumed token: <<STRINGLIT>: "'p'" at line 2 column 24>
+                                        Return: Object
+                                        Visited token: <"}" at line 2 column 27>; Expected token: <",">
+                                        Consumed token: <"}" at line 2 column 27>
+                                      Return: Sequence
+                                    Return: Expression
+                                  Return: Ident
+                                Return: IdentList
+                              Return: VarDeclare
+                            Return: statement
+                          Return: stmblk
+                          Call:   stmblk(LOOKING AHEAD...)
+                            Call:   statement(LOOKING AHEAD...)
+                              Call:   Flow(LOOKING AHEAD...)
+                                Visited token: <"\n": "
+" at line 2 column 28>; Expected token: <<BREAKSTMT>>
+                                Visited token: <"\n": "
+" at line 2 column 28>; Expected token: <<CONTINUESTMT>>
+                                Visited token: <"\n": "
+" at line 2 column 28>; Expected token: <<RETRYSTMT>>
+                                Visited token: <"\n": "
+" at line 2 column 28>; Expected token: <<EXITSTMT>>
+                                Visited token: <"\n": "
+" at line 2 column 28>; Expected token: <<FALLTHRUSTMT>>
+                              Return: Flow(LOOKAHEAD FAILED)
+                              Call:   Loop(LOOKING AHEAD...)
+                                Call:   ForStatement(LOOKING AHEAD...)
+                                  Visited token: <"\n": "
+" at line 2 column 28>; Expected token: <"for">
+                                Return: ForStatement(LOOKAHEAD FAILED)
+                                Call:   WhileStatement(LOOKING AHEAD...)
+                                  Visited token: <"\n": "
+" at line 2 column 28>; Expected token: <"while">
+                                Return: WhileStatement(LOOKAHEAD FAILED)
+                                Call:   LoopStatement(LOOKING AHEAD...)
+                                  Visited token: <"\n": "
+" at line 2 column 28>; Expected token: <"loop">
+                                Return: LoopStatement(LOOKAHEAD FAILED)
+                                Visited token: <"\n": "
+" at line 2 column 28>; Expected token: <"goto">
+                              Return: Loop(LOOKAHEAD FAILED)
+                              Call:   Branch(LOOKING AHEAD...)
+                                Call:   IfStatement(LOOKING AHEAD...)
+                                  Call:   IfTest(LOOKING AHEAD...)
+                                    Visited token: <"\n": "
+" at line 2 column 28>; Expected token: <"if">
+                                  Return: IfTest(LOOKAHEAD FAILED)
+                                Return: IfStatement(LOOKAHEAD FAILED)
+                                Call:   SwitchStatement(LOOKING AHEAD...)
+                                  Call:   SwitchTest(LOOKING AHEAD...)
+                                    Visited token: <"\n": "
+" at line 2 column 28>; Expected token: <"switch">
+                                  Return: SwitchTest(LOOKAHEAD FAILED)
+                                Return: SwitchStatement(LOOKAHEAD FAILED)
+                                Call:   IfDefStatement(LOOKING AHEAD...)
+                                  Call:   IfDefTest(LOOKING AHEAD...)
+                                    Visited token: <"\n": "
+" at line 2 column 28>; Expected token: <"ifdef">
+                                  Return: IfDefTest(LOOKAHEAD FAILED)
+                                Return: IfDefStatement(LOOKAHEAD FAILED)
+                              Return: Branch(LOOKAHEAD FAILED)
+                              Call:   Return(LOOKING AHEAD...)
+                                Visited token: <"\n": "
+" at line 2 column 28>; Expected token: <"return">
+                              Return: Return(LOOKAHEAD FAILED)
+                              Visited token: <"\n": "
+" at line 2 column 28>; Expected token: <<IDENTIFIER>>
+                              Call:   ScopeModifier(LOOKING AHEAD...)
+                                Visited token: <"\n": "
+" at line 2 column 28>; Expected token: <"global">
+                                Visited token: <"\n": "
+" at line 2 column 28>; Expected token: <"public">
+                                Visited token: <"\n": "
+" at line 2 column 28>; Expected token: <"export">
+                                Visited token: <"\n": "
+" at line 2 column 28>; Expected token: <"override">
+                              Return: ScopeModifier(LOOKAHEAD FAILED)
+                              Call:   VarDeclare(LOOKING AHEAD...)
+                                Call:   DataType(LOOKING AHEAD...)
+                                  Visited token: <"\n": "
+" at line 2 column 28>; Expected token: <"atom">
+                                  Visited token: <"\n": "
+" at line 2 column 28>; Expected token: <"integer">
+                                  Visited token: <"\n": "
+" at line 2 column 28>; Expected token: <"sequence">
+                                  Visited token: <"\n": "
+" at line 2 column 28>; Expected token: <"object">
+                                  Visited token: <"\n": "
+" at line 2 column 28>; Expected token: <<IDENTIFIER>>
+                                Return: DataType(LOOKAHEAD FAILED)
+                              Return: VarDeclare(LOOKAHEAD FAILED)
+                              Call:   TypeDeclare(LOOKING AHEAD...)
+                                Visited token: <"\n": "
+" at line 2 column 28>; Expected token: <"type">
+                              Return: TypeDeclare(LOOKAHEAD FAILED)
+                            Return: statement(LOOKAHEAD FAILED)
+                            Visited token: <"\n": "
+" at line 2 column 28>; Expected token: <"\n">
+                          Return: stmblk(LOOKAHEAD SUCCEEDED)
+                          Call:   stmblk
+                            Consumed token: <"\n": "
+" at line 2 column 28>
+                          Return: stmblk
+                          Call:   stmblk(LOOKING AHEAD...)
+                            Call:   statement(LOOKING AHEAD...)
+                              Call:   Flow(LOOKING AHEAD...)
+                                Visited token: <"\n": "
+" at line 3 column 1>; Expected token: <<BREAKSTMT>>
+                                Visited token: <"\n": "
+" at line 3 column 1>; Expected token: <<CONTINUESTMT>>
+                                Visited token: <"\n": "
+" at line 3 column 1>; Expected token: <<RETRYSTMT>>
+                                Visited token: <"\n": "
+" at line 3 column 1>; Expected token: <<EXITSTMT>>
+                                Visited token: <"\n": "
+" at line 3 column 1>; Expected token: <<FALLTHRUSTMT>>
+                              Return: Flow(LOOKAHEAD FAILED)
+                              Call:   Loop(LOOKING AHEAD...)
+                                Call:   ForStatement(LOOKING AHEAD...)
+                                  Visited token: <"\n": "
+" at line 3 column 1>; Expected token: <"for">
+                                Return: ForStatement(LOOKAHEAD FAILED)
+                                Call:   WhileStatement(LOOKING AHEAD...)
+                                  Visited token: <"\n": "
+" at line 3 column 1>; Expected token: <"while">
+                                Return: WhileStatement(LOOKAHEAD FAILED)
+                                Call:   LoopStatement(LOOKING AHEAD...)
+                                  Visited token: <"\n": "
+" at line 3 column 1>; Expected token: <"loop">
+                                Return: LoopStatement(LOOKAHEAD FAILED)
+                                Visited token: <"\n": "
+" at line 3 column 1>; Expected token: <"goto">
+                              Return: Loop(LOOKAHEAD FAILED)
+                              Call:   Branch(LOOKING AHEAD...)
+                                Call:   IfStatement(LOOKING AHEAD...)
+                                  Call:   IfTest(LOOKING AHEAD...)
+                                    Visited token: <"\n": "
+" at line 3 column 1>; Expected token: <"if">
+                                  Return: IfTest(LOOKAHEAD FAILED)
+                                Return: IfStatement(LOOKAHEAD FAILED)
+                                Call:   SwitchStatement(LOOKING AHEAD...)
+                                  Call:   SwitchTest(LOOKING AHEAD...)
+                                    Visited token: <"\n": "
+" at line 3 column 1>; Expected token: <"switch">
+                                  Return: SwitchTest(LOOKAHEAD FAILED)
+                                Return: SwitchStatement(LOOKAHEAD FAILED)
+                                Call:   IfDefStatement(LOOKING AHEAD...)
+                                  Call:   IfDefTest(LOOKING AHEAD...)
+                                    Visited token: <"\n": "
+" at line 3 column 1>; Expected token: <"ifdef">
+                                  Return: IfDefTest(LOOKAHEAD FAILED)
+                                Return: IfDefStatement(LOOKAHEAD FAILED)
+                              Return: Branch(LOOKAHEAD FAILED)
+                              Call:   Return(LOOKING AHEAD...)
+                                Visited token: <"\n": "
+" at line 3 column 1>; Expected token: <"return">
+                              Return: Return(LOOKAHEAD FAILED)
+                              Visited token: <"\n": "
+" at line 3 column 1>; Expected token: <<IDENTIFIER>>
+                              Call:   ScopeModifier(LOOKING AHEAD...)
+                                Visited token: <"\n": "
+" at line 3 column 1>; Expected token: <"global">
+                                Visited token: <"\n": "
+" at line 3 column 1>; Expected token: <"public">
+                                Visited token: <"\n": "
+" at line 3 column 1>; Expected token: <"export">
+                                Visited token: <"\n": "
+" at line 3 column 1>; Expected token: <"override">
+                              Return: ScopeModifier(LOOKAHEAD FAILED)
+                              Call:   VarDeclare(LOOKING AHEAD...)
+                                Call:   DataType(LOOKING AHEAD...)
+                                  Visited token: <"\n": "
+" at line 3 column 1>; Expected token: <"atom">
+                                  Visited token: <"\n": "
+" at line 3 column 1>; Expected token: <"integer">
+                                  Visited token: <"\n": "
+" at line 3 column 1>; Expected token: <"sequence">
+                                  Visited token: <"\n": "
+" at line 3 column 1>; Expected token: <"object">
+                                  Visited token: <"\n": "
+" at line 3 column 1>; Expected token: <<IDENTIFIER>>
+                                Return: DataType(LOOKAHEAD FAILED)
+                              Return: VarDeclare(LOOKAHEAD FAILED)
+                              Call:   TypeDeclare(LOOKING AHEAD...)
+                                Visited token: <"\n": "
+" at line 3 column 1>; Expected token: <"type">
+                              Return: TypeDeclare(LOOKAHEAD FAILED)
+                            Return: statement(LOOKAHEAD FAILED)
+                            Visited token: <"\n": "
+" at line 3 column 1>; Expected token: <"\n">
+                          Return: stmblk(LOOKAHEAD SUCCEEDED)
+                          Call:   stmblk
+                            Consumed token: <"\n": "
+" at line 3 column 1>
+                          Return: stmblk
+                          Call:   stmblk(LOOKING AHEAD...)
+                            Call:   statement(LOOKING AHEAD...)
+                              Call:   Flow(LOOKING AHEAD...)
+                                Visited token: <"if" at line 4 column 1>; Expected token: <<BREAKSTMT>>
+                                Visited token: <"if" at line 4 column 1>; Expected token: <<CONTINUESTMT>>
+                                Visited token: <"if" at line 4 column 1>; Expected token: <<RETRYSTMT>>
+                                Visited token: <"if" at line 4 column 1>; Expected token: <<EXITSTMT>>
+                                Visited token: <"if" at line 4 column 1>; Expected token: <<FALLTHRUSTMT>>
+                              Return: Flow(LOOKAHEAD FAILED)
+                              Call:   Loop(LOOKING AHEAD...)
+                                Call:   ForStatement(LOOKING AHEAD...)
+                                  Visited token: <"if" at line 4 column 1>; Expected token: <"for">
+                                Return: ForStatement(LOOKAHEAD FAILED)
+                                Call:   WhileStatement(LOOKING AHEAD...)
+                                  Visited token: <"if" at line 4 column 1>; Expected token: <"while">
+                                Return: WhileStatement(LOOKAHEAD FAILED)
+                                Call:   LoopStatement(LOOKING AHEAD...)
+                                  Visited token: <"if" at line 4 column 1>; Expected token: <"loop">
+                                Return: LoopStatement(LOOKAHEAD FAILED)
+                                Visited token: <"if" at line 4 column 1>; Expected token: <"goto">
+                              Return: Loop(LOOKAHEAD FAILED)
+                              Call:   Branch(LOOKING AHEAD...)
+                                Call:   IfStatement(LOOKING AHEAD...)
+                                  Call:   IfTest(LOOKING AHEAD...)
+                                    Visited token: <"if" at line 4 column 1>; Expected token: <"if">
+                                    Call:   Expression(LOOKING AHEAD...)
+                                      Call:   Sequence(LOOKING AHEAD...)
+                                        Visited token: <<IDENTIFIER>: "s" at line 4 column 4>; Expected token: <"{">
+                                      Return: Sequence(LOOKAHEAD FAILED)
+                                      Call:   Expression00(LOOKING AHEAD...)
+                                        Call:   Expression01(LOOKING AHEAD...)
+                                          Call:   Expression02(LOOKING AHEAD...)
+                                            Call:   Expression03(LOOKING AHEAD...)
+                                              Call:   Expression04(LOOKING AHEAD...)
+                                                Call:   Expression05(LOOKING AHEAD...)
+                                                  Visited token: <<IDENTIFIER>: "s" at line 4 column 4>; Expected token: <"+">
+                                                  Visited token: <<IDENTIFIER>: "s" at line 4 column 4>; Expected token: <"-">
+                                                  Visited token: <<IDENTIFIER>: "s" at line 4 column 4>; Expected token: <"not">
+                                                  Call:   Expression06(LOOKING AHEAD...)
+                                                    Call:   Atom(LOOKING AHEAD...)
+                                                      Visited token: <<IDENTIFIER>: "s" at line 4 column 4>; Expected token: <<INTEGER>>
+                                                      Call:   Real(LOOKING AHEAD...)
+                                                        Visited token: <<IDENTIFIER>: "s" at line 4 column 4>; Expected token: <<FLOAT>>
+                                                        Visited token: <<IDENTIFIER>: "s" at line 4 column 4>; Expected token: <<EXP>>
+                                                      Return: Real(LOOKAHEAD FAILED)
+                                                    Return: Atom(LOOKAHEAD FAILED)
+                                                    Visited token: <<IDENTIFIER>: "s" at line 4 column 4>; Expected token: <<STRINGLIT>>
+                                                    Visited token: <<IDENTIFIER>: "s" at line 4 column 4>; Expected token: <"(">
+                                                    Visited token: <<IDENTIFIER>: "s" at line 4 column 4>; Expected token: <<IDENTIFIER>>
+                                                    Call:   stmblk
+                                                      Call:   statement
+                                                        Call:   Branch
+                                                          Call:   IfStatement
+                                                            Call:   IfTest
+                                                              Consumed token: <"if" at line 4 column 1>
+                                                              Call:   Expression
+                                                                Call:   Expression00
+                                                                  Call:   Expression01
+                                                                    Call:   Expression02
+                                                                      Call:   Expression03
+                                                                        Call:   Expression04
+                                                                          Call:   Expression05
+                                                                            Call:   Expression06
+                                                                              Consumed token: <<IDENTIFIER>: "s" at line 4 column 4>
+                                                                              Call:   Variable
+                                                                                Consumed token: <"[" at line 4 column 5>
+                                                                                Call:   Expression
+                                                                                  Call:   Expression00
+                                                                                    Call:   Expression01
+                                                                                      Call:   Expression02
+                                                                                        Call:   Expression03
+                                                                                          Call:   Expression04
+                                                                                            Call:   Expression05
+                                                                                              Call:   Expression06
+                                                                                                Call:   Atom
+                                                                                                  Consumed token: <<INTEGER>: "1" at line 4 column 6>
+                                                                                                Return: Atom
+                                                                                              Return: Expression06
+                                                                                            Return: Expression05
+                                                                                          Return: Expression04
+                                                                                        Return: Expression03
+                                                                                      Return: Expression02
+                                                                                    Return: Expression01
+                                                                                  Return: Expression00
+                                                                                Return: Expression
+                                                                                Call:   Subscripting
+                                                                                  Consumed token: <"]" at line 4 column 7>
+                                                                                Return: Subscripting
+                                                                              Return: Variable
+                                                                            Return: Expression06
+                                                                          Return: Expression05
+                                                                        Return: Expression04
+                                                                      Return: Expression03
+                                                                    Return: Expression02
+                                                                    Consumed token: <"=" at line 4 column 9>
+                                                                    Call:   Expression02
+                                                                      Call:   Expression03
+                                                                        Call:   Expression04
+                                                                          Call:   Expression05
+                                                                            Call:   Expression06
+                                                                              Consumed token: <<STRINGLIT>: "'E'" at line 4 column 11>
+                                                                            Return: Expression06
+                                                                          Return: Expression05
+                                                                        Return: Expression04
+                                                                      Return: Expression03
+                                                                    Return: Expression02
+                                                                  Return: Expression01
+                                                                Return: Expression00
+                                                              Return: Expression
+                                                              Consumed token: <"then" at line 4 column 15>
+                                                              Call:   stmblk
+                                                                Consumed token: <"\n": "
+" at line 4 column 19>
+                                                              Return: stmblk
+                                                              Call:   stmblk
+                                                                Call:   statement
+                                                                  Visited token: <<IDENTIFIER>: "a" at line 5 column 4>; Expected token: <<IDENTIFIER>>
+                                                                  Call:   Assignment(LOOKING AHEAD...)
+                                                                    Call:   AssignmentMulti(LOOKING AHEAD...)
+                                                                      Call:   Variable(LOOKING AHEAD...)
+                                                                        Visited token: <"=" at line 5 column 6>; Expected token: <"[">
+                                                                      Return: Variable(LOOKAHEAD FAILED)
+                                                                      Visited token: <"=" at line 5 column 6>; Expected token: <",">
+                                                                      Visited token: <"=" at line 5 column 6>; Expected token: <"=">
+                                                                      Consumed token: <<IDENTIFIER>: "a" at line 5 column 4>
+                                                                      Call:   Assignment
+                                                                        Call:   AssignmentMulti
+                                                                          Consumed token: <"=" at line 5 column 6>
+                                                                          Call:   Expression
+                                                                            Call:   Expression00
+                                                                              Call:   Expression01
+                                                                                Call:   Expression02
+                                                                                  Call:   Expression03
+                                                                                    Call:   Expression04
+                                                                                      Call:   Expression05
+                                                                                        Call:   Expression06
+                                                                                          Call:   Atom
+                                                                                            Consumed token: <<INTEGER>: "3" at line 5 column 8>
+                                                                                          Return: Atom
+                                                                                        Return: Expression06
+                                                                                      Return: Expression05
+                                                                                    Return: Expression04
+                                                                                  Return: Expression03
+                                                                                Return: Expression02
+                                                                              Return: Expression01
+                                                                            Return: Expression00
+                                                                          Return: Expression
+                                                                        Return: AssignmentMulti
+                                                                      Return: Assignment
+                                                                    Return: statement
+                                                                  Return: stmblk
+                                                                  Call:   stmblk
+                                                                    Consumed token: <"\n": "
+" at line 5 column 9>
+                                                                  Return: stmblk
+                                                                  Call:   stmblk
+                                                                    Call:   statement
+                                                                      Call:   Branch
+                                                                        Call:   IfStatement
+                                                                          Call:   IfTest
+                                                                            Consumed token: <"if" at line 6 column 4>
+                                                                            Call:   Expression
+                                                                              Call:   Expression00
+                                                                                Call:   Expression01
+                                                                                  Call:   Expression02
+                                                                                    Call:   Expression03
+                                                                                      Call:   Expression04
+                                                                                        Call:   Expression05
+                                                                                          Call:   Expression06
+                                                                                            Consumed token: <<IDENTIFIER>: "s" at line 6 column 7>
+                                                                                            Call:   Variable
+                                                                                              Consumed token: <"[" at line 6 column 8>
+                                                                                              Call:   Expression
+                                                                                                Call:   Expression00
+                                                                                                  Call:   Expression01
+                                                                                                    Call:   Expression02
+                                                                                                      Call:   Expression03
+                                                                                                        Call:   Expression04
+                                                                                                          Call:   Expression05
+                                                                                                            Call:   Expression06
+                                                                                                              Call:   Atom
+                                                                                                                Consumed token: <<INTEGER>: "2" at line 6 column 9>
+                                                                                                              Return: Atom
+                                                                                                            Return: Expression06
+                                                                                                          Return: Expression05
+                                                                                                        Return: Expression04
+                                                                                                      Return: Expression03
+                                                                                                    Return: Expression02
+                                                                                                  Return: Expression01
+                                                                                                Return: Expression00
+                                                                                              Return: Expression
+                                                                                              Call:   Subscripting
+                                                                                                Consumed token: <"]" at line 6 column 10>
+                                                                                              Return: Subscripting
+                                                                                            Return: Variable
+                                                                                          Return: Expression06
+                                                                                        Return: Expression05
+                                                                                      Return: Expression04
+                                                                                    Return: Expression03
+                                                                                  Return: Expression02
+                                                                                  Consumed token: <"=" at line 6 column 12>
+                                                                                  Call:   Expression02
+                                                                                    Call:   Expression03
+                                                                                      Call:   Expression04
+                                                                                        Call:   Expression05
+                                                                                          Call:   Expression06
+                                                                                            Consumed token: <<STRINGLIT>: "'u'" at line 6 column 14>
+                                                                                          Return: Expression06
+                                                                                        Return: Expression05
+                                                                                      Return: Expression04
+                                                                                    Return: Expression03
+                                                                                  Return: Expression02
+                                                                                Return: Expression01
+                                                                              Return: Expression00
+                                                                            Return: Expression
+                                                                            Consumed token: <"then" at line 6 column 18>
+                                                                            Call:   stmblk
+                                                                              Consumed token: <"\n": "
+" at line 6 column 22>
+                                                                            Return: stmblk
+                                                                            Call:   stmblk
+                                                                              Call:   statement
+                                                                                Visited token: <<IDENTIFIER>: "b" at line 7 column 7>; Expected token: <<IDENTIFIER>>
+                                                                                Call:   Assignment(LOOKING AHEAD...)
+                                                                                  Call:   AssignmentMulti(LOOKING AHEAD...)
+                                                                                    Call:   Variable(LOOKING AHEAD...)
+                                                                                      Visited token: <"=" at line 7 column 9>; Expected token: <"[">
+                                                                                    Return: Variable(LOOKAHEAD FAILED)
+                                                                                    Visited token: <"=" at line 7 column 9>; Expected token: <",">
+                                                                                    Visited token: <"=" at line 7 column 9>; Expected token: <"=">
+                                                                                    Consumed token: <<IDENTIFIER>: "b" at line 7 column 7>
+                                                                                    Call:   Assignment
+                                                                                      Call:   AssignmentMulti
+                                                                                        Consumed token: <"=" at line 7 column 9>
+                                                                                        Call:   Expression
+                                                                                          Call:   Expression00
+                                                                                            Call:   Expression01
+                                                                                              Call:   Expression02
+                                                                                                Call:   Expression03
+                                                                                                  Call:   Expression04
+                                                                                                    Call:   Expression05
+                                                                                                      Call:   Expression06
+                                                                                                        Call:   Atom
+                                                                                                          Consumed token: <<INTEGER>: "1" at line 7 column 11>
+                                                                                                        Return: Atom
+                                                                                                      Return: Expression06
+                                                                                                    Return: Expression05
+                                                                                                  Return: Expression04
+                                                                                                Return: Expression03
+                                                                                              Return: Expression02
+                                                                                            Return: Expression01
+                                                                                          Return: Expression00
+                                                                                        Return: Expression
+                                                                                      Return: AssignmentMulti
+                                                                                    Return: Assignment
+                                                                                  Return: statement
+                                                                                Return: stmblk
+                                                                                Call:   stmblk
+                                                                                  Consumed token: <"\n": "
+" at line 7 column 12>
+                                                                                Return: stmblk
+                                                                                Call:   stmblk
+                                                                                  Call:   statement
+                                                                                    Call:   Branch
+                                                                                      Call:   IfStatement
+                                                                                        Call:   IfTest
+                                                                                          Consumed token: <"if" at line 8 column 7>
+                                                                                          Call:   Expression
+                                                                                            Call:   Expression00
+                                                                                              Call:   Expression01
+                                                                                                Call:   Expression02
+                                                                                                  Call:   Expression03
+                                                                                                    Call:   Expression04
+                                                                                                      Call:   Expression05
+                                                                                                        Call:   Expression06
+                                                                                                          Consumed token: <<IDENTIFIER>: "s" at line 8 column 10>
+                                                                                                          Call:   Variable
+                                                                                                            Consumed token: <"[" at line 8 column 11>
+                                                                                                            Call:   Expression
+                                                                                                              Call:   Expression00
+                                                                                                                Call:   Expression01
+                                                                                                                  Call:   Expression02
+                                                                                                                    Call:   Expression03
+                                                                                                                      Call:   Expression04
+                                                                                                                        Call:   Expression05
+                                                                                                                          Call:   Expression06
+                                                                                                                            Call:   Atom
+                                                                                                                              Consumed token: <<INTEGER>: "3" at line 8 column 12>
+                                                                                                                            Return: Atom
+                                                                                                                          Return: Expression06
+                                                                                                                        Return: Expression05
+                                                                                                                      Return: Expression04
+                                                                                                                    Return: Expression03
+                                                                                                                  Return: Expression02
+                                                                                                                Return: Expression01
+                                                                                                              Return: Expression00
+                                                                                                            Return: Expression
+                                                                                                            Call:   Subscripting
+                                                                                                              Consumed token: <"]" at line 8 column 13>
+                                                                                                            Return: Subscripting
+                                                                                                          Return: Variable
+                                                                                                        Return: Expression06
+                                                                                                      Return: Expression05
+                                                                                                    Return: Expression04
+                                                                                                  Return: Expression03
+                                                                                                Return: Expression02
+                                                                                                Consumed token: <"=" at line 8 column 15>
+                                                                                                Call:   Expression02
+                                                                                                  Call:   Expression03
+                                                                                                    Call:   Expression04
+                                                                                                      Call:   Expression05
+                                                                                                        Call:   Expression06
+                                                                                                          Consumed token: <<STRINGLIT>: "'p'" at line 8 column 17>
+                                                                                                        Return: Expression06
+                                                                                                      Return: Expression05
+                                                                                                    Return: Expression04
+                                                                                                  Return: Expression03
+                                                                                                Return: Expression02
+                                                                                              Return: Expression01
+                                                                                            Return: Expression00
+                                                                                          Return: Expression
+                                                                                          Consumed token: <"then" at line 8 column 21>
+                                                                                          Call:   stmblk
+                                                                                            Consumed token: <"\n": "
+" at line 8 column 25>
+                                                                                          Return: stmblk
+                                                                                        Return: IfTest
+                                                                                      Return: IfStatement
+                                                                                    Return: Branch
+                                                                                  Return: statement
+                                                                                Return: stmblk
+                                                                              Return: IfTest
+                                                                            Return: IfStatement
+                                                                          Return: Branch
+                                                                        Return: statement
+                                                                      Return: stmblk
+                                                                    Return: IfTest
+                                                                  Return: IfStatement
+                                                                Return: Branch
+                                                              Return: statement
+                                                            Return: stmblk
+                                                          Return: javacc_input
+Encountered " "break" "break "" at line 9, column 10.
 Was expecting one of:
-    "{" ...
-    "}" ...
-    "$" ...
+    "\n" ...
+    "end" ...
+    "export" ...
+    "global" ...
+    "public" ...
+    "switch" ...
+    "else" ...
+    "goto" ...
+    "while" ...
+    "if" ...
+    "loop" ...
+    "override" ...
+    "return" ...
+    "elsif" ...
+    "ifdef" ...
+    "type" ...
+    "for" ...
+    "atom" ...
+    "integer" ...
+    "sequence" ...
+    "object" ...
     <IDENTIFIER> ...
-    <INTEGER> ...
-    <FLOAT> ...
-    <EXP> ...
-    <BIN_NUMBER> ...
-    <OCT_NUMBER> ...
-    <DEC_NUMBER> ...
-    <HEX_NUMBER> ...
-    <STRINGLIT> ...
+    <BREAKSTMT> ...
+    <CONTINUESTMT> ...
+    <RETRYSTMT> ...
+    <EXITSTMT> ...
+    <FALLTHRUSTMT> ...
     
 Ocorreu uma excecao!
