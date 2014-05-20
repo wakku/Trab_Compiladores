@@ -3,6 +3,14 @@
 
 /** Token Manager. */
 @SuppressWarnings("unused")public class MeuphoriaTokenManager implements MeuphoriaConstants {
+        //Ação executada para cada Token encontrado
+        void CommonTokenAction(Token t) {
+                if(t.kind == IDENTIFIER) {
+                // Se tamanho for maior que 30, váriavel é invalida. Gera um erro.
+                if(t.image.length() > 30)
+                throw new TokenMgrError();
+                }
+        }
 
   /** Debug output. */
   public  java.io.PrintStream debugStream = System.out;
@@ -4037,6 +4045,7 @@ public Token getNextToken()
       jjmatchedKind = 0;
       jjmatchedPos = -1;
       matchedToken = jjFillToken();
+      CommonTokenAction(matchedToken);
       return matchedToken;
    }
 
@@ -4073,6 +4082,7 @@ public Token getNextToken()
            matchedToken = jjFillToken();
        if (jjnewLexState[jjmatchedKind] != -1)
          curLexState = jjnewLexState[jjmatchedKind];
+           CommonTokenAction(matchedToken);
            return matchedToken;
         }
         else if ((jjtoSkip[jjmatchedKind >> 6] & (1L << (jjmatchedKind & 077))) != 0L)

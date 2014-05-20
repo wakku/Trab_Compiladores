@@ -23,7 +23,8 @@ Nome:
 *****************************************/
 options {
   STATIC = false;
-  DEBUG_LOOKAHEAD = true;
+  DEBUG_LOOKAHEAD = false;
+  COMMON_TOKEN_ACTION = true ;
 }
 
 /*****************************************
@@ -86,6 +87,22 @@ class Meuphoria {
   }
 }
 PARSER_END(Meuphoria)
+
+
+
+TOKEN_MGR_DECLS : { 
+	
+	//Ação executada para cada Token encontrado
+	void CommonTokenAction(Token t) {
+		if(t.kind == IDENTIFIER) {
+        	// Se tamanho for maior que 30, váriavel é invalida. Gera um erro.
+        	if(t.image.length() > 30)
+            	throw new TokenMgrError();
+        	}
+	}
+}
+
+
 
 /*****************************************
                 SKIP
