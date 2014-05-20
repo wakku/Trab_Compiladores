@@ -238,7 +238,8 @@ TOKEN : {
 *****************************************/
 TOKEN : { 
       < IDENTIFIER : ( ["a"-"z", "A"-"Z"] | "_" ) ( ["a"-"z", "A"-"Z"] | ["0"-"9"] | "_" )* > 
-    | < CHAR : (["a"-"z", "A"-"Z"] | ["0"-"9"] | "_" | "%" | "&" | "$" | "*" )+ > // adicionar caracteres especiais!!!!!
+    | < CHAR : (["a"-"z", "A"-"Z"] | "_" | "%" | "&" | "$" | "*" | " " | "\\"
+                | "." | "!" | "@" | "#" | "$" | "%" | "^" | "*" | "(" | ")" | "-" | "=" ) > // adicionar caracteres especiais!!!!!
     //| < CHAR : (<IDENTIFIER> | <FLOAT> | <EXP> | <INTEGER> | "_" | "%" | "&" | "$" | "*" ) > //tá erradoooo, char não é identifier nem float...
 }
 
@@ -246,7 +247,7 @@ TOKEN : {
         MANIPULACAO DE NUMEROS
 *****************************************/
 TOKEN : {
-    < INTEGER : ( <PLUS> | <MINUS> )+ ["0"-"9"] (["0"-"9"] | "_")* >
+    < INTEGER : ( <PLUS> | <MINUS> )? ["0"-"9"] (["0"-"9"] | "_")* >
   | < FLOAT   : <INTEGER> <DOT> ["0"-"9"] (["0"-"9"] | "_")* >
   | < EXP     : (<INTEGER> | <FLOAT>) ("E" | "e") <INTEGER> >
   //| < REAL    : <FLOAT> | <EXP> >
@@ -272,7 +273,7 @@ TOKEN : {
   | < PARAMETER : <DATATYPE> <IDENTIFIER> >
 }
 
-TOKEN : {
+TOKEN : [0]
   < IDENTLIST : <IDENT> ( <COMMA> <IDENT> )* >
   | < IDENT     : <IDENTIFIER> (<EQUAL> <EXPRESSION>)? >
 }
@@ -289,7 +290,7 @@ TOKEN : {
 *****************************************/
 TOKEN : {
   < STRINGLIT : <SIMPLESTRINGLIT> | <RAWSTRINGLIT> >
-  | < SIMPLESTRINGLIT : <QUOTE> (<CHAR> | <ESCCHAR>)* <QUOTE> >
+  | < SIMPLESTRINGLIT : <QUOTE> (<CHAR> | ["0"-"9"] | <ESCCHAR>)* <QUOTE> >
   | < ESCCHAR : <ESCLEAD> ( "n" | "r" | "t" | "\\" | "\"" | "\'" | "0" | "e" | "E" 
     | <BINARY> | <HEX2> | <HEX4> | <HEX8> ) >
   | < BINARY : "\\b" (["0", "1"])+(["0", "1", "_"])* >//<BIN> >
@@ -297,8 +298,8 @@ TOKEN : {
   | < HEX4 : "\\u" ["0" - "7"] ["0" - "7"]["0" - "7"] ["0" - "7"] >
   | < HEX8 : "\\U" ["0" - "7"] ["0" - "7"]["0" - "7"] ["0" - "7"]["0" - "7"] ["0" - "7"]["0" - "7"] ["0" - "7"] >
   | < RAWSTRINGLIT : <DQRAWSTRING> | <BQRAWSTRING> >
-  | < DQRAWSTRING : "`" (<CHAR>)+ "`" >
-  | <BQRAWSTRING : "\"\"\"" (<CHAR>)+ "\"\"\"" >
+  | < DQRAWSTRING : "`" (<CHAR> | ["0"-"9"])+ "`" >
+  | <BQRAWSTRING : "\"\"\"" (<CHAR> | ["0"-"9"])+ "\"\"\"" >
 }
 
 /*****************************************
@@ -468,7 +469,7 @@ void javacc_input() :
           // !!!!!! VarDeclare() | TypeDeclare() podem estar aninhados
           //| 
           //Flow()
-      )*
+      )
       <EOF>
       
 }
@@ -608,7 +609,7 @@ void javacc_input() :
                   void IfDefStatement() :
                   {}
                   {
-                    IfDefTest() ( ElsDefIfStatement() (<CHAR>)+)? ( ElsDefStatement())? <ENDDEFIF>
+                    IfDefTest() ( ElsDefIfStatement() <LABELSTMT> )? ( ElsDefStatement())? <ENDDEFIF>
                   }
 
                         void IfDefTest() :
