@@ -1,0 +1,11 @@
+@(1, 1)         "integer"            integer
+@(1, 9)         <IDENTIFIER>         a
+@(1, 10)        ","                  ,
+@(1, 12)        <IDENTIFIER>         b
+@(1, 13)        "\n"                 <EOL>
+@(2, 1)         "sequence"           sequence
+@(2, 10)        <IDENTIFIER>         s
+@(2, 12)        "="                  =
+@(2, 14)        "{"                  {
+Lexical error at line 2, column 15.  Encountered: "\'" (39), after : ""
+Existem erros no codigo! Por favor, verifica-los.

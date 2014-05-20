@@ -1,0 +1,86 @@
+@(1, 1)         <IDENTIFIER>         printf
+@(1, 7)         "("                  (
+@(1, 8)         <INTEGER>            1
+@(1, 9)         ","                  ,
+@(1, 11)        <STRINGLIT>          "Valor de 1 \n"
+@(1, 26)        ")"                  )
+@(1, 28)        "\n"                 <EOL>
+@(2, 1)         <IDENTIFIER>         printf
+@(2, 7)         "("                  (
+@(2, 8)         <INTEGER>            1
+@(2, 9)         ","                  ,
+@(2, 11)        <STRINGLIT>          "Valor de 2 \r"
+@(2, 26)        ")"                  )
+@(2, 28)        "\n"                 <EOL>
+@(3, 1)         <IDENTIFIER>         printf
+@(3, 7)         "("                  (
+@(3, 8)         <INTEGER>            1
+@(3, 9)         ","                  ,
+@(3, 11)        <STRINGLIT>          "Valor de 3 \t"
+@(3, 26)        ")"                  )
+@(3, 28)        "\n"                 <EOL>
+@(4, 1)         <IDENTIFIER>         printf
+@(4, 7)         "("                  (
+@(4, 8)         <INTEGER>            1
+@(4, 9)         ","                  ,
+@(4, 11)        <STRINGLIT>          "Valor de 4 \\"
+@(4, 26)        ")"                  )
+@(4, 28)        "\n"                 <EOL>
+@(5, 1)         <IDENTIFIER>         printf
+@(5, 7)         "("                  (
+@(5, 8)         <INTEGER>            1
+@(5, 9)         ","                  ,
+@(5, 11)        <STRINGLIT>          "Valor de 5 \""
+@(5, 26)        ")"                  )
+@(5, 28)        "\n"                 <EOL>
+@(6, 1)         <IDENTIFIER>         printf
+@(6, 7)         "("                  (
+@(6, 8)         <INTEGER>            1
+@(6, 9)         ","                  ,
+@(6, 11)        <STRINGLIT>          "Valor de 6 \'"
+@(6, 26)        ")"                  )
+@(6, 28)        "\n"                 <EOL>
+@(7, 1)         <IDENTIFIER>         printf
+@(7, 7)         "("                  (
+@(7, 8)         <INTEGER>            1
+@(7, 9)         ","                  ,
+@(7, 11)        <STRINGLIT>          "Valor de 7 \0"
+@(7, 26)        ")"                  )
+@(7, 28)        "\n"                 <EOL>
+@(8, 1)         <IDENTIFIER>         printf
+@(8, 7)         "("                  (
+@(8, 8)         <INTEGER>            1
+@(8, 9)         ","                  ,
+@(8, 11)        <STRINGLIT>          "Valor de 8 \e"
+@(8, 26)        ")"                  )
+@(8, 28)        "\n"                 <EOL>
+@(9, 1)         <IDENTIFIER>         printf
+@(9, 7)         "("                  (
+@(9, 8)         <INTEGER>            1
+@(9, 9)         ","                  ,
+@(9, 11)        <STRINGLIT>          "Valor de 9 \E"
+@(9, 26)        ")"                  )
+@(9, 28)        "\n"                 <EOL>
+@(10, 1)        <IDENTIFIER>         printf
+@(10, 7)        "("                  (
+@(10, 8)        <INTEGER>            1
+@(10, 9)        ","                  ,
+@(10, 11)       <STRINGLIT>          "Valor de 10 \x5F"
+@(10, 29)       ")"                  )
+@(10, 31)       "\n"                 <EOL>
+@(11, 1)        <IDENTIFIER>         printf
+@(11, 7)        "("                  (
+@(11, 8)        <INTEGER>            1
+@(11, 9)        ","                  ,
+@(11, 11)       <STRINGLIT>          "Valor de 11 \u2A7C"
+@(11, 31)       ")"                  )
+@(11, 33)       "\n"                 <EOL>
+@(12, 1)        <IDENTIFIER>         printf
+@(12, 7)        "("                  (
+@(12, 8)        <INTEGER>            1
+@(12, 9)        ","                  ,
+@(12, 11)       <STRINGLIT>          "Valor de 12 \U8123FEDC"
+@(12, 35)       ")"                  )
+@(12, 35)       <EOF>                
+
+Analisado com sucesso!

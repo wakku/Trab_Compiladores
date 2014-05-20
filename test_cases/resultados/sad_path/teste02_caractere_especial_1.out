@@ -1,2 +1,4 @@
+@(1, 1)         "integer"            integer
+@(1, 9)         <IDENTIFIER>         dist
 Lexical error at line 1, column 13.  Encountered: "@" (64), after : ""
 Existem erros no codigo! Por favor, verifica-los.

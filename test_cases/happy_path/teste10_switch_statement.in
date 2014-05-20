@@ -8,7 +8,7 @@ switch nota do
    case 'D' then
       puts(1, "Aprovado!\n" )
    case 'F' then
-      puts(1, "Oh, não! Fui reprovado!\n" )
+      puts(1, "Oh, nao! Fui reprovado!\n" )
    case else
-      puts(1, "Nota inválida!\n" )
+      puts(1, "Nota invalida!\n" )
 end switch

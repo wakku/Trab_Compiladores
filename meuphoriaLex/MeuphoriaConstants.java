@@ -195,57 +195,59 @@ public interface MeuphoriaConstants {
   /** RegularExpression Id. */
   int IDENTIFIER = 99;
   /** RegularExpression Id. */
-  int INTEGER = 100;
+  int CHAR = 100;
   /** RegularExpression Id. */
-  int FLOAT = 101;
+  int INTEGER = 101;
   /** RegularExpression Id. */
-  int EXP = 102;
+  int FLOAT = 102;
   /** RegularExpression Id. */
-  int BIN_NUMBER = 103;
+  int EXP = 103;
   /** RegularExpression Id. */
-  int OCT_NUMBER = 104;
+  int BIN_NUMBER = 104;
   /** RegularExpression Id. */
-  int DEC_NUMBER = 105;
+  int OCT_NUMBER = 105;
   /** RegularExpression Id. */
-  int HEX_NUMBER = 106;
+  int DEC_NUMBER = 106;
   /** RegularExpression Id. */
-  int STRINGLIT = 107;
+  int HEX_NUMBER = 107;
   /** RegularExpression Id. */
-  int SIMPLESTRINGLIT = 108;
+  int STRINGLIT = 108;
   /** RegularExpression Id. */
-  int ESCCHAR = 109;
+  int SIMPLESTRINGLIT = 109;
   /** RegularExpression Id. */
-  int BINARY = 110;
+  int ESCCHAR = 110;
   /** RegularExpression Id. */
-  int HEX2 = 111;
+  int BINARY = 111;
   /** RegularExpression Id. */
-  int HEX4 = 112;
+  int HEX2 = 112;
   /** RegularExpression Id. */
-  int HEX8 = 113;
+  int HEX4 = 113;
   /** RegularExpression Id. */
-  int RAWSTRINGLIT = 114;
+  int HEX8 = 114;
   /** RegularExpression Id. */
-  int DQRAWSTRING = 115;
+  int RAWSTRINGLIT = 115;
   /** RegularExpression Id. */
-  int BQRAWSTRING = 116;
+  int DQRAWSTRING = 116;
   /** RegularExpression Id. */
-  int WITHENTRY = 117;
+  int BQRAWSTRING = 117;
   /** RegularExpression Id. */
-  int LABELSTMT = 118;
+  int WITHENTRY = 118;
   /** RegularExpression Id. */
-  int BREAKSTMT = 119;
+  int LABELSTMT = 119;
   /** RegularExpression Id. */
-  int CONTINUESTMT = 120;
+  int BREAKSTMT = 120;
   /** RegularExpression Id. */
-  int RETRYSTMT = 121;
+  int CONTINUESTMT = 121;
   /** RegularExpression Id. */
-  int EXITSTMT = 122;
+  int RETRYSTMT = 122;
   /** RegularExpression Id. */
-  int FALLTHRUSTMT = 123;
+  int EXITSTMT = 123;
   /** RegularExpression Id. */
-  int ENDIF = 124;
+  int FALLTHRUSTMT = 124;
   /** RegularExpression Id. */
-  int ENDDEFIF = 125;
+  int ENDIF = 125;
+  /** RegularExpression Id. */
+  int ENDDEFIF = 126;
 
   /** Lexical state. */
   int DEFAULT = 0;
@@ -354,6 +356,7 @@ public interface MeuphoriaConstants {
     "\"sequence\"",
     "\"object\"",
     "<IDENTIFIER>",
+    "<CHAR>",
     "<INTEGER>",
     "<FLOAT>",
     "<EXP>",

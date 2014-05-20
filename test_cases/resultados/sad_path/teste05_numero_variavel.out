@@ -1,2 +1,5 @@
-Lexical error at line 1, column 9.  Encountered: "5" (53), after : ""
+@(1, 1)         "integer"            integer
+@(1, 9)         <INTEGER>            5
+@(1, 10)        <IDENTIFIER>         dist
+Lexical error at line 1, column 14.  Encountered: "\ufffd" (65533), after : ""
 Existem erros no codigo! Por favor, verifica-los.

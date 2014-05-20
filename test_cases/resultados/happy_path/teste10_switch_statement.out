@@ -1,2 +1,5 @@
+@(1, 1)         "atom"               atom
+@(1, 6)         <IDENTIFIER>         nota
+@(1, 11)        "="                  =
 Lexical error at line 1, column 13.  Encountered: "\'" (39), after : ""
 Existem erros no codigo! Por favor, verifica-los.

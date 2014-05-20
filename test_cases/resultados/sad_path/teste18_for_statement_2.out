@@ -1,2 +1,19 @@
-Lexical error at line 1, column 9.  Encountered: "1" (49), after : ""
-Existem erros no codigo! Por favor, verifica-los.
+@(1, 1)         "for"                for
+@(1, 5)         <IDENTIFIER>         a
+@(1, 7)         "="                  =
+@(1, 9)         <INTEGER>            1
+@(1, 11)        "to"                 to
+@(1, 14)        <INTEGER>            5
+@(1, 16)        "do"                 do
+@(1, 18)        "\n"                 <EOL>
+@(2, 4)         <IDENTIFIER>         printf
+@(2, 10)        "("                  (
+@(2, 11)        <INTEGER>            1
+@(2, 12)        ","                  ,
+@(2, 14)        <STRINGLIT>          "valor de a %d\n"
+@(2, 31)        ","                  ,
+@(2, 33)        <IDENTIFIER>         a
+@(2, 34)        ")"                  )
+@(2, 34)        <EOF>                
+
+Analisado com sucesso!

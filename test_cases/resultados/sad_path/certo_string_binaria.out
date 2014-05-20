@@ -1,2 +1,6 @@
-Lexical error at line 1, column 5.  Encountered: "1" (49), after : "\""
-Existem erros no codigo! Por favor, verifica-los.
+@(1, 1)         <IDENTIFIER>         drb
+@(1, 4)         <STRINGLIT>          "1 10 110100 0101011001111000"
+@(1, 34)        "\n"                 <EOL>
+@(1, 34)        <EOF>                
+
+Analisado com sucesso!

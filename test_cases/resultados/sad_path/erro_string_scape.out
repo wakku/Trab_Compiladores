@@ -1,2 +1,8 @@
-Lexical error at line 1, column 19.  Encountered: " " (32), after : "\"ola"
-Existem erros no codigo! Por favor, verifica-los.
+@(1, 1)         "sequence"           sequence
+@(1, 10)        <IDENTIFIER>         v1
+@(1, 13)        "="                  =
+@(1, 15)        <STRINGLIT>          "ola \xA"
+@(1, 24)        "\n"                 <EOL>
+@(1, 24)        <EOF>                
+
+Analisado com sucesso!

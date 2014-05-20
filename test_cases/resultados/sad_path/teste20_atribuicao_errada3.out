@@ -1,0 +1,22 @@
+@(1, 1)         "integer"            integer
+@(1, 9)         <IDENTIFIER>         tempo
+@(1, 14)        ","                  ,
+@(1, 16)        <IDENTIFIER>         distancia
+@(1, 25)        "\n"                 <EOL>
+@(2, 1)         "sequence"           sequence
+@(2, 10)        <IDENTIFIER>         nome
+@(2, 14)        "\n"                 <EOL>
+@(3, 1)         "\n"                 <EOL>
+@(4, 1)         <IDENTIFIER>         tempo
+@(4, 9)         "="                  =
+@(4, 11)        <INTEGER>            100
+@(5, 1)         <IDENTIFIER>         tempo
+@(5, 9)         "="                  =
+@(5, 11)        <INTEGER>            101
+@(6, 1)         <IDENTIFIER>         distancia
+@(6, 11)        "="                  =
+@(6, 13)        <FLOAT>              1000.0
+@(7, 1)         <IDENTIFIER>         nome
+@(7, 9)         "="                  =
+Lexical error at line 7, column 24.  Encountered: "\t" (9), after : "\"Vanessa    "
+Existem erros no codigo! Por favor, verifica-los.

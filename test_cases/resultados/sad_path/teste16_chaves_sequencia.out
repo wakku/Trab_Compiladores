@@ -1,11 +1,39 @@
-Encountered " "\n" "\n "" at line 1, column 10.
-Was expecting one of:
-    <EOF> 
-    "constant" ...
-    "enum" ...
-    "function" ...
-    "procedure" ...
-    "," ...
-    "=" ...
-    
-Ocorreu uma excecao!
+@(1, 1)         "enum"               enum
+@(1, 6)         <IDENTIFIER>         X
+@(1, 7)         ","                  ,
+@(1, 9)         <IDENTIFIER>         Y
+@(1, 10)        "\n"                 <EOL>
+@(2, 1)         "sequence"           sequence
+@(2, 10)        <IDENTIFIER>         point
+@(2, 16)        "="                  =
+@(2, 18)        "{"                  {
+@(2, 20)        <INTEGER>            0
+@(2, 21)        ","                  ,
+@(2, 22)        <INTEGER>            0
+@(2, 24)        "\n"                 <EOL>
+@(3, 1)         <IDENTIFIER>         point
+@(3, 6)         "["                  [
+@(3, 7)         <IDENTIFIER>         X
+@(3, 8)         "]"                  ]
+@(3, 10)        "="                  =
+@(3, 12)        <INTEGER>            3
+@(3, 13)        "\n"                 <EOL>
+@(4, 1)         <IDENTIFIER>         point
+@(4, 6)         "["                  [
+@(4, 7)         <IDENTIFIER>         Y
+@(4, 8)         "]"                  ]
+@(4, 10)        "="                  =
+@(4, 12)        <INTEGER>            4
+@(4, 13)        "\n"                 <EOL>
+@(5, 1)         "\n"                 <EOL>
+@(6, 1)         <IDENTIFIER>         printf
+@(6, 7)         "("                  (
+@(6, 8)         <INTEGER>            1
+@(6, 9)         ","                  ,
+@(6, 11)        <STRINGLIT>          "Valor da Sequencia %d %d\n"
+@(6, 39)        ","                  ,
+@(6, 41)        <IDENTIFIER>         point
+@(6, 46)        ")"                  )
+@(6, 46)        <EOF>                
+
+Analisado com sucesso!

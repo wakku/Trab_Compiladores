@@ -1,0 +1,102 @@
+@(1, 1)         "integer"            integer
+@(1, 9)         <IDENTIFIER>         tempo
+@(1, 14)        ","                  ,
+@(1, 16)        <IDENTIFIER>         distancia
+@(1, 25)        "\n"                 <EOL>
+@(2, 1)         "sequence"           sequence
+@(2, 10)        <IDENTIFIER>         nome
+@(2, 14)        "\n"                 <EOL>
+@(3, 1)         "\n"                 <EOL>
+@(4, 1)         <IDENTIFIER>         tempo
+@(4, 9)         "="                  =
+@(4, 11)        <INTEGER>            100
+@(5, 1)         <IDENTIFIER>         tempo
+@(5, 9)         "="                  =
+@(5, 11)        <INTEGER>            101
+@(6, 1)         <IDENTIFIER>         distancia
+@(6, 11)        "="                  =
+@(6, 13)        <FLOAT>              1000.0
+@(7, 1)         <IDENTIFIER>         nome
+@(7, 9)         "="                  =
+@(7, 11)        <STRINGLIT>          "Vanessa"
+@(8, 1)         "constant"           constant
+@(8, 10)        <IDENTIFIER>         MAX
+@(8, 14)        "="                  =
+@(8, 16)        <INTEGER>            100
+@(9, 1)         "enum"               enum
+@(9, 6)         <IDENTIFIER>         ONE
+@(9, 9)         ","                  ,
+@(9, 11)        <IDENTIFIER>         TWO
+@(9, 14)        ","                  ,
+@(9, 16)        <IDENTIFIER>         THREE
+@(9, 21)        ","                  ,
+@(9, 23)        <IDENTIFIER>         FOUR
+@(10, 1)        "\n"                 <EOL>
+@(11, 1)        "\n"                 <EOL>
+@(12, 1)        <IDENTIFIER>         printf
+@(12, 7)        "("                  (
+@(12, 8)        <INTEGER>            1
+@(12, 9)        ","                  ,
+@(12, 11)       <STRINGLIT>          "Valor de tempo %d\n"
+@(12, 32)       ","                  ,
+@(12, 34)       <IDENTIFIER>         variavelnaoexiste
+@(12, 51)       ")"                  )
+@(12, 52)       "\n"                 <EOL>
+@(13, 1)        <IDENTIFIER>         printf
+@(13, 7)        "("                  (
+@(13, 8)        <INTEGER>            1
+@(13, 9)        ","                  ,
+@(13, 11)       <STRINGLIT>          "Valor de miles %f\n"
+@(13, 32)       ","                  ,
+@(13, 34)       <IDENTIFIER>         naotem
+@(13, 40)       ")"                  )
+@(13, 41)       "\n"                 <EOL>
+@(14, 1)        <IDENTIFIER>         printf
+@(14, 7)        "("                  (
+@(14, 8)        <INTEGER>            1
+@(14, 9)        ","                  ,
+@(14, 11)       <STRINGLIT>          "Valor de nome %s\n"
+@(14, 31)       ","                  ,
+@(14, 33)       "{"                  {
+@(14, 34)       <IDENTIFIER>         nome
+@(14, 38)       "}"                  }
+@(14, 40)       ")"                  )
+@(14, 41)       "\n"                 <EOL>
+@(15, 1)        <IDENTIFIER>         printf
+@(15, 7)        "("                  (
+@(15, 8)        <INTEGER>            1
+@(15, 9)        ","                  ,
+@(15, 11)       <STRINGLIT>          "Valor de ONE %d\n"
+@(15, 30)       ","                  ,
+@(15, 32)       <IDENTIFIER>         ONE
+@(15, 36)       ")"                  )
+@(15, 37)       "\n"                 <EOL>
+@(16, 1)        <IDENTIFIER>         printf
+@(16, 7)        "("                  (
+@(16, 8)        <INTEGER>            1
+@(16, 9)        ","                  ,
+@(16, 11)       <STRINGLIT>          "Valor de TWO %d\n"
+@(16, 30)       ","                  ,
+@(16, 32)       <IDENTIFIER>         TWO
+@(16, 36)       ")"                  )
+@(16, 37)       "\n"                 <EOL>
+@(17, 1)        <IDENTIFIER>         printf
+@(17, 7)        "("                  (
+@(17, 8)        <INTEGER>            1
+@(17, 9)        ","                  ,
+@(17, 11)       <STRINGLIT>          "Valor de THREE %d\n"
+@(17, 32)       ","                  ,
+@(17, 34)       <IDENTIFIER>         THREE
+@(17, 40)       ")"                  )
+@(17, 41)       "\n"                 <EOL>
+@(18, 1)        <IDENTIFIER>         printf
+@(18, 7)        "("                  (
+@(18, 8)        <INTEGER>            1
+@(18, 9)        ","                  ,
+@(18, 11)       <STRINGLIT>          "Valor de FOUR %d\n"
+@(18, 31)       ","                  ,
+@(18, 33)       <IDENTIFIER>         FOUR
+@(18, 38)       ")"                  )
+@(18, 38)       <EOF>                
+
+Analisado com sucesso!

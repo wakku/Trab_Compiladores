@@ -1,2 +1,6 @@
-Lexical error at line 1, column 3.  Encountered: "1" (49), after : "\""
-Existem erros no codigo! Por favor, verifica-los.
+@(1, 1)         <IDENTIFIER>         b
+@(1, 2)         <STRINGLIT>          "1 10 110100 010101100111100A"
+@(1, 32)        "\n"                 <EOL>
+@(1, 32)        <EOF>                
+
+Analisado com sucesso!
