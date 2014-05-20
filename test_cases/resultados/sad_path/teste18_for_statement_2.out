@@ -1,19 +1,97 @@
-@(1, 1)         "for"                for
-@(1, 5)         <IDENTIFIER>         a
-@(1, 7)         "="                  =
-@(1, 9)         <INTEGER>            1
-@(1, 11)        "to"                 to
-@(1, 14)        <INTEGER>            5
-@(1, 16)        "do"                 do
-@(1, 18)        "\n"                 <EOL>
-@(2, 4)         <IDENTIFIER>         printf
-@(2, 10)        "("                  (
-@(2, 11)        <INTEGER>            1
-@(2, 12)        ","                  ,
-@(2, 14)        <STRINGLIT>          "valor de a %d\n"
-@(2, 31)        ","                  ,
-@(2, 33)        <IDENTIFIER>         a
-@(2, 34)        ")"                  )
-@(2, 34)        <EOF>                
-
-Analisado com sucesso!
+Call:   javacc_input
+  Call:   stmblk(LOOKING AHEAD...)
+    Call:   statement(LOOKING AHEAD...)
+      Call:   Flow(LOOKING AHEAD...)
+        Visited token: <"for" at line 1 column 1>; Expected token: <<BREAKSTMT>>
+        Visited token: <"for" at line 1 column 1>; Expected token: <<CONTINUESTMT>>
+        Visited token: <"for" at line 1 column 1>; Expected token: <<RETRYSTMT>>
+        Visited token: <"for" at line 1 column 1>; Expected token: <<EXITSTMT>>
+        Visited token: <"for" at line 1 column 1>; Expected token: <<FALLTHRUSTMT>>
+      Return: Flow(LOOKAHEAD FAILED)
+      Call:   Loop(LOOKING AHEAD...)
+        Call:   ForStatement(LOOKING AHEAD...)
+          Visited token: <"for" at line 1 column 1>; Expected token: <"for">
+          Call:   ForIDX(LOOKING AHEAD...)
+            Visited token: <<IDENTIFIER>: "a" at line 1 column 5>; Expected token: <<IDENTIFIER>>
+            Call:   stmblk
+              Call:   statement
+                Call:   Loop
+                  Call:   ForStatement
+                    Consumed token: <"for" at line 1 column 1>
+                    Call:   ForIDX
+                      Consumed token: <<IDENTIFIER>: "a" at line 1 column 5>
+                      Consumed token: <"=" at line 1 column 7>
+                      Call:   Expression
+                        Call:   Expression00
+                          Call:   Expression01
+                            Call:   Expression02
+                              Call:   Expression03
+                                Call:   Expression04
+                                  Call:   Expression05
+                                    Call:   Expression06
+                                      Call:   Atom
+                                        Consumed token: <<INTEGER>: "1" at line 1 column 9>
+                                      Return: Atom
+                                    Return: Expression06
+                                  Return: Expression05
+                                Return: Expression04
+                              Return: Expression03
+                            Return: Expression02
+                          Return: Expression01
+                        Return: Expression00
+                      Return: Expression
+                      Consumed token: <"to" at line 1 column 11>
+                      Call:   Expression
+                        Call:   Expression00
+                          Call:   Expression01
+                            Call:   Expression02
+                              Call:   Expression03
+                                Call:   Expression04
+                                  Call:   Expression05
+                                    Call:   Expression06
+                                      Call:   Atom
+                                        Consumed token: <<INTEGER>: "5" at line 1 column 14>
+                                      Return: Atom
+                                    Return: Expression06
+                                  Return: Expression05
+                                Return: Expression04
+                              Return: Expression03
+                            Return: Expression02
+                          Return: Expression01
+                        Return: Expression00
+                      Return: Expression
+                    Return: ForIDX
+                    Consumed token: <"do" at line 1 column 16>
+                  Return: ForStatement
+                Return: Loop
+              Return: statement
+            Return: stmblk
+          Return: javacc_input
+Encountered " "\n" "\n "" at line 1, column 18.
+Was expecting one of:
+    "end" ...
+    "export" ...
+    "global" ...
+    "public" ...
+    "switch" ...
+    "goto" ...
+    "while" ...
+    "if" ...
+    "loop" ...
+    "override" ...
+    "return" ...
+    "ifdef" ...
+    "type" ...
+    "for" ...
+    "atom" ...
+    "integer" ...
+    "sequence" ...
+    "object" ...
+    <IDENTIFIER> ...
+    <BREAKSTMT> ...
+    <CONTINUESTMT> ...
+    <RETRYSTMT> ...
+    <EXITSTMT> ...
+    <FALLTHRUSTMT> ...
+    
+Ocorreu uma excecao!

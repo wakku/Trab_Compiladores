@@ -1,5 +1,89 @@
-@(1, 1)         "atom"               atom
-@(1, 6)         <IDENTIFIER>         nota
-@(1, 11)        "="                  =
-Lexical error at line 1, column 13.  Encountered: "\'" (39), after : ""
-Existem erros no codigo! Por favor, verifica-los.
+Call:   javacc_input
+  Call:   stmblk(LOOKING AHEAD...)
+    Call:   statement(LOOKING AHEAD...)
+      Call:   Flow(LOOKING AHEAD...)
+        Visited token: <"atom" at line 1 column 1>; Expected token: <<BREAKSTMT>>
+        Visited token: <"atom" at line 1 column 1>; Expected token: <<CONTINUESTMT>>
+        Visited token: <"atom" at line 1 column 1>; Expected token: <<RETRYSTMT>>
+        Visited token: <"atom" at line 1 column 1>; Expected token: <<EXITSTMT>>
+        Visited token: <"atom" at line 1 column 1>; Expected token: <<FALLTHRUSTMT>>
+      Return: Flow(LOOKAHEAD FAILED)
+      Call:   Loop(LOOKING AHEAD...)
+        Call:   ForStatement(LOOKING AHEAD...)
+          Visited token: <"atom" at line 1 column 1>; Expected token: <"for">
+        Return: ForStatement(LOOKAHEAD FAILED)
+        Call:   WhileStatement(LOOKING AHEAD...)
+          Visited token: <"atom" at line 1 column 1>; Expected token: <"while">
+        Return: WhileStatement(LOOKAHEAD FAILED)
+        Call:   LoopStatement(LOOKING AHEAD...)
+          Visited token: <"atom" at line 1 column 1>; Expected token: <"loop">
+        Return: LoopStatement(LOOKAHEAD FAILED)
+        Visited token: <"atom" at line 1 column 1>; Expected token: <"goto">
+      Return: Loop(LOOKAHEAD FAILED)
+      Call:   Branch(LOOKING AHEAD...)
+        Call:   IfStatement(LOOKING AHEAD...)
+          Call:   IfTest(LOOKING AHEAD...)
+            Visited token: <"atom" at line 1 column 1>; Expected token: <"if">
+          Return: IfTest(LOOKAHEAD FAILED)
+        Return: IfStatement(LOOKAHEAD FAILED)
+        Call:   SwitchStatement(LOOKING AHEAD...)
+          Call:   SwitchTest(LOOKING AHEAD...)
+            Visited token: <"atom" at line 1 column 1>; Expected token: <"switch">
+          Return: SwitchTest(LOOKAHEAD FAILED)
+        Return: SwitchStatement(LOOKAHEAD FAILED)
+        Call:   IfDefStatement(LOOKING AHEAD...)
+          Call:   IfDefTest(LOOKING AHEAD...)
+            Visited token: <"atom" at line 1 column 1>; Expected token: <"ifdef">
+          Return: IfDefTest(LOOKAHEAD FAILED)
+        Return: IfDefStatement(LOOKAHEAD FAILED)
+      Return: Branch(LOOKAHEAD FAILED)
+      Call:   Return(LOOKING AHEAD...)
+        Visited token: <"atom" at line 1 column 1>; Expected token: <"return">
+      Return: Return(LOOKAHEAD FAILED)
+      Visited token: <"atom" at line 1 column 1>; Expected token: <<IDENTIFIER>>
+      Call:   ScopeModifier(LOOKING AHEAD...)
+        Visited token: <"atom" at line 1 column 1>; Expected token: <"global">
+        Visited token: <"atom" at line 1 column 1>; Expected token: <"public">
+        Visited token: <"atom" at line 1 column 1>; Expected token: <"export">
+        Visited token: <"atom" at line 1 column 1>; Expected token: <"override">
+      Return: ScopeModifier(LOOKAHEAD FAILED)
+      Call:   VarDeclare(LOOKING AHEAD...)
+        Call:   DataType(LOOKING AHEAD...)
+          Visited token: <"atom" at line 1 column 1>; Expected token: <"atom">
+        Return: DataType(LOOKAHEAD SUCCEEDED)
+        Call:   IdentList(LOOKING AHEAD...)
+          Call:   Ident(LOOKING AHEAD...)
+            Visited token: <<IDENTIFIER>: "nota" at line 1 column 6>; Expected token: <<IDENTIFIER>>
+            Call:   stmblk
+              Call:   statement
+                Visited token: <"atom" at line 1 column 1>; Expected token: <<IDENTIFIER>>
+                Call:   VarDeclare
+                  Call:   DataType
+                    Consumed token: <"atom" at line 1 column 1>
+                  Return: DataType
+                  Call:   IdentList
+                    Call:   Ident
+                      Consumed token: <<IDENTIFIER>: "nota" at line 1 column 6>
+                      Consumed token: <"=" at line 1 column 11>
+                      Call:   Expression
+                      Return: Expression
+                    Return: Ident
+                  Return: IdentList
+                Return: VarDeclare
+              Return: statement
+            Return: stmblk
+          Return: javacc_input
+Encountered " <CHAR> "\'C\' "" at line 1, column 13.
+Was expecting one of:
+    "(" ...
+    "{" ...
+    "not" ...
+    "+" ...
+    "-" ...
+    <IDENTIFIER> ...
+    <INTEGER> ...
+    <FLOAT> ...
+    <EXP> ...
+    <STRINGLIT> ...
+    
+Ocorreu uma excecao!

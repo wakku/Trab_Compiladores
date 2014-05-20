@@ -1,86 +1,1478 @@
-@(1, 1)         <IDENTIFIER>         printf
-@(1, 7)         "("                  (
-@(1, 8)         <INTEGER>            1
-@(1, 9)         ","                  ,
-@(1, 11)        <STRINGLIT>          "Valor de 1 \n"
-@(1, 26)        ")"                  )
-@(1, 28)        "\n"                 <EOL>
-@(2, 1)         <IDENTIFIER>         printf
-@(2, 7)         "("                  (
-@(2, 8)         <INTEGER>            1
-@(2, 9)         ","                  ,
-@(2, 11)        <STRINGLIT>          "Valor de 2 \r"
-@(2, 26)        ")"                  )
-@(2, 28)        "\n"                 <EOL>
-@(3, 1)         <IDENTIFIER>         printf
-@(3, 7)         "("                  (
-@(3, 8)         <INTEGER>            1
-@(3, 9)         ","                  ,
-@(3, 11)        <STRINGLIT>          "Valor de 3 \t"
-@(3, 26)        ")"                  )
-@(3, 28)        "\n"                 <EOL>
-@(4, 1)         <IDENTIFIER>         printf
-@(4, 7)         "("                  (
-@(4, 8)         <INTEGER>            1
-@(4, 9)         ","                  ,
-@(4, 11)        <STRINGLIT>          "Valor de 4 \\"
-@(4, 26)        ")"                  )
-@(4, 28)        "\n"                 <EOL>
-@(5, 1)         <IDENTIFIER>         printf
-@(5, 7)         "("                  (
-@(5, 8)         <INTEGER>            1
-@(5, 9)         ","                  ,
-@(5, 11)        <STRINGLIT>          "Valor de 5 \""
-@(5, 26)        ")"                  )
-@(5, 28)        "\n"                 <EOL>
-@(6, 1)         <IDENTIFIER>         printf
-@(6, 7)         "("                  (
-@(6, 8)         <INTEGER>            1
-@(6, 9)         ","                  ,
-@(6, 11)        <STRINGLIT>          "Valor de 6 \'"
-@(6, 26)        ")"                  )
-@(6, 28)        "\n"                 <EOL>
-@(7, 1)         <IDENTIFIER>         printf
-@(7, 7)         "("                  (
-@(7, 8)         <INTEGER>            1
-@(7, 9)         ","                  ,
-@(7, 11)        <STRINGLIT>          "Valor de 7 \0"
-@(7, 26)        ")"                  )
-@(7, 28)        "\n"                 <EOL>
-@(8, 1)         <IDENTIFIER>         printf
-@(8, 7)         "("                  (
-@(8, 8)         <INTEGER>            1
-@(8, 9)         ","                  ,
-@(8, 11)        <STRINGLIT>          "Valor de 8 \e"
-@(8, 26)        ")"                  )
-@(8, 28)        "\n"                 <EOL>
-@(9, 1)         <IDENTIFIER>         printf
-@(9, 7)         "("                  (
-@(9, 8)         <INTEGER>            1
-@(9, 9)         ","                  ,
-@(9, 11)        <STRINGLIT>          "Valor de 9 \E"
-@(9, 26)        ")"                  )
-@(9, 28)        "\n"                 <EOL>
-@(10, 1)        <IDENTIFIER>         printf
-@(10, 7)        "("                  (
-@(10, 8)        <INTEGER>            1
-@(10, 9)        ","                  ,
-@(10, 11)       <STRINGLIT>          "Valor de 10 \x5F"
-@(10, 29)       ")"                  )
-@(10, 31)       "\n"                 <EOL>
-@(11, 1)        <IDENTIFIER>         printf
-@(11, 7)        "("                  (
-@(11, 8)        <INTEGER>            1
-@(11, 9)        ","                  ,
-@(11, 11)       <STRINGLIT>          "Valor de 11 \u2A7C"
-@(11, 31)       ")"                  )
-@(11, 33)       "\n"                 <EOL>
-@(12, 1)        <IDENTIFIER>         printf
-@(12, 7)        "("                  (
-@(12, 8)        <INTEGER>            1
-@(12, 9)        ","                  ,
-@(12, 11)       <STRINGLIT>          "Valor de 12 \U8123FEDC"
-@(12, 35)       ")"                  )
-@(12, 35)       <EOF>                
-
-Analisado com sucesso!
+Call:   javacc_input
+  Call:   stmblk(LOOKING AHEAD...)
+    Call:   statement(LOOKING AHEAD...)
+      Call:   Flow(LOOKING AHEAD...)
+        Visited token: <<IDENTIFIER>: "printf" at line 1 column 1>; Expected token: <<BREAKSTMT>>
+        Visited token: <<IDENTIFIER>: "printf" at line 1 column 1>; Expected token: <<CONTINUESTMT>>
+        Visited token: <<IDENTIFIER>: "printf" at line 1 column 1>; Expected token: <<RETRYSTMT>>
+        Visited token: <<IDENTIFIER>: "printf" at line 1 column 1>; Expected token: <<EXITSTMT>>
+        Visited token: <<IDENTIFIER>: "printf" at line 1 column 1>; Expected token: <<FALLTHRUSTMT>>
+      Return: Flow(LOOKAHEAD FAILED)
+      Call:   Loop(LOOKING AHEAD...)
+        Call:   ForStatement(LOOKING AHEAD...)
+          Visited token: <<IDENTIFIER>: "printf" at line 1 column 1>; Expected token: <"for">
+        Return: ForStatement(LOOKAHEAD FAILED)
+        Call:   WhileStatement(LOOKING AHEAD...)
+          Visited token: <<IDENTIFIER>: "printf" at line 1 column 1>; Expected token: <"while">
+        Return: WhileStatement(LOOKAHEAD FAILED)
+        Call:   LoopStatement(LOOKING AHEAD...)
+          Visited token: <<IDENTIFIER>: "printf" at line 1 column 1>; Expected token: <"loop">
+        Return: LoopStatement(LOOKAHEAD FAILED)
+        Visited token: <<IDENTIFIER>: "printf" at line 1 column 1>; Expected token: <"goto">
+      Return: Loop(LOOKAHEAD FAILED)
+      Call:   Branch(LOOKING AHEAD...)
+        Call:   IfStatement(LOOKING AHEAD...)
+          Call:   IfTest(LOOKING AHEAD...)
+            Visited token: <<IDENTIFIER>: "printf" at line 1 column 1>; Expected token: <"if">
+          Return: IfTest(LOOKAHEAD FAILED)
+        Return: IfStatement(LOOKAHEAD FAILED)
+        Call:   SwitchStatement(LOOKING AHEAD...)
+          Call:   SwitchTest(LOOKING AHEAD...)
+            Visited token: <<IDENTIFIER>: "printf" at line 1 column 1>; Expected token: <"switch">
+          Return: SwitchTest(LOOKAHEAD FAILED)
+        Return: SwitchStatement(LOOKAHEAD FAILED)
+        Call:   IfDefStatement(LOOKING AHEAD...)
+          Call:   IfDefTest(LOOKING AHEAD...)
+            Visited token: <<IDENTIFIER>: "printf" at line 1 column 1>; Expected token: <"ifdef">
+          Return: IfDefTest(LOOKAHEAD FAILED)
+        Return: IfDefStatement(LOOKAHEAD FAILED)
+      Return: Branch(LOOKAHEAD FAILED)
+      Call:   Return(LOOKING AHEAD...)
+        Visited token: <<IDENTIFIER>: "printf" at line 1 column 1>; Expected token: <"return">
+      Return: Return(LOOKAHEAD FAILED)
+      Visited token: <<IDENTIFIER>: "printf" at line 1 column 1>; Expected token: <<IDENTIFIER>>
+      Call:   Assignment(LOOKING AHEAD...)
+        Call:   AssignmentMulti(LOOKING AHEAD...)
+          Visited token: <"(" at line 1 column 7>; Expected token: <",">
+          Visited token: <"(" at line 1 column 7>; Expected token: <"=">
+        Return: AssignmentMulti(LOOKAHEAD FAILED)
+        Call:   AssignmentWihOp(LOOKING AHEAD...)
+          Visited token: <"(" at line 1 column 7>; Expected token: <"+">
+          Visited token: <"(" at line 1 column 7>; Expected token: <"-">
+          Visited token: <"(" at line 1 column 7>; Expected token: <"/">
+          Visited token: <"(" at line 1 column 7>; Expected token: <"*">
+          Visited token: <"(" at line 1 column 7>; Expected token: <"&">
+        Return: AssignmentWihOp(LOOKAHEAD FAILED)
+      Return: Assignment(LOOKAHEAD FAILED)
+      Call:   Call(LOOKING AHEAD...)
+        Visited token: <"(" at line 1 column 7>; Expected token: <"(">
+        Call:   stmblk
+          Call:   statement
+            Visited token: <<IDENTIFIER>: "printf" at line 1 column 1>; Expected token: <<IDENTIFIER>>
+            Call:   Assignment(LOOKING AHEAD...)
+              Call:   AssignmentMulti(LOOKING AHEAD...)
+                Visited token: <"(" at line 1 column 7>; Expected token: <",">
+                Visited token: <"(" at line 1 column 7>; Expected token: <"=">
+              Return: AssignmentMulti(LOOKAHEAD FAILED)
+              Call:   AssignmentWihOp(LOOKING AHEAD...)
+                Visited token: <"(" at line 1 column 7>; Expected token: <"+">
+                Visited token: <"(" at line 1 column 7>; Expected token: <"-">
+                Visited token: <"(" at line 1 column 7>; Expected token: <"/">
+                Visited token: <"(" at line 1 column 7>; Expected token: <"*">
+                Visited token: <"(" at line 1 column 7>; Expected token: <"&">
+              Return: AssignmentWihOp(LOOKAHEAD FAILED)
+            Return: Assignment(LOOKAHEAD FAILED)
+            Call:   Call(LOOKING AHEAD...)
+              Visited token: <"(" at line 1 column 7>; Expected token: <"(">
+              Consumed token: <<IDENTIFIER>: "printf" at line 1 column 1>
+              Call:   Call
+                Consumed token: <"(" at line 1 column 7>
+                Call:   ArgList
+                  Call:   Expression
+                    Call:   Expression00
+                      Call:   Expression01
+                        Call:   Expression02
+                          Call:   Expression03
+                            Call:   Expression04
+                              Call:   Expression05
+                                Call:   Expression06
+                                  Call:   Atom
+                                    Consumed token: <<INTEGER>: "1" at line 1 column 8>
+                                  Return: Atom
+                                Return: Expression06
+                              Return: Expression05
+                            Return: Expression04
+                          Return: Expression03
+                        Return: Expression02
+                      Return: Expression01
+                    Return: Expression00
+                  Return: Expression
+                  Consumed token: <"," at line 1 column 9>
+                  Call:   Expression
+                    Call:   Expression00
+                      Call:   Expression01
+                        Call:   Expression02
+                          Call:   Expression03
+                            Call:   Expression04
+                              Call:   Expression05
+                                Call:   Expression06
+                                  Consumed token: <<STRINGLIT>: ""Valor de 1 \n"" at line 1 column 11>
+                                Return: Expression06
+                              Return: Expression05
+                            Return: Expression04
+                          Return: Expression03
+                        Return: Expression02
+                      Return: Expression01
+                    Return: Expression00
+                  Return: Expression
+                Return: ArgList
+                Consumed token: <")" at line 1 column 26>
+              Return: Call
+            Return: statement
+          Return: stmblk
+          Consumed token: <"\n": "
+" at line 1 column 28>
+          Call:   stmblk(LOOKING AHEAD...)
+            Call:   statement(LOOKING AHEAD...)
+              Call:   Flow(LOOKING AHEAD...)
+                Visited token: <<IDENTIFIER>: "printf" at line 2 column 1>; Expected token: <<BREAKSTMT>>
+                Visited token: <<IDENTIFIER>: "printf" at line 2 column 1>; Expected token: <<CONTINUESTMT>>
+                Visited token: <<IDENTIFIER>: "printf" at line 2 column 1>; Expected token: <<RETRYSTMT>>
+                Visited token: <<IDENTIFIER>: "printf" at line 2 column 1>; Expected token: <<EXITSTMT>>
+                Visited token: <<IDENTIFIER>: "printf" at line 2 column 1>; Expected token: <<FALLTHRUSTMT>>
+              Return: Flow(LOOKAHEAD FAILED)
+              Call:   Loop(LOOKING AHEAD...)
+                Call:   ForStatement(LOOKING AHEAD...)
+                  Visited token: <<IDENTIFIER>: "printf" at line 2 column 1>; Expected token: <"for">
+                Return: ForStatement(LOOKAHEAD FAILED)
+                Call:   WhileStatement(LOOKING AHEAD...)
+                  Visited token: <<IDENTIFIER>: "printf" at line 2 column 1>; Expected token: <"while">
+                Return: WhileStatement(LOOKAHEAD FAILED)
+                Call:   LoopStatement(LOOKING AHEAD...)
+                  Visited token: <<IDENTIFIER>: "printf" at line 2 column 1>; Expected token: <"loop">
+                Return: LoopStatement(LOOKAHEAD FAILED)
+                Visited token: <<IDENTIFIER>: "printf" at line 2 column 1>; Expected token: <"goto">
+              Return: Loop(LOOKAHEAD FAILED)
+              Call:   Branch(LOOKING AHEAD...)
+                Call:   IfStatement(LOOKING AHEAD...)
+                  Call:   IfTest(LOOKING AHEAD...)
+                    Visited token: <<IDENTIFIER>: "printf" at line 2 column 1>; Expected token: <"if">
+                  Return: IfTest(LOOKAHEAD FAILED)
+                Return: IfStatement(LOOKAHEAD FAILED)
+                Call:   SwitchStatement(LOOKING AHEAD...)
+                  Call:   SwitchTest(LOOKING AHEAD...)
+                    Visited token: <<IDENTIFIER>: "printf" at line 2 column 1>; Expected token: <"switch">
+                  Return: SwitchTest(LOOKAHEAD FAILED)
+                Return: SwitchStatement(LOOKAHEAD FAILED)
+                Call:   IfDefStatement(LOOKING AHEAD...)
+                  Call:   IfDefTest(LOOKING AHEAD...)
+                    Visited token: <<IDENTIFIER>: "printf" at line 2 column 1>; Expected token: <"ifdef">
+                  Return: IfDefTest(LOOKAHEAD FAILED)
+                Return: IfDefStatement(LOOKAHEAD FAILED)
+              Return: Branch(LOOKAHEAD FAILED)
+              Call:   Return(LOOKING AHEAD...)
+                Visited token: <<IDENTIFIER>: "printf" at line 2 column 1>; Expected token: <"return">
+              Return: Return(LOOKAHEAD FAILED)
+              Visited token: <<IDENTIFIER>: "printf" at line 2 column 1>; Expected token: <<IDENTIFIER>>
+              Call:   Assignment(LOOKING AHEAD...)
+                Call:   AssignmentMulti(LOOKING AHEAD...)
+                  Visited token: <"(" at line 2 column 7>; Expected token: <",">
+                  Visited token: <"(" at line 2 column 7>; Expected token: <"=">
+                Return: AssignmentMulti(LOOKAHEAD FAILED)
+                Call:   AssignmentWihOp(LOOKING AHEAD...)
+                  Visited token: <"(" at line 2 column 7>; Expected token: <"+">
+                  Visited token: <"(" at line 2 column 7>; Expected token: <"-">
+                  Visited token: <"(" at line 2 column 7>; Expected token: <"/">
+                  Visited token: <"(" at line 2 column 7>; Expected token: <"*">
+                  Visited token: <"(" at line 2 column 7>; Expected token: <"&">
+                Return: AssignmentWihOp(LOOKAHEAD FAILED)
+              Return: Assignment(LOOKAHEAD FAILED)
+              Call:   Call(LOOKING AHEAD...)
+                Visited token: <"(" at line 2 column 7>; Expected token: <"(">
+                Call:   stmblk
+                  Call:   statement
+                    Visited token: <<IDENTIFIER>: "printf" at line 2 column 1>; Expected token: <<IDENTIFIER>>
+                    Call:   Assignment(LOOKING AHEAD...)
+                      Call:   AssignmentMulti(LOOKING AHEAD...)
+                        Visited token: <"(" at line 2 column 7>; Expected token: <",">
+                        Visited token: <"(" at line 2 column 7>; Expected token: <"=">
+                      Return: AssignmentMulti(LOOKAHEAD FAILED)
+                      Call:   AssignmentWihOp(LOOKING AHEAD...)
+                        Visited token: <"(" at line 2 column 7>; Expected token: <"+">
+                        Visited token: <"(" at line 2 column 7>; Expected token: <"-">
+                        Visited token: <"(" at line 2 column 7>; Expected token: <"/">
+                        Visited token: <"(" at line 2 column 7>; Expected token: <"*">
+                        Visited token: <"(" at line 2 column 7>; Expected token: <"&">
+                      Return: AssignmentWihOp(LOOKAHEAD FAILED)
+                    Return: Assignment(LOOKAHEAD FAILED)
+                    Call:   Call(LOOKING AHEAD...)
+                      Visited token: <"(" at line 2 column 7>; Expected token: <"(">
+                      Consumed token: <<IDENTIFIER>: "printf" at line 2 column 1>
+                      Call:   Call
+                        Consumed token: <"(" at line 2 column 7>
+                        Call:   ArgList
+                          Call:   Expression
+                            Call:   Expression00
+                              Call:   Expression01
+                                Call:   Expression02
+                                  Call:   Expression03
+                                    Call:   Expression04
+                                      Call:   Expression05
+                                        Call:   Expression06
+                                          Call:   Atom
+                                            Consumed token: <<INTEGER>: "1" at line 2 column 8>
+                                          Return: Atom
+                                        Return: Expression06
+                                      Return: Expression05
+                                    Return: Expression04
+                                  Return: Expression03
+                                Return: Expression02
+                              Return: Expression01
+                            Return: Expression00
+                          Return: Expression
+                          Consumed token: <"," at line 2 column 9>
+                          Call:   Expression
+                            Call:   Expression00
+                              Call:   Expression01
+                                Call:   Expression02
+                                  Call:   Expression03
+                                    Call:   Expression04
+                                      Call:   Expression05
+                                        Call:   Expression06
+                                          Consumed token: <<STRINGLIT>: ""Valor de 2 \r"" at line 2 column 11>
+                                        Return: Expression06
+                                      Return: Expression05
+                                    Return: Expression04
+                                  Return: Expression03
+                                Return: Expression02
+                              Return: Expression01
+                            Return: Expression00
+                          Return: Expression
+                        Return: ArgList
+                        Consumed token: <")" at line 2 column 26>
+                      Return: Call
+                    Return: statement
+                  Return: stmblk
+                  Consumed token: <"\n": "
+" at line 2 column 28>
+                  Call:   stmblk(LOOKING AHEAD...)
+                    Call:   statement(LOOKING AHEAD...)
+                      Call:   Flow(LOOKING AHEAD...)
+                        Visited token: <<IDENTIFIER>: "printf" at line 3 column 1>; Expected token: <<BREAKSTMT>>
+                        Visited token: <<IDENTIFIER>: "printf" at line 3 column 1>; Expected token: <<CONTINUESTMT>>
+                        Visited token: <<IDENTIFIER>: "printf" at line 3 column 1>; Expected token: <<RETRYSTMT>>
+                        Visited token: <<IDENTIFIER>: "printf" at line 3 column 1>; Expected token: <<EXITSTMT>>
+                        Visited token: <<IDENTIFIER>: "printf" at line 3 column 1>; Expected token: <<FALLTHRUSTMT>>
+                      Return: Flow(LOOKAHEAD FAILED)
+                      Call:   Loop(LOOKING AHEAD...)
+                        Call:   ForStatement(LOOKING AHEAD...)
+                          Visited token: <<IDENTIFIER>: "printf" at line 3 column 1>; Expected token: <"for">
+                        Return: ForStatement(LOOKAHEAD FAILED)
+                        Call:   WhileStatement(LOOKING AHEAD...)
+                          Visited token: <<IDENTIFIER>: "printf" at line 3 column 1>; Expected token: <"while">
+                        Return: WhileStatement(LOOKAHEAD FAILED)
+                        Call:   LoopStatement(LOOKING AHEAD...)
+                          Visited token: <<IDENTIFIER>: "printf" at line 3 column 1>; Expected token: <"loop">
+                        Return: LoopStatement(LOOKAHEAD FAILED)
+                        Visited token: <<IDENTIFIER>: "printf" at line 3 column 1>; Expected token: <"goto">
+                      Return: Loop(LOOKAHEAD FAILED)
+                      Call:   Branch(LOOKING AHEAD...)
+                        Call:   IfStatement(LOOKING AHEAD...)
+                          Call:   IfTest(LOOKING AHEAD...)
+                            Visited token: <<IDENTIFIER>: "printf" at line 3 column 1>; Expected token: <"if">
+                          Return: IfTest(LOOKAHEAD FAILED)
+                        Return: IfStatement(LOOKAHEAD FAILED)
+                        Call:   SwitchStatement(LOOKING AHEAD...)
+                          Call:   SwitchTest(LOOKING AHEAD...)
+                            Visited token: <<IDENTIFIER>: "printf" at line 3 column 1>; Expected token: <"switch">
+                          Return: SwitchTest(LOOKAHEAD FAILED)
+                        Return: SwitchStatement(LOOKAHEAD FAILED)
+                        Call:   IfDefStatement(LOOKING AHEAD...)
+                          Call:   IfDefTest(LOOKING AHEAD...)
+                            Visited token: <<IDENTIFIER>: "printf" at line 3 column 1>; Expected token: <"ifdef">
+                          Return: IfDefTest(LOOKAHEAD FAILED)
+                        Return: IfDefStatement(LOOKAHEAD FAILED)
+                      Return: Branch(LOOKAHEAD FAILED)
+                      Call:   Return(LOOKING AHEAD...)
+                        Visited token: <<IDENTIFIER>: "printf" at line 3 column 1>; Expected token: <"return">
+                      Return: Return(LOOKAHEAD FAILED)
+                      Visited token: <<IDENTIFIER>: "printf" at line 3 column 1>; Expected token: <<IDENTIFIER>>
+                      Call:   Assignment(LOOKING AHEAD...)
+                        Call:   AssignmentMulti(LOOKING AHEAD...)
+                          Visited token: <"(" at line 3 column 7>; Expected token: <",">
+                          Visited token: <"(" at line 3 column 7>; Expected token: <"=">
+                        Return: AssignmentMulti(LOOKAHEAD FAILED)
+                        Call:   AssignmentWihOp(LOOKING AHEAD...)
+                          Visited token: <"(" at line 3 column 7>; Expected token: <"+">
+                          Visited token: <"(" at line 3 column 7>; Expected token: <"-">
+                          Visited token: <"(" at line 3 column 7>; Expected token: <"/">
+                          Visited token: <"(" at line 3 column 7>; Expected token: <"*">
+                          Visited token: <"(" at line 3 column 7>; Expected token: <"&">
+                        Return: AssignmentWihOp(LOOKAHEAD FAILED)
+                      Return: Assignment(LOOKAHEAD FAILED)
+                      Call:   Call(LOOKING AHEAD...)
+                        Visited token: <"(" at line 3 column 7>; Expected token: <"(">
+                        Call:   stmblk
+                          Call:   statement
+                            Visited token: <<IDENTIFIER>: "printf" at line 3 column 1>; Expected token: <<IDENTIFIER>>
+                            Call:   Assignment(LOOKING AHEAD...)
+                              Call:   AssignmentMulti(LOOKING AHEAD...)
+                                Visited token: <"(" at line 3 column 7>; Expected token: <",">
+                                Visited token: <"(" at line 3 column 7>; Expected token: <"=">
+                              Return: AssignmentMulti(LOOKAHEAD FAILED)
+                              Call:   AssignmentWihOp(LOOKING AHEAD...)
+                                Visited token: <"(" at line 3 column 7>; Expected token: <"+">
+                                Visited token: <"(" at line 3 column 7>; Expected token: <"-">
+                                Visited token: <"(" at line 3 column 7>; Expected token: <"/">
+                                Visited token: <"(" at line 3 column 7>; Expected token: <"*">
+                                Visited token: <"(" at line 3 column 7>; Expected token: <"&">
+                              Return: AssignmentWihOp(LOOKAHEAD FAILED)
+                            Return: Assignment(LOOKAHEAD FAILED)
+                            Call:   Call(LOOKING AHEAD...)
+                              Visited token: <"(" at line 3 column 7>; Expected token: <"(">
+                              Consumed token: <<IDENTIFIER>: "printf" at line 3 column 1>
+                              Call:   Call
+                                Consumed token: <"(" at line 3 column 7>
+                                Call:   ArgList
+                                  Call:   Expression
+                                    Call:   Expression00
+                                      Call:   Expression01
+                                        Call:   Expression02
+                                          Call:   Expression03
+                                            Call:   Expression04
+                                              Call:   Expression05
+                                                Call:   Expression06
+                                                  Call:   Atom
+                                                    Consumed token: <<INTEGER>: "1" at line 3 column 8>
+                                                  Return: Atom
+                                                Return: Expression06
+                                              Return: Expression05
+                                            Return: Expression04
+                                          Return: Expression03
+                                        Return: Expression02
+                                      Return: Expression01
+                                    Return: Expression00
+                                  Return: Expression
+                                  Consumed token: <"," at line 3 column 9>
+                                  Call:   Expression
+                                    Call:   Expression00
+                                      Call:   Expression01
+                                        Call:   Expression02
+                                          Call:   Expression03
+                                            Call:   Expression04
+                                              Call:   Expression05
+                                                Call:   Expression06
+                                                  Consumed token: <<STRINGLIT>: ""Valor de 3 \t"" at line 3 column 11>
+                                                Return: Expression06
+                                              Return: Expression05
+                                            Return: Expression04
+                                          Return: Expression03
+                                        Return: Expression02
+                                      Return: Expression01
+                                    Return: Expression00
+                                  Return: Expression
+                                Return: ArgList
+                                Consumed token: <")" at line 3 column 26>
+                              Return: Call
+                            Return: statement
+                          Return: stmblk
+                          Consumed token: <"\n": "
+" at line 3 column 28>
+                          Call:   stmblk(LOOKING AHEAD...)
+                            Call:   statement(LOOKING AHEAD...)
+                              Call:   Flow(LOOKING AHEAD...)
+                                Visited token: <<IDENTIFIER>: "printf" at line 4 column 1>; Expected token: <<BREAKSTMT>>
+                                Visited token: <<IDENTIFIER>: "printf" at line 4 column 1>; Expected token: <<CONTINUESTMT>>
+                                Visited token: <<IDENTIFIER>: "printf" at line 4 column 1>; Expected token: <<RETRYSTMT>>
+                                Visited token: <<IDENTIFIER>: "printf" at line 4 column 1>; Expected token: <<EXITSTMT>>
+                                Visited token: <<IDENTIFIER>: "printf" at line 4 column 1>; Expected token: <<FALLTHRUSTMT>>
+                              Return: Flow(LOOKAHEAD FAILED)
+                              Call:   Loop(LOOKING AHEAD...)
+                                Call:   ForStatement(LOOKING AHEAD...)
+                                  Visited token: <<IDENTIFIER>: "printf" at line 4 column 1>; Expected token: <"for">
+                                Return: ForStatement(LOOKAHEAD FAILED)
+                                Call:   WhileStatement(LOOKING AHEAD...)
+                                  Visited token: <<IDENTIFIER>: "printf" at line 4 column 1>; Expected token: <"while">
+                                Return: WhileStatement(LOOKAHEAD FAILED)
+                                Call:   LoopStatement(LOOKING AHEAD...)
+                                  Visited token: <<IDENTIFIER>: "printf" at line 4 column 1>; Expected token: <"loop">
+                                Return: LoopStatement(LOOKAHEAD FAILED)
+                                Visited token: <<IDENTIFIER>: "printf" at line 4 column 1>; Expected token: <"goto">
+                              Return: Loop(LOOKAHEAD FAILED)
+                              Call:   Branch(LOOKING AHEAD...)
+                                Call:   IfStatement(LOOKING AHEAD...)
+                                  Call:   IfTest(LOOKING AHEAD...)
+                                    Visited token: <<IDENTIFIER>: "printf" at line 4 column 1>; Expected token: <"if">
+                                  Return: IfTest(LOOKAHEAD FAILED)
+                                Return: IfStatement(LOOKAHEAD FAILED)
+                                Call:   SwitchStatement(LOOKING AHEAD...)
+                                  Call:   SwitchTest(LOOKING AHEAD...)
+                                    Visited token: <<IDENTIFIER>: "printf" at line 4 column 1>; Expected token: <"switch">
+                                  Return: SwitchTest(LOOKAHEAD FAILED)
+                                Return: SwitchStatement(LOOKAHEAD FAILED)
+                                Call:   IfDefStatement(LOOKING AHEAD...)
+                                  Call:   IfDefTest(LOOKING AHEAD...)
+                                    Visited token: <<IDENTIFIER>: "printf" at line 4 column 1>; Expected token: <"ifdef">
+                                  Return: IfDefTest(LOOKAHEAD FAILED)
+                                Return: IfDefStatement(LOOKAHEAD FAILED)
+                              Return: Branch(LOOKAHEAD FAILED)
+                              Call:   Return(LOOKING AHEAD...)
+                                Visited token: <<IDENTIFIER>: "printf" at line 4 column 1>; Expected token: <"return">
+                              Return: Return(LOOKAHEAD FAILED)
+                              Visited token: <<IDENTIFIER>: "printf" at line 4 column 1>; Expected token: <<IDENTIFIER>>
+                              Call:   Assignment(LOOKING AHEAD...)
+                                Call:   AssignmentMulti(LOOKING AHEAD...)
+                                  Visited token: <"(" at line 4 column 7>; Expected token: <",">
+                                  Visited token: <"(" at line 4 column 7>; Expected token: <"=">
+                                Return: AssignmentMulti(LOOKAHEAD FAILED)
+                                Call:   AssignmentWihOp(LOOKING AHEAD...)
+                                  Visited token: <"(" at line 4 column 7>; Expected token: <"+">
+                                  Visited token: <"(" at line 4 column 7>; Expected token: <"-">
+                                  Visited token: <"(" at line 4 column 7>; Expected token: <"/">
+                                  Visited token: <"(" at line 4 column 7>; Expected token: <"*">
+                                  Visited token: <"(" at line 4 column 7>; Expected token: <"&">
+                                Return: AssignmentWihOp(LOOKAHEAD FAILED)
+                              Return: Assignment(LOOKAHEAD FAILED)
+                              Call:   Call(LOOKING AHEAD...)
+                                Visited token: <"(" at line 4 column 7>; Expected token: <"(">
+                                Call:   stmblk
+                                  Call:   statement
+                                    Visited token: <<IDENTIFIER>: "printf" at line 4 column 1>; Expected token: <<IDENTIFIER>>
+                                    Call:   Assignment(LOOKING AHEAD...)
+                                      Call:   AssignmentMulti(LOOKING AHEAD...)
+                                        Visited token: <"(" at line 4 column 7>; Expected token: <",">
+                                        Visited token: <"(" at line 4 column 7>; Expected token: <"=">
+                                      Return: AssignmentMulti(LOOKAHEAD FAILED)
+                                      Call:   AssignmentWihOp(LOOKING AHEAD...)
+                                        Visited token: <"(" at line 4 column 7>; Expected token: <"+">
+                                        Visited token: <"(" at line 4 column 7>; Expected token: <"-">
+                                        Visited token: <"(" at line 4 column 7>; Expected token: <"/">
+                                        Visited token: <"(" at line 4 column 7>; Expected token: <"*">
+                                        Visited token: <"(" at line 4 column 7>; Expected token: <"&">
+                                      Return: AssignmentWihOp(LOOKAHEAD FAILED)
+                                    Return: Assignment(LOOKAHEAD FAILED)
+                                    Call:   Call(LOOKING AHEAD...)
+                                      Visited token: <"(" at line 4 column 7>; Expected token: <"(">
+                                      Consumed token: <<IDENTIFIER>: "printf" at line 4 column 1>
+                                      Call:   Call
+                                        Consumed token: <"(" at line 4 column 7>
+                                        Call:   ArgList
+                                          Call:   Expression
+                                            Call:   Expression00
+                                              Call:   Expression01
+                                                Call:   Expression02
+                                                  Call:   Expression03
+                                                    Call:   Expression04
+                                                      Call:   Expression05
+                                                        Call:   Expression06
+                                                          Call:   Atom
+                                                            Consumed token: <<INTEGER>: "1" at line 4 column 8>
+                                                          Return: Atom
+                                                        Return: Expression06
+                                                      Return: Expression05
+                                                    Return: Expression04
+                                                  Return: Expression03
+                                                Return: Expression02
+                                              Return: Expression01
+                                            Return: Expression00
+                                          Return: Expression
+                                          Consumed token: <"," at line 4 column 9>
+                                          Call:   Expression
+                                            Call:   Expression00
+                                              Call:   Expression01
+                                                Call:   Expression02
+                                                  Call:   Expression03
+                                                    Call:   Expression04
+                                                      Call:   Expression05
+                                                        Call:   Expression06
+                                                          Consumed token: <<STRINGLIT>: ""Valor de 4 \\"" at line 4 column 11>
+                                                        Return: Expression06
+                                                      Return: Expression05
+                                                    Return: Expression04
+                                                  Return: Expression03
+                                                Return: Expression02
+                                              Return: Expression01
+                                            Return: Expression00
+                                          Return: Expression
+                                        Return: ArgList
+                                        Consumed token: <")" at line 4 column 26>
+                                      Return: Call
+                                    Return: statement
+                                  Return: stmblk
+                                  Consumed token: <"\n": "
+" at line 4 column 28>
+                                  Call:   stmblk(LOOKING AHEAD...)
+                                    Call:   statement(LOOKING AHEAD...)
+                                      Call:   Flow(LOOKING AHEAD...)
+                                        Visited token: <<IDENTIFIER>: "printf" at line 5 column 1>; Expected token: <<BREAKSTMT>>
+                                        Visited token: <<IDENTIFIER>: "printf" at line 5 column 1>; Expected token: <<CONTINUESTMT>>
+                                        Visited token: <<IDENTIFIER>: "printf" at line 5 column 1>; Expected token: <<RETRYSTMT>>
+                                        Visited token: <<IDENTIFIER>: "printf" at line 5 column 1>; Expected token: <<EXITSTMT>>
+                                        Visited token: <<IDENTIFIER>: "printf" at line 5 column 1>; Expected token: <<FALLTHRUSTMT>>
+                                      Return: Flow(LOOKAHEAD FAILED)
+                                      Call:   Loop(LOOKING AHEAD...)
+                                        Call:   ForStatement(LOOKING AHEAD...)
+                                          Visited token: <<IDENTIFIER>: "printf" at line 5 column 1>; Expected token: <"for">
+                                        Return: ForStatement(LOOKAHEAD FAILED)
+                                        Call:   WhileStatement(LOOKING AHEAD...)
+                                          Visited token: <<IDENTIFIER>: "printf" at line 5 column 1>; Expected token: <"while">
+                                        Return: WhileStatement(LOOKAHEAD FAILED)
+                                        Call:   LoopStatement(LOOKING AHEAD...)
+                                          Visited token: <<IDENTIFIER>: "printf" at line 5 column 1>; Expected token: <"loop">
+                                        Return: LoopStatement(LOOKAHEAD FAILED)
+                                        Visited token: <<IDENTIFIER>: "printf" at line 5 column 1>; Expected token: <"goto">
+                                      Return: Loop(LOOKAHEAD FAILED)
+                                      Call:   Branch(LOOKING AHEAD...)
+                                        Call:   IfStatement(LOOKING AHEAD...)
+                                          Call:   IfTest(LOOKING AHEAD...)
+                                            Visited token: <<IDENTIFIER>: "printf" at line 5 column 1>; Expected token: <"if">
+                                          Return: IfTest(LOOKAHEAD FAILED)
+                                        Return: IfStatement(LOOKAHEAD FAILED)
+                                        Call:   SwitchStatement(LOOKING AHEAD...)
+                                          Call:   SwitchTest(LOOKING AHEAD...)
+                                            Visited token: <<IDENTIFIER>: "printf" at line 5 column 1>; Expected token: <"switch">
+                                          Return: SwitchTest(LOOKAHEAD FAILED)
+                                        Return: SwitchStatement(LOOKAHEAD FAILED)
+                                        Call:   IfDefStatement(LOOKING AHEAD...)
+                                          Call:   IfDefTest(LOOKING AHEAD...)
+                                            Visited token: <<IDENTIFIER>: "printf" at line 5 column 1>; Expected token: <"ifdef">
+                                          Return: IfDefTest(LOOKAHEAD FAILED)
+                                        Return: IfDefStatement(LOOKAHEAD FAILED)
+                                      Return: Branch(LOOKAHEAD FAILED)
+                                      Call:   Return(LOOKING AHEAD...)
+                                        Visited token: <<IDENTIFIER>: "printf" at line 5 column 1>; Expected token: <"return">
+                                      Return: Return(LOOKAHEAD FAILED)
+                                      Visited token: <<IDENTIFIER>: "printf" at line 5 column 1>; Expected token: <<IDENTIFIER>>
+                                      Call:   Assignment(LOOKING AHEAD...)
+                                        Call:   AssignmentMulti(LOOKING AHEAD...)
+                                          Visited token: <"(" at line 5 column 7>; Expected token: <",">
+                                          Visited token: <"(" at line 5 column 7>; Expected token: <"=">
+                                        Return: AssignmentMulti(LOOKAHEAD FAILED)
+                                        Call:   AssignmentWihOp(LOOKING AHEAD...)
+                                          Visited token: <"(" at line 5 column 7>; Expected token: <"+">
+                                          Visited token: <"(" at line 5 column 7>; Expected token: <"-">
+                                          Visited token: <"(" at line 5 column 7>; Expected token: <"/">
+                                          Visited token: <"(" at line 5 column 7>; Expected token: <"*">
+                                          Visited token: <"(" at line 5 column 7>; Expected token: <"&">
+                                        Return: AssignmentWihOp(LOOKAHEAD FAILED)
+                                      Return: Assignment(LOOKAHEAD FAILED)
+                                      Call:   Call(LOOKING AHEAD...)
+                                        Visited token: <"(" at line 5 column 7>; Expected token: <"(">
+                                        Call:   stmblk
+                                          Call:   statement
+                                            Visited token: <<IDENTIFIER>: "printf" at line 5 column 1>; Expected token: <<IDENTIFIER>>
+                                            Call:   Assignment(LOOKING AHEAD...)
+                                              Call:   AssignmentMulti(LOOKING AHEAD...)
+                                                Visited token: <"(" at line 5 column 7>; Expected token: <",">
+                                                Visited token: <"(" at line 5 column 7>; Expected token: <"=">
+                                              Return: AssignmentMulti(LOOKAHEAD FAILED)
+                                              Call:   AssignmentWihOp(LOOKING AHEAD...)
+                                                Visited token: <"(" at line 5 column 7>; Expected token: <"+">
+                                                Visited token: <"(" at line 5 column 7>; Expected token: <"-">
+                                                Visited token: <"(" at line 5 column 7>; Expected token: <"/">
+                                                Visited token: <"(" at line 5 column 7>; Expected token: <"*">
+                                                Visited token: <"(" at line 5 column 7>; Expected token: <"&">
+                                              Return: AssignmentWihOp(LOOKAHEAD FAILED)
+                                            Return: Assignment(LOOKAHEAD FAILED)
+                                            Call:   Call(LOOKING AHEAD...)
+                                              Visited token: <"(" at line 5 column 7>; Expected token: <"(">
+                                              Consumed token: <<IDENTIFIER>: "printf" at line 5 column 1>
+                                              Call:   Call
+                                                Consumed token: <"(" at line 5 column 7>
+                                                Call:   ArgList
+                                                  Call:   Expression
+                                                    Call:   Expression00
+                                                      Call:   Expression01
+                                                        Call:   Expression02
+                                                          Call:   Expression03
+                                                            Call:   Expression04
+                                                              Call:   Expression05
+                                                                Call:   Expression06
+                                                                  Call:   Atom
+                                                                    Consumed token: <<INTEGER>: "1" at line 5 column 8>
+                                                                  Return: Atom
+                                                                Return: Expression06
+                                                              Return: Expression05
+                                                            Return: Expression04
+                                                          Return: Expression03
+                                                        Return: Expression02
+                                                      Return: Expression01
+                                                    Return: Expression00
+                                                  Return: Expression
+                                                  Consumed token: <"," at line 5 column 9>
+                                                  Call:   Expression
+                                                    Call:   Expression00
+                                                      Call:   Expression01
+                                                        Call:   Expression02
+                                                          Call:   Expression03
+                                                            Call:   Expression04
+                                                              Call:   Expression05
+                                                                Call:   Expression06
+                                                                  Consumed token: <<STRINGLIT>: ""Valor de 5 \""" at line 5 column 11>
+                                                                Return: Expression06
+                                                              Return: Expression05
+                                                            Return: Expression04
+                                                          Return: Expression03
+                                                        Return: Expression02
+                                                      Return: Expression01
+                                                    Return: Expression00
+                                                  Return: Expression
+                                                Return: ArgList
+                                                Consumed token: <")" at line 5 column 26>
+                                              Return: Call
+                                            Return: statement
+                                          Return: stmblk
+                                          Consumed token: <"\n": "
+" at line 5 column 28>
+                                          Call:   stmblk(LOOKING AHEAD...)
+                                            Call:   statement(LOOKING AHEAD...)
+                                              Call:   Flow(LOOKING AHEAD...)
+                                                Visited token: <<IDENTIFIER>: "printf" at line 6 column 1>; Expected token: <<BREAKSTMT>>
+                                                Visited token: <<IDENTIFIER>: "printf" at line 6 column 1>; Expected token: <<CONTINUESTMT>>
+                                                Visited token: <<IDENTIFIER>: "printf" at line 6 column 1>; Expected token: <<RETRYSTMT>>
+                                                Visited token: <<IDENTIFIER>: "printf" at line 6 column 1>; Expected token: <<EXITSTMT>>
+                                                Visited token: <<IDENTIFIER>: "printf" at line 6 column 1>; Expected token: <<FALLTHRUSTMT>>
+                                              Return: Flow(LOOKAHEAD FAILED)
+                                              Call:   Loop(LOOKING AHEAD...)
+                                                Call:   ForStatement(LOOKING AHEAD...)
+                                                  Visited token: <<IDENTIFIER>: "printf" at line 6 column 1>; Expected token: <"for">
+                                                Return: ForStatement(LOOKAHEAD FAILED)
+                                                Call:   WhileStatement(LOOKING AHEAD...)
+                                                  Visited token: <<IDENTIFIER>: "printf" at line 6 column 1>; Expected token: <"while">
+                                                Return: WhileStatement(LOOKAHEAD FAILED)
+                                                Call:   LoopStatement(LOOKING AHEAD...)
+                                                  Visited token: <<IDENTIFIER>: "printf" at line 6 column 1>; Expected token: <"loop">
+                                                Return: LoopStatement(LOOKAHEAD FAILED)
+                                                Visited token: <<IDENTIFIER>: "printf" at line 6 column 1>; Expected token: <"goto">
+                                              Return: Loop(LOOKAHEAD FAILED)
+                                              Call:   Branch(LOOKING AHEAD...)
+                                                Call:   IfStatement(LOOKING AHEAD...)
+                                                  Call:   IfTest(LOOKING AHEAD...)
+                                                    Visited token: <<IDENTIFIER>: "printf" at line 6 column 1>; Expected token: <"if">
+                                                  Return: IfTest(LOOKAHEAD FAILED)
+                                                Return: IfStatement(LOOKAHEAD FAILED)
+                                                Call:   SwitchStatement(LOOKING AHEAD...)
+                                                  Call:   SwitchTest(LOOKING AHEAD...)
+                                                    Visited token: <<IDENTIFIER>: "printf" at line 6 column 1>; Expected token: <"switch">
+                                                  Return: SwitchTest(LOOKAHEAD FAILED)
+                                                Return: SwitchStatement(LOOKAHEAD FAILED)
+                                                Call:   IfDefStatement(LOOKING AHEAD...)
+                                                  Call:   IfDefTest(LOOKING AHEAD...)
+                                                    Visited token: <<IDENTIFIER>: "printf" at line 6 column 1>; Expected token: <"ifdef">
+                                                  Return: IfDefTest(LOOKAHEAD FAILED)
+                                                Return: IfDefStatement(LOOKAHEAD FAILED)
+                                              Return: Branch(LOOKAHEAD FAILED)
+                                              Call:   Return(LOOKING AHEAD...)
+                                                Visited token: <<IDENTIFIER>: "printf" at line 6 column 1>; Expected token: <"return">
+                                              Return: Return(LOOKAHEAD FAILED)
+                                              Visited token: <<IDENTIFIER>: "printf" at line 6 column 1>; Expected token: <<IDENTIFIER>>
+                                              Call:   Assignment(LOOKING AHEAD...)
+                                                Call:   AssignmentMulti(LOOKING AHEAD...)
+                                                  Visited token: <"(" at line 6 column 7>; Expected token: <",">
+                                                  Visited token: <"(" at line 6 column 7>; Expected token: <"=">
+                                                Return: AssignmentMulti(LOOKAHEAD FAILED)
+                                                Call:   AssignmentWihOp(LOOKING AHEAD...)
+                                                  Visited token: <"(" at line 6 column 7>; Expected token: <"+">
+                                                  Visited token: <"(" at line 6 column 7>; Expected token: <"-">
+                                                  Visited token: <"(" at line 6 column 7>; Expected token: <"/">
+                                                  Visited token: <"(" at line 6 column 7>; Expected token: <"*">
+                                                  Visited token: <"(" at line 6 column 7>; Expected token: <"&">
+                                                Return: AssignmentWihOp(LOOKAHEAD FAILED)
+                                              Return: Assignment(LOOKAHEAD FAILED)
+                                              Call:   Call(LOOKING AHEAD...)
+                                                Visited token: <"(" at line 6 column 7>; Expected token: <"(">
+                                                Call:   stmblk
+                                                  Call:   statement
+                                                    Visited token: <<IDENTIFIER>: "printf" at line 6 column 1>; Expected token: <<IDENTIFIER>>
+                                                    Call:   Assignment(LOOKING AHEAD...)
+                                                      Call:   AssignmentMulti(LOOKING AHEAD...)
+                                                        Visited token: <"(" at line 6 column 7>; Expected token: <",">
+                                                        Visited token: <"(" at line 6 column 7>; Expected token: <"=">
+                                                      Return: AssignmentMulti(LOOKAHEAD FAILED)
+                                                      Call:   AssignmentWihOp(LOOKING AHEAD...)
+                                                        Visited token: <"(" at line 6 column 7>; Expected token: <"+">
+                                                        Visited token: <"(" at line 6 column 7>; Expected token: <"-">
+                                                        Visited token: <"(" at line 6 column 7>; Expected token: <"/">
+                                                        Visited token: <"(" at line 6 column 7>; Expected token: <"*">
+                                                        Visited token: <"(" at line 6 column 7>; Expected token: <"&">
+                                                      Return: AssignmentWihOp(LOOKAHEAD FAILED)
+                                                    Return: Assignment(LOOKAHEAD FAILED)
+                                                    Call:   Call(LOOKING AHEAD...)
+                                                      Visited token: <"(" at line 6 column 7>; Expected token: <"(">
+                                                      Consumed token: <<IDENTIFIER>: "printf" at line 6 column 1>
+                                                      Call:   Call
+                                                        Consumed token: <"(" at line 6 column 7>
+                                                        Call:   ArgList
+                                                          Call:   Expression
+                                                            Call:   Expression00
+                                                              Call:   Expression01
+                                                                Call:   Expression02
+                                                                  Call:   Expression03
+                                                                    Call:   Expression04
+                                                                      Call:   Expression05
+                                                                        Call:   Expression06
+                                                                          Call:   Atom
+                                                                            Consumed token: <<INTEGER>: "1" at line 6 column 8>
+                                                                          Return: Atom
+                                                                        Return: Expression06
+                                                                      Return: Expression05
+                                                                    Return: Expression04
+                                                                  Return: Expression03
+                                                                Return: Expression02
+                                                              Return: Expression01
+                                                            Return: Expression00
+                                                          Return: Expression
+                                                          Consumed token: <"," at line 6 column 9>
+                                                          Call:   Expression
+                                                            Call:   Expression00
+                                                              Call:   Expression01
+                                                                Call:   Expression02
+                                                                  Call:   Expression03
+                                                                    Call:   Expression04
+                                                                      Call:   Expression05
+                                                                        Call:   Expression06
+                                                                          Consumed token: <<STRINGLIT>: ""Valor de 6 \'"" at line 6 column 11>
+                                                                        Return: Expression06
+                                                                      Return: Expression05
+                                                                    Return: Expression04
+                                                                  Return: Expression03
+                                                                Return: Expression02
+                                                              Return: Expression01
+                                                            Return: Expression00
+                                                          Return: Expression
+                                                        Return: ArgList
+                                                        Consumed token: <")" at line 6 column 26>
+                                                      Return: Call
+                                                    Return: statement
+                                                  Return: stmblk
+                                                  Consumed token: <"\n": "
+" at line 6 column 28>
+                                                  Call:   stmblk(LOOKING AHEAD...)
+                                                    Call:   statement(LOOKING AHEAD...)
+                                                      Call:   Flow(LOOKING AHEAD...)
+                                                        Visited token: <<IDENTIFIER>: "printf" at line 7 column 1>; Expected token: <<BREAKSTMT>>
+                                                        Visited token: <<IDENTIFIER>: "printf" at line 7 column 1>; Expected token: <<CONTINUESTMT>>
+                                                        Visited token: <<IDENTIFIER>: "printf" at line 7 column 1>; Expected token: <<RETRYSTMT>>
+                                                        Visited token: <<IDENTIFIER>: "printf" at line 7 column 1>; Expected token: <<EXITSTMT>>
+                                                        Visited token: <<IDENTIFIER>: "printf" at line 7 column 1>; Expected token: <<FALLTHRUSTMT>>
+                                                      Return: Flow(LOOKAHEAD FAILED)
+                                                      Call:   Loop(LOOKING AHEAD...)
+                                                        Call:   ForStatement(LOOKING AHEAD...)
+                                                          Visited token: <<IDENTIFIER>: "printf" at line 7 column 1>; Expected token: <"for">
+                                                        Return: ForStatement(LOOKAHEAD FAILED)
+                                                        Call:   WhileStatement(LOOKING AHEAD...)
+                                                          Visited token: <<IDENTIFIER>: "printf" at line 7 column 1>; Expected token: <"while">
+                                                        Return: WhileStatement(LOOKAHEAD FAILED)
+                                                        Call:   LoopStatement(LOOKING AHEAD...)
+                                                          Visited token: <<IDENTIFIER>: "printf" at line 7 column 1>; Expected token: <"loop">
+                                                        Return: LoopStatement(LOOKAHEAD FAILED)
+                                                        Visited token: <<IDENTIFIER>: "printf" at line 7 column 1>; Expected token: <"goto">
+                                                      Return: Loop(LOOKAHEAD FAILED)
+                                                      Call:   Branch(LOOKING AHEAD...)
+                                                        Call:   IfStatement(LOOKING AHEAD...)
+                                                          Call:   IfTest(LOOKING AHEAD...)
+                                                            Visited token: <<IDENTIFIER>: "printf" at line 7 column 1>; Expected token: <"if">
+                                                          Return: IfTest(LOOKAHEAD FAILED)
+                                                        Return: IfStatement(LOOKAHEAD FAILED)
+                                                        Call:   SwitchStatement(LOOKING AHEAD...)
+                                                          Call:   SwitchTest(LOOKING AHEAD...)
+                                                            Visited token: <<IDENTIFIER>: "printf" at line 7 column 1>; Expected token: <"switch">
+                                                          Return: SwitchTest(LOOKAHEAD FAILED)
+                                                        Return: SwitchStatement(LOOKAHEAD FAILED)
+                                                        Call:   IfDefStatement(LOOKING AHEAD...)
+                                                          Call:   IfDefTest(LOOKING AHEAD...)
+                                                            Visited token: <<IDENTIFIER>: "printf" at line 7 column 1>; Expected token: <"ifdef">
+                                                          Return: IfDefTest(LOOKAHEAD FAILED)
+                                                        Return: IfDefStatement(LOOKAHEAD FAILED)
+                                                      Return: Branch(LOOKAHEAD FAILED)
+                                                      Call:   Return(LOOKING AHEAD...)
+                                                        Visited token: <<IDENTIFIER>: "printf" at line 7 column 1>; Expected token: <"return">
+                                                      Return: Return(LOOKAHEAD FAILED)
+                                                      Visited token: <<IDENTIFIER>: "printf" at line 7 column 1>; Expected token: <<IDENTIFIER>>
+                                                      Call:   Assignment(LOOKING AHEAD...)
+                                                        Call:   AssignmentMulti(LOOKING AHEAD...)
+                                                          Visited token: <"(" at line 7 column 7>; Expected token: <",">
+                                                          Visited token: <"(" at line 7 column 7>; Expected token: <"=">
+                                                        Return: AssignmentMulti(LOOKAHEAD FAILED)
+                                                        Call:   AssignmentWihOp(LOOKING AHEAD...)
+                                                          Visited token: <"(" at line 7 column 7>; Expected token: <"+">
+                                                          Visited token: <"(" at line 7 column 7>; Expected token: <"-">
+                                                          Visited token: <"(" at line 7 column 7>; Expected token: <"/">
+                                                          Visited token: <"(" at line 7 column 7>; Expected token: <"*">
+                                                          Visited token: <"(" at line 7 column 7>; Expected token: <"&">
+                                                        Return: AssignmentWihOp(LOOKAHEAD FAILED)
+                                                      Return: Assignment(LOOKAHEAD FAILED)
+                                                      Call:   Call(LOOKING AHEAD...)
+                                                        Visited token: <"(" at line 7 column 7>; Expected token: <"(">
+                                                        Call:   stmblk
+                                                          Call:   statement
+                                                            Visited token: <<IDENTIFIER>: "printf" at line 7 column 1>; Expected token: <<IDENTIFIER>>
+                                                            Call:   Assignment(LOOKING AHEAD...)
+                                                              Call:   AssignmentMulti(LOOKING AHEAD...)
+                                                                Visited token: <"(" at line 7 column 7>; Expected token: <",">
+                                                                Visited token: <"(" at line 7 column 7>; Expected token: <"=">
+                                                              Return: AssignmentMulti(LOOKAHEAD FAILED)
+                                                              Call:   AssignmentWihOp(LOOKING AHEAD...)
+                                                                Visited token: <"(" at line 7 column 7>; Expected token: <"+">
+                                                                Visited token: <"(" at line 7 column 7>; Expected token: <"-">
+                                                                Visited token: <"(" at line 7 column 7>; Expected token: <"/">
+                                                                Visited token: <"(" at line 7 column 7>; Expected token: <"*">
+                                                                Visited token: <"(" at line 7 column 7>; Expected token: <"&">
+                                                              Return: AssignmentWihOp(LOOKAHEAD FAILED)
+                                                            Return: Assignment(LOOKAHEAD FAILED)
+                                                            Call:   Call(LOOKING AHEAD...)
+                                                              Visited token: <"(" at line 7 column 7>; Expected token: <"(">
+                                                              Consumed token: <<IDENTIFIER>: "printf" at line 7 column 1>
+                                                              Call:   Call
+                                                                Consumed token: <"(" at line 7 column 7>
+                                                                Call:   ArgList
+                                                                  Call:   Expression
+                                                                    Call:   Expression00
+                                                                      Call:   Expression01
+                                                                        Call:   Expression02
+                                                                          Call:   Expression03
+                                                                            Call:   Expression04
+                                                                              Call:   Expression05
+                                                                                Call:   Expression06
+                                                                                  Call:   Atom
+                                                                                    Consumed token: <<INTEGER>: "1" at line 7 column 8>
+                                                                                  Return: Atom
+                                                                                Return: Expression06
+                                                                              Return: Expression05
+                                                                            Return: Expression04
+                                                                          Return: Expression03
+                                                                        Return: Expression02
+                                                                      Return: Expression01
+                                                                    Return: Expression00
+                                                                  Return: Expression
+                                                                  Consumed token: <"," at line 7 column 9>
+                                                                  Call:   Expression
+                                                                    Call:   Expression00
+                                                                      Call:   Expression01
+                                                                        Call:   Expression02
+                                                                          Call:   Expression03
+                                                                            Call:   Expression04
+                                                                              Call:   Expression05
+                                                                                Call:   Expression06
+                                                                                  Consumed token: <<STRINGLIT>: ""Valor de 7 \0"" at line 7 column 11>
+                                                                                Return: Expression06
+                                                                              Return: Expression05
+                                                                            Return: Expression04
+                                                                          Return: Expression03
+                                                                        Return: Expression02
+                                                                      Return: Expression01
+                                                                    Return: Expression00
+                                                                  Return: Expression
+                                                                Return: ArgList
+                                                                Consumed token: <")" at line 7 column 26>
+                                                              Return: Call
+                                                            Return: statement
+                                                          Return: stmblk
+                                                          Consumed token: <"\n": "
+" at line 7 column 28>
+                                                          Call:   stmblk(LOOKING AHEAD...)
+                                                            Call:   statement(LOOKING AHEAD...)
+                                                              Call:   Flow(LOOKING AHEAD...)
+                                                                Visited token: <<IDENTIFIER>: "printf" at line 8 column 1>; Expected token: <<BREAKSTMT>>
+                                                                Visited token: <<IDENTIFIER>: "printf" at line 8 column 1>; Expected token: <<CONTINUESTMT>>
+                                                                Visited token: <<IDENTIFIER>: "printf" at line 8 column 1>; Expected token: <<RETRYSTMT>>
+                                                                Visited token: <<IDENTIFIER>: "printf" at line 8 column 1>; Expected token: <<EXITSTMT>>
+                                                                Visited token: <<IDENTIFIER>: "printf" at line 8 column 1>; Expected token: <<FALLTHRUSTMT>>
+                                                              Return: Flow(LOOKAHEAD FAILED)
+                                                              Call:   Loop(LOOKING AHEAD...)
+                                                                Call:   ForStatement(LOOKING AHEAD...)
+                                                                  Visited token: <<IDENTIFIER>: "printf" at line 8 column 1>; Expected token: <"for">
+                                                                Return: ForStatement(LOOKAHEAD FAILED)
+                                                                Call:   WhileStatement(LOOKING AHEAD...)
+                                                                  Visited token: <<IDENTIFIER>: "printf" at line 8 column 1>; Expected token: <"while">
+                                                                Return: WhileStatement(LOOKAHEAD FAILED)
+                                                                Call:   LoopStatement(LOOKING AHEAD...)
+                                                                  Visited token: <<IDENTIFIER>: "printf" at line 8 column 1>; Expected token: <"loop">
+                                                                Return: LoopStatement(LOOKAHEAD FAILED)
+                                                                Visited token: <<IDENTIFIER>: "printf" at line 8 column 1>; Expected token: <"goto">
+                                                              Return: Loop(LOOKAHEAD FAILED)
+                                                              Call:   Branch(LOOKING AHEAD...)
+                                                                Call:   IfStatement(LOOKING AHEAD...)
+                                                                  Call:   IfTest(LOOKING AHEAD...)
+                                                                    Visited token: <<IDENTIFIER>: "printf" at line 8 column 1>; Expected token: <"if">
+                                                                  Return: IfTest(LOOKAHEAD FAILED)
+                                                                Return: IfStatement(LOOKAHEAD FAILED)
+                                                                Call:   SwitchStatement(LOOKING AHEAD...)
+                                                                  Call:   SwitchTest(LOOKING AHEAD...)
+                                                                    Visited token: <<IDENTIFIER>: "printf" at line 8 column 1>; Expected token: <"switch">
+                                                                  Return: SwitchTest(LOOKAHEAD FAILED)
+                                                                Return: SwitchStatement(LOOKAHEAD FAILED)
+                                                                Call:   IfDefStatement(LOOKING AHEAD...)
+                                                                  Call:   IfDefTest(LOOKING AHEAD...)
+                                                                    Visited token: <<IDENTIFIER>: "printf" at line 8 column 1>; Expected token: <"ifdef">
+                                                                  Return: IfDefTest(LOOKAHEAD FAILED)
+                                                                Return: IfDefStatement(LOOKAHEAD FAILED)
+                                                              Return: Branch(LOOKAHEAD FAILED)
+                                                              Call:   Return(LOOKING AHEAD...)
+                                                                Visited token: <<IDENTIFIER>: "printf" at line 8 column 1>; Expected token: <"return">
+                                                              Return: Return(LOOKAHEAD FAILED)
+                                                              Visited token: <<IDENTIFIER>: "printf" at line 8 column 1>; Expected token: <<IDENTIFIER>>
+                                                              Call:   Assignment(LOOKING AHEAD...)
+                                                                Call:   AssignmentMulti(LOOKING AHEAD...)
+                                                                  Visited token: <"(" at line 8 column 7>; Expected token: <",">
+                                                                  Visited token: <"(" at line 8 column 7>; Expected token: <"=">
+                                                                Return: AssignmentMulti(LOOKAHEAD FAILED)
+                                                                Call:   AssignmentWihOp(LOOKING AHEAD...)
+                                                                  Visited token: <"(" at line 8 column 7>; Expected token: <"+">
+                                                                  Visited token: <"(" at line 8 column 7>; Expected token: <"-">
+                                                                  Visited token: <"(" at line 8 column 7>; Expected token: <"/">
+                                                                  Visited token: <"(" at line 8 column 7>; Expected token: <"*">
+                                                                  Visited token: <"(" at line 8 column 7>; Expected token: <"&">
+                                                                Return: AssignmentWihOp(LOOKAHEAD FAILED)
+                                                              Return: Assignment(LOOKAHEAD FAILED)
+                                                              Call:   Call(LOOKING AHEAD...)
+                                                                Visited token: <"(" at line 8 column 7>; Expected token: <"(">
+                                                                Call:   stmblk
+                                                                  Call:   statement
+                                                                    Visited token: <<IDENTIFIER>: "printf" at line 8 column 1>; Expected token: <<IDENTIFIER>>
+                                                                    Call:   Assignment(LOOKING AHEAD...)
+                                                                      Call:   AssignmentMulti(LOOKING AHEAD...)
+                                                                        Visited token: <"(" at line 8 column 7>; Expected token: <",">
+                                                                        Visited token: <"(" at line 8 column 7>; Expected token: <"=">
+                                                                      Return: AssignmentMulti(LOOKAHEAD FAILED)
+                                                                      Call:   AssignmentWihOp(LOOKING AHEAD...)
+                                                                        Visited token: <"(" at line 8 column 7>; Expected token: <"+">
+                                                                        Visited token: <"(" at line 8 column 7>; Expected token: <"-">
+                                                                        Visited token: <"(" at line 8 column 7>; Expected token: <"/">
+                                                                        Visited token: <"(" at line 8 column 7>; Expected token: <"*">
+                                                                        Visited token: <"(" at line 8 column 7>; Expected token: <"&">
+                                                                      Return: AssignmentWihOp(LOOKAHEAD FAILED)
+                                                                    Return: Assignment(LOOKAHEAD FAILED)
+                                                                    Call:   Call(LOOKING AHEAD...)
+                                                                      Visited token: <"(" at line 8 column 7>; Expected token: <"(">
+                                                                      Consumed token: <<IDENTIFIER>: "printf" at line 8 column 1>
+                                                                      Call:   Call
+                                                                        Consumed token: <"(" at line 8 column 7>
+                                                                        Call:   ArgList
+                                                                          Call:   Expression
+                                                                            Call:   Expression00
+                                                                              Call:   Expression01
+                                                                                Call:   Expression02
+                                                                                  Call:   Expression03
+                                                                                    Call:   Expression04
+                                                                                      Call:   Expression05
+                                                                                        Call:   Expression06
+                                                                                          Call:   Atom
+                                                                                            Consumed token: <<INTEGER>: "1" at line 8 column 8>
+                                                                                          Return: Atom
+                                                                                        Return: Expression06
+                                                                                      Return: Expression05
+                                                                                    Return: Expression04
+                                                                                  Return: Expression03
+                                                                                Return: Expression02
+                                                                              Return: Expression01
+                                                                            Return: Expression00
+                                                                          Return: Expression
+                                                                          Consumed token: <"," at line 8 column 9>
+                                                                          Call:   Expression
+                                                                            Call:   Expression00
+                                                                              Call:   Expression01
+                                                                                Call:   Expression02
+                                                                                  Call:   Expression03
+                                                                                    Call:   Expression04
+                                                                                      Call:   Expression05
+                                                                                        Call:   Expression06
+                                                                                          Consumed token: <<STRINGLIT>: ""Valor de 8 \e"" at line 8 column 11>
+                                                                                        Return: Expression06
+                                                                                      Return: Expression05
+                                                                                    Return: Expression04
+                                                                                  Return: Expression03
+                                                                                Return: Expression02
+                                                                              Return: Expression01
+                                                                            Return: Expression00
+                                                                          Return: Expression
+                                                                        Return: ArgList
+                                                                        Consumed token: <")" at line 8 column 26>
+                                                                      Return: Call
+                                                                    Return: statement
+                                                                  Return: stmblk
+                                                                  Consumed token: <"\n": "
+" at line 8 column 28>
+                                                                  Call:   stmblk(LOOKING AHEAD...)
+                                                                    Call:   statement(LOOKING AHEAD...)
+                                                                      Call:   Flow(LOOKING AHEAD...)
+                                                                        Visited token: <<IDENTIFIER>: "printf" at line 9 column 1>; Expected token: <<BREAKSTMT>>
+                                                                        Visited token: <<IDENTIFIER>: "printf" at line 9 column 1>; Expected token: <<CONTINUESTMT>>
+                                                                        Visited token: <<IDENTIFIER>: "printf" at line 9 column 1>; Expected token: <<RETRYSTMT>>
+                                                                        Visited token: <<IDENTIFIER>: "printf" at line 9 column 1>; Expected token: <<EXITSTMT>>
+                                                                        Visited token: <<IDENTIFIER>: "printf" at line 9 column 1>; Expected token: <<FALLTHRUSTMT>>
+                                                                      Return: Flow(LOOKAHEAD FAILED)
+                                                                      Call:   Loop(LOOKING AHEAD...)
+                                                                        Call:   ForStatement(LOOKING AHEAD...)
+                                                                          Visited token: <<IDENTIFIER>: "printf" at line 9 column 1>; Expected token: <"for">
+                                                                        Return: ForStatement(LOOKAHEAD FAILED)
+                                                                        Call:   WhileStatement(LOOKING AHEAD...)
+                                                                          Visited token: <<IDENTIFIER>: "printf" at line 9 column 1>; Expected token: <"while">
+                                                                        Return: WhileStatement(LOOKAHEAD FAILED)
+                                                                        Call:   LoopStatement(LOOKING AHEAD...)
+                                                                          Visited token: <<IDENTIFIER>: "printf" at line 9 column 1>; Expected token: <"loop">
+                                                                        Return: LoopStatement(LOOKAHEAD FAILED)
+                                                                        Visited token: <<IDENTIFIER>: "printf" at line 9 column 1>; Expected token: <"goto">
+                                                                      Return: Loop(LOOKAHEAD FAILED)
+                                                                      Call:   Branch(LOOKING AHEAD...)
+                                                                        Call:   IfStatement(LOOKING AHEAD...)
+                                                                          Call:   IfTest(LOOKING AHEAD...)
+                                                                            Visited token: <<IDENTIFIER>: "printf" at line 9 column 1>; Expected token: <"if">
+                                                                          Return: IfTest(LOOKAHEAD FAILED)
+                                                                        Return: IfStatement(LOOKAHEAD FAILED)
+                                                                        Call:   SwitchStatement(LOOKING AHEAD...)
+                                                                          Call:   SwitchTest(LOOKING AHEAD...)
+                                                                            Visited token: <<IDENTIFIER>: "printf" at line 9 column 1>; Expected token: <"switch">
+                                                                          Return: SwitchTest(LOOKAHEAD FAILED)
+                                                                        Return: SwitchStatement(LOOKAHEAD FAILED)
+                                                                        Call:   IfDefStatement(LOOKING AHEAD...)
+                                                                          Call:   IfDefTest(LOOKING AHEAD...)
+                                                                            Visited token: <<IDENTIFIER>: "printf" at line 9 column 1>; Expected token: <"ifdef">
+                                                                          Return: IfDefTest(LOOKAHEAD FAILED)
+                                                                        Return: IfDefStatement(LOOKAHEAD FAILED)
+                                                                      Return: Branch(LOOKAHEAD FAILED)
+                                                                      Call:   Return(LOOKING AHEAD...)
+                                                                        Visited token: <<IDENTIFIER>: "printf" at line 9 column 1>; Expected token: <"return">
+                                                                      Return: Return(LOOKAHEAD FAILED)
+                                                                      Visited token: <<IDENTIFIER>: "printf" at line 9 column 1>; Expected token: <<IDENTIFIER>>
+                                                                      Call:   Assignment(LOOKING AHEAD...)
+                                                                        Call:   AssignmentMulti(LOOKING AHEAD...)
+                                                                          Visited token: <"(" at line 9 column 7>; Expected token: <",">
+                                                                          Visited token: <"(" at line 9 column 7>; Expected token: <"=">
+                                                                        Return: AssignmentMulti(LOOKAHEAD FAILED)
+                                                                        Call:   AssignmentWihOp(LOOKING AHEAD...)
+                                                                          Visited token: <"(" at line 9 column 7>; Expected token: <"+">
+                                                                          Visited token: <"(" at line 9 column 7>; Expected token: <"-">
+                                                                          Visited token: <"(" at line 9 column 7>; Expected token: <"/">
+                                                                          Visited token: <"(" at line 9 column 7>; Expected token: <"*">
+                                                                          Visited token: <"(" at line 9 column 7>; Expected token: <"&">
+                                                                        Return: AssignmentWihOp(LOOKAHEAD FAILED)
+                                                                      Return: Assignment(LOOKAHEAD FAILED)
+                                                                      Call:   Call(LOOKING AHEAD...)
+                                                                        Visited token: <"(" at line 9 column 7>; Expected token: <"(">
+                                                                        Call:   stmblk
+                                                                          Call:   statement
+                                                                            Visited token: <<IDENTIFIER>: "printf" at line 9 column 1>; Expected token: <<IDENTIFIER>>
+                                                                            Call:   Assignment(LOOKING AHEAD...)
+                                                                              Call:   AssignmentMulti(LOOKING AHEAD...)
+                                                                                Visited token: <"(" at line 9 column 7>; Expected token: <",">
+                                                                                Visited token: <"(" at line 9 column 7>; Expected token: <"=">
+                                                                              Return: AssignmentMulti(LOOKAHEAD FAILED)
+                                                                              Call:   AssignmentWihOp(LOOKING AHEAD...)
+                                                                                Visited token: <"(" at line 9 column 7>; Expected token: <"+">
+                                                                                Visited token: <"(" at line 9 column 7>; Expected token: <"-">
+                                                                                Visited token: <"(" at line 9 column 7>; Expected token: <"/">
+                                                                                Visited token: <"(" at line 9 column 7>; Expected token: <"*">
+                                                                                Visited token: <"(" at line 9 column 7>; Expected token: <"&">
+                                                                              Return: AssignmentWihOp(LOOKAHEAD FAILED)
+                                                                            Return: Assignment(LOOKAHEAD FAILED)
+                                                                            Call:   Call(LOOKING AHEAD...)
+                                                                              Visited token: <"(" at line 9 column 7>; Expected token: <"(">
+                                                                              Consumed token: <<IDENTIFIER>: "printf" at line 9 column 1>
+                                                                              Call:   Call
+                                                                                Consumed token: <"(" at line 9 column 7>
+                                                                                Call:   ArgList
+                                                                                  Call:   Expression
+                                                                                    Call:   Expression00
+                                                                                      Call:   Expression01
+                                                                                        Call:   Expression02
+                                                                                          Call:   Expression03
+                                                                                            Call:   Expression04
+                                                                                              Call:   Expression05
+                                                                                                Call:   Expression06
+                                                                                                  Call:   Atom
+                                                                                                    Consumed token: <<INTEGER>: "1" at line 9 column 8>
+                                                                                                  Return: Atom
+                                                                                                Return: Expression06
+                                                                                              Return: Expression05
+                                                                                            Return: Expression04
+                                                                                          Return: Expression03
+                                                                                        Return: Expression02
+                                                                                      Return: Expression01
+                                                                                    Return: Expression00
+                                                                                  Return: Expression
+                                                                                  Consumed token: <"," at line 9 column 9>
+                                                                                  Call:   Expression
+                                                                                    Call:   Expression00
+                                                                                      Call:   Expression01
+                                                                                        Call:   Expression02
+                                                                                          Call:   Expression03
+                                                                                            Call:   Expression04
+                                                                                              Call:   Expression05
+                                                                                                Call:   Expression06
+                                                                                                  Consumed token: <<STRINGLIT>: ""Valor de 9 \E"" at line 9 column 11>
+                                                                                                Return: Expression06
+                                                                                              Return: Expression05
+                                                                                            Return: Expression04
+                                                                                          Return: Expression03
+                                                                                        Return: Expression02
+                                                                                      Return: Expression01
+                                                                                    Return: Expression00
+                                                                                  Return: Expression
+                                                                                Return: ArgList
+                                                                                Consumed token: <")" at line 9 column 26>
+                                                                              Return: Call
+                                                                            Return: statement
+                                                                          Return: stmblk
+                                                                          Consumed token: <"\n": "
+" at line 9 column 28>
+                                                                          Call:   stmblk(LOOKING AHEAD...)
+                                                                            Call:   statement(LOOKING AHEAD...)
+                                                                              Call:   Flow(LOOKING AHEAD...)
+                                                                                Visited token: <<IDENTIFIER>: "printf" at line 10 column 1>; Expected token: <<BREAKSTMT>>
+                                                                                Visited token: <<IDENTIFIER>: "printf" at line 10 column 1>; Expected token: <<CONTINUESTMT>>
+                                                                                Visited token: <<IDENTIFIER>: "printf" at line 10 column 1>; Expected token: <<RETRYSTMT>>
+                                                                                Visited token: <<IDENTIFIER>: "printf" at line 10 column 1>; Expected token: <<EXITSTMT>>
+                                                                                Visited token: <<IDENTIFIER>: "printf" at line 10 column 1>; Expected token: <<FALLTHRUSTMT>>
+                                                                              Return: Flow(LOOKAHEAD FAILED)
+                                                                              Call:   Loop(LOOKING AHEAD...)
+                                                                                Call:   ForStatement(LOOKING AHEAD...)
+                                                                                  Visited token: <<IDENTIFIER>: "printf" at line 10 column 1>; Expected token: <"for">
+                                                                                Return: ForStatement(LOOKAHEAD FAILED)
+                                                                                Call:   WhileStatement(LOOKING AHEAD...)
+                                                                                  Visited token: <<IDENTIFIER>: "printf" at line 10 column 1>; Expected token: <"while">
+                                                                                Return: WhileStatement(LOOKAHEAD FAILED)
+                                                                                Call:   LoopStatement(LOOKING AHEAD...)
+                                                                                  Visited token: <<IDENTIFIER>: "printf" at line 10 column 1>; Expected token: <"loop">
+                                                                                Return: LoopStatement(LOOKAHEAD FAILED)
+                                                                                Visited token: <<IDENTIFIER>: "printf" at line 10 column 1>; Expected token: <"goto">
+                                                                              Return: Loop(LOOKAHEAD FAILED)
+                                                                              Call:   Branch(LOOKING AHEAD...)
+                                                                                Call:   IfStatement(LOOKING AHEAD...)
+                                                                                  Call:   IfTest(LOOKING AHEAD...)
+                                                                                    Visited token: <<IDENTIFIER>: "printf" at line 10 column 1>; Expected token: <"if">
+                                                                                  Return: IfTest(LOOKAHEAD FAILED)
+                                                                                Return: IfStatement(LOOKAHEAD FAILED)
+                                                                                Call:   SwitchStatement(LOOKING AHEAD...)
+                                                                                  Call:   SwitchTest(LOOKING AHEAD...)
+                                                                                    Visited token: <<IDENTIFIER>: "printf" at line 10 column 1>; Expected token: <"switch">
+                                                                                  Return: SwitchTest(LOOKAHEAD FAILED)
+                                                                                Return: SwitchStatement(LOOKAHEAD FAILED)
+                                                                                Call:   IfDefStatement(LOOKING AHEAD...)
+                                                                                  Call:   IfDefTest(LOOKING AHEAD...)
+                                                                                    Visited token: <<IDENTIFIER>: "printf" at line 10 column 1>; Expected token: <"ifdef">
+                                                                                  Return: IfDefTest(LOOKAHEAD FAILED)
+                                                                                Return: IfDefStatement(LOOKAHEAD FAILED)
+                                                                              Return: Branch(LOOKAHEAD FAILED)
+                                                                              Call:   Return(LOOKING AHEAD...)
+                                                                                Visited token: <<IDENTIFIER>: "printf" at line 10 column 1>; Expected token: <"return">
+                                                                              Return: Return(LOOKAHEAD FAILED)
+                                                                              Visited token: <<IDENTIFIER>: "printf" at line 10 column 1>; Expected token: <<IDENTIFIER>>
+                                                                              Call:   Assignment(LOOKING AHEAD...)
+                                                                                Call:   AssignmentMulti(LOOKING AHEAD...)
+                                                                                  Visited token: <"(" at line 10 column 7>; Expected token: <",">
+                                                                                  Visited token: <"(" at line 10 column 7>; Expected token: <"=">
+                                                                                Return: AssignmentMulti(LOOKAHEAD FAILED)
+                                                                                Call:   AssignmentWihOp(LOOKING AHEAD...)
+                                                                                  Visited token: <"(" at line 10 column 7>; Expected token: <"+">
+                                                                                  Visited token: <"(" at line 10 column 7>; Expected token: <"-">
+                                                                                  Visited token: <"(" at line 10 column 7>; Expected token: <"/">
+                                                                                  Visited token: <"(" at line 10 column 7>; Expected token: <"*">
+                                                                                  Visited token: <"(" at line 10 column 7>; Expected token: <"&">
+                                                                                Return: AssignmentWihOp(LOOKAHEAD FAILED)
+                                                                              Return: Assignment(LOOKAHEAD FAILED)
+                                                                              Call:   Call(LOOKING AHEAD...)
+                                                                                Visited token: <"(" at line 10 column 7>; Expected token: <"(">
+                                                                                Call:   stmblk
+                                                                                  Call:   statement
+                                                                                    Visited token: <<IDENTIFIER>: "printf" at line 10 column 1>; Expected token: <<IDENTIFIER>>
+                                                                                    Call:   Assignment(LOOKING AHEAD...)
+                                                                                      Call:   AssignmentMulti(LOOKING AHEAD...)
+                                                                                        Visited token: <"(" at line 10 column 7>; Expected token: <",">
+                                                                                        Visited token: <"(" at line 10 column 7>; Expected token: <"=">
+                                                                                      Return: AssignmentMulti(LOOKAHEAD FAILED)
+                                                                                      Call:   AssignmentWihOp(LOOKING AHEAD...)
+                                                                                        Visited token: <"(" at line 10 column 7>; Expected token: <"+">
+                                                                                        Visited token: <"(" at line 10 column 7>; Expected token: <"-">
+                                                                                        Visited token: <"(" at line 10 column 7>; Expected token: <"/">
+                                                                                        Visited token: <"(" at line 10 column 7>; Expected token: <"*">
+                                                                                        Visited token: <"(" at line 10 column 7>; Expected token: <"&">
+                                                                                      Return: AssignmentWihOp(LOOKAHEAD FAILED)
+                                                                                    Return: Assignment(LOOKAHEAD FAILED)
+                                                                                    Call:   Call(LOOKING AHEAD...)
+                                                                                      Visited token: <"(" at line 10 column 7>; Expected token: <"(">
+                                                                                      Consumed token: <<IDENTIFIER>: "printf" at line 10 column 1>
+                                                                                      Call:   Call
+                                                                                        Consumed token: <"(" at line 10 column 7>
+                                                                                        Call:   ArgList
+                                                                                          Call:   Expression
+                                                                                            Call:   Expression00
+                                                                                              Call:   Expression01
+                                                                                                Call:   Expression02
+                                                                                                  Call:   Expression03
+                                                                                                    Call:   Expression04
+                                                                                                      Call:   Expression05
+                                                                                                        Call:   Expression06
+                                                                                                          Call:   Atom
+                                                                                                            Consumed token: <<INTEGER>: "1" at line 10 column 8>
+                                                                                                          Return: Atom
+                                                                                                        Return: Expression06
+                                                                                                      Return: Expression05
+                                                                                                    Return: Expression04
+                                                                                                  Return: Expression03
+                                                                                                Return: Expression02
+                                                                                              Return: Expression01
+                                                                                            Return: Expression00
+                                                                                          Return: Expression
+                                                                                          Consumed token: <"," at line 10 column 9>
+                                                                                          Call:   Expression
+                                                                                            Call:   Expression00
+                                                                                              Call:   Expression01
+                                                                                                Call:   Expression02
+                                                                                                  Call:   Expression03
+                                                                                                    Call:   Expression04
+                                                                                                      Call:   Expression05
+                                                                                                        Call:   Expression06
+                                                                                                          Consumed token: <<STRINGLIT>: ""Valor de 10 \x5F"" at line 10 column 11>
+                                                                                                        Return: Expression06
+                                                                                                      Return: Expression05
+                                                                                                    Return: Expression04
+                                                                                                  Return: Expression03
+                                                                                                Return: Expression02
+                                                                                              Return: Expression01
+                                                                                            Return: Expression00
+                                                                                          Return: Expression
+                                                                                        Return: ArgList
+                                                                                        Consumed token: <")" at line 10 column 29>
+                                                                                      Return: Call
+                                                                                    Return: statement
+                                                                                  Return: stmblk
+                                                                                  Consumed token: <"\n": "
+" at line 10 column 31>
+                                                                                  Call:   stmblk(LOOKING AHEAD...)
+                                                                                    Call:   statement(LOOKING AHEAD...)
+                                                                                      Call:   Flow(LOOKING AHEAD...)
+                                                                                        Visited token: <<IDENTIFIER>: "printf" at line 11 column 1>; Expected token: <<BREAKSTMT>>
+                                                                                        Visited token: <<IDENTIFIER>: "printf" at line 11 column 1>; Expected token: <<CONTINUESTMT>>
+                                                                                        Visited token: <<IDENTIFIER>: "printf" at line 11 column 1>; Expected token: <<RETRYSTMT>>
+                                                                                        Visited token: <<IDENTIFIER>: "printf" at line 11 column 1>; Expected token: <<EXITSTMT>>
+                                                                                        Visited token: <<IDENTIFIER>: "printf" at line 11 column 1>; Expected token: <<FALLTHRUSTMT>>
+                                                                                      Return: Flow(LOOKAHEAD FAILED)
+                                                                                      Call:   Loop(LOOKING AHEAD...)
+                                                                                        Call:   ForStatement(LOOKING AHEAD...)
+                                                                                          Visited token: <<IDENTIFIER>: "printf" at line 11 column 1>; Expected token: <"for">
+                                                                                        Return: ForStatement(LOOKAHEAD FAILED)
+                                                                                        Call:   WhileStatement(LOOKING AHEAD...)
+                                                                                          Visited token: <<IDENTIFIER>: "printf" at line 11 column 1>; Expected token: <"while">
+                                                                                        Return: WhileStatement(LOOKAHEAD FAILED)
+                                                                                        Call:   LoopStatement(LOOKING AHEAD...)
+                                                                                          Visited token: <<IDENTIFIER>: "printf" at line 11 column 1>; Expected token: <"loop">
+                                                                                        Return: LoopStatement(LOOKAHEAD FAILED)
+                                                                                        Visited token: <<IDENTIFIER>: "printf" at line 11 column 1>; Expected token: <"goto">
+                                                                                      Return: Loop(LOOKAHEAD FAILED)
+                                                                                      Call:   Branch(LOOKING AHEAD...)
+                                                                                        Call:   IfStatement(LOOKING AHEAD...)
+                                                                                          Call:   IfTest(LOOKING AHEAD...)
+                                                                                            Visited token: <<IDENTIFIER>: "printf" at line 11 column 1>; Expected token: <"if">
+                                                                                          Return: IfTest(LOOKAHEAD FAILED)
+                                                                                        Return: IfStatement(LOOKAHEAD FAILED)
+                                                                                        Call:   SwitchStatement(LOOKING AHEAD...)
+                                                                                          Call:   SwitchTest(LOOKING AHEAD...)
+                                                                                            Visited token: <<IDENTIFIER>: "printf" at line 11 column 1>; Expected token: <"switch">
+                                                                                          Return: SwitchTest(LOOKAHEAD FAILED)
+                                                                                        Return: SwitchStatement(LOOKAHEAD FAILED)
+                                                                                        Call:   IfDefStatement(LOOKING AHEAD...)
+                                                                                          Call:   IfDefTest(LOOKING AHEAD...)
+                                                                                            Visited token: <<IDENTIFIER>: "printf" at line 11 column 1>; Expected token: <"ifdef">
+                                                                                          Return: IfDefTest(LOOKAHEAD FAILED)
+                                                                                        Return: IfDefStatement(LOOKAHEAD FAILED)
+                                                                                      Return: Branch(LOOKAHEAD FAILED)
+                                                                                      Call:   Return(LOOKING AHEAD...)
+                                                                                        Visited token: <<IDENTIFIER>: "printf" at line 11 column 1>; Expected token: <"return">
+                                                                                      Return: Return(LOOKAHEAD FAILED)
+                                                                                      Visited token: <<IDENTIFIER>: "printf" at line 11 column 1>; Expected token: <<IDENTIFIER>>
+                                                                                      Call:   Assignment(LOOKING AHEAD...)
+                                                                                        Call:   AssignmentMulti(LOOKING AHEAD...)
+                                                                                          Visited token: <"(" at line 11 column 7>; Expected token: <",">
+                                                                                          Visited token: <"(" at line 11 column 7>; Expected token: <"=">
+                                                                                        Return: AssignmentMulti(LOOKAHEAD FAILED)
+                                                                                        Call:   AssignmentWihOp(LOOKING AHEAD...)
+                                                                                          Visited token: <"(" at line 11 column 7>; Expected token: <"+">
+                                                                                          Visited token: <"(" at line 11 column 7>; Expected token: <"-">
+                                                                                          Visited token: <"(" at line 11 column 7>; Expected token: <"/">
+                                                                                          Visited token: <"(" at line 11 column 7>; Expected token: <"*">
+                                                                                          Visited token: <"(" at line 11 column 7>; Expected token: <"&">
+                                                                                        Return: AssignmentWihOp(LOOKAHEAD FAILED)
+                                                                                      Return: Assignment(LOOKAHEAD FAILED)
+                                                                                      Call:   Call(LOOKING AHEAD...)
+                                                                                        Visited token: <"(" at line 11 column 7>; Expected token: <"(">
+                                                                                        Call:   stmblk
+                                                                                          Call:   statement
+                                                                                            Visited token: <<IDENTIFIER>: "printf" at line 11 column 1>; Expected token: <<IDENTIFIER>>
+                                                                                            Call:   Assignment(LOOKING AHEAD...)
+                                                                                              Call:   AssignmentMulti(LOOKING AHEAD...)
+                                                                                                Visited token: <"(" at line 11 column 7>; Expected token: <",">
+                                                                                                Visited token: <"(" at line 11 column 7>; Expected token: <"=">
+                                                                                              Return: AssignmentMulti(LOOKAHEAD FAILED)
+                                                                                              Call:   AssignmentWihOp(LOOKING AHEAD...)
+                                                                                                Visited token: <"(" at line 11 column 7>; Expected token: <"+">
+                                                                                                Visited token: <"(" at line 11 column 7>; Expected token: <"-">
+                                                                                                Visited token: <"(" at line 11 column 7>; Expected token: <"/">
+                                                                                                Visited token: <"(" at line 11 column 7>; Expected token: <"*">
+                                                                                                Visited token: <"(" at line 11 column 7>; Expected token: <"&">
+                                                                                              Return: AssignmentWihOp(LOOKAHEAD FAILED)
+                                                                                            Return: Assignment(LOOKAHEAD FAILED)
+                                                                                            Call:   Call(LOOKING AHEAD...)
+                                                                                              Visited token: <"(" at line 11 column 7>; Expected token: <"(">
+                                                                                              Consumed token: <<IDENTIFIER>: "printf" at line 11 column 1>
+                                                                                              Call:   Call
+                                                                                                Consumed token: <"(" at line 11 column 7>
+                                                                                                Call:   ArgList
+                                                                                                  Call:   Expression
+                                                                                                    Call:   Expression00
+                                                                                                      Call:   Expression01
+                                                                                                        Call:   Expression02
+                                                                                                          Call:   Expression03
+                                                                                                            Call:   Expression04
+                                                                                                              Call:   Expression05
+                                                                                                                Call:   Expression06
+                                                                                                                  Call:   Atom
+                                                                                                                    Consumed token: <<INTEGER>: "1" at line 11 column 8>
+                                                                                                                  Return: Atom
+                                                                                                                Return: Expression06
+                                                                                                              Return: Expression05
+                                                                                                            Return: Expression04
+                                                                                                          Return: Expression03
+                                                                                                        Return: Expression02
+                                                                                                      Return: Expression01
+                                                                                                    Return: Expression00
+                                                                                                  Return: Expression
+                                                                                                  Consumed token: <"," at line 11 column 9>
+                                                                                                  Call:   Expression
+                                                                                                    Call:   Expression00
+                                                                                                      Call:   Expression01
+                                                                                                        Call:   Expression02
+                                                                                                          Call:   Expression03
+                                                                                                            Call:   Expression04
+                                                                                                              Call:   Expression05
+                                                                                                                Call:   Expression06
+                                                                                                                  Consumed token: <<STRINGLIT>: ""Valor de 11 \u2A7C"" at line 11 column 11>
+                                                                                                                Return: Expression06
+                                                                                                              Return: Expression05
+                                                                                                            Return: Expression04
+                                                                                                          Return: Expression03
+                                                                                                        Return: Expression02
+                                                                                                      Return: Expression01
+                                                                                                    Return: Expression00
+                                                                                                  Return: Expression
+                                                                                                Return: ArgList
+                                                                                                Consumed token: <")" at line 11 column 31>
+                                                                                              Return: Call
+                                                                                            Return: statement
+                                                                                          Return: stmblk
+                                                                                          Consumed token: <"\n": "
+" at line 11 column 33>
+                                                                                          Call:   stmblk(LOOKING AHEAD...)
+                                                                                            Call:   statement(LOOKING AHEAD...)
+                                                                                              Call:   Flow(LOOKING AHEAD...)
+                                                                                                Visited token: <<IDENTIFIER>: "printf" at line 12 column 1>; Expected token: <<BREAKSTMT>>
+                                                                                                Visited token: <<IDENTIFIER>: "printf" at line 12 column 1>; Expected token: <<CONTINUESTMT>>
+                                                                                                Visited token: <<IDENTIFIER>: "printf" at line 12 column 1>; Expected token: <<RETRYSTMT>>
+                                                                                                Visited token: <<IDENTIFIER>: "printf" at line 12 column 1>; Expected token: <<EXITSTMT>>
+                                                                                                Visited token: <<IDENTIFIER>: "printf" at line 12 column 1>; Expected token: <<FALLTHRUSTMT>>
+                                                                                              Return: Flow(LOOKAHEAD FAILED)
+                                                                                              Call:   Loop(LOOKING AHEAD...)
+                                                                                                Call:   ForStatement(LOOKING AHEAD...)
+                                                                                                  Visited token: <<IDENTIFIER>: "printf" at line 12 column 1>; Expected token: <"for">
+                                                                                                Return: ForStatement(LOOKAHEAD FAILED)
+                                                                                                Call:   WhileStatement(LOOKING AHEAD...)
+                                                                                                  Visited token: <<IDENTIFIER>: "printf" at line 12 column 1>; Expected token: <"while">
+                                                                                                Return: WhileStatement(LOOKAHEAD FAILED)
+                                                                                                Call:   LoopStatement(LOOKING AHEAD...)
+                                                                                                  Visited token: <<IDENTIFIER>: "printf" at line 12 column 1>; Expected token: <"loop">
+                                                                                                Return: LoopStatement(LOOKAHEAD FAILED)
+                                                                                                Visited token: <<IDENTIFIER>: "printf" at line 12 column 1>; Expected token: <"goto">
+                                                                                              Return: Loop(LOOKAHEAD FAILED)
+                                                                                              Call:   Branch(LOOKING AHEAD...)
+                                                                                                Call:   IfStatement(LOOKING AHEAD...)
+                                                                                                  Call:   IfTest(LOOKING AHEAD...)
+                                                                                                    Visited token: <<IDENTIFIER>: "printf" at line 12 column 1>; Expected token: <"if">
+                                                                                                  Return: IfTest(LOOKAHEAD FAILED)
+                                                                                                Return: IfStatement(LOOKAHEAD FAILED)
+                                                                                                Call:   SwitchStatement(LOOKING AHEAD...)
+                                                                                                  Call:   SwitchTest(LOOKING AHEAD...)
+                                                                                                    Visited token: <<IDENTIFIER>: "printf" at line 12 column 1>; Expected token: <"switch">
+                                                                                                  Return: SwitchTest(LOOKAHEAD FAILED)
+                                                                                                Return: SwitchStatement(LOOKAHEAD FAILED)
+                                                                                                Call:   IfDefStatement(LOOKING AHEAD...)
+                                                                                                  Call:   IfDefTest(LOOKING AHEAD...)
+                                                                                                    Visited token: <<IDENTIFIER>: "printf" at line 12 column 1>; Expected token: <"ifdef">
+                                                                                                  Return: IfDefTest(LOOKAHEAD FAILED)
+                                                                                                Return: IfDefStatement(LOOKAHEAD FAILED)
+                                                                                              Return: Branch(LOOKAHEAD FAILED)
+                                                                                              Call:   Return(LOOKING AHEAD...)
+                                                                                                Visited token: <<IDENTIFIER>: "printf" at line 12 column 1>; Expected token: <"return">
+                                                                                              Return: Return(LOOKAHEAD FAILED)
+                                                                                              Visited token: <<IDENTIFIER>: "printf" at line 12 column 1>; Expected token: <<IDENTIFIER>>
+                                                                                              Call:   Assignment(LOOKING AHEAD...)
+                                                                                                Call:   AssignmentMulti(LOOKING AHEAD...)
+                                                                                                  Visited token: <"(" at line 12 column 7>; Expected token: <",">
+                                                                                                  Visited token: <"(" at line 12 column 7>; Expected token: <"=">
+                                                                                                Return: AssignmentMulti(LOOKAHEAD FAILED)
+                                                                                                Call:   AssignmentWihOp(LOOKING AHEAD...)
+                                                                                                  Visited token: <"(" at line 12 column 7>; Expected token: <"+">
+                                                                                                  Visited token: <"(" at line 12 column 7>; Expected token: <"-">
+                                                                                                  Visited token: <"(" at line 12 column 7>; Expected token: <"/">
+                                                                                                  Visited token: <"(" at line 12 column 7>; Expected token: <"*">
+                                                                                                  Visited token: <"(" at line 12 column 7>; Expected token: <"&">
+                                                                                                Return: AssignmentWihOp(LOOKAHEAD FAILED)
+                                                                                              Return: Assignment(LOOKAHEAD FAILED)
+                                                                                              Call:   Call(LOOKING AHEAD...)
+                                                                                                Visited token: <"(" at line 12 column 7>; Expected token: <"(">
+                                                                                                Call:   stmblk
+                                                                                                  Call:   statement
+                                                                                                    Visited token: <<IDENTIFIER>: "printf" at line 12 column 1>; Expected token: <<IDENTIFIER>>
+                                                                                                    Call:   Assignment(LOOKING AHEAD...)
+                                                                                                      Call:   AssignmentMulti(LOOKING AHEAD...)
+                                                                                                        Visited token: <"(" at line 12 column 7>; Expected token: <",">
+                                                                                                        Visited token: <"(" at line 12 column 7>; Expected token: <"=">
+                                                                                                      Return: AssignmentMulti(LOOKAHEAD FAILED)
+                                                                                                      Call:   AssignmentWihOp(LOOKING AHEAD...)
+                                                                                                        Visited token: <"(" at line 12 column 7>; Expected token: <"+">
+                                                                                                        Visited token: <"(" at line 12 column 7>; Expected token: <"-">
+                                                                                                        Visited token: <"(" at line 12 column 7>; Expected token: <"/">
+                                                                                                        Visited token: <"(" at line 12 column 7>; Expected token: <"*">
+                                                                                                        Visited token: <"(" at line 12 column 7>; Expected token: <"&">
+                                                                                                      Return: AssignmentWihOp(LOOKAHEAD FAILED)
+                                                                                                    Return: Assignment(LOOKAHEAD FAILED)
+                                                                                                    Call:   Call(LOOKING AHEAD...)
+                                                                                                      Visited token: <"(" at line 12 column 7>; Expected token: <"(">
+                                                                                                      Consumed token: <<IDENTIFIER>: "printf" at line 12 column 1>
+                                                                                                      Call:   Call
+                                                                                                        Consumed token: <"(" at line 12 column 7>
+                                                                                                        Call:   ArgList
+                                                                                                          Call:   Expression
+                                                                                                            Call:   Expression00
+                                                                                                              Call:   Expression01
+                                                                                                                Call:   Expression02
+                                                                                                                  Call:   Expression03
+                                                                                                                    Call:   Expression04
+                                                                                                                      Call:   Expression05
+                                                                                                                        Call:   Expression06
+                                                                                                                          Call:   Atom
+                                                                                                                            Consumed token: <<INTEGER>: "1" at line 12 column 8>
+                                                                                                                          Return: Atom
+                                                                                                                        Return: Expression06
+                                                                                                                      Return: Expression05
+                                                                                                                    Return: Expression04
+                                                                                                                  Return: Expression03
+                                                                                                                Return: Expression02
+                                                                                                              Return: Expression01
+                                                                                                            Return: Expression00
+                                                                                                          Return: Expression
+                                                                                                          Consumed token: <"," at line 12 column 9>
+                                                                                                          Call:   Expression
+                                                                                                            Call:   Expression00
+                                                                                                              Call:   Expression01
+                                                                                                                Call:   Expression02
+                                                                                                                  Call:   Expression03
+                                                                                                                    Call:   Expression04
+                                                                                                                      Call:   Expression05
+                                                                                                                        Call:   Expression06
+                                                                                                                          Consumed token: <<STRINGLIT>: ""Valor de 12 \U8123FEDC"" at line 12 column 11>
+                                                                                                                        Return: Expression06
+                                                                                                                      Return: Expression05
+                                                                                                                    Return: Expression04
+                                                                                                                  Return: Expression03
+                                                                                                                Return: Expression02
+                                                                                                              Return: Expression01
+                                                                                                            Return: Expression00
+                                                                                                          Return: Expression
+                                                                                                        Return: ArgList
+                                                                                                        Consumed token: <")" at line 12 column 35>
+                                                                                                      Return: Call
+                                                                                                    Return: statement
+                                                                                                  Return: stmblk
+                                                                                                  Consumed token: <<EOF> at line 12 column 35>
+                                                                                                Return: javacc_input
+input... 

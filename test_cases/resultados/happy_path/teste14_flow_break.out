@@ -1,11 +1,171 @@
-@(1, 1)         "integer"            integer
-@(1, 9)         <IDENTIFIER>         a
-@(1, 10)        ","                  ,
-@(1, 12)        <IDENTIFIER>         b
-@(1, 13)        "\n"                 <EOL>
-@(2, 1)         "sequence"           sequence
-@(2, 10)        <IDENTIFIER>         s
-@(2, 12)        "="                  =
-@(2, 14)        "{"                  {
-Lexical error at line 2, column 15.  Encountered: "\'" (39), after : ""
-Existem erros no codigo! Por favor, verifica-los.
+Call:   javacc_input
+  Call:   stmblk(LOOKING AHEAD...)
+    Call:   statement(LOOKING AHEAD...)
+      Call:   Flow(LOOKING AHEAD...)
+        Visited token: <"integer" at line 1 column 1>; Expected token: <<BREAKSTMT>>
+        Visited token: <"integer" at line 1 column 1>; Expected token: <<CONTINUESTMT>>
+        Visited token: <"integer" at line 1 column 1>; Expected token: <<RETRYSTMT>>
+        Visited token: <"integer" at line 1 column 1>; Expected token: <<EXITSTMT>>
+        Visited token: <"integer" at line 1 column 1>; Expected token: <<FALLTHRUSTMT>>
+      Return: Flow(LOOKAHEAD FAILED)
+      Call:   Loop(LOOKING AHEAD...)
+        Call:   ForStatement(LOOKING AHEAD...)
+          Visited token: <"integer" at line 1 column 1>; Expected token: <"for">
+        Return: ForStatement(LOOKAHEAD FAILED)
+        Call:   WhileStatement(LOOKING AHEAD...)
+          Visited token: <"integer" at line 1 column 1>; Expected token: <"while">
+        Return: WhileStatement(LOOKAHEAD FAILED)
+        Call:   LoopStatement(LOOKING AHEAD...)
+          Visited token: <"integer" at line 1 column 1>; Expected token: <"loop">
+        Return: LoopStatement(LOOKAHEAD FAILED)
+        Visited token: <"integer" at line 1 column 1>; Expected token: <"goto">
+      Return: Loop(LOOKAHEAD FAILED)
+      Call:   Branch(LOOKING AHEAD...)
+        Call:   IfStatement(LOOKING AHEAD...)
+          Call:   IfTest(LOOKING AHEAD...)
+            Visited token: <"integer" at line 1 column 1>; Expected token: <"if">
+          Return: IfTest(LOOKAHEAD FAILED)
+        Return: IfStatement(LOOKAHEAD FAILED)
+        Call:   SwitchStatement(LOOKING AHEAD...)
+          Call:   SwitchTest(LOOKING AHEAD...)
+            Visited token: <"integer" at line 1 column 1>; Expected token: <"switch">
+          Return: SwitchTest(LOOKAHEAD FAILED)
+        Return: SwitchStatement(LOOKAHEAD FAILED)
+        Call:   IfDefStatement(LOOKING AHEAD...)
+          Call:   IfDefTest(LOOKING AHEAD...)
+            Visited token: <"integer" at line 1 column 1>; Expected token: <"ifdef">
+          Return: IfDefTest(LOOKAHEAD FAILED)
+        Return: IfDefStatement(LOOKAHEAD FAILED)
+      Return: Branch(LOOKAHEAD FAILED)
+      Call:   Return(LOOKING AHEAD...)
+        Visited token: <"integer" at line 1 column 1>; Expected token: <"return">
+      Return: Return(LOOKAHEAD FAILED)
+      Visited token: <"integer" at line 1 column 1>; Expected token: <<IDENTIFIER>>
+      Call:   ScopeModifier(LOOKING AHEAD...)
+        Visited token: <"integer" at line 1 column 1>; Expected token: <"global">
+        Visited token: <"integer" at line 1 column 1>; Expected token: <"public">
+        Visited token: <"integer" at line 1 column 1>; Expected token: <"export">
+        Visited token: <"integer" at line 1 column 1>; Expected token: <"override">
+      Return: ScopeModifier(LOOKAHEAD FAILED)
+      Call:   VarDeclare(LOOKING AHEAD...)
+        Call:   DataType(LOOKING AHEAD...)
+          Visited token: <"integer" at line 1 column 1>; Expected token: <"atom">
+          Visited token: <"integer" at line 1 column 1>; Expected token: <"integer">
+        Return: DataType(LOOKAHEAD SUCCEEDED)
+        Call:   IdentList(LOOKING AHEAD...)
+          Call:   Ident(LOOKING AHEAD...)
+            Visited token: <<IDENTIFIER>: "a" at line 1 column 9>; Expected token: <<IDENTIFIER>>
+            Call:   stmblk
+              Call:   statement
+                Visited token: <"integer" at line 1 column 1>; Expected token: <<IDENTIFIER>>
+                Call:   VarDeclare
+                  Call:   DataType
+                    Consumed token: <"integer" at line 1 column 1>
+                  Return: DataType
+                  Call:   IdentList
+                    Call:   Ident
+                      Consumed token: <<IDENTIFIER>: "a" at line 1 column 9>
+                    Return: Ident
+                    Consumed token: <"," at line 1 column 10>
+                    Call:   Ident
+                      Consumed token: <<IDENTIFIER>: "b" at line 1 column 12>
+                    Return: Ident
+                  Return: IdentList
+                Return: VarDeclare
+              Return: statement
+            Return: stmblk
+            Consumed token: <"\n": "
+" at line 1 column 13>
+            Call:   stmblk(LOOKING AHEAD...)
+              Call:   statement(LOOKING AHEAD...)
+                Call:   Flow(LOOKING AHEAD...)
+                  Visited token: <"sequence" at line 2 column 1>; Expected token: <<BREAKSTMT>>
+                  Visited token: <"sequence" at line 2 column 1>; Expected token: <<CONTINUESTMT>>
+                  Visited token: <"sequence" at line 2 column 1>; Expected token: <<RETRYSTMT>>
+                  Visited token: <"sequence" at line 2 column 1>; Expected token: <<EXITSTMT>>
+                  Visited token: <"sequence" at line 2 column 1>; Expected token: <<FALLTHRUSTMT>>
+                Return: Flow(LOOKAHEAD FAILED)
+                Call:   Loop(LOOKING AHEAD...)
+                  Call:   ForStatement(LOOKING AHEAD...)
+                    Visited token: <"sequence" at line 2 column 1>; Expected token: <"for">
+                  Return: ForStatement(LOOKAHEAD FAILED)
+                  Call:   WhileStatement(LOOKING AHEAD...)
+                    Visited token: <"sequence" at line 2 column 1>; Expected token: <"while">
+                  Return: WhileStatement(LOOKAHEAD FAILED)
+                  Call:   LoopStatement(LOOKING AHEAD...)
+                    Visited token: <"sequence" at line 2 column 1>; Expected token: <"loop">
+                  Return: LoopStatement(LOOKAHEAD FAILED)
+                  Visited token: <"sequence" at line 2 column 1>; Expected token: <"goto">
+                Return: Loop(LOOKAHEAD FAILED)
+                Call:   Branch(LOOKING AHEAD...)
+                  Call:   IfStatement(LOOKING AHEAD...)
+                    Call:   IfTest(LOOKING AHEAD...)
+                      Visited token: <"sequence" at line 2 column 1>; Expected token: <"if">
+                    Return: IfTest(LOOKAHEAD FAILED)
+                  Return: IfStatement(LOOKAHEAD FAILED)
+                  Call:   SwitchStatement(LOOKING AHEAD...)
+                    Call:   SwitchTest(LOOKING AHEAD...)
+                      Visited token: <"sequence" at line 2 column 1>; Expected token: <"switch">
+                    Return: SwitchTest(LOOKAHEAD FAILED)
+                  Return: SwitchStatement(LOOKAHEAD FAILED)
+                  Call:   IfDefStatement(LOOKING AHEAD...)
+                    Call:   IfDefTest(LOOKING AHEAD...)
+                      Visited token: <"sequence" at line 2 column 1>; Expected token: <"ifdef">
+                    Return: IfDefTest(LOOKAHEAD FAILED)
+                  Return: IfDefStatement(LOOKAHEAD FAILED)
+                Return: Branch(LOOKAHEAD FAILED)
+                Call:   Return(LOOKING AHEAD...)
+                  Visited token: <"sequence" at line 2 column 1>; Expected token: <"return">
+                Return: Return(LOOKAHEAD FAILED)
+                Visited token: <"sequence" at line 2 column 1>; Expected token: <<IDENTIFIER>>
+                Call:   ScopeModifier(LOOKING AHEAD...)
+                  Visited token: <"sequence" at line 2 column 1>; Expected token: <"global">
+                  Visited token: <"sequence" at line 2 column 1>; Expected token: <"public">
+                  Visited token: <"sequence" at line 2 column 1>; Expected token: <"export">
+                  Visited token: <"sequence" at line 2 column 1>; Expected token: <"override">
+                Return: ScopeModifier(LOOKAHEAD FAILED)
+                Call:   VarDeclare(LOOKING AHEAD...)
+                  Call:   DataType(LOOKING AHEAD...)
+                    Visited token: <"sequence" at line 2 column 1>; Expected token: <"atom">
+                    Visited token: <"sequence" at line 2 column 1>; Expected token: <"integer">
+                    Visited token: <"sequence" at line 2 column 1>; Expected token: <"sequence">
+                  Return: DataType(LOOKAHEAD SUCCEEDED)
+                  Call:   IdentList(LOOKING AHEAD...)
+                    Call:   Ident(LOOKING AHEAD...)
+                      Visited token: <<IDENTIFIER>: "s" at line 2 column 10>; Expected token: <<IDENTIFIER>>
+                      Call:   stmblk
+                        Call:   statement
+                          Visited token: <"sequence" at line 2 column 1>; Expected token: <<IDENTIFIER>>
+                          Call:   VarDeclare
+                            Call:   DataType
+                              Consumed token: <"sequence" at line 2 column 1>
+                            Return: DataType
+                            Call:   IdentList
+                              Call:   Ident
+                                Consumed token: <<IDENTIFIER>: "s" at line 2 column 10>
+                                Consumed token: <"=" at line 2 column 12>
+                                Call:   Expression
+                                  Call:   Sequence
+                                    Consumed token: <"{" at line 2 column 14>
+                                  Return: Sequence
+                                Return: Expression
+                              Return: Ident
+                            Return: IdentList
+                          Return: VarDeclare
+                        Return: statement
+                      Return: stmblk
+                    Return: javacc_input
+Encountered " <CHAR> "\'E\' "" at line 2, column 15.
+Was expecting one of:
+    "{" ...
+    "}" ...
+    "$" ...
+    <INTEGER> ...
+    <FLOAT> ...
+    <EXP> ...
+    <BIN_NUMBER> ...
+    <OCT_NUMBER> ...
+    <DEC_NUMBER> ...
+    <HEX_NUMBER> ...
+    
+Ocorreu uma excecao!

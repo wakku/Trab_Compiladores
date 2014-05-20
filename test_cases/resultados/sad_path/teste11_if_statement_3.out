@@ -1,55 +1,290 @@
-@(1, 1)         "integer"            integer
-@(1, 9)         <IDENTIFIER>         a
-@(1, 11)        "="                  =
-@(1, 13)        <INTEGER>            10
-@(1, 15)        "\n"                 <EOL>
-@(2, 1)         "integer"            integer
-@(2, 9)         <IDENTIFIER>         b
-@(2, 11)        "="                  =
-@(2, 13)        <INTEGER>            20
-@(2, 15)        "\n"                 <EOL>
-@(3, 1)         "\n"                 <EOL>
-@(4, 1)         "if"                 if
-@(4, 4)         "("                  (
-@(4, 5)         <IDENTIFIER>         a
-@(4, 7)         "+"                  +
-@(4, 9)         <IDENTIFIER>         b
-@(4, 10)        ")"                  )
-@(4, 12)        "<"                  <
-@(4, 14)        <INTEGER>            40
-@(4, 17)        "then"               then
-@(4, 21)        "\n"                 <EOL>
-@(5, 4)         <IDENTIFIER>         printf
-@(5, 10)        "("                  (
-@(5, 11)        <INTEGER>            1
-@(5, 12)        ","                  ,
-@(5, 14)        <STRINGLIT>          "%s\n"
-@(5, 20)        ","                  ,
-@(5, 22)        "{"                  {
-@(5, 23)        <STRINGLIT>          "Entrei nesse statement!"
-@(5, 48)        "}"                  }
-@(5, 49)        ")"                  )
-@(5, 50)        "\n"                 <EOL>
-@(6, 1)         "end"                end
-@(6, 5)         "if"                 if
-@(6, 7)         "\n"                 <EOL>
-@(7, 1)         "\n"                 <EOL>
-@(8, 1)         "if"                 if
-@(8, 4)         "("                  (
-@(8, 5)         <IDENTIFIER>         a
-@(8, 7)         "+"                  +
-@(8, 9)         <IDENTIFIER>         b
-@(8, 10)        ")"                  )
-@(8, 12)        ">"                  >
-@(8, 14)        <INTEGER>            40
-@(8, 17)        "then"               then
-@(8, 21)        "\n"                 <EOL>
-@(9, 4)         <IDENTIFIER>         printf
-@(9, 10)        "("                  (
-@(9, 11)        <INTEGER>            1
-@(9, 12)        ","                  ,
-@(9, 14)        <STRINGLIT>          "%s\n"
-@(9, 20)        ","                  ,
-@(9, 22)        "{"                  {
-Lexical error at line 9, column 25.  Encountered: "\ufffd" (65533), after : "\"N"
-Existem erros no codigo! Por favor, verifica-los.
+Call:   javacc_input
+  Call:   stmblk(LOOKING AHEAD...)
+    Call:   statement(LOOKING AHEAD...)
+      Call:   Flow(LOOKING AHEAD...)
+        Visited token: <"integer" at line 1 column 1>; Expected token: <<BREAKSTMT>>
+        Visited token: <"integer" at line 1 column 1>; Expected token: <<CONTINUESTMT>>
+        Visited token: <"integer" at line 1 column 1>; Expected token: <<RETRYSTMT>>
+        Visited token: <"integer" at line 1 column 1>; Expected token: <<EXITSTMT>>
+        Visited token: <"integer" at line 1 column 1>; Expected token: <<FALLTHRUSTMT>>
+      Return: Flow(LOOKAHEAD FAILED)
+      Call:   Loop(LOOKING AHEAD...)
+        Call:   ForStatement(LOOKING AHEAD...)
+          Visited token: <"integer" at line 1 column 1>; Expected token: <"for">
+        Return: ForStatement(LOOKAHEAD FAILED)
+        Call:   WhileStatement(LOOKING AHEAD...)
+          Visited token: <"integer" at line 1 column 1>; Expected token: <"while">
+        Return: WhileStatement(LOOKAHEAD FAILED)
+        Call:   LoopStatement(LOOKING AHEAD...)
+          Visited token: <"integer" at line 1 column 1>; Expected token: <"loop">
+        Return: LoopStatement(LOOKAHEAD FAILED)
+        Visited token: <"integer" at line 1 column 1>; Expected token: <"goto">
+      Return: Loop(LOOKAHEAD FAILED)
+      Call:   Branch(LOOKING AHEAD...)
+        Call:   IfStatement(LOOKING AHEAD...)
+          Call:   IfTest(LOOKING AHEAD...)
+            Visited token: <"integer" at line 1 column 1>; Expected token: <"if">
+          Return: IfTest(LOOKAHEAD FAILED)
+        Return: IfStatement(LOOKAHEAD FAILED)
+        Call:   SwitchStatement(LOOKING AHEAD...)
+          Call:   SwitchTest(LOOKING AHEAD...)
+            Visited token: <"integer" at line 1 column 1>; Expected token: <"switch">
+          Return: SwitchTest(LOOKAHEAD FAILED)
+        Return: SwitchStatement(LOOKAHEAD FAILED)
+        Call:   IfDefStatement(LOOKING AHEAD...)
+          Call:   IfDefTest(LOOKING AHEAD...)
+            Visited token: <"integer" at line 1 column 1>; Expected token: <"ifdef">
+          Return: IfDefTest(LOOKAHEAD FAILED)
+        Return: IfDefStatement(LOOKAHEAD FAILED)
+      Return: Branch(LOOKAHEAD FAILED)
+      Call:   Return(LOOKING AHEAD...)
+        Visited token: <"integer" at line 1 column 1>; Expected token: <"return">
+      Return: Return(LOOKAHEAD FAILED)
+      Visited token: <"integer" at line 1 column 1>; Expected token: <<IDENTIFIER>>
+      Call:   ScopeModifier(LOOKING AHEAD...)
+        Visited token: <"integer" at line 1 column 1>; Expected token: <"global">
+        Visited token: <"integer" at line 1 column 1>; Expected token: <"public">
+        Visited token: <"integer" at line 1 column 1>; Expected token: <"export">
+        Visited token: <"integer" at line 1 column 1>; Expected token: <"override">
+      Return: ScopeModifier(LOOKAHEAD FAILED)
+      Call:   VarDeclare(LOOKING AHEAD...)
+        Call:   DataType(LOOKING AHEAD...)
+          Visited token: <"integer" at line 1 column 1>; Expected token: <"atom">
+          Visited token: <"integer" at line 1 column 1>; Expected token: <"integer">
+        Return: DataType(LOOKAHEAD SUCCEEDED)
+        Call:   IdentList(LOOKING AHEAD...)
+          Call:   Ident(LOOKING AHEAD...)
+            Visited token: <<IDENTIFIER>: "a" at line 1 column 9>; Expected token: <<IDENTIFIER>>
+            Call:   stmblk
+              Call:   statement
+                Visited token: <"integer" at line 1 column 1>; Expected token: <<IDENTIFIER>>
+                Call:   VarDeclare
+                  Call:   DataType
+                    Consumed token: <"integer" at line 1 column 1>
+                  Return: DataType
+                  Call:   IdentList
+                    Call:   Ident
+                      Consumed token: <<IDENTIFIER>: "a" at line 1 column 9>
+                      Consumed token: <"=" at line 1 column 11>
+                      Call:   Expression
+                        Call:   Expression00
+                          Call:   Expression01
+                            Call:   Expression02
+                              Call:   Expression03
+                                Call:   Expression04
+                                  Call:   Expression05
+                                    Call:   Expression06
+                                      Call:   Atom
+                                        Consumed token: <<INTEGER>: "10" at line 1 column 13>
+                                      Return: Atom
+                                    Return: Expression06
+                                  Return: Expression05
+                                Return: Expression04
+                              Return: Expression03
+                            Return: Expression02
+                          Return: Expression01
+                        Return: Expression00
+                      Return: Expression
+                    Return: Ident
+                  Return: IdentList
+                Return: VarDeclare
+              Return: statement
+            Return: stmblk
+            Consumed token: <"\n": "
+" at line 1 column 15>
+            Call:   stmblk(LOOKING AHEAD...)
+              Call:   statement(LOOKING AHEAD...)
+                Call:   Flow(LOOKING AHEAD...)
+                  Visited token: <"integer" at line 2 column 1>; Expected token: <<BREAKSTMT>>
+                  Visited token: <"integer" at line 2 column 1>; Expected token: <<CONTINUESTMT>>
+                  Visited token: <"integer" at line 2 column 1>; Expected token: <<RETRYSTMT>>
+                  Visited token: <"integer" at line 2 column 1>; Expected token: <<EXITSTMT>>
+                  Visited token: <"integer" at line 2 column 1>; Expected token: <<FALLTHRUSTMT>>
+                Return: Flow(LOOKAHEAD FAILED)
+                Call:   Loop(LOOKING AHEAD...)
+                  Call:   ForStatement(LOOKING AHEAD...)
+                    Visited token: <"integer" at line 2 column 1>; Expected token: <"for">
+                  Return: ForStatement(LOOKAHEAD FAILED)
+                  Call:   WhileStatement(LOOKING AHEAD...)
+                    Visited token: <"integer" at line 2 column 1>; Expected token: <"while">
+                  Return: WhileStatement(LOOKAHEAD FAILED)
+                  Call:   LoopStatement(LOOKING AHEAD...)
+                    Visited token: <"integer" at line 2 column 1>; Expected token: <"loop">
+                  Return: LoopStatement(LOOKAHEAD FAILED)
+                  Visited token: <"integer" at line 2 column 1>; Expected token: <"goto">
+                Return: Loop(LOOKAHEAD FAILED)
+                Call:   Branch(LOOKING AHEAD...)
+                  Call:   IfStatement(LOOKING AHEAD...)
+                    Call:   IfTest(LOOKING AHEAD...)
+                      Visited token: <"integer" at line 2 column 1>; Expected token: <"if">
+                    Return: IfTest(LOOKAHEAD FAILED)
+                  Return: IfStatement(LOOKAHEAD FAILED)
+                  Call:   SwitchStatement(LOOKING AHEAD...)
+                    Call:   SwitchTest(LOOKING AHEAD...)
+                      Visited token: <"integer" at line 2 column 1>; Expected token: <"switch">
+                    Return: SwitchTest(LOOKAHEAD FAILED)
+                  Return: SwitchStatement(LOOKAHEAD FAILED)
+                  Call:   IfDefStatement(LOOKING AHEAD...)
+                    Call:   IfDefTest(LOOKING AHEAD...)
+                      Visited token: <"integer" at line 2 column 1>; Expected token: <"ifdef">
+                    Return: IfDefTest(LOOKAHEAD FAILED)
+                  Return: IfDefStatement(LOOKAHEAD FAILED)
+                Return: Branch(LOOKAHEAD FAILED)
+                Call:   Return(LOOKING AHEAD...)
+                  Visited token: <"integer" at line 2 column 1>; Expected token: <"return">
+                Return: Return(LOOKAHEAD FAILED)
+                Visited token: <"integer" at line 2 column 1>; Expected token: <<IDENTIFIER>>
+                Call:   ScopeModifier(LOOKING AHEAD...)
+                  Visited token: <"integer" at line 2 column 1>; Expected token: <"global">
+                  Visited token: <"integer" at line 2 column 1>; Expected token: <"public">
+                  Visited token: <"integer" at line 2 column 1>; Expected token: <"export">
+                  Visited token: <"integer" at line 2 column 1>; Expected token: <"override">
+                Return: ScopeModifier(LOOKAHEAD FAILED)
+                Call:   VarDeclare(LOOKING AHEAD...)
+                  Call:   DataType(LOOKING AHEAD...)
+                    Visited token: <"integer" at line 2 column 1>; Expected token: <"atom">
+                    Visited token: <"integer" at line 2 column 1>; Expected token: <"integer">
+                  Return: DataType(LOOKAHEAD SUCCEEDED)
+                  Call:   IdentList(LOOKING AHEAD...)
+                    Call:   Ident(LOOKING AHEAD...)
+                      Visited token: <<IDENTIFIER>: "b" at line 2 column 9>; Expected token: <<IDENTIFIER>>
+                      Call:   stmblk
+                        Call:   statement
+                          Visited token: <"integer" at line 2 column 1>; Expected token: <<IDENTIFIER>>
+                          Call:   VarDeclare
+                            Call:   DataType
+                              Consumed token: <"integer" at line 2 column 1>
+                            Return: DataType
+                            Call:   IdentList
+                              Call:   Ident
+                                Consumed token: <<IDENTIFIER>: "b" at line 2 column 9>
+                                Consumed token: <"=" at line 2 column 11>
+                                Call:   Expression
+                                  Call:   Expression00
+                                    Call:   Expression01
+                                      Call:   Expression02
+                                        Call:   Expression03
+                                          Call:   Expression04
+                                            Call:   Expression05
+                                              Call:   Expression06
+                                                Call:   Atom
+                                                  Consumed token: <<INTEGER>: "20" at line 2 column 13>
+                                                Return: Atom
+                                              Return: Expression06
+                                            Return: Expression05
+                                          Return: Expression04
+                                        Return: Expression03
+                                      Return: Expression02
+                                    Return: Expression01
+                                  Return: Expression00
+                                Return: Expression
+                              Return: Ident
+                            Return: IdentList
+                          Return: VarDeclare
+                        Return: statement
+                      Return: stmblk
+                      Consumed token: <"\n": "
+" at line 2 column 15>
+                      Consumed token: <"\n": "
+" at line 3 column 1>
+                      Call:   stmblk(LOOKING AHEAD...)
+                        Call:   statement(LOOKING AHEAD...)
+                          Call:   Flow(LOOKING AHEAD...)
+                            Visited token: <"if" at line 4 column 1>; Expected token: <<BREAKSTMT>>
+                            Visited token: <"if" at line 4 column 1>; Expected token: <<CONTINUESTMT>>
+                            Visited token: <"if" at line 4 column 1>; Expected token: <<RETRYSTMT>>
+                            Visited token: <"if" at line 4 column 1>; Expected token: <<EXITSTMT>>
+                            Visited token: <"if" at line 4 column 1>; Expected token: <<FALLTHRUSTMT>>
+                          Return: Flow(LOOKAHEAD FAILED)
+                          Call:   Loop(LOOKING AHEAD...)
+                            Call:   ForStatement(LOOKING AHEAD...)
+                              Visited token: <"if" at line 4 column 1>; Expected token: <"for">
+                            Return: ForStatement(LOOKAHEAD FAILED)
+                            Call:   WhileStatement(LOOKING AHEAD...)
+                              Visited token: <"if" at line 4 column 1>; Expected token: <"while">
+                            Return: WhileStatement(LOOKAHEAD FAILED)
+                            Call:   LoopStatement(LOOKING AHEAD...)
+                              Visited token: <"if" at line 4 column 1>; Expected token: <"loop">
+                            Return: LoopStatement(LOOKAHEAD FAILED)
+                            Visited token: <"if" at line 4 column 1>; Expected token: <"goto">
+                          Return: Loop(LOOKAHEAD FAILED)
+                          Call:   Branch(LOOKING AHEAD...)
+                            Call:   IfStatement(LOOKING AHEAD...)
+                              Call:   IfTest(LOOKING AHEAD...)
+                                Visited token: <"if" at line 4 column 1>; Expected token: <"if">
+                                Call:   Expression(LOOKING AHEAD...)
+                                  Call:   Sequence(LOOKING AHEAD...)
+                                    Visited token: <"(" at line 4 column 4>; Expected token: <"{">
+                                  Return: Sequence(LOOKAHEAD FAILED)
+                                  Call:   Expression00(LOOKING AHEAD...)
+                                    Call:   Expression01(LOOKING AHEAD...)
+                                      Call:   Expression02(LOOKING AHEAD...)
+                                        Call:   Expression03(LOOKING AHEAD...)
+                                          Call:   Expression04(LOOKING AHEAD...)
+                                            Call:   Expression05(LOOKING AHEAD...)
+                                              Visited token: <"(" at line 4 column 4>; Expected token: <"+">
+                                              Visited token: <"(" at line 4 column 4>; Expected token: <"-">
+                                              Visited token: <"(" at line 4 column 4>; Expected token: <"not">
+                                              Call:   Expression06(LOOKING AHEAD...)
+                                                Call:   Atom(LOOKING AHEAD...)
+                                                  Visited token: <"(" at line 4 column 4>; Expected token: <<INTEGER>>
+                                                  Call:   Real(LOOKING AHEAD...)
+                                                    Visited token: <"(" at line 4 column 4>; Expected token: <<FLOAT>>
+                                                    Visited token: <"(" at line 4 column 4>; Expected token: <<EXP>>
+                                                  Return: Real(LOOKAHEAD FAILED)
+                                                Return: Atom(LOOKAHEAD FAILED)
+                                                Visited token: <"(" at line 4 column 4>; Expected token: <<STRINGLIT>>
+                                                Visited token: <"(" at line 4 column 4>; Expected token: <"(">
+                                                Call:   stmblk
+                                                  Call:   statement
+                                                    Call:   Branch
+                                                      Call:   IfStatement
+                                                        Call:   IfTest
+                                                          Consumed token: <"if" at line 4 column 1>
+                                                          Call:   Expression
+                                                            Call:   Expression00
+                                                              Call:   Expression01
+                                                                Call:   Expression02
+                                                                  Call:   Expression03
+                                                                    Call:   Expression04
+                                                                      Call:   Expression05
+                                                                        Call:   Expression06
+                                                                          Consumed token: <"(" at line 4 column 4>
+                                                                          Call:   Expression
+                                                                            Call:   Expression00
+                                                                              Call:   Expression01
+                                                                                Call:   Expression02
+                                                                                  Call:   Expression03
+                                                                                    Call:   Expression04
+                                                                                      Call:   Expression05
+                                                                                        Call:   Expression06
+                                                                                          Consumed token: <<IDENTIFIER>: "a" at line 4 column 5>
+                                                                                        Return: Expression06
+                                                                                      Return: Expression05
+                                                                                    Return: Expression04
+                                                                                  Return: Expression03
+                                                                                Return: Expression02
+                                                                              Return: Expression01
+                                                                            Return: Expression00
+                                                                          Return: Expression
+                                                                        Return: Expression06
+                                                                      Return: Expression05
+                                                                    Return: Expression04
+                                                                  Return: Expression03
+                                                                Return: Expression02
+                                                              Return: Expression01
+                                                            Return: Expression00
+                                                          Return: Expression
+                                                        Return: IfTest
+                                                      Return: IfStatement
+                                                    Return: Branch
+                                                  Return: statement
+                                                Return: stmblk
+                                              Return: javacc_input
+Encountered " "+" "+ "" at line 4, column 7.
+Was expecting one of:
+    "(" ...
+    "[" ...
+    "]" ...
+    
+Ocorreu uma excecao!

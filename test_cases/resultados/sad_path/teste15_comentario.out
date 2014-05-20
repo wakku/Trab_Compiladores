@@ -1,3 +1,10 @@
-@(3, 1)         "\n"                 <EOL>
+Call:   javacc_input
+  Consumed token: <"\n": "
+" at line 1 column 24>
+  Consumed token: <"\n": "
+" at line 2 column 88>
+  Consumed token: <"\n": "
+" at line 3 column 1>
+Return: javacc_input
 Lexical error at line 8, column 70.  Encountered: <EOF> after : ""
 Existem erros no codigo! Por favor, verifica-los.

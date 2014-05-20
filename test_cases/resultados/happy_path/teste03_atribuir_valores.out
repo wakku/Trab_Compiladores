@@ -233,7 +233,7 @@ Call:   javacc_input
                                     Return: statement
                                   Return: stmblk
                                   Consumed token: <"\n": "
-" at line 4 column 52>
+" at line 4 column 14>
                                   Call:   stmblk(LOOKING AHEAD...)
                                     Call:   statement(LOOKING AHEAD...)
                                       Call:   Flow(LOOKING AHEAD...)
@@ -315,7 +315,7 @@ Call:   javacc_input
                                                 Return: statement
                                               Return: stmblk
                                               Consumed token: <"\n": "
-" at line 5 column 59>
+" at line 5 column 14>
                                               Call:   stmblk(LOOKING AHEAD...)
                                                 Call:   statement(LOOKING AHEAD...)
                                                   Call:   Flow(LOOKING AHEAD...)

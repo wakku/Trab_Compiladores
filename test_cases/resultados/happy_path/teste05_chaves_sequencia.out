@@ -167,8 +167,8 @@ Call:   javacc_input
                                   Consumed token: <<INTEGER>: "0" at line 2 column 22>
                                 Return: Atom
                               Return: Object
-                              Visited token: <"\n": "
-" at line 2 column 24>; Expected token: <",">
+                              Visited token: <"}" at line 2 column 24>; Expected token: <",">
+                              Consumed token: <"}" at line 2 column 24>
                             Return: Sequence
                           Return: Expression
                         Return: Ident
@@ -176,11 +176,105 @@ Call:   javacc_input
                     Return: VarDeclare
                   Return: statement
                 Return: stmblk
+                Consumed token: <"\n": "
+" at line 2 column 25>
+                Call:   stmblk(LOOKING AHEAD...)
+                  Call:   statement(LOOKING AHEAD...)
+                    Call:   Flow(LOOKING AHEAD...)
+                      Visited token: <<IDENTIFIER>: "point" at line 3 column 1>; Expected token: <<BREAKSTMT>>
+                      Visited token: <<IDENTIFIER>: "point" at line 3 column 1>; Expected token: <<CONTINUESTMT>>
+                      Visited token: <<IDENTIFIER>: "point" at line 3 column 1>; Expected token: <<RETRYSTMT>>
+                      Visited token: <<IDENTIFIER>: "point" at line 3 column 1>; Expected token: <<EXITSTMT>>
+                      Visited token: <<IDENTIFIER>: "point" at line 3 column 1>; Expected token: <<FALLTHRUSTMT>>
+                    Return: Flow(LOOKAHEAD FAILED)
+                    Call:   Loop(LOOKING AHEAD...)
+                      Call:   ForStatement(LOOKING AHEAD...)
+                        Visited token: <<IDENTIFIER>: "point" at line 3 column 1>; Expected token: <"for">
+                      Return: ForStatement(LOOKAHEAD FAILED)
+                      Call:   WhileStatement(LOOKING AHEAD...)
+                        Visited token: <<IDENTIFIER>: "point" at line 3 column 1>; Expected token: <"while">
+                      Return: WhileStatement(LOOKAHEAD FAILED)
+                      Call:   LoopStatement(LOOKING AHEAD...)
+                        Visited token: <<IDENTIFIER>: "point" at line 3 column 1>; Expected token: <"loop">
+                      Return: LoopStatement(LOOKAHEAD FAILED)
+                      Visited token: <<IDENTIFIER>: "point" at line 3 column 1>; Expected token: <"goto">
+                    Return: Loop(LOOKAHEAD FAILED)
+                    Call:   Branch(LOOKING AHEAD...)
+                      Call:   IfStatement(LOOKING AHEAD...)
+                        Call:   IfTest(LOOKING AHEAD...)
+                          Visited token: <<IDENTIFIER>: "point" at line 3 column 1>; Expected token: <"if">
+                        Return: IfTest(LOOKAHEAD FAILED)
+                      Return: IfStatement(LOOKAHEAD FAILED)
+                      Call:   SwitchStatement(LOOKING AHEAD...)
+                        Call:   SwitchTest(LOOKING AHEAD...)
+                          Visited token: <<IDENTIFIER>: "point" at line 3 column 1>; Expected token: <"switch">
+                        Return: SwitchTest(LOOKAHEAD FAILED)
+                      Return: SwitchStatement(LOOKAHEAD FAILED)
+                      Call:   IfDefStatement(LOOKING AHEAD...)
+                        Call:   IfDefTest(LOOKING AHEAD...)
+                          Visited token: <<IDENTIFIER>: "point" at line 3 column 1>; Expected token: <"ifdef">
+                        Return: IfDefTest(LOOKAHEAD FAILED)
+                      Return: IfDefStatement(LOOKAHEAD FAILED)
+                    Return: Branch(LOOKAHEAD FAILED)
+                    Call:   Return(LOOKING AHEAD...)
+                      Visited token: <<IDENTIFIER>: "point" at line 3 column 1>; Expected token: <"return">
+                    Return: Return(LOOKAHEAD FAILED)
+                    Visited token: <<IDENTIFIER>: "point" at line 3 column 1>; Expected token: <<IDENTIFIER>>
+                    Call:   Assignment(LOOKING AHEAD...)
+                      Call:   AssignmentMulti(LOOKING AHEAD...)
+                        Visited token: <"[" at line 3 column 6>; Expected token: <",">
+                        Visited token: <"[" at line 3 column 6>; Expected token: <"=">
+                      Return: AssignmentMulti(LOOKAHEAD FAILED)
+                      Call:   AssignmentWihOp(LOOKING AHEAD...)
+                        Visited token: <"[" at line 3 column 6>; Expected token: <"+">
+                        Visited token: <"[" at line 3 column 6>; Expected token: <"-">
+                        Visited token: <"[" at line 3 column 6>; Expected token: <"/">
+                        Visited token: <"[" at line 3 column 6>; Expected token: <"*">
+                        Visited token: <"[" at line 3 column 6>; Expected token: <"&">
+                      Return: AssignmentWihOp(LOOKAHEAD FAILED)
+                    Return: Assignment(LOOKAHEAD FAILED)
+                    Call:   Call(LOOKING AHEAD...)
+                      Visited token: <"[" at line 3 column 6>; Expected token: <"(">
+                    Return: Call(LOOKAHEAD FAILED)
+                    Call:   ScopeModifier(LOOKING AHEAD...)
+                      Visited token: <<IDENTIFIER>: "point" at line 3 column 1>; Expected token: <"global">
+                      Visited token: <<IDENTIFIER>: "point" at line 3 column 1>; Expected token: <"public">
+                      Visited token: <<IDENTIFIER>: "point" at line 3 column 1>; Expected token: <"export">
+                      Visited token: <<IDENTIFIER>: "point" at line 3 column 1>; Expected token: <"override">
+                    Return: ScopeModifier(LOOKAHEAD FAILED)
+                    Call:   VarDeclare(LOOKING AHEAD...)
+                      Call:   DataType(LOOKING AHEAD...)
+                        Visited token: <<IDENTIFIER>: "point" at line 3 column 1>; Expected token: <"atom">
+                        Visited token: <<IDENTIFIER>: "point" at line 3 column 1>; Expected token: <"integer">
+                        Visited token: <<IDENTIFIER>: "point" at line 3 column 1>; Expected token: <"sequence">
+                        Visited token: <<IDENTIFIER>: "point" at line 3 column 1>; Expected token: <"object">
+                        Visited token: <<IDENTIFIER>: "point" at line 3 column 1>; Expected token: <<IDENTIFIER>>
+                      Return: DataType(LOOKAHEAD SUCCEEDED)
+                      Call:   IdentList(LOOKING AHEAD...)
+                        Call:   Ident(LOOKING AHEAD...)
+                          Visited token: <"[" at line 3 column 6>; Expected token: <<IDENTIFIER>>
+                        Return: Ident(LOOKAHEAD FAILED)
+                      Return: IdentList(LOOKAHEAD FAILED)
+                    Return: VarDeclare(LOOKAHEAD FAILED)
+                    Call:   TypeDeclare(LOOKING AHEAD...)
+                      Visited token: <<IDENTIFIER>: "point" at line 3 column 1>; Expected token: <"type">
+                    Return: TypeDeclare(LOOKAHEAD FAILED)
+                  Return: statement(LOOKAHEAD FAILED)
+                Return: stmblk(LOOKAHEAD FAILED)
               Return: javacc_input
-Encountered " "\n" "\n "" at line 2, column 24.
+Encountered " <IDENTIFIER> "point "" at line 3, column 1.
 Was expecting one of:
-    "}" ...
-    "," ...
-    "," ...
+    "export" ...
+    "global" ...
+    "public" ...
+    "constant" ...
+    "enum" ...
+    "override" ...
+    "function" ...
+    "procedure" ...
+    "global" ...
+    "public" ...
+    "export" ...
+    "override" ...
     
 Ocorreu uma excecao!

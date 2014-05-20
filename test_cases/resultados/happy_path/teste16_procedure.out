@@ -1,0 +1,113 @@
+Call:   javacc_input
+  Call:   stmblk(LOOKING AHEAD...)
+    Call:   statement(LOOKING AHEAD...)
+      Call:   Flow(LOOKING AHEAD...)
+        Visited token: <"procedure" at line 1 column 1>; Expected token: <<BREAKSTMT>>
+        Visited token: <"procedure" at line 1 column 1>; Expected token: <<CONTINUESTMT>>
+        Visited token: <"procedure" at line 1 column 1>; Expected token: <<RETRYSTMT>>
+        Visited token: <"procedure" at line 1 column 1>; Expected token: <<EXITSTMT>>
+        Visited token: <"procedure" at line 1 column 1>; Expected token: <<FALLTHRUSTMT>>
+      Return: Flow(LOOKAHEAD FAILED)
+      Call:   Loop(LOOKING AHEAD...)
+        Call:   ForStatement(LOOKING AHEAD...)
+          Visited token: <"procedure" at line 1 column 1>; Expected token: <"for">
+        Return: ForStatement(LOOKAHEAD FAILED)
+        Call:   WhileStatement(LOOKING AHEAD...)
+          Visited token: <"procedure" at line 1 column 1>; Expected token: <"while">
+        Return: WhileStatement(LOOKAHEAD FAILED)
+        Call:   LoopStatement(LOOKING AHEAD...)
+          Visited token: <"procedure" at line 1 column 1>; Expected token: <"loop">
+        Return: LoopStatement(LOOKAHEAD FAILED)
+        Visited token: <"procedure" at line 1 column 1>; Expected token: <"goto">
+      Return: Loop(LOOKAHEAD FAILED)
+      Call:   Branch(LOOKING AHEAD...)
+        Call:   IfStatement(LOOKING AHEAD...)
+          Call:   IfTest(LOOKING AHEAD...)
+            Visited token: <"procedure" at line 1 column 1>; Expected token: <"if">
+          Return: IfTest(LOOKAHEAD FAILED)
+        Return: IfStatement(LOOKAHEAD FAILED)
+        Call:   SwitchStatement(LOOKING AHEAD...)
+          Call:   SwitchTest(LOOKING AHEAD...)
+            Visited token: <"procedure" at line 1 column 1>; Expected token: <"switch">
+          Return: SwitchTest(LOOKAHEAD FAILED)
+        Return: SwitchStatement(LOOKAHEAD FAILED)
+        Call:   IfDefStatement(LOOKING AHEAD...)
+          Call:   IfDefTest(LOOKING AHEAD...)
+            Visited token: <"procedure" at line 1 column 1>; Expected token: <"ifdef">
+          Return: IfDefTest(LOOKAHEAD FAILED)
+        Return: IfDefStatement(LOOKAHEAD FAILED)
+      Return: Branch(LOOKAHEAD FAILED)
+      Call:   Return(LOOKING AHEAD...)
+        Visited token: <"procedure" at line 1 column 1>; Expected token: <"return">
+      Return: Return(LOOKAHEAD FAILED)
+      Visited token: <"procedure" at line 1 column 1>; Expected token: <<IDENTIFIER>>
+      Call:   ScopeModifier(LOOKING AHEAD...)
+        Visited token: <"procedure" at line 1 column 1>; Expected token: <"global">
+        Visited token: <"procedure" at line 1 column 1>; Expected token: <"public">
+        Visited token: <"procedure" at line 1 column 1>; Expected token: <"export">
+        Visited token: <"procedure" at line 1 column 1>; Expected token: <"override">
+      Return: ScopeModifier(LOOKAHEAD FAILED)
+      Call:   VarDeclare(LOOKING AHEAD...)
+        Call:   DataType(LOOKING AHEAD...)
+          Visited token: <"procedure" at line 1 column 1>; Expected token: <"atom">
+          Visited token: <"procedure" at line 1 column 1>; Expected token: <"integer">
+          Visited token: <"procedure" at line 1 column 1>; Expected token: <"sequence">
+          Visited token: <"procedure" at line 1 column 1>; Expected token: <"object">
+          Visited token: <"procedure" at line 1 column 1>; Expected token: <<IDENTIFIER>>
+        Return: DataType(LOOKAHEAD FAILED)
+      Return: VarDeclare(LOOKAHEAD FAILED)
+      Call:   TypeDeclare(LOOKING AHEAD...)
+        Visited token: <"procedure" at line 1 column 1>; Expected token: <"type">
+      Return: TypeDeclare(LOOKAHEAD FAILED)
+    Return: statement(LOOKAHEAD FAILED)
+  Return: stmblk(LOOKAHEAD FAILED)
+  Call:   ProcDeclare
+    Consumed token: <"procedure" at line 1 column 1>
+    Consumed token: <<IDENTIFIER>: "DigaOi" at line 1 column 11>
+    Consumed token: <"(" at line 1 column 17>
+    Call:   ParamList
+      Call:   Parameter
+        Call:   DataType
+          Consumed token: <"sequence" at line 1 column 18>
+        Return: DataType
+        Consumed token: <<IDENTIFIER>: "nome" at line 1 column 27>
+      Return: Parameter
+      Consumed token: <"," at line 1 column 31>
+      Call:   Parameter
+        Call:   DataType
+          Consumed token: <"atom" at line 1 column 32>
+        Return: DataType
+        Consumed token: <<IDENTIFIER>: "idade" at line 1 column 38>
+      Return: Parameter
+    Return: ParamList
+    Consumed token: <")" at line 1 column 43>
+  Return: ProcDeclare
+Return: javacc_input
+Encountered " "\n" "\n "" at line 1, column 44.
+Was expecting one of:
+    "end" ...
+    "export" ...
+    "global" ...
+    "public" ...
+    "switch" ...
+    "goto" ...
+    "while" ...
+    "if" ...
+    "loop" ...
+    "override" ...
+    "return" ...
+    "ifdef" ...
+    "type" ...
+    "for" ...
+    "atom" ...
+    "integer" ...
+    "sequence" ...
+    "object" ...
+    <IDENTIFIER> ...
+    <BREAKSTMT> ...
+    <CONTINUESTMT> ...
+    <RETRYSTMT> ...
+    <EXITSTMT> ...
+    <FALLTHRUSTMT> ...
+    
+Ocorreu uma excecao!

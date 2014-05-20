@@ -23,6 +23,7 @@ Nome:
 *****************************************/
 options {
   STATIC = false;
+  DEBUG_LOOKAHEAD = true;
 }
 
 /*****************************************
@@ -65,12 +66,12 @@ class Meuphoria {
       // Define o analisador lexico de acordo com a entrada do sistema
       Meuphoria analisadorlexico = new Meuphoria(System.in);
       // Roda o loop de processamento enquanto não encontrar EOF
-      analisadorlexico.processa();
+      //analisadorlexico.processa();
       // Processamento finalizado
-      System.out.println("Analisado com sucesso!");
+      //System.out.println("Analisado com sucesso!");
 
-      //analisadorlexico.javacc_input();
-      //System.out.println("input... ");
+      analisadorlexico.javacc_input();
+      System.out.println("input... ");
     }
     catch(ParseException e)
     {
@@ -95,8 +96,8 @@ SKIP : { " " | "\t" | "\r" }
 SKIP :
 {
   "/*" : WithinComment
-  | <COMENTARIO_INICIAL : "#" (~["\n","\r"])* ("\n"|"\r"|"\r\n")>
-  | <COMENTARIO_LINHA: "--" (~["\n","\r"])* ("\n"|"\r"|"\r\n")>
+  | <COMENTARIO_INICIAL : "#" (~["\n","\r"])*  >
+  | <COMENTARIO_LINHA: "--" (~["\n","\r"])* >
 }
 
 <WithinComment> SKIP :
@@ -496,14 +497,13 @@ void javacc_input() :
 {
     
       ( 
-          stmblk() 
-          //| (ScopeModifier())? (ConstantDeclare() | EnumDeclare() | ProcDeclare() | FuncDeclare() )+ //| VarDeclare() | TypeDeclare() )+
+          (LOOKAHEAD(2) stmblk() | (ScopeModifier())? (ConstantDeclare() | EnumDeclare() | ProcDeclare() | FuncDeclare() ) ) //| VarDeclare() | TypeDeclare() )+
           // !!!!!! VarDeclare() | TypeDeclare() podem estar aninhados
           //| 
           //Flow()
-      )
+          | <EOL>
+      )*
       <EOF>
-      
 }
 
       void ConstantDeclare() :
@@ -551,7 +551,7 @@ void javacc_input() :
       void stmblk() :
       {}
       {
-          ( LOOKAHEAD(2) statement() )+
+          ( statement() )
       }
 
       void statement() :
