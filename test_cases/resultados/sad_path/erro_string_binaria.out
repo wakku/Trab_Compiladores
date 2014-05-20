@@ -84,6 +84,7 @@ Call:   javacc_input
         Visited token: <<IDENTIFIER>: "b" at line 1 column 1>; Expected token: <"type">
       Return: TypeDeclare(LOOKAHEAD FAILED)
     Return: statement(LOOKAHEAD FAILED)
+    Visited token: <<IDENTIFIER>: "b" at line 1 column 1>; Expected token: <"\n">
   Return: stmblk(LOOKAHEAD FAILED)
 Return: javacc_input
 Encountered " <IDENTIFIER> "b "" at line 1, column 1.

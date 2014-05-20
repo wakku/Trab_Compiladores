@@ -71,10 +71,190 @@ Call:   javacc_input
                 Return: VarDeclare
               Return: statement
             Return: stmblk
-            Consumed token: <"\n": "
+            Call:   stmblk(LOOKING AHEAD...)
+              Call:   statement(LOOKING AHEAD...)
+                Call:   Flow(LOOKING AHEAD...)
+                  Visited token: <"\n": "
+" at line 1 column 47>; Expected token: <<BREAKSTMT>>
+                  Visited token: <"\n": "
+" at line 1 column 47>; Expected token: <<CONTINUESTMT>>
+                  Visited token: <"\n": "
+" at line 1 column 47>; Expected token: <<RETRYSTMT>>
+                  Visited token: <"\n": "
+" at line 1 column 47>; Expected token: <<EXITSTMT>>
+                  Visited token: <"\n": "
+" at line 1 column 47>; Expected token: <<FALLTHRUSTMT>>
+                Return: Flow(LOOKAHEAD FAILED)
+                Call:   Loop(LOOKING AHEAD...)
+                  Call:   ForStatement(LOOKING AHEAD...)
+                    Visited token: <"\n": "
+" at line 1 column 47>; Expected token: <"for">
+                  Return: ForStatement(LOOKAHEAD FAILED)
+                  Call:   WhileStatement(LOOKING AHEAD...)
+                    Visited token: <"\n": "
+" at line 1 column 47>; Expected token: <"while">
+                  Return: WhileStatement(LOOKAHEAD FAILED)
+                  Call:   LoopStatement(LOOKING AHEAD...)
+                    Visited token: <"\n": "
+" at line 1 column 47>; Expected token: <"loop">
+                  Return: LoopStatement(LOOKAHEAD FAILED)
+                  Visited token: <"\n": "
+" at line 1 column 47>; Expected token: <"goto">
+                Return: Loop(LOOKAHEAD FAILED)
+                Call:   Branch(LOOKING AHEAD...)
+                  Call:   IfStatement(LOOKING AHEAD...)
+                    Call:   IfTest(LOOKING AHEAD...)
+                      Visited token: <"\n": "
+" at line 1 column 47>; Expected token: <"if">
+                    Return: IfTest(LOOKAHEAD FAILED)
+                  Return: IfStatement(LOOKAHEAD FAILED)
+                  Call:   SwitchStatement(LOOKING AHEAD...)
+                    Call:   SwitchTest(LOOKING AHEAD...)
+                      Visited token: <"\n": "
+" at line 1 column 47>; Expected token: <"switch">
+                    Return: SwitchTest(LOOKAHEAD FAILED)
+                  Return: SwitchStatement(LOOKAHEAD FAILED)
+                  Call:   IfDefStatement(LOOKING AHEAD...)
+                    Call:   IfDefTest(LOOKING AHEAD...)
+                      Visited token: <"\n": "
+" at line 1 column 47>; Expected token: <"ifdef">
+                    Return: IfDefTest(LOOKAHEAD FAILED)
+                  Return: IfDefStatement(LOOKAHEAD FAILED)
+                Return: Branch(LOOKAHEAD FAILED)
+                Call:   Return(LOOKING AHEAD...)
+                  Visited token: <"\n": "
+" at line 1 column 47>; Expected token: <"return">
+                Return: Return(LOOKAHEAD FAILED)
+                Visited token: <"\n": "
+" at line 1 column 47>; Expected token: <<IDENTIFIER>>
+                Call:   ScopeModifier(LOOKING AHEAD...)
+                  Visited token: <"\n": "
+" at line 1 column 47>; Expected token: <"global">
+                  Visited token: <"\n": "
+" at line 1 column 47>; Expected token: <"public">
+                  Visited token: <"\n": "
+" at line 1 column 47>; Expected token: <"export">
+                  Visited token: <"\n": "
+" at line 1 column 47>; Expected token: <"override">
+                Return: ScopeModifier(LOOKAHEAD FAILED)
+                Call:   VarDeclare(LOOKING AHEAD...)
+                  Call:   DataType(LOOKING AHEAD...)
+                    Visited token: <"\n": "
+" at line 1 column 47>; Expected token: <"atom">
+                    Visited token: <"\n": "
+" at line 1 column 47>; Expected token: <"integer">
+                    Visited token: <"\n": "
+" at line 1 column 47>; Expected token: <"sequence">
+                    Visited token: <"\n": "
+" at line 1 column 47>; Expected token: <"object">
+                    Visited token: <"\n": "
+" at line 1 column 47>; Expected token: <<IDENTIFIER>>
+                  Return: DataType(LOOKAHEAD FAILED)
+                Return: VarDeclare(LOOKAHEAD FAILED)
+                Call:   TypeDeclare(LOOKING AHEAD...)
+                  Visited token: <"\n": "
+" at line 1 column 47>; Expected token: <"type">
+                Return: TypeDeclare(LOOKAHEAD FAILED)
+              Return: statement(LOOKAHEAD FAILED)
+              Visited token: <"\n": "
+" at line 1 column 47>; Expected token: <"\n">
+            Return: stmblk(LOOKAHEAD SUCCEEDED)
+            Call:   stmblk
+              Consumed token: <"\n": "
 " at line 1 column 47>
-            Consumed token: <"\n": "
+            Return: stmblk
+            Call:   stmblk(LOOKING AHEAD...)
+              Call:   statement(LOOKING AHEAD...)
+                Call:   Flow(LOOKING AHEAD...)
+                  Visited token: <"\n": "
+" at line 2 column 1>; Expected token: <<BREAKSTMT>>
+                  Visited token: <"\n": "
+" at line 2 column 1>; Expected token: <<CONTINUESTMT>>
+                  Visited token: <"\n": "
+" at line 2 column 1>; Expected token: <<RETRYSTMT>>
+                  Visited token: <"\n": "
+" at line 2 column 1>; Expected token: <<EXITSTMT>>
+                  Visited token: <"\n": "
+" at line 2 column 1>; Expected token: <<FALLTHRUSTMT>>
+                Return: Flow(LOOKAHEAD FAILED)
+                Call:   Loop(LOOKING AHEAD...)
+                  Call:   ForStatement(LOOKING AHEAD...)
+                    Visited token: <"\n": "
+" at line 2 column 1>; Expected token: <"for">
+                  Return: ForStatement(LOOKAHEAD FAILED)
+                  Call:   WhileStatement(LOOKING AHEAD...)
+                    Visited token: <"\n": "
+" at line 2 column 1>; Expected token: <"while">
+                  Return: WhileStatement(LOOKAHEAD FAILED)
+                  Call:   LoopStatement(LOOKING AHEAD...)
+                    Visited token: <"\n": "
+" at line 2 column 1>; Expected token: <"loop">
+                  Return: LoopStatement(LOOKAHEAD FAILED)
+                  Visited token: <"\n": "
+" at line 2 column 1>; Expected token: <"goto">
+                Return: Loop(LOOKAHEAD FAILED)
+                Call:   Branch(LOOKING AHEAD...)
+                  Call:   IfStatement(LOOKING AHEAD...)
+                    Call:   IfTest(LOOKING AHEAD...)
+                      Visited token: <"\n": "
+" at line 2 column 1>; Expected token: <"if">
+                    Return: IfTest(LOOKAHEAD FAILED)
+                  Return: IfStatement(LOOKAHEAD FAILED)
+                  Call:   SwitchStatement(LOOKING AHEAD...)
+                    Call:   SwitchTest(LOOKING AHEAD...)
+                      Visited token: <"\n": "
+" at line 2 column 1>; Expected token: <"switch">
+                    Return: SwitchTest(LOOKAHEAD FAILED)
+                  Return: SwitchStatement(LOOKAHEAD FAILED)
+                  Call:   IfDefStatement(LOOKING AHEAD...)
+                    Call:   IfDefTest(LOOKING AHEAD...)
+                      Visited token: <"\n": "
+" at line 2 column 1>; Expected token: <"ifdef">
+                    Return: IfDefTest(LOOKAHEAD FAILED)
+                  Return: IfDefStatement(LOOKAHEAD FAILED)
+                Return: Branch(LOOKAHEAD FAILED)
+                Call:   Return(LOOKING AHEAD...)
+                  Visited token: <"\n": "
+" at line 2 column 1>; Expected token: <"return">
+                Return: Return(LOOKAHEAD FAILED)
+                Visited token: <"\n": "
+" at line 2 column 1>; Expected token: <<IDENTIFIER>>
+                Call:   ScopeModifier(LOOKING AHEAD...)
+                  Visited token: <"\n": "
+" at line 2 column 1>; Expected token: <"global">
+                  Visited token: <"\n": "
+" at line 2 column 1>; Expected token: <"public">
+                  Visited token: <"\n": "
+" at line 2 column 1>; Expected token: <"export">
+                  Visited token: <"\n": "
+" at line 2 column 1>; Expected token: <"override">
+                Return: ScopeModifier(LOOKAHEAD FAILED)
+                Call:   VarDeclare(LOOKING AHEAD...)
+                  Call:   DataType(LOOKING AHEAD...)
+                    Visited token: <"\n": "
+" at line 2 column 1>; Expected token: <"atom">
+                    Visited token: <"\n": "
+" at line 2 column 1>; Expected token: <"integer">
+                    Visited token: <"\n": "
+" at line 2 column 1>; Expected token: <"sequence">
+                    Visited token: <"\n": "
+" at line 2 column 1>; Expected token: <"object">
+                    Visited token: <"\n": "
+" at line 2 column 1>; Expected token: <<IDENTIFIER>>
+                  Return: DataType(LOOKAHEAD FAILED)
+                Return: VarDeclare(LOOKAHEAD FAILED)
+                Call:   TypeDeclare(LOOKING AHEAD...)
+                  Visited token: <"\n": "
+" at line 2 column 1>; Expected token: <"type">
+                Return: TypeDeclare(LOOKAHEAD FAILED)
+              Return: statement(LOOKAHEAD FAILED)
+              Visited token: <"\n": "
+" at line 2 column 1>; Expected token: <"\n">
+            Return: stmblk(LOOKAHEAD SUCCEEDED)
+            Call:   stmblk
+              Consumed token: <"\n": "
 " at line 2 column 1>
+            Return: stmblk
             Call:   stmblk(LOOKING AHEAD...)
               Call:   statement(LOOKING AHEAD...)
                 Call:   Flow(LOOKING AHEAD...)
@@ -159,10 +339,190 @@ Call:   javacc_input
                             Return: Assignment
                           Return: statement
                         Return: stmblk
-                        Consumed token: <"\n": "
+                        Call:   stmblk(LOOKING AHEAD...)
+                          Call:   statement(LOOKING AHEAD...)
+                            Call:   Flow(LOOKING AHEAD...)
+                              Visited token: <"\n": "
+" at line 3 column 48>; Expected token: <<BREAKSTMT>>
+                              Visited token: <"\n": "
+" at line 3 column 48>; Expected token: <<CONTINUESTMT>>
+                              Visited token: <"\n": "
+" at line 3 column 48>; Expected token: <<RETRYSTMT>>
+                              Visited token: <"\n": "
+" at line 3 column 48>; Expected token: <<EXITSTMT>>
+                              Visited token: <"\n": "
+" at line 3 column 48>; Expected token: <<FALLTHRUSTMT>>
+                            Return: Flow(LOOKAHEAD FAILED)
+                            Call:   Loop(LOOKING AHEAD...)
+                              Call:   ForStatement(LOOKING AHEAD...)
+                                Visited token: <"\n": "
+" at line 3 column 48>; Expected token: <"for">
+                              Return: ForStatement(LOOKAHEAD FAILED)
+                              Call:   WhileStatement(LOOKING AHEAD...)
+                                Visited token: <"\n": "
+" at line 3 column 48>; Expected token: <"while">
+                              Return: WhileStatement(LOOKAHEAD FAILED)
+                              Call:   LoopStatement(LOOKING AHEAD...)
+                                Visited token: <"\n": "
+" at line 3 column 48>; Expected token: <"loop">
+                              Return: LoopStatement(LOOKAHEAD FAILED)
+                              Visited token: <"\n": "
+" at line 3 column 48>; Expected token: <"goto">
+                            Return: Loop(LOOKAHEAD FAILED)
+                            Call:   Branch(LOOKING AHEAD...)
+                              Call:   IfStatement(LOOKING AHEAD...)
+                                Call:   IfTest(LOOKING AHEAD...)
+                                  Visited token: <"\n": "
+" at line 3 column 48>; Expected token: <"if">
+                                Return: IfTest(LOOKAHEAD FAILED)
+                              Return: IfStatement(LOOKAHEAD FAILED)
+                              Call:   SwitchStatement(LOOKING AHEAD...)
+                                Call:   SwitchTest(LOOKING AHEAD...)
+                                  Visited token: <"\n": "
+" at line 3 column 48>; Expected token: <"switch">
+                                Return: SwitchTest(LOOKAHEAD FAILED)
+                              Return: SwitchStatement(LOOKAHEAD FAILED)
+                              Call:   IfDefStatement(LOOKING AHEAD...)
+                                Call:   IfDefTest(LOOKING AHEAD...)
+                                  Visited token: <"\n": "
+" at line 3 column 48>; Expected token: <"ifdef">
+                                Return: IfDefTest(LOOKAHEAD FAILED)
+                              Return: IfDefStatement(LOOKAHEAD FAILED)
+                            Return: Branch(LOOKAHEAD FAILED)
+                            Call:   Return(LOOKING AHEAD...)
+                              Visited token: <"\n": "
+" at line 3 column 48>; Expected token: <"return">
+                            Return: Return(LOOKAHEAD FAILED)
+                            Visited token: <"\n": "
+" at line 3 column 48>; Expected token: <<IDENTIFIER>>
+                            Call:   ScopeModifier(LOOKING AHEAD...)
+                              Visited token: <"\n": "
+" at line 3 column 48>; Expected token: <"global">
+                              Visited token: <"\n": "
+" at line 3 column 48>; Expected token: <"public">
+                              Visited token: <"\n": "
+" at line 3 column 48>; Expected token: <"export">
+                              Visited token: <"\n": "
+" at line 3 column 48>; Expected token: <"override">
+                            Return: ScopeModifier(LOOKAHEAD FAILED)
+                            Call:   VarDeclare(LOOKING AHEAD...)
+                              Call:   DataType(LOOKING AHEAD...)
+                                Visited token: <"\n": "
+" at line 3 column 48>; Expected token: <"atom">
+                                Visited token: <"\n": "
+" at line 3 column 48>; Expected token: <"integer">
+                                Visited token: <"\n": "
+" at line 3 column 48>; Expected token: <"sequence">
+                                Visited token: <"\n": "
+" at line 3 column 48>; Expected token: <"object">
+                                Visited token: <"\n": "
+" at line 3 column 48>; Expected token: <<IDENTIFIER>>
+                              Return: DataType(LOOKAHEAD FAILED)
+                            Return: VarDeclare(LOOKAHEAD FAILED)
+                            Call:   TypeDeclare(LOOKING AHEAD...)
+                              Visited token: <"\n": "
+" at line 3 column 48>; Expected token: <"type">
+                            Return: TypeDeclare(LOOKAHEAD FAILED)
+                          Return: statement(LOOKAHEAD FAILED)
+                          Visited token: <"\n": "
+" at line 3 column 48>; Expected token: <"\n">
+                        Return: stmblk(LOOKAHEAD SUCCEEDED)
+                        Call:   stmblk
+                          Consumed token: <"\n": "
 " at line 3 column 48>
-                        Consumed token: <"\n": "
+                        Return: stmblk
+                        Call:   stmblk(LOOKING AHEAD...)
+                          Call:   statement(LOOKING AHEAD...)
+                            Call:   Flow(LOOKING AHEAD...)
+                              Visited token: <"\n": "
+" at line 4 column 1>; Expected token: <<BREAKSTMT>>
+                              Visited token: <"\n": "
+" at line 4 column 1>; Expected token: <<CONTINUESTMT>>
+                              Visited token: <"\n": "
+" at line 4 column 1>; Expected token: <<RETRYSTMT>>
+                              Visited token: <"\n": "
+" at line 4 column 1>; Expected token: <<EXITSTMT>>
+                              Visited token: <"\n": "
+" at line 4 column 1>; Expected token: <<FALLTHRUSTMT>>
+                            Return: Flow(LOOKAHEAD FAILED)
+                            Call:   Loop(LOOKING AHEAD...)
+                              Call:   ForStatement(LOOKING AHEAD...)
+                                Visited token: <"\n": "
+" at line 4 column 1>; Expected token: <"for">
+                              Return: ForStatement(LOOKAHEAD FAILED)
+                              Call:   WhileStatement(LOOKING AHEAD...)
+                                Visited token: <"\n": "
+" at line 4 column 1>; Expected token: <"while">
+                              Return: WhileStatement(LOOKAHEAD FAILED)
+                              Call:   LoopStatement(LOOKING AHEAD...)
+                                Visited token: <"\n": "
+" at line 4 column 1>; Expected token: <"loop">
+                              Return: LoopStatement(LOOKAHEAD FAILED)
+                              Visited token: <"\n": "
+" at line 4 column 1>; Expected token: <"goto">
+                            Return: Loop(LOOKAHEAD FAILED)
+                            Call:   Branch(LOOKING AHEAD...)
+                              Call:   IfStatement(LOOKING AHEAD...)
+                                Call:   IfTest(LOOKING AHEAD...)
+                                  Visited token: <"\n": "
+" at line 4 column 1>; Expected token: <"if">
+                                Return: IfTest(LOOKAHEAD FAILED)
+                              Return: IfStatement(LOOKAHEAD FAILED)
+                              Call:   SwitchStatement(LOOKING AHEAD...)
+                                Call:   SwitchTest(LOOKING AHEAD...)
+                                  Visited token: <"\n": "
+" at line 4 column 1>; Expected token: <"switch">
+                                Return: SwitchTest(LOOKAHEAD FAILED)
+                              Return: SwitchStatement(LOOKAHEAD FAILED)
+                              Call:   IfDefStatement(LOOKING AHEAD...)
+                                Call:   IfDefTest(LOOKING AHEAD...)
+                                  Visited token: <"\n": "
+" at line 4 column 1>; Expected token: <"ifdef">
+                                Return: IfDefTest(LOOKAHEAD FAILED)
+                              Return: IfDefStatement(LOOKAHEAD FAILED)
+                            Return: Branch(LOOKAHEAD FAILED)
+                            Call:   Return(LOOKING AHEAD...)
+                              Visited token: <"\n": "
+" at line 4 column 1>; Expected token: <"return">
+                            Return: Return(LOOKAHEAD FAILED)
+                            Visited token: <"\n": "
+" at line 4 column 1>; Expected token: <<IDENTIFIER>>
+                            Call:   ScopeModifier(LOOKING AHEAD...)
+                              Visited token: <"\n": "
+" at line 4 column 1>; Expected token: <"global">
+                              Visited token: <"\n": "
+" at line 4 column 1>; Expected token: <"public">
+                              Visited token: <"\n": "
+" at line 4 column 1>; Expected token: <"export">
+                              Visited token: <"\n": "
+" at line 4 column 1>; Expected token: <"override">
+                            Return: ScopeModifier(LOOKAHEAD FAILED)
+                            Call:   VarDeclare(LOOKING AHEAD...)
+                              Call:   DataType(LOOKING AHEAD...)
+                                Visited token: <"\n": "
+" at line 4 column 1>; Expected token: <"atom">
+                                Visited token: <"\n": "
+" at line 4 column 1>; Expected token: <"integer">
+                                Visited token: <"\n": "
+" at line 4 column 1>; Expected token: <"sequence">
+                                Visited token: <"\n": "
+" at line 4 column 1>; Expected token: <"object">
+                                Visited token: <"\n": "
+" at line 4 column 1>; Expected token: <<IDENTIFIER>>
+                              Return: DataType(LOOKAHEAD FAILED)
+                            Return: VarDeclare(LOOKAHEAD FAILED)
+                            Call:   TypeDeclare(LOOKING AHEAD...)
+                              Visited token: <"\n": "
+" at line 4 column 1>; Expected token: <"type">
+                            Return: TypeDeclare(LOOKAHEAD FAILED)
+                          Return: statement(LOOKAHEAD FAILED)
+                          Visited token: <"\n": "
+" at line 4 column 1>; Expected token: <"\n">
+                        Return: stmblk(LOOKAHEAD SUCCEEDED)
+                        Call:   stmblk
+                          Consumed token: <"\n": "
 " at line 4 column 1>
+                        Return: stmblk
                         Call:   stmblk(LOOKING AHEAD...)
                           Call:   statement(LOOKING AHEAD...)
                             Call:   Flow(LOOKING AHEAD...)
@@ -302,8 +662,98 @@ Call:   javacc_input
                                     Return: Call
                                   Return: statement
                                 Return: stmblk
-                                Consumed token: <"\n": "
+                                Call:   stmblk(LOOKING AHEAD...)
+                                  Call:   statement(LOOKING AHEAD...)
+                                    Call:   Flow(LOOKING AHEAD...)
+                                      Visited token: <"\n": "
+" at line 5 column 77>; Expected token: <<BREAKSTMT>>
+                                      Visited token: <"\n": "
+" at line 5 column 77>; Expected token: <<CONTINUESTMT>>
+                                      Visited token: <"\n": "
+" at line 5 column 77>; Expected token: <<RETRYSTMT>>
+                                      Visited token: <"\n": "
+" at line 5 column 77>; Expected token: <<EXITSTMT>>
+                                      Visited token: <"\n": "
+" at line 5 column 77>; Expected token: <<FALLTHRUSTMT>>
+                                    Return: Flow(LOOKAHEAD FAILED)
+                                    Call:   Loop(LOOKING AHEAD...)
+                                      Call:   ForStatement(LOOKING AHEAD...)
+                                        Visited token: <"\n": "
+" at line 5 column 77>; Expected token: <"for">
+                                      Return: ForStatement(LOOKAHEAD FAILED)
+                                      Call:   WhileStatement(LOOKING AHEAD...)
+                                        Visited token: <"\n": "
+" at line 5 column 77>; Expected token: <"while">
+                                      Return: WhileStatement(LOOKAHEAD FAILED)
+                                      Call:   LoopStatement(LOOKING AHEAD...)
+                                        Visited token: <"\n": "
+" at line 5 column 77>; Expected token: <"loop">
+                                      Return: LoopStatement(LOOKAHEAD FAILED)
+                                      Visited token: <"\n": "
+" at line 5 column 77>; Expected token: <"goto">
+                                    Return: Loop(LOOKAHEAD FAILED)
+                                    Call:   Branch(LOOKING AHEAD...)
+                                      Call:   IfStatement(LOOKING AHEAD...)
+                                        Call:   IfTest(LOOKING AHEAD...)
+                                          Visited token: <"\n": "
+" at line 5 column 77>; Expected token: <"if">
+                                        Return: IfTest(LOOKAHEAD FAILED)
+                                      Return: IfStatement(LOOKAHEAD FAILED)
+                                      Call:   SwitchStatement(LOOKING AHEAD...)
+                                        Call:   SwitchTest(LOOKING AHEAD...)
+                                          Visited token: <"\n": "
+" at line 5 column 77>; Expected token: <"switch">
+                                        Return: SwitchTest(LOOKAHEAD FAILED)
+                                      Return: SwitchStatement(LOOKAHEAD FAILED)
+                                      Call:   IfDefStatement(LOOKING AHEAD...)
+                                        Call:   IfDefTest(LOOKING AHEAD...)
+                                          Visited token: <"\n": "
+" at line 5 column 77>; Expected token: <"ifdef">
+                                        Return: IfDefTest(LOOKAHEAD FAILED)
+                                      Return: IfDefStatement(LOOKAHEAD FAILED)
+                                    Return: Branch(LOOKAHEAD FAILED)
+                                    Call:   Return(LOOKING AHEAD...)
+                                      Visited token: <"\n": "
+" at line 5 column 77>; Expected token: <"return">
+                                    Return: Return(LOOKAHEAD FAILED)
+                                    Visited token: <"\n": "
+" at line 5 column 77>; Expected token: <<IDENTIFIER>>
+                                    Call:   ScopeModifier(LOOKING AHEAD...)
+                                      Visited token: <"\n": "
+" at line 5 column 77>; Expected token: <"global">
+                                      Visited token: <"\n": "
+" at line 5 column 77>; Expected token: <"public">
+                                      Visited token: <"\n": "
+" at line 5 column 77>; Expected token: <"export">
+                                      Visited token: <"\n": "
+" at line 5 column 77>; Expected token: <"override">
+                                    Return: ScopeModifier(LOOKAHEAD FAILED)
+                                    Call:   VarDeclare(LOOKING AHEAD...)
+                                      Call:   DataType(LOOKING AHEAD...)
+                                        Visited token: <"\n": "
+" at line 5 column 77>; Expected token: <"atom">
+                                        Visited token: <"\n": "
+" at line 5 column 77>; Expected token: <"integer">
+                                        Visited token: <"\n": "
+" at line 5 column 77>; Expected token: <"sequence">
+                                        Visited token: <"\n": "
+" at line 5 column 77>; Expected token: <"object">
+                                        Visited token: <"\n": "
+" at line 5 column 77>; Expected token: <<IDENTIFIER>>
+                                      Return: DataType(LOOKAHEAD FAILED)
+                                    Return: VarDeclare(LOOKAHEAD FAILED)
+                                    Call:   TypeDeclare(LOOKING AHEAD...)
+                                      Visited token: <"\n": "
+" at line 5 column 77>; Expected token: <"type">
+                                    Return: TypeDeclare(LOOKAHEAD FAILED)
+                                  Return: statement(LOOKAHEAD FAILED)
+                                  Visited token: <"\n": "
+" at line 5 column 77>; Expected token: <"\n">
+                                Return: stmblk(LOOKAHEAD SUCCEEDED)
+                                Call:   stmblk
+                                  Consumed token: <"\n": "
 " at line 5 column 77>
+                                Return: stmblk
                                 Consumed token: <<EOF> at line 5 column 77>
                               Return: javacc_input
 input... 

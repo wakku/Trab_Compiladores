@@ -394,13 +394,13 @@ TOKEN : {
 /*************************
     Branching
 **************************/
-TOKEN : {
+//TOKEN : {
     //< IFTEST    : <IF> <EXPRESSION> (<LABELSTMT>)? <THEN> (<STMBLK>)? >
   //| < ELSIFSTMT : <ELSIF> <EXPRESSION> <THEN> (<STMBLK>)? >
   //| < ELSESTMT  : <ELSE> (<STMBLK>)? >
-    < ENDIF     : <END> <IF> >
+ //  < ENDIF     : <END> <IF> >
   //| < IFSTMT    : <IFTEST> (<ELSIFSTMT>)* (<ELSESTMT>)? <ENDIF> >
-}
+//}
 
 //TOKEN : {
     //< SWITCHSTMT : <SWITCHTEST> <CASESTMT> (<CASESTMT>)* (<CASEELSE>)? <ENDSWITCH> >
@@ -501,7 +501,7 @@ void javacc_input() :
           // !!!!!! VarDeclare() | TypeDeclare() podem estar aninhados
           //| 
           //Flow()
-          | <EOL>
+          //| <EOL>
       )*
       <EOF>
 }
@@ -551,7 +551,7 @@ void javacc_input() :
       void stmblk() :
       {}
       {
-          ( statement() )
+          ( statement() ) | <EOL>
       }
 
       void statement() :
@@ -616,25 +616,25 @@ void javacc_input() :
                   void IfStatement() :
                   {}
                   {
-                    IfTest() (ElsifStatement())* (ElseStatement())? <ENDIF>
+                    IfTest() (ElsifStatement())* (ElseStatement())? <END> <IF>
                   }
 
                         void IfTest() :
                         {}
                         {
-                          <IF> Expression() (<LABELSTMT>)? <THEN> (stmblk())?
+                          <IF> Expression() (<LABELSTMT>)? <THEN> (stmblk())* 
                         }
 
                         void ElsifStatement() :
                         {}
                         {
-                          <ELSIF> Expression() <THEN> (stmblk())?
+                          <ELSIF> Expression() <THEN> (stmblk())*
                         }
 
                         void ElseStatement() :
                         {}
                         {
-                          <ELSE> (stmblk())?
+                          <ELSE> (stmblk())*
                         }
 
 
@@ -659,13 +659,13 @@ void javacc_input() :
                         void ElsDefStatement() :
                         {}
                         {
-                          <ELSEDEF> (stmblk())? 
+                          <ELSEDEF> (stmblk())*
                         }
 
                   void SwitchStatement() :
                   {}
                   {
-                    SwitchTest() CaseStatement() (CaseStatement())* (<ELSE> ( stmblk() )? )? <END> <SWITCH>
+                    SwitchTest() CaseStatement() (CaseStatement())* (<ELSE> (stmblk())* )? <END> <SWITCH>
                   }
 
                         void SwitchTest() :
@@ -677,7 +677,7 @@ void javacc_input() :
                         void CaseStatement() :
                         {}
                         {
-                          <CASE> CaseList() <THEN> (stmblk())? 
+                          <CASE> CaseList() <THEN> (stmblk())* 
                         }
 
                               void CaseList() :
@@ -769,7 +769,7 @@ void Sequence() :
       void Object() :
       {}
       {
-        Sequence() | Atom() | <BIN_NUMBER> | <OCT_NUMBER> | <DEC_NUMBER> | <HEX_NUMBER> | <IDENTIFIER>
+        Sequence() | Atom() | <BIN_NUMBER> | <OCT_NUMBER> | <DEC_NUMBER> | <HEX_NUMBER> | <IDENTIFIER> | <STRINGLIT>
       }
 
 
