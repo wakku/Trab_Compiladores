@@ -40,7 +40,7 @@ class Meuphoria implements MeuphoriaConstants {
       //System.out.println("Analisado com sucesso!");
 
       analisadorSintatico.javacc_input();
-      System.out.println("input... ");
+      System.out.println("SUCESSO!");
     }
     catch(ParseException e)
     {
