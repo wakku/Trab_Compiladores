@@ -2627,7 +2627,7 @@ private int jjMoveNfa_0(int startState, int curPos)
                      jjstateSet[jjnewStateCnt++] = 36;
                   break;
                case 40:
-                  if ((0x7fffffffffffffffL & l) != 0L)
+                  if ((0x7fffffffefffffffL & l) != 0L)
                      { jjCheckNAddStates(0, 3); }
                   break;
                case 41:
@@ -2768,7 +2768,7 @@ private int jjMoveNfa_0(int startState, int curPos)
                      { jjAddStates(227, 228); }
                   break;
                case 85:
-                  if ((0x7fffffffffffffffL & l) != 0L)
+                  if ((0x7fffffffefffffffL & l) != 0L)
                      { jjCheckNAddStates(55, 57); }
                   break;
                case 89:
@@ -2838,7 +2838,7 @@ private int jjMoveNfa_0(int startState, int curPos)
                      jjstateSet[jjnewStateCnt++] = 107;
                   break;
                case 111:
-                  if ((0x7fffffffffffffffL & l) != 0L)
+                  if ((0x7fffffffefffffffL & l) != 0L)
                      { jjCheckNAddStates(67, 69); }
                   break;
                case 113:
@@ -3024,7 +3024,7 @@ private int jjMoveNfa_0(int startState, int curPos)
                   { jjCheckNAdd(177); }
                   break;
                case 179:
-                  if ((0x7fffffffffffffffL & l) != 0L)
+                  if ((0x7fffffffefffffffL & l) != 0L)
                      { jjCheckNAddStates(79, 82); }
                   break;
                case 180:
@@ -3161,7 +3161,7 @@ private int jjMoveNfa_0(int startState, int curPos)
                      jjstateSet[jjnewStateCnt++] = 219;
                   break;
                case 220:
-                  if ((0x7fffffffffffffffL & l) != 0L)
+                  if ((0x7fffffffefffffffL & l) != 0L)
                      { jjCheckNAddStates(105, 108); }
                   break;
                case 221:
@@ -3310,7 +3310,7 @@ private int jjMoveNfa_0(int startState, int curPos)
                      { jjAddStates(269, 270); }
                   break;
                case 270:
-                  if ((0x7fffffffffffffffL & l) != 0L)
+                  if ((0x7fffffffefffffffL & l) != 0L)
                      { jjCheckNAddStates(131, 133); }
                   break;
                case 274:
@@ -3380,7 +3380,7 @@ private int jjMoveNfa_0(int startState, int curPos)
                      jjstateSet[jjnewStateCnt++] = 292;
                   break;
                case 295:
-                  if ((0x7fffffffffffffffL & l) != 0L)
+                  if ((0x7fffffffefffffffL & l) != 0L)
                      { jjCheckNAddStates(143, 145); }
                   break;
                case 299:
@@ -3450,7 +3450,7 @@ private int jjMoveNfa_0(int startState, int curPos)
                      jjstateSet[jjnewStateCnt++] = 317;
                   break;
                case 320:
-                  if ((0x7fffffffffffffffL & l) != 0L)
+                  if ((0x7fffffffefffffffL & l) != 0L)
                      { jjCheckNAddStates(155, 157); }
                   break;
                case 324:
@@ -3520,7 +3520,7 @@ private int jjMoveNfa_0(int startState, int curPos)
                      jjstateSet[jjnewStateCnt++] = 342;
                   break;
                case 345:
-                  if ((0x7fffffffffffffffL & l) != 0L)
+                  if ((0x7fffffffefffffffL & l) != 0L)
                      { jjCheckNAddStates(167, 169); }
                   break;
                case 347:
@@ -3590,7 +3590,7 @@ private int jjMoveNfa_0(int startState, int curPos)
                      jjstateSet[jjnewStateCnt++] = 365;
                   break;
                case 366:
-                  if ((0x7fffffffffffffffL & l) != 0L)
+                  if ((0x7fffffffefffffffL & l) != 0L)
                      { jjCheckNAddStates(179, 181); }
                   break;
                case 368:
@@ -3660,7 +3660,7 @@ private int jjMoveNfa_0(int startState, int curPos)
                      jjstateSet[jjnewStateCnt++] = 386;
                   break;
                case 387:
-                  if ((0x7fffffffffffffffL & l) != 0L)
+                  if ((0x7fffffffefffffffL & l) != 0L)
                      { jjCheckNAddStates(191, 193); }
                   break;
                case 389:

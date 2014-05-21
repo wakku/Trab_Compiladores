@@ -32,14 +32,14 @@ class Meuphoria implements MeuphoriaConstants {
   public static void main(String args[]) {
     try
     {
-      // Define o analisador lexico de acordo com a entrada do sistema
-      Meuphoria analisadorlexico = new Meuphoria(System.in);
+      // Define o analisador sintatico de acordo com a entrada do sistema
+      Meuphoria analisadorSintatico = new Meuphoria(System.in);
       // Roda o loop de processamento enquanto não encontrar EOF
       //analisadorlexico.processa();
       // Processamento finalizado
       //System.out.println("Analisado com sucesso!");
 
-      analisadorlexico.javacc_input();
+      analisadorSintatico.javacc_input();
       System.out.println("input... ");
     }
     catch(ParseException e)
