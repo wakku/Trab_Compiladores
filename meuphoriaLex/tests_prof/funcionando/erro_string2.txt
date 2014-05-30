@@ -1,1 +1,0 @@
-sequence str = """Hello World
