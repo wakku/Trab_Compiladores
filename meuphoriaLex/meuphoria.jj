@@ -263,7 +263,7 @@ TOKEN : {
 TOKEN : {
     < INTEGER : ["0"-"9"] (["0"-"9"] | "_")* >
   | < FLOAT   : <INTEGER> <DOT> ["0"-"9"] (["0"-"9"] | "_")* >
-  | < EXP     : (<INTEGER> | <FLOAT>) ("E" | "e") <INTEGER> >
+  | < EXP     : (<INTEGER> | <FLOAT>) ("E" | "e") (<PLUS> | <MINUS>)? <INTEGER> >
 }
 
 
