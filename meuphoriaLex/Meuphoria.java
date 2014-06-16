@@ -33,11 +33,17 @@ class Meuphoria implements MeuphoriaConstants {
     try
     {
       // Define o analisador sintatico de acordo com a entrada do sistema
-      Meuphoria analisadorSintatico = new Meuphoria(System.in);
+      //Meuphoria analisadorSintatico = new Meuphoria(System.in);
+      Meuphoria analisadorSintatico = new Meuphoria(new java.io.StringReader(args[0]));
       // Roda o loop de processamento enquanto não encontrar EOF
       //analisadorlexico.processa();
       // Processamento finalizado
       //System.out.println("Analisado com sucesso!");
+
+      analisadorSintatico.javacc_input();
+      System.out.println("SUCESSO!");
+
+      analisadorSintatico = new Meuphoria(new java.io.StringReader(args[0]));
 
       analisadorSintatico.javacc_input();
       System.out.println("SUCESSO!");
@@ -2248,39 +2254,6 @@ void ScopeModifier() throws ParseException {
     finally { jj_save(4, xla); }
   }
 
-  private boolean jj_3R_45()
- {
-    if (jj_3R_55()) return true;
-    return false;
-  }
-
-  private boolean jj_3R_55()
- {
-    Token xsp;
-    xsp = jj_scanpos;
-    if (jj_scan_token(78)) {
-    jj_scanpos = xsp;
-    if (jj_scan_token(79)) {
-    jj_scanpos = xsp;
-    if (jj_scan_token(81)) {
-    jj_scanpos = xsp;
-    if (jj_scan_token(80)) {
-    jj_scanpos = xsp;
-    if (jj_scan_token(83)) return true;
-    }
-    }
-    }
-    }
-    return false;
-  }
-
-  private boolean jj_3R_62()
- {
-    if (jj_scan_token(RETURN)) return true;
-    if (jj_3R_46()) return true;
-    return false;
-  }
-
   private boolean jj_3R_66()
  {
     if (jj_3R_81()) return true;
@@ -2915,6 +2888,39 @@ void ScopeModifier() throws ParseException {
  {
     if (jj_3R_89()) return true;
     if (jj_3R_90()) return true;
+    return false;
+  }
+
+  private boolean jj_3R_45()
+ {
+    if (jj_3R_55()) return true;
+    return false;
+  }
+
+  private boolean jj_3R_55()
+ {
+    Token xsp;
+    xsp = jj_scanpos;
+    if (jj_scan_token(78)) {
+    jj_scanpos = xsp;
+    if (jj_scan_token(79)) {
+    jj_scanpos = xsp;
+    if (jj_scan_token(81)) {
+    jj_scanpos = xsp;
+    if (jj_scan_token(80)) {
+    jj_scanpos = xsp;
+    if (jj_scan_token(83)) return true;
+    }
+    }
+    }
+    }
+    return false;
+  }
+
+  private boolean jj_3R_62()
+ {
+    if (jj_scan_token(RETURN)) return true;
+    if (jj_3R_46()) return true;
     return false;
   }
 

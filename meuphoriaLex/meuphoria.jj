@@ -65,11 +65,17 @@ class Meuphoria {
     try
     {
       // Define o analisador sintatico de acordo com a entrada do sistema
-      Meuphoria analisadorSintatico = new Meuphoria(System.in);
+      //Meuphoria analisadorSintatico = new Meuphoria(System.in);
+      Meuphoria analisadorSintatico = new Meuphoria(new java.io.StringReader(args[0]));
       // Roda o loop de processamento enquanto não encontrar EOF
       //analisadorlexico.processa();
       // Processamento finalizado
       //System.out.println("Analisado com sucesso!");
+
+      analisadorSintatico.javacc_input();
+      System.out.println("SUCESSO!");
+
+      analisadorSintatico = new Meuphoria(new java.io.StringReader(args[0]));
 
       analisadorSintatico.javacc_input();
       System.out.println("SUCESSO!");
