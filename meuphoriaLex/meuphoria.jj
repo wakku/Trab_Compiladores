@@ -64,9 +64,31 @@ class Meuphoria {
   public static void main(String args[]) {
     try
     {
+      java.io.InputStream tmp = System.in;
+
+      java.io.InputStreamReader is = new java.io.InputStreamReader(tmp);
+      java.lang.StringBuilder sb=new java.lang.StringBuilder();
+      java.io.BufferedReader br = new java.io.BufferedReader(is);
+      try {
+        String read = br.readLine();
+
+        while(read != null) {
+            //System.out.println(read);
+            sb.append(read + "\n");
+            read =br.readLine();
+
+        }
+      }
+      catch(java.io.IOException e) {
+          System.out.println(e.getMessage());
+      }
+
+      //System.out.println(sb.toString());
+
       // Define o analisador sintatico de acordo com a entrada do sistema
       //Meuphoria analisadorSintatico = new Meuphoria(System.in);
-      Meuphoria analisadorSintatico = new Meuphoria(new java.io.StringReader(args[0]));
+      Meuphoria analisadorSintatico = new Meuphoria(new java.io.StringReader(sb.toString()));
+
       // Roda o loop de processamento enquanto não encontrar EOF
       //analisadorlexico.processa();
       // Processamento finalizado
@@ -75,7 +97,7 @@ class Meuphoria {
       analisadorSintatico.javacc_input();
       System.out.println("SUCESSO!");
 
-      analisadorSintatico = new Meuphoria(new java.io.StringReader(args[0]));
+      analisadorSintatico = new Meuphoria(new java.io.StringReader(sb.toString()));
 
       analisadorSintatico.javacc_input();
       System.out.println("SUCESSO!");

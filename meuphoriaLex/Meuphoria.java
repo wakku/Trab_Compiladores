@@ -33,8 +33,32 @@ class Meuphoria implements MeuphoriaConstants {
     try
     {
       // Define o analisador sintatico de acordo com a entrada do sistema
+      for(int i = 0; i < args.length; i++)
+        System.out.println(args[i] + "\u005cn\u005cn");
+      java.io.InputStream tmp = System.in;
+
+      java.io.InputStreamReader is = new java.io.InputStreamReader(tmp);
+      java.lang.StringBuilder sb=new java.lang.StringBuilder();
+      java.io.BufferedReader br = new java.io.BufferedReader(is);
+      try {
+        String read = br.readLine();
+
+        while(read != null) {
+            //System.out.println(read);
+            sb.append(read + "\u005cn");
+            read =br.readLine();
+
+        }
+      }
+      catch(java.io.IOException e) {
+          System.out.println(e.getMessage());
+      }
+
+      System.out.println(sb.toString());
+
       //Meuphoria analisadorSintatico = new Meuphoria(System.in);
-      Meuphoria analisadorSintatico = new Meuphoria(new java.io.StringReader(args[0]));
+      Meuphoria analisadorSintatico = new Meuphoria(new java.io.StringReader(sb.toString()));
+
       // Roda o loop de processamento enquanto não encontrar EOF
       //analisadorlexico.processa();
       // Processamento finalizado
@@ -43,7 +67,7 @@ class Meuphoria implements MeuphoriaConstants {
       analisadorSintatico.javacc_input();
       System.out.println("SUCESSO!");
 
-      analisadorSintatico = new Meuphoria(new java.io.StringReader(args[0]));
+      analisadorSintatico = new Meuphoria(new java.io.StringReader(sb.toString()));
 
       analisadorSintatico.javacc_input();
       System.out.println("SUCESSO!");
@@ -2254,78 +2278,6 @@ void ScopeModifier() throws ParseException {
     finally { jj_save(4, xla); }
   }
 
-  private boolean jj_3R_66()
- {
-    if (jj_3R_81()) return true;
-    return false;
-  }
-
-  private boolean jj_3R_54()
- {
-    Token xsp;
-    xsp = jj_scanpos;
-    if (jj_3R_66()) jj_scanpos = xsp;
-    xsp = jj_scanpos;
-    if (jj_3R_67()) jj_scanpos = xsp;
-    if (jj_scan_token(EQUAL)) return true;
-    return false;
-  }
-
-  private boolean jj_3_3()
- {
-    if (jj_3R_35()) return true;
-    return false;
-  }
-
-  private boolean jj_3R_40()
- {
-    if (jj_3R_46()) return true;
-    return false;
-  }
-
-  private boolean jj_3_1()
- {
-    if (jj_3R_32()) return true;
-    return false;
-  }
-
-  private boolean jj_3R_58()
- {
-    if (jj_3R_69()) return true;
-    return false;
-  }
-
-  private boolean jj_3R_44()
- {
-    if (jj_3R_54()) return true;
-    return false;
-  }
-
-  private boolean jj_3R_38()
- {
-    Token xsp;
-    xsp = jj_scanpos;
-    if (jj_3R_44()) {
-    jj_scanpos = xsp;
-    if (jj_3R_45()) return true;
-    }
-    return false;
-  }
-
-  private boolean jj_3R_35()
- {
-    if (jj_scan_token(CASE)) return true;
-    if (jj_3R_40()) return true;
-    return false;
-  }
-
-  private boolean jj_3R_94()
- {
-    if (jj_scan_token(SWITCH)) return true;
-    if (jj_3R_46()) return true;
-    return false;
-  }
-
   private boolean jj_3R_48()
  {
     Token xsp;
@@ -2920,6 +2872,78 @@ void ScopeModifier() throws ParseException {
   private boolean jj_3R_62()
  {
     if (jj_scan_token(RETURN)) return true;
+    if (jj_3R_46()) return true;
+    return false;
+  }
+
+  private boolean jj_3R_66()
+ {
+    if (jj_3R_81()) return true;
+    return false;
+  }
+
+  private boolean jj_3R_54()
+ {
+    Token xsp;
+    xsp = jj_scanpos;
+    if (jj_3R_66()) jj_scanpos = xsp;
+    xsp = jj_scanpos;
+    if (jj_3R_67()) jj_scanpos = xsp;
+    if (jj_scan_token(EQUAL)) return true;
+    return false;
+  }
+
+  private boolean jj_3_3()
+ {
+    if (jj_3R_35()) return true;
+    return false;
+  }
+
+  private boolean jj_3R_40()
+ {
+    if (jj_3R_46()) return true;
+    return false;
+  }
+
+  private boolean jj_3_1()
+ {
+    if (jj_3R_32()) return true;
+    return false;
+  }
+
+  private boolean jj_3R_58()
+ {
+    if (jj_3R_69()) return true;
+    return false;
+  }
+
+  private boolean jj_3R_44()
+ {
+    if (jj_3R_54()) return true;
+    return false;
+  }
+
+  private boolean jj_3R_38()
+ {
+    Token xsp;
+    xsp = jj_scanpos;
+    if (jj_3R_44()) {
+    jj_scanpos = xsp;
+    if (jj_3R_45()) return true;
+    }
+    return false;
+  }
+
+  private boolean jj_3R_35()
+ {
+    if (jj_scan_token(CASE)) return true;
+    if (jj_3R_40()) return true;
+    return false;
+  }
+
+  private boolean jj_3R_94()
+ {
+    if (jj_scan_token(SWITCH)) return true;
     if (jj_3R_46()) return true;
     return false;
   }
