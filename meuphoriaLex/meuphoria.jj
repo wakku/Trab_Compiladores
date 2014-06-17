@@ -398,63 +398,102 @@ void javacc_input() :
       }
     
       ( 
-          (LOOKAHEAD(2) stmblk(rSem) | (ScopeModifier())? (ConstantDeclare(rSem) | EnumDeclare(rSem) | ProcDeclare() | FuncDeclare() ) )
+          (LOOKAHEAD(2) stmblk(rSem) | (ScopeModifier())? (ConstantDeclare(rSem) | EnumDeclare(rSem) | ProcDeclare(rSem) | FuncDeclare(rSem) ) )
       )*
       <EOF>
 
       {
         if ( errors != 0 ) {
           System.out.println("Análise encontrou " + errors + " erro(s).");
-          //System.exit(1);
-        } else {
+        } 
+        else {
           System.out.println("Análises léxica, sintática e semântica concluídas com sucesso!");
         }
 
-        //System.exit(0);
       }
 }
 
       void ConstantDeclare(SemanticRoutines rSem) :
       {
-        Token type;
+        Type type;
       }
       {
-        type = <CONSTANT> 
+        <CONSTANT> 
+        {
+          type = Type.Constant;
+        }
         IdentList(rSem, type)
       }
 
       /* NAO SEI SE O ENUM EH ASSIM ????????? */
       void EnumDeclare(SemanticRoutines rSem) :
       {
-        Token type;
+        Type type;
       }
       {
-        type = <ENUM> 
+        <ENUM> 
+        {
+          type = Type.Enum;
+        }
         (EnumVal(rSem, type) | EnumType(rSem, type))
       }
 
-            void EnumVal(SemanticRoutines rSem, Token type) :
+            void EnumVal(SemanticRoutines rSem, Type type) :
             {}
             {
               IdentList(rSem, type)
             }
 
-            void EnumType(SemanticRoutines rSem, Token type) :
+            void EnumType(SemanticRoutines rSem, Type type) :
             {}
             {
               <TYPE> IdentList(rSem, type) <END> <TYPE>
             }
 
-      void ProcDeclare() : 
-      {}
+      /* Procedure is not a declaration, it is a call - FIX IR????????*/
+      void ProcDeclare(SemanticRoutines rSem) : 
       {
-        <PROCEDURE> <IDENTIFIER> <LPAREN> (ParamList())? <RPAREN> //(stmblk())* <END> <PROCEDURE> 
+        Token t;
+        Symbol proc = null;
+        java.util.ArrayList<Type> par = new java.util.ArrayList<Type>();
+      }
+      {
+        <PROCEDURE> 
+        t = <IDENTIFIER> 
+        <LPAREN> 
+          ( par = ParamList(rSem) )? 
+        <RPAREN> (stmblk(rSem))* <END> <PROCEDURE> 
+
+        {
+            proc = rSem.search(t.toString());
+
+            if (proc != null) {
+              
+              int analisePar = proc.verifyParameters(par);
+
+              if (analisePar == 1 ) {
+                printError(t, "Erro semantico: Procedimento '" + t + "' não declarado.");
+              } else if (analisePar == 2)
+                printError(t, "Erro semantico: Procedimento '" + t.toString() + "' com numero de parametros invalidos.");
+              else if (analisePar == 3)
+                printError(t, "Erro semantico: Procedimento '" + t.toString() + "' com tipo de parametros invalidos.");
+              else {
+                //DO SOMETHING
+                // está correto
+              }
+
+            }
+            else {
+              printError(t, "Erro semantico: Procedimento '" + t.toString() + "' não declarado.");
+            }
+        }
+
       }
 
-      void FuncDeclare() :
+      void FuncDeclare(SemanticRoutines rSem) :
       {}
       {
-        <FUNCTION> <IDENTIFIER> <LPAREN> (ParamList())? <RPAREN> //(stmblk())* <END> <FUNCTION>
+        <FUNCTION> <IDENTIFIER> <LPAREN> /*(ParamList())?*/ <RPAREN> (stmblk(rSem))* <END> <FUNCTION>
       }
 
       void stmblk(SemanticRoutines rSem) :
@@ -622,7 +661,7 @@ void javacc_input() :
 
             void VarDeclare(SemanticRoutines rSem) :
             {
-              Token type;
+              Type type;
             }
             {
               type = DataType() 
@@ -630,13 +669,13 @@ void javacc_input() :
               IdentList(rSem, type)
             }
 
-                  void IdentList(SemanticRoutines rSem, Token type) :
+                  void IdentList(SemanticRoutines rSem, Type type) :
                   {}
                   {
                     Ident(rSem, type) ( <COMMA> Ident(rSem, type) )* 
                   }
 
-                        void Ident(SemanticRoutines rSem, Token type) :
+                        void Ident(SemanticRoutines rSem, Type type) :
                         {
                           Token t;
                         }
@@ -646,7 +685,8 @@ void javacc_input() :
                               System.out.println(t.toString());
                               if (rSem.searchLevel(t.toString()) == null) {
                                 Symbol s = new Symbol(t.toString(),rSem.getLevel(),Category.Variable);
-                                s.setType(SemanticRoutines.tokenAsType(type));
+                                //s.setType(SemanticRoutines.tokenAsType(type));
+                                s.setType(type);
                                 rSem.insert(s);
 
                               }
@@ -665,7 +705,11 @@ void javacc_input() :
             {
               <TYPE> 
               t = <IDENTIFIER> 
-              <LPAREN> (ParamList())? <RPAREN> (stmblk(rSem))* <END> <TYPE> 
+              {
+                // declara um procedure
+
+              }
+              <LPAREN> /*(ParamList())? */<RPAREN> (stmblk(rSem))* <END> <TYPE> 
             }
 
             void Call() :
@@ -777,16 +821,28 @@ void Expression06() :
                     <LBRACKET> Expression() <RBRACKET>
                   }
 
-      void ParamList() :
-      {}
+      java.util.ArrayList<Type> ParamList(SemanticRoutines rSem) : // usar lista de parâmetros do symbol
       {
-        Parameter() (<COMMA> Parameter() )*
+        java.util.ArrayList<Type> par = new java.util.ArrayList<Type>();
+      }
+      {
+        Parameter(rSem, par) (<COMMA> Parameter(rSem, par) )*
+        {
+          return par;
+        }
       }
 
-            void Parameter() :
-            {}
+            void Parameter(SemanticRoutines rSem, java.util.ArrayList<Type> par) :
             {
-              DataType() <IDENTIFIER>
+              Type tp;
+            }
+            {
+              tp = DataType() 
+              <IDENTIFIER>
+              {
+                par.add(tp);
+              }
+
             }
 
 
@@ -800,16 +856,19 @@ void ScopeModifier() :
   <GLOBAL> | <PUBLIC> | <EXPORT> | <OVERRIDE>
 }
 
-Token DataType() :
+Type DataType() :
 {
   Token t;
+  Type tp;
 }
 {
   t = <IDENTIFIER>
   //t = <ATOM> | t = <INT> | t = <SEQUENCE> | t = <OBJECT> | t = <IDENTIFIER>
   {
       System.out.println(t.toString());
-      return t;
+      //if() MUDAR ??????????? colocar todas as opções
+      tp = Type.Atom;
+      return tp;
   }
 }
 
