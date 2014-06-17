@@ -657,9 +657,18 @@ void Loop(SemanticRoutines rSem) :
       }
 
       void WhileStatement(SemanticRoutines rSem) :
-      {}
       {
-      <WHILE> Expression(rSem) (<WITHENTRY>)? (<LABELSTMT>)? <DO> (stmblk(rSem))* (EntryStatement(rSem))? <END> <WHILE>
+        Token t;
+        Type type;
+      }
+      {
+        t = <WHILE> 
+        type = Expression(rSem) 
+        {
+          if(type != Type.Boolean)
+            printError(t, "Erro Semantico: A condição do " + t.toString() + " deve ser do tipo boolean" );
+        }
+        (<WITHENTRY>)? (<LABELSTMT>)? <DO> (stmblk(rSem))* (EntryStatement(rSem))? <END> <WHILE>
       }
 
       void LoopStatement(SemanticRoutines rSem) :
@@ -671,7 +680,7 @@ void Loop(SemanticRoutines rSem) :
             void EntryStatement(SemanticRoutines rSem) :
             {}
             {
-            <ENTRY> (stmblk(rSem))* 
+              <ENTRY> (stmblk(rSem))* 
             }
 
 void Branch(SemanticRoutines rSem) :
@@ -687,21 +696,39 @@ void IfStatement(SemanticRoutines rSem) :
 }
 
       void IfTest(SemanticRoutines rSem) :
-      {}
       {
-      <IF> Expression(rSem) (<LABELSTMT>)? <THEN> (stmblk(rSem))* 
+        Token t;
+        Type type;
+      }
+      {
+        t = <IF> 
+        type = Expression(rSem) 
+        {
+          if(type != Type.Boolean)
+            printError(t, "Erro Semantico: A condição do " + t.toString() + " deve ser do tipo boolean" );
+        }
+        (<LABELSTMT>)? <THEN> (stmblk(rSem))* 
       }
 
       void ElsifStatement(SemanticRoutines rSem) :
-      {}
       {
-      <ELSIF> Expression(rSem) <THEN> (stmblk(rSem))*
+        Token t;
+        Type type;
+      }
+      {
+        t = <ELSIF> 
+        type = Expression(rSem) 
+        {
+          if(type != Type.Boolean)
+            printError(t, "Erro Semantico: A condição do " + t.toString() + " deve ser do tipo boolean" );
+        }
+        <THEN> (stmblk(rSem))*
       }
 
       void ElseStatement(SemanticRoutines rSem) :
       {}
       {
-      <ELSE> (stmblk(rSem))*
+        <ELSE> (stmblk(rSem))*
       }
 
 
@@ -732,7 +759,7 @@ void IfDefStatement(SemanticRoutines rSem) :
 void SwitchStatement(SemanticRoutines rSem) :
 {}
 {
-SwitchTest(rSem) CaseStatement(rSem) (LOOKAHEAD(2) CaseStatement(rSem))* (<CASE> <ELSE> (stmblk(rSem))* )? <END> <SWITCH>
+  SwitchTest(rSem) CaseStatement(rSem) (LOOKAHEAD(2) CaseStatement(rSem))* (<CASE> <ELSE> (stmblk(rSem))* )? <END> <SWITCH>
 }
 
       void SwitchTest(SemanticRoutines rSem) :
@@ -857,24 +884,30 @@ Type Expression(SemanticRoutines rSem) :
       type = Expression00(rSem)
       {
         System.out.println("Nao sequencia");
-        return type;
+        //return type;
+        return Type.Boolean;
       }
     )
 }
 
 Type Expression00(SemanticRoutines rSem) :
 {
-  Token t;
+  Token t = null;
   Type tp1, tp2;
 }
 {
-    Expression01(rSem) 
+    /*tp1 =*/ Expression01(rSem) 
     ( 
       (t = <SC_AND> | t = <SC_OR> | t = <XOR_OP>) 
       Expression01(rSem) 
     )*
     {
-      return null;
+      /*if(t != null)
+        return Type.Boolean;
+      else
+        return Type.Constant;*/
+
+      return Type.Boolean;
     }
 }
 
