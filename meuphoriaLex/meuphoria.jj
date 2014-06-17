@@ -1,112 +1,112 @@
 /* **********************************************************************
-                          ANALISADOR LÉXICO
+ANALISADOR LÉXICO
 ************************************************************************
 
 Integrantes: 
-  Caio Gomes                  7239072
-  Diego Gomes                 7656467
-  Fernando Cury Gorodscy      7152354
-  Roberty Manzini Bertolo     7573399
-  Vanessa Apolinário Lima     7239256
+Caio Gomes                  7239072
+Diego Gomes                 7656467
+Fernando Cury Gorodscy      7152354
+Roberty Manzini Bertolo     7573399
+Vanessa Apolinário Lima     7239256
 
 Documento:
-  Codigo fonte
+Codigo fonte
 
 Nome:
-  MeuPhoria
+MeuPhoria
 
 ************************************************************************/
 
 
 /*****************************************
-                Opções
+Opções
 *****************************************/
 options {
-  STATIC = false;
-  DEBUG_LOOKAHEAD = false;
-  COMMON_TOKEN_ACTION = true ;
+    STATIC = false;
+    DEBUG_LOOKAHEAD = false;
+    COMMON_TOKEN_ACTION = true ;
 }
 
 /*****************************************
-    Inicialização do Analisador Léxico
+Inicialização do Analisador Léxico
 *****************************************/
 PARSER_BEGIN(Meuphoria)
 
 /* MeuPhoria Parser */
 class Meuphoria {
 
-  private static int errors = 0;
+    private static int errors = 0;
 
-  // Processa o código e gera a tabela de tokens
-  public void processa() throws ParseException, TokenMgrError{
-    Token t;
-    String nomeToken;
-    do {
-        // Pega o próximo token gerado pelo Léxico.
-        t = getNextToken();
-        if(t.kind == IDENTIFIER) {
-        // Se tamanho for maior que 30, váriavel é invalida. Gera um erro.
-        	if(t.image.length() > 30)
-            	throw new TokenMgrError();
-        }
-        // Pega o proximo token do tipo t.kind
-        nomeToken = tokenImage[t.kind];
-        // Seta a localização do token
-        String location = "@(" + t.beginLine + ", " + t.beginColumn + ")";
-        // Imprime as informações do token. Se for EOF não imprime image, pois ela não existe.
-        if(t.kind == EOL)
-			System.out.println(String.format("%-15s %-20s <EOL>", location, nomeToken));
-        else
-			System.out.println(String.format("%-15s %-20s %s", location, nomeToken, t.image));
-    } while (!(nomeToken.equals("<EOF>"))); // Termina o loop se EOF
-    System.out.println(String.format("%s", t.image));
-  }
+// Processa o código e gera a tabela de tokens
+    public void processa() throws ParseException, TokenMgrError{
+        Token t;
+        String nomeToken;
+        do {
+// Pega o próximo token gerado pelo Léxico.
+            t = getNextToken();
+            if(t.kind == IDENTIFIER) {
+// Se tamanho for maior que 30, váriavel é invalida. Gera um erro.
+                if(t.image.length() > 30)
+                    throw new TokenMgrError();
+            }
+// Pega o proximo token do tipo t.kind
+            nomeToken = tokenImage[t.kind];
+// Seta a localização do token
+            String location = "@(" + t.beginLine + ", " + t.beginColumn + ")";
+// Imprime as informações do token. Se for EOF não imprime image, pois ela não existe.
+            if(t.kind == EOL)
+                System.out.println(String.format("%-15s %-20s <EOL>", location, nomeToken));
+            else
+                System.out.println(String.format("%-15s %-20s %s", location, nomeToken, t.image));
+} while (!(nomeToken.equals("<EOF>"))); // Termina o loop se EOF
+System.out.println(String.format("%s", t.image));
+}
 
-  /** Main entry point. */
-  public static void main(String args[]) {
+/** Main entry point. */
+public static void main(String args[]) {
     try
     {
-      java.io.InputStream tmp = System.in;
+        java.io.InputStream tmp = System.in;
 
-      java.io.InputStreamReader is = new java.io.InputStreamReader(tmp);
-      java.lang.StringBuilder sb=new java.lang.StringBuilder();
-      java.io.BufferedReader br = new java.io.BufferedReader(is);
-      try {
-        String read = br.readLine();
+        java.io.InputStreamReader is = new java.io.InputStreamReader(tmp);
+        java.lang.StringBuilder sb=new java.lang.StringBuilder();
+        java.io.BufferedReader br = new java.io.BufferedReader(is);
+        try {
+            String read = br.readLine();
 
-        while(read != null) {
-            //System.out.println(read);
-            sb.append(read + "\n");
-            read =br.readLine();
+            while(read != null) {
+//System.out.println(read);
+                sb.append(read + "\n");
+                read =br.readLine();
 
+            }
         }
-      }
-      catch(java.io.IOException e) {
-          System.out.println(e.getMessage());
-      }
+        catch(java.io.IOException e) {
+            System.out.println(e.getMessage());
+        }
 
-      //System.out.println(sb.toString());
+//System.out.println(sb.toString());
 
-      // Define o analisador sintatico de acordo com a entrada do sistema
-      //Meuphoria analisadorSintatico = new Meuphoria(System.in);
-      Meuphoria analisadorSintatico = new Meuphoria(new java.io.StringReader(sb.toString()));
+// Define o analisador sintatico de acordo com a entrada do sistema
+//Meuphoria analisadorSintatico = new Meuphoria(System.in);
+        Meuphoria analisadorSintatico = new Meuphoria(new java.io.StringReader(sb.toString()));
 
-      // Roda o loop de processamento enquanto não encontrar EOF
-      //analisadorlexico.processa();
-      // Processamento finalizado
-      //System.out.println("Analisado com sucesso!");
+// Roda o loop de processamento enquanto não encontrar EOF
+//analisadorlexico.processa();
+// Processamento finalizado
+//System.out.println("Analisado com sucesso!");
 
       //analisadorSintatico.javacc_input();
       analisadorSintatico.variables_declaration();
 
-      analisadorSintatico = new Meuphoria(new java.io.StringReader(sb.toString()));
+        analisadorSintatico = new Meuphoria(new java.io.StringReader(sb.toString()));
 
-      //analisadorSintatico.javacc_input();
-      //System.out.println("SUCESSO!");
+//analisadorSintatico.javacc_input();
+//System.out.println("SUCESSO!");
     }
     catch(ParseException e)
     {
-      System.out.println(e.getMessage());
+        System.out.println(e.getMessage());
         System.out.println("Ocorreu uma excecao!");
     }
     catch(TokenMgrError e)
@@ -114,258 +114,258 @@ class Meuphoria {
         System.out.println(e.getMessage());
         System.out.println("Existem erros no codigo! Por favor, verifica-los.");
     }
-  }
+}
 }
 PARSER_END(Meuphoria)
 
 
 
 TOKEN_MGR_DECLS : { 
-	
-	//Ação executada para cada Token encontrado
-	void CommonTokenAction(Token t) {
-		if(t.kind == IDENTIFIER) {
-        	// Se tamanho for maior que 30, váriavel é invalida. Gera um erro.
-        	if(t.image.length() > 30)
-            	throw new TokenMgrError();
-        	}
-	}
+
+//Ação executada para cada Token encontrado
+    void CommonTokenAction(Token t) {
+        if(t.kind == IDENTIFIER) {
+// Se tamanho for maior que 30, váriavel é invalida. Gera um erro.
+            if(t.image.length() > 30)
+                throw new TokenMgrError();
+        }
+    }
 }
 
 
 
 /*****************************************
-                SKIP
+SKIP
 *****************************************/
 SKIP : { " " | "\t" | "\r" }
 
 /* Skip Comentários de linha e de bloco */
 SKIP :
 {
-  "/*" : WithinComment
-  | <COMENTARIO_INICIAL : "#" (~["\n","\r"])*  >
-  | <COMENTARIO_LINHA: "--" (~["\n","\r"])* >
+    "/*" : WithinComment
+    | <COMENTARIO_INICIAL : "#" (~["\n","\r"])*  >
+    | <COMENTARIO_LINHA: "--" (~["\n","\r"])* >
 }
 
 <WithinComment> SKIP :
 {
-  "*/" : DEFAULT
+    "*/" : DEFAULT
 }
 
 <WithinComment> MORE :
 {
-  <~[]>
+    <~[]>
 }
 
 /*****************************************
-              TERMINAIS
+TERMINAIS
 *****************************************/
 TOKEN : {
-  < EOL : "\n" >
+    < EOL : "\n" >
 }
 
 /*****************************************
-          PALAVRAS RERSERVADAS
+PALAVRAS RERSERVADAS
 *****************************************/
 TOKEN : {
     <CASE :	"case">
-  | <DO : "do">
-  | <END : "end">
-  | <EXPORT : "export">
-  | <GLOBAL : "global">
-  | <INCLUDE : "include">
-  | <PUBLIC : "public">
-  | <SWITCH : "switch">
-  | <UNTIL : "until">
-  | <AS : "as">
-  | <CONSTANT : "constant">
-  | <ELSE : "else">
-  | <ENTRY : "entry">
-  | <FALLTHRU : "fallthru">
-  | <GOTO : "goto">
-  | <LABEL : "label">
-  | <RETRY : "retry">
-  | <THEN : "then">
-  | <WHILE : "while">
-  | <BREAK : "break">
-  | <CONTINUE : "continue">
-  | <ELSEDEF : "elsedef">
-  | <ENUM : "enum">
-  | <IF : "if">
-  | <LOOP : "loop">
-  | <OVERRIDE : "override">
-  | <RETURN : "return">
-  | <TO : "to">
-  | <WITH : "with">
-  | <BY : "by">
-  | <DEPRECATE : "deprecate">
-  | <ELSIF : "elsif">
-  | <EXIT : "exit">
-  | <FUNCTION : "function">
-  | <IFDEF : "ifdef">
-  | <NAMESPACE : "namespace">
-  | <PROCEDURE : "procedure">
-  | <ROUTINE : "routine">
-  | <TYPE : "type">
-  | <WITHOUT : "without">
-  | <PROFILE : "profile">
-  | <PROFILE_TIME : "profile_time">
-  | <TRACE : "trace">
-  | <BATCH : "batch">
-  | <TYPE_CHECK : "type_check">
-  | <INDIRECT_INCLUDES : "indirect_includes">
-  | <INLINE : "inline">
-  | <WARNING : "warning">
-  | <SAVE : "save">
-  | <RESTORE : "restore">
-  | <STRICT : "strict">
-  | <ELSEIFDEF : "elsifdef">
-  | <FOR : "for">
+    | <DO : "do">
+    | <END : "end">
+    | <EXPORT : "export">
+    | <GLOBAL : "global">
+    | <INCLUDE : "include">
+    | <PUBLIC : "public">
+    | <SWITCH : "switch">
+    | <UNTIL : "until">
+    | <AS : "as">
+    | <CONSTANT : "constant">
+    | <ELSE : "else">
+    | <ENTRY : "entry">
+    | <FALLTHRU : "fallthru">
+    | <GOTO : "goto">
+    | <LABEL : "label">
+    | <RETRY : "retry">
+    | <THEN : "then">
+    | <WHILE : "while">
+    | <BREAK : "break">
+    | <CONTINUE : "continue">
+    | <ELSEDEF : "elsedef">
+    | <ENUM : "enum">
+    | <IF : "if">
+    | <LOOP : "loop">
+    | <OVERRIDE : "override">
+    | <RETURN : "return">
+    | <TO : "to">
+    | <WITH : "with">
+    | <BY : "by">
+    | <DEPRECATE : "deprecate">
+    | <ELSIF : "elsif">
+    | <EXIT : "exit">
+    | <FUNCTION : "function">
+    | <IFDEF : "ifdef">
+    | <NAMESPACE : "namespace">
+    | <PROCEDURE : "procedure">
+    | <ROUTINE : "routine">
+    | <TYPE : "type">
+    | <WITHOUT : "without">
+    | <PROFILE : "profile">
+    | <PROFILE_TIME : "profile_time">
+    | <TRACE : "trace">
+    | <BATCH : "batch">
+    | <TYPE_CHECK : "type_check">
+    | <INDIRECT_INCLUDES : "indirect_includes">
+    | <INLINE : "inline">
+    | <WARNING : "warning">
+    | <SAVE : "save">
+    | <RESTORE : "restore">
+    | <STRICT : "strict">
+    | <ELSEIFDEF : "elsifdef">
+    | <FOR : "for">
 }
 
 /*****************************************
-              SEPARADORES
+SEPARADORES
 *****************************************/
 TOKEN : { 
     <LPAREN: "(" >
-  | <RPAREN: ")" >
-  | <LBRACE: "{" >
-  | <RBRACE: "}" >
-  | <LBRACKET: "[" >
-  | <RBRACKET: "]" >
-  | <SEMICOLON: ";" >
-  | <COMMA: "," >
-  | <DOT: "." >
-  | <#SINGLE_QUOTE: "\'" >
-  | <SLICE: ".." >
-  | <#QUOTE: "\"">
-  | <#TRIPLE_QUOTE: "\"\"\"">
-  | <COLON : ":">
+        | <RPAREN: ")" >
+| <LBRACE: "{" >
+| <RBRACE: "}" >
+| <LBRACKET: "[" >
+| <RBRACKET: "]" >
+| <SEMICOLON: ";" >
+| <COMMA: "," >
+| <DOT: "." >
+| <#SINGLE_QUOTE: "\'" >
+| <SLICE: ".." >
+| <#QUOTE: "\"">
+| <#TRIPLE_QUOTE: "\"\"\"">
+| <COLON : ":">
 }
 
 /*****************************************
-              OPERADORES
+OPERADORES
 *****************************************/
 TOKEN : {
-  <NOT_OP: "not" >
-  | <PLUS: "+" >
-  | <MINUS: "-" >
-  | <STAR: "*" >
-  | <SLASH: "/" >
-  | <ESCLEAD: "\\">
-  | <CONCAT: "&" >
-  | <GT: ">" >
-  | <LT: "<" >
-  | <LE: "<=" >
-  | <GE: ">=" >
-  // Depois no sintático, terá que ser adicionado como comando
-  | <EQUAL: "=" >
-  | <NE: "!=" >
-  | <SC_OR: "or" >
-  | <SC_AND: "and" >
-  | <XOR_OP: "xor" >
-  | <QMARK : "?"> // print command
-  | <END_SYMBOL : "$">
+    <NOT_OP: "not" >
+    | <PLUS: "+" >
+    | <MINUS: "-" >
+    | <STAR: "*" >
+    | <SLASH: "/" >
+    | <ESCLEAD: "\\">
+    | <CONCAT: "&" >
+    | <GT: ">" >
+    | <LT: "<" >
+    | <LE: "<=" >
+    | <GE: ">=" >
+// Depois no sintático, terá que ser adicionado como comando
+    | <EQUAL: "=" >
+    | <NE: "!=" >
+    | <SC_OR: "or" >
+    | <SC_AND: "and" >
+    | <XOR_OP: "xor" >
+| <QMARK : "?"> // print command
+| <END_SYMBOL : "$">
 }
 
 /*****************************************
-        VARIAVEIS PRE-DEFINIDAS
+VARIAVEIS PRE-DEFINIDAS
 *****************************************
 TOKEN : {
-    < ATOM      : "atom" >
-  | < INT       : "integer" >
-  | < SEQUENCE  : "sequence" >
-  | < OBJECT    : "object" >
+< ATOM      : "atom" >
+| < INT       : "integer" >
+| < SEQUENCE  : "sequence" >
+| < OBJECT    : "object" >
 }
 
 /*****************************************
-            IDENTIFICADORES
+IDENTIFICADORES
 *****************************************/
 TOKEN : { 
-      < IDENTIFIER : ( ["a"-"z", "A"-"Z"] | "_" ) ( ["a"-"z", "A"-"Z"] | ["0"-"9"] | "_" )* > 
+    < IDENTIFIER : ( ["a"-"z", "A"-"Z"] | "_" ) ( ["a"-"z", "A"-"Z"] | ["0"-"9"] | "_" )* > 
     | < CHAR : (["a"-"z", "A"-"Z"] | "_" | "%" | "&" | "$" | "*" | " " | "\\"
-                | "." | "!" | "@" | "#" | "$" | "%" | "^" | "*" | "(" | ")" | "-" | "=" ) >
+        | "." | "!" | "@" | "#" | "$" | "%" | "^" | "*" | "(" | ")" | "-" | "=" ) >
 }
 
 /*****************************************
-        MANIPULACAO DE NUMEROS
+MANIPULACAO DE NUMEROS
 *****************************************/
 TOKEN : {
     < INTEGER : ["0"-"9"] (["0"-"9"] | "_")* >
-  | < FLOAT   : <INTEGER> <DOT> ["0"-"9"] (["0"-"9"] | "_")* >
-  | < EXP     : (<INTEGER> | <FLOAT>) ("E" | "e") (<PLUS> | <MINUS>)? <INTEGER> >
+    | < FLOAT   : <INTEGER> <DOT> ["0"-"9"] (["0"-"9"] | "_")* >
+    | < EXP     : (<INTEGER> | <FLOAT>) ("E" | "e") (<PLUS> | <MINUS>)? <INTEGER> >
 }
 
 
 TOKEN : {
     < BIN_NUMBER : "0b" (["0", "1"])+(["0", "1", "_"])* >
-  | < OCT_NUMBER : "0t" (["0"-"7"])+(["0"-"7", "_"])* >
-  | < DEC_NUMBER : "0d" <INTEGER> >
-  | < HEX_NUMBER : "0x" (["0"-"9", "A"-"F"])+(["0"-"9", "A"-"F", "_"])* >
+    | < OCT_NUMBER : "0t" (["0"-"7"])+(["0"-"7", "_"])* >
+    | < DEC_NUMBER : "0d" <INTEGER> >
+    | < HEX_NUMBER : "0x" (["0"-"9", "A"-"F"])+(["0"-"9", "A"-"F", "_"])* >
 }
 
 /*****************************************
-        MANIPULAÇÃO DE STRINGS
+MANIPULAÇÃO DE STRINGS
 *****************************************/
 TOKEN : {
-  < STRINGLIT : <SIMPLESTRINGLIT> | <RAWSTRINGLIT> >
-  | < SIMPLESTRINGLIT : <QUOTE>
-                (
-                ["a"-"z", "A"-"Z"] | "_" | "%" | "&" | "$" | "*" | " "
-                | "." | "!" | "@" | "#" | "$" | "%" | "^" | "*" | "(" | ")" | "-" | "=" | ["0"-"9"] |
-                  "<" | ">" | "," | ":" | "|" | ";" | "?" | "/" | "~" | "]" | "[" | "{" | "}" | "+" |
-                  "_" | "`" | "´" | "á" | "é" | "í" | "ó" | "ú" | "ê" | "ã" | "õ"
-                | <BINARY>
-                | <HEX2>
-                | <HEX4>
-                | <HEX8>
-                | <ESCCHAR>)* <QUOTE> >
-  | < ESCCHAR : <ESCLEAD> ( "n" | "r" | "t" | "\\" | "\"" | "\'" | "0" | "e" | "E" 
-    | <BINARY> | <HEX2> | <HEX4> | <HEX8> ) >
-  | < BINARY : "\\b" (["0", "1"])+(["0", "1", "_"])* >//<BIN> >
-  | < HEX2 : "\\x" ["0"-"9","A"-"F"] ["0"-"9","A"-"F"] >
-  | < HEX4 : "\\u" ["0"-"9","A"-"F"] ["0"-"9","A"-"F"]["0"-"9","A"-"F"] ["0"-"9","A"-"F"] >
-  | < HEX8 : "\\U" ["0"-"9","A"-"F"] ["0"-"9","A"-"F"]["0"-"9","A"-"F"] ["0"-"9","A"-"F"]["0"-"9","A"-"F"] ["0"-"9","A"-"F"]["0"-"9","A"-"F"] ["0"-"9","A"-"F"] >
-  | < RAWSTRINGLIT : <DQRAWSTRING> | <BQRAWSTRING> | <VANSTRING> >
-  | < DQRAWSTRING : "´" 
-                (
-                ["a"-"z", "A"-"Z"] | "_" | "%" | "&" | "$" | "*" | " "
-                | "." | "!" | "@" | "#" | "$" | "%" | "^" | "*" | "(" | ")" | "-" | "=" | ["0"-"9"] |
-                  "<" | ">" | "," | ":" | "|" | ";" | "?" | "/" | "~" | "]" | "[" | "{" | "}" | "+" |
-                  "_" | "`" | "´" | "á" | "é" | "í" | "ó" | "ú" | "ê" | "ã" | "õ"
-                | <BINARY>
-                | <HEX2>
-                | <HEX4>
-                | <HEX8>)+
-                "´" >
-  | <BQRAWSTRING : "\"\"\"" 
-                  (
-                ["a"-"z", "A"-"Z"] | "_" | "%" | "&" | "$" | "*" | " "
-                | "." | "!" | "@" | "#" | "$" | "%" | "^" | "*" | "(" | ")" | "-" | "=" | ["0"-"9"] |
-                  "<" | ">" | "," | ":" | "|" | ";" | "?" | "/" | "~" | "]" | "[" | "{" | "}" | "+" |
-                   "_" | "`" | "´" | "á" | "é" | "í" | "ó" | "ú" | "ê" | "ã" | "õ"
-                | <BINARY>
-                | <HEX2>
-                | <HEX4>
-                | <HEX8>)+
-                  "\"\"\"" >
-  | <VANSTRING : "\'" 
-                  (
-                ["a"-"z", "A"-"Z"] | "_" | "%" | "&" | "$" | "*" | " " | "\\"
-                   )+
-                  "\'" >
+    < STRINGLIT : <SIMPLESTRINGLIT> | <RAWSTRINGLIT> >
+    | < SIMPLESTRINGLIT : <QUOTE>
+    (
+        ["a"-"z", "A"-"Z"] | "_" | "%" | "&" | "$" | "*" | " "
+        | "." | "!" | "@" | "#" | "$" | "%" | "^" | "*" | "(" | ")" | "-" | "=" | ["0"-"9"] |
+        "<" | ">" | "," | ":" | "|" | ";" | "?" | "/" | "~" | "]" | "[" | "{" | "}" | "+" |
+        "_" | "`" | "´" | "á" | "é" | "í" | "ó" | "ú" | "ê" | "ã" | "õ"
+        | <BINARY>
+        | <HEX2>
+        | <HEX4>
+        | <HEX8>
+        | <ESCCHAR>)* <QUOTE> >
+    | < ESCCHAR : <ESCLEAD> ( "n" | "r" | "t" | "\\" | "\"" | "\'" | "0" | "e" | "E" 
+        | <BINARY> | <HEX2> | <HEX4> | <HEX8> ) >
+| < BINARY : "\\b" (["0", "1"])+(["0", "1", "_"])* >//<BIN> >
+| < HEX2 : "\\x" ["0"-"9","A"-"F"] ["0"-"9","A"-"F"] >
+| < HEX4 : "\\u" ["0"-"9","A"-"F"] ["0"-"9","A"-"F"]["0"-"9","A"-"F"] ["0"-"9","A"-"F"] >
+| < HEX8 : "\\U" ["0"-"9","A"-"F"] ["0"-"9","A"-"F"]["0"-"9","A"-"F"] ["0"-"9","A"-"F"]["0"-"9","A"-"F"] ["0"-"9","A"-"F"]["0"-"9","A"-"F"] ["0"-"9","A"-"F"] >
+| < RAWSTRINGLIT : <DQRAWSTRING> | <BQRAWSTRING> | <VANSTRING> >
+| < DQRAWSTRING : "´" 
+(
+    ["a"-"z", "A"-"Z"] | "_" | "%" | "&" | "$" | "*" | " "
+    | "." | "!" | "@" | "#" | "$" | "%" | "^" | "*" | "(" | ")" | "-" | "=" | ["0"-"9"] |
+    "<" | ">" | "," | ":" | "|" | ";" | "?" | "/" | "~" | "]" | "[" | "{" | "}" | "+" |
+    "_" | "`" | "´" | "á" | "é" | "í" | "ó" | "ú" | "ê" | "ã" | "õ"
+    | <BINARY>
+    | <HEX2>
+    | <HEX4>
+    | <HEX8>)+
+"´" >
+| <BQRAWSTRING : "\"\"\"" 
+(
+    ["a"-"z", "A"-"Z"] | "_" | "%" | "&" | "$" | "*" | " "
+    | "." | "!" | "@" | "#" | "$" | "%" | "^" | "*" | "(" | ")" | "-" | "=" | ["0"-"9"] |
+    "<" | ">" | "," | ":" | "|" | ";" | "?" | "/" | "~" | "]" | "[" | "{" | "}" | "+" |
+    "_" | "`" | "´" | "á" | "é" | "í" | "ó" | "ú" | "ê" | "ã" | "õ"
+    | <BINARY>
+    | <HEX2>
+    | <HEX4>
+    | <HEX8>)+
+"\"\"\"" >
+| <VANSTRING : "\'" 
+(
+    ["a"-"z", "A"-"Z"] | "_" | "%" | "&" | "$" | "*" | " " | "\\"
+    )+
+"\'" >
 }
 
 /*************************
-    Statements Básicos
+Statements Básicos
 **************************/
 TOKEN : {
     < WITHENTRY : <WITH> <ENTRY> >
-  | < LABELSTMT : <LABEL> <STRINGLIT> >
+    | < LABELSTMT : <LABEL> <STRINGLIT> >
 }
 
 /*************************
-    Branching
+Branching
 **************************/
 
 TOKEN : {
@@ -373,7 +373,7 @@ TOKEN : {
 }
 
 /*******************************************************
-                MEUPHORIA GRAMMAR
+MEUPHORIA GRAMMAR
 *******************************************************/
 
 void printError(Token t, String msg):
@@ -410,13 +410,12 @@ void variables_declaration() :
       }
 }
 
-
       void VarDeclare(SemanticRoutines rSem) :
       {
         Type type;
       }
       {
-        type = DataType() 
+        type = DataType(rSem) 
 
         IdentList(rSem, type)
       }
@@ -446,7 +445,7 @@ void variables_declaration() :
                                 printError(t, "Erro Semantico: Variavel '" + t.toString() + "' ja declarada.");
                               }
                            }
-                           (<EQUAL> Expression())?
+                           (<EQUAL> Expression(rSem))?
                         }
 
 
@@ -511,7 +510,7 @@ void variables_declaration() :
           // MUDAR STMBLK ????????????
         <RPAREN> (stmblk(rSem))* 
 
-        <END> ProcedureType(t2)
+        <END> ProcedureType(rSem, t2)
 
 
         {
@@ -525,32 +524,6 @@ void variables_declaration() :
               }
           }
         }
-
-        /*
-        {
-            proc = rSem.search(t.toString());
-
-            if (proc != null) {
-              
-              int analisePar = proc.verifyParameters(par);
-
-              if (analisePar == 1 ) {
-                printError(t, "Erro semantico: Procedimento '" + t + "' não declarado.");
-              } else if (analisePar == 2)
-                printError(t, "Erro semantico: Procedimento '" + t.toString() + "' com numero de parametros invalidos.");
-              else if (analisePar == 3)
-                printError(t, "Erro semantico: Procedimento '" + t.toString() + "' com tipo de parametros invalidos.");
-              else {
-                //DO SOMETHING
-                // está correto
-              }
-
-            }
-            else {
-              printError(t, "Erro semantico: Procedimento '" + t.toString() + "' não declarado.");
-            }
-        }
-        */
       }
 
             void ProcedureType(Token procType) :
@@ -597,7 +570,7 @@ void variables_declaration() :
               Token t;
             }
             {
-              type = DataType() 
+              type = DataType(rSem) 
               t = <IDENTIFIER>
               {
                 if (rSem.searchLevel(t.toString()) == null) {
@@ -658,273 +631,295 @@ void javacc_input() :
           | LOOKAHEAD(2) <IDENTIFIER> (Assignment() | Call())
       }
 
-            void Flow() :
+            void Flow(SemanticRoutines rSem) :
             {}
             {
               ( <BREAK> (<INTEGER>)? | <CONTINUE> | <RETRY> | <EXIT> | <FALLTHRU> ) (<STRINGLIT>)?
             }
 
-            void Loop() :
+
+            void Call(SemanticRoutines rSem) :
             {}
             {
-              ForStatement() | WhileStatement() | LoopStatement() | <GOTO> <LABELSTMT>
+              <LPAREN> (ArgList(rSem))? <RPAREN>
             }
 
-                  void ForStatement() :
-                  {}
-                  {
-                    <FOR> //ForIDX() (<LABELSTMT>)? <DO> (stmblk())* <END> <FOR> 
-                  }
-
-                        void ForIDX() :
-                        {}
-                        {
-                          <IDENTIFIER> <EQUAL> Expression() <TO> Expression() (<BY> Expression())?
-                        }
-
-                  void WhileStatement() :
-                  {}
-                  {
-                    <WHILE> Expression() (<WITHENTRY>)? (<LABELSTMT>)? <DO> //(stmblk())* (EntryStatement())? <END> <WHILE>
-                  }
-
-                  void LoopStatement() :
-                  {}
-                  {
-                    <LOOP> (<WITHENTRY>)? (<LABELSTMT>)? <DO> //(stmblk())* (EntryStatement())? <UNTIL> Expression() (<EOL>)* <END> <LOOP>
-                  }
-
-                        void EntryStatement() :
-                        {}
-                        {
-                          <ENTRY> //(stmblk())* 
-                        }
-
-            void Branch() :
-            {}
-            {
-              IfStatement() | SwitchStatement() | IfDefStatement()
-            }
-
-                  void IfStatement() :
-                  {}
-                  {
-                    IfTest() (ElsifStatement())* (ElseStatement())? <END> <IF>
-                  }
-
-                        void IfTest() :
-                        {}
-                        {
-                          <IF> Expression() (<LABELSTMT>)? <THEN> //(stmblk())* 
-                        }
-
-                        void ElsifStatement() :
-                        {}
-                        {
-                          <ELSIF> Expression() <THEN> //(stmblk())*
-                        }
-
-                        void ElseStatement() :
-                        {}
-                        {
-                          <ELSE> //(stmblk())*
-                        }
-
-
-                  void IfDefStatement() :
-                  {}
-                  {
-                    IfDefTest() ( ElsDefIfStatement() <LABELSTMT> )? ( ElsDefStatement())? <ENDDEFIF>
-                  }
-
-                        void IfDefTest() :
-                        {}
-                        {
-                          <IFDEF> (<NOT_OP>)? <IDENTIFIER> ( (<SC_AND> | <SC_OR>) (<NOT_OP>)? <IDENTIFIER>)? <THEN> //(stmblk())*
-                        }
-
-                        void ElsDefIfStatement() :
-                        {}
-                        {
-                          <ELSEIFDEF> (<NOT_OP>)? <IDENTIFIER> ( (<SC_AND> | <SC_OR>) (<NOT_OP>)? <IDENTIFIER>)? <THEN> //(stmblk())*
-                        }
-
-                        void ElsDefStatement() :
-                        {}
-                        {
-                          <ELSEDEF> //(stmblk())*
-                        }
-
-                  void SwitchStatement() :
-                  {}
-                  {
-                    SwitchTest() CaseStatement() (LOOKAHEAD(2) CaseStatement())* //(<CASE> <ELSE> (stmblk())* )? <END> <SWITCH>
-                  }
-
-                        void SwitchTest() :
-                        {}
-                        {
-                          <SWITCH> Expression() ((<WITH> | <WITHOUT>) <FALLTHRU>)? (<LABELSTMT>)? <DO> (<EOL>)?
-                        }
-
-                        void CaseStatement() :
-                        {}
-                        {
-                          <CASE> CaseList() <THEN> //(stmblk())* 
-                        }
-
-                              void CaseList() :
-                              {}
-                              {
-                                Expression() (<COMMA> Expression())* 
-                              }
-
-
-            void Assignment() :
-            {}
-            {
-              AssignmentMulti() | AssignmentWihOp()
-            }
-
-                  void AssignmentMulti() :
-                  {}
-                  {
-                    (Variable())? (<COMMA> <IDENTIFIER> (Variable())? )? <EQUAL> Expression() (<COMMA> Expression())?
-                  }
-
-                  void AssignmentWihOp() :
-                  {}
-                  {
-                    (<PLUS> | <MINUS> | <SLASH> | <STAR> | <CONCAT> ) <EQUAL> Expression() 
-                  }
-
-            void Return() :
-            {}
-            {
-              <RETURN> Expression() (<COMMA> Expression())*
-            }
-
-            void Call() :
-            {}
-            {
-              <LPAREN> (ArgList())? <RPAREN>
-            }
-
-                  void ArgList() :
-                  {}
-                  {
-                    Expression() ( <COMMA> Expression() )*
-                  }
-
-
-/************************************************************
-                        SEQUENCIA
-************************************************************/
-
-void Sequence() :
+void ForIDX(SemanticRoutines rSem) :
 {}
 {
-  // USE LOOKAHED
-  <LBRACE> ( LOOKAHEAD(2) <END_SYMBOL> | Object() (LOOKAHEAD(2) <COMMA> Object())* (<COMMA> <END_SYMBOL>)? )? <RBRACE> 
+    <IDENTIFIER> <EQUAL> Expression(rSem) <TO> Expression(rSem) (<BY> Expression(rSem))?
 }
 
+void WhileStatement(SemanticRoutines rSem) :
+{}
+{
+<WHILE> Expression(rSem) (<WITHENTRY>)? (<LABELSTMT>)? <DO> (stmblk(rSem))* (EntryStatement())? <END> <WHILE>
+}
 
-      void Object() :
+void LoopStatement(SemanticRoutines rSem) :
+{}
+{
+<LOOP> (<WITHENTRY>)? (<LABELSTMT>)? <DO> (stmblk(rSem))* (EntryStatement())? <UNTIL> Expression() (<EOL>)* <END> <LOOP>
+}
+
+void EntryStatement(SemanticRoutines rSem) :
+{}
+{
+<ENTRY> (stmblk(rSem))* 
+}
+
+void Branch(SemanticRoutines rSem) :
+{}
+{
+    IfStatement(rSem) | SwitchStatement(rSem) | IfDefStatement(rSem)
+}
+
+void IfStatement(SemanticRoutines rSem) :
+{}
+{
+    IfTest() (ElsifStatement(rSem))* (ElseStatement(rSem))? <END> <IF>
+}
+
+      void IfTest(SemanticRoutines rSem) :
       {}
       {
-        Sequence() | Atom() | <BIN_NUMBER> | <OCT_NUMBER> | <DEC_NUMBER> | <HEX_NUMBER> | <IDENTIFIER> | <STRINGLIT>
+      <IF> Expression(rSem) (<LABELSTMT>)? <THEN> (stmblk(rSem))* 
+      }
+
+      void ElsifStatement(SemanticRoutines rSem) :
+      {}
+      {
+      <ELSIF> Expression(rSem) <THEN> (stmblk(rSem))*
+      }
+
+      void ElseStatement(SemanticRoutines rSem) :
+      {}
+      {
+      <ELSE> (stmblk(rSem))*
       }
 
 
-/************************************************************
-                          EXPRESSÕES
-************************************************************/
-
-void Expression() :
+void IfDefStatement(SemanticRoutines rSem) :
 {}
 {
-  Sequence() | Expression00()
+    IfDefTest(rSem) ( ElsDefIfStatement(rSem) <LABELSTMT> )? ( ElsDefStatement(rSem))? <ENDDEFIF>
 }
 
-void Expression00() :
-{}
-{
-  Expression01() ( (<SC_AND> | <SC_OR> | <XOR_OP>) Expression01() )*
-}
-
-void Expression01() :
-{}
-{
-  Expression02() ( ( <LT> | <GT> | <LE> | <GE> | <EQUAL> | <NE> ) Expression02() )*
-}
-
-void Expression02() :
-{}
-{
-  Expression03() ( <CONCAT> Expression03() )*
-}
-
-void Expression03() :
-{}
-{
-  Expression04() ( (<PLUS> | <MINUS>) Expression04() )*
-}
-
-void Expression04() :
-{}
-{
-  Expression05() ( (<STAR> | <SLASH>) Expression05() )*
-}
-
-void Expression05() :
-{}
-{
-  (<PLUS> | <MINUS> | <NOT_OP>)? Expression06()
-}
-
-void Expression06() :
-{}
-{
-  Atom() | <STRINGLIT> | (<LPAREN> Expression() <RPAREN>) | <IDENTIFIER> (Call() | Variable())?
-}
-
-
-      void Variable() :
+      void IfDefTest(SemanticRoutines rSem) :
       {}
       {
-        <LBRACKET> Expression() (Slice() | Subscripting())
+      <IFDEF> (<NOT_OP>)? <IDENTIFIER> ( (<SC_AND> | <SC_OR>) (<NOT_OP>)? <IDENTIFIER>)? <THEN> (stmblk(rSem))*
       }
 
-            void Slice() :
-            {}
-            {
-              <SLICE> ( Expression() | <END_SYMBOL>) <RBRACKET>
-            }
+      void ElsDefIfStatement(SemanticRoutines rSem) :
+      {}
+      {
+      <ELSEIFDEF> (<NOT_OP>)? <IDENTIFIER> ( (<SC_AND> | <SC_OR>) (<NOT_OP>)? <IDENTIFIER>)? <THEN> (stmblk(rSem))*
+      }
 
-            void Subscripting() :
-            {}
-            {
-              <RBRACKET> ( Index() )*
-            }
+      void ElsDefStatement(SemanticRoutines rSem) :
+      {}
+      {
+      <ELSEDEF> (stmblk(rSem))*
+      }
 
-                  void Index() :
+void SwitchStatement(SemanticRoutines rSem) :
+{}
+{
+SwitchTest(rSem) CaseStatement(rSem) (LOOKAHEAD(2) CaseStatement(rSem))* (<CASE> <ELSE> (stmblk(rSem))* )? <END> <SWITCH>
+}
+
+      void SwitchTest(SemanticRoutines rSem) :
+      {}
+      {
+          <SWITCH> Expression(rSem) ((<WITH> | <WITHOUT>) <FALLTHRU>)? (<LABELSTMT>)? <DO> (<EOL>)?
+      }
+
+void CaseStatement(SemanticRoutines rSem) :
+{}
+{
+<CASE> CaseList(rSem) <THEN> (stmblk(rSem))* 
+}
+
+      void CaseList(SemanticRoutines rSem) :
+      {}
+      {
+          Expression(rSem) (<COMMA> Expression(rSem))* 
+      }
+
+
+void Assignment(SemanticRoutines rSem) :
+{}
+{
+    AssignmentMulti(rSem) | AssignmentWihOp(rSem)
+}
+
+      void AssignmentMulti(SemanticRoutines rSem) :
+      {}
+      {
+          (Variable(rSem))? (<COMMA> <IDENTIFIER> (Variable(rSem))? )? <EQUAL> Expression(rSem) (<COMMA> Expression(rSem))?
+      }
+
+      void AssignmentWihOp(SemanticRoutines rSem) :
+      {}
+      {
+          (<PLUS> | <MINUS> | <SLASH> | <STAR> | <CONCAT> ) <EQUAL> Expression(rSem) 
+      }
+
+void Return(SemanticRoutines rSem) :
+{}
+{
+    <RETURN> Expression(rSem) (<COMMA> Expression(rSem))*
+}
+
+
+void Call(SemanticRoutines rSem) :
+{}
+{
+    <LPAREN> (ArgList(rSem))? <RPAREN>
+
+    /*
+        {
+            proc = rSem.search(t.toString());
+
+            if (proc != null) {
+              
+              int analisePar = proc.verifyParameters(par);
+
+              if (analisePar == 1 ) {
+                printError(t, "Erro semantico: Procedimento '" + t + "' não declarado.");
+              } else if (analisePar == 2)
+                printError(t, "Erro semantico: Procedimento '" + t.toString() + "' com numero de parametros invalidos.");
+              else if (analisePar == 3)
+                printError(t, "Erro semantico: Procedimento '" + t.toString() + "' com tipo de parametros invalidos.");
+              else {
+                //DO SOMETHING
+                // está correto
+              }
+
+            }
+            else {
+              printError(t, "Erro semantico: Procedimento '" + t.toString() + "' não declarado.");
+            }
+        }
+        */
+}
+
+void ArgList(SemanticRoutines rSem) :
+{}
+{
+    Expression(rSem) ( <COMMA> Expression(rSem) )*
+}
+
+
+/************************************************************
+SEQUENCIA
+************************************************************/
+
+void Sequence(SemanticRoutines rSem) :
+{}
+{
+// USE LOOKAHED
+    <LBRACE> ( LOOKAHEAD(2) <END_SYMBOL> | Object(rSem) (LOOKAHEAD(2) <COMMA> Object(rSem))* (<COMMA> <END_SYMBOL>)? )? <RBRACE> 
+}
+
+
+void Object(SemanticRoutines rSem) :
+{}
+{
+    Sequence(rSem) | Atom(rSem) | <BIN_NUMBER> | <OCT_NUMBER> | <DEC_NUMBER> | <HEX_NUMBER> | <IDENTIFIER> | <STRINGLIT>
+}
+
+
+/************************************************************
+EXPRESSÕES
+************************************************************/
+
+void Expression(SemanticRoutines rSem) :
+{}
+{
+    Sequence(rSem) | Expression00(rSem)
+}
+
+void Expression00(SemanticRoutines rSem) :
+{}
+{
+    Expression01(rSem) ( (<SC_AND> | <SC_OR> | <XOR_OP>) Expression01(rSem) )*
+}
+
+void Expression01(SemanticRoutines rSem) :
+{}
+{
+    Expression02(rSem) ( ( <LT> | <GT> | <LE> | <GE> | <EQUAL> | <NE> ) Expression02(rSem) )*
+}
+
+void Expression02(SemanticRoutines rSem) :
+{}
+{
+    Expression03(rSem) ( <CONCAT> Expression03(rSem) )*
+}
+
+void Expression03(SemanticRoutines rSem) :
+{}
+{
+    Expression04(rSem) ( (<PLUS> | <MINUS>) Expression04(rSem) )*
+}
+
+void Expression04(SemanticRoutines rSem) :
+{}
+{
+    Expression05(rSem) ( (<STAR> | <SLASH>) Expression05(rSem) )*
+}
+
+void Expression05(SemanticRoutines rSem) :
+{}
+{
+    (<PLUS> | <MINUS> | <NOT_OP>)? Expression06(rSem)
+}
+
+void Expression06(SemanticRoutines rSem) :
+{}
+{
+    Atom(rSem) | <STRINGLIT> | (<LPAREN> Expression(rSem) <RPAREN>) | <IDENTIFIER> (Call(rSem) | Variable(rSem))?
+}
+
+
+void Variable(SemanticRoutines rSem) :
+{}
+{
+    <LBRACKET> Expression(rSem) (Slice(rSem) | Subscripting(rSem))
+}
+
+void Slice(SemanticRoutines rSem) :
+{}
+{
+    <SLICE> ( Expression(rSem) | <END_SYMBOL>) <RBRACKET>
+}
+
+void Subscripting(SemanticRoutines rSem) :
+{}
+{
+    <RBRACKET> ( Index(rSem) )*
+}
+
+                  void Index(SemanticRoutines rSem) :
                   {}
                   {
-                    <LBRACKET> Expression() <RBRACKET>
+                    <LBRACKET> Expression(rSem) <RBRACKET>
                   }
 
 
 /*****************************************
-              DATA TYPE
+DATA TYPE
 *****************************************/
 
-void ScopeModifier() :
+void ScopeModifier(SemanticRoutines rSem) :
 {}
 {
-  <GLOBAL> | <PUBLIC> | <EXPORT> | <OVERRIDE>
+    <GLOBAL> | <PUBLIC> | <EXPORT> | <OVERRIDE>
 }
 
-Type DataType() :
+Type DataType(SemanticRoutines rSem) :
 {
   Token t;
   Type tp;
@@ -951,14 +946,14 @@ Type DataType() :
   }
 }
 
-void Real() :
+void Real(SemanticRoutines rSem) :
 {}
 {
-  <FLOAT> | <EXP>
+    <FLOAT> | <EXP>
 }
 
-void Atom() :
+void Atom(SemanticRoutines rSem) :
 {}
 {
-  <INTEGER> | Real()
+    <INTEGER> | Real(rSem)
 }
