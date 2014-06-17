@@ -20,6 +20,9 @@ name = miles + name
 sequence t
 t = {1,2,3}
 
+while {1,2,3} do
+end while
+
 
 function tmp(integer a)
 end function
