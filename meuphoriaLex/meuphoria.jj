@@ -398,9 +398,7 @@ void javacc_input() :
       }
     
       ( 
-          ( (ScopeModifier())? (VarDeclare(rSem) | ConstantDeclare(rSem) | EnumDeclare() | ProcDeclare() | FuncDeclare() ) )
-          | <EOL>
-          /*(LOOKAHEAD(2) stmblk() | (ScopeModifier())? (ConstantDeclare() | EnumDeclare() | ProcDeclare() | FuncDeclare() ) )*/
+          (LOOKAHEAD(2) stmblk(rSem) | (ScopeModifier())? (ConstantDeclare(rSem) | EnumDeclare(rSem) | ProcDeclare() | FuncDeclare() ) )
       )*
       <EOF>
 
@@ -417,48 +415,55 @@ void javacc_input() :
 }
 
       void ConstantDeclare(SemanticRoutines rSem) :
-      {}
       {
-        <CONSTANT> //IdentList()
+        Token type;
+      }
+      {
+        type = <CONSTANT> 
+        IdentList(rSem, type)
       }
 
-      void EnumDeclare() :
-      {}
+      /* NAO SEI SE O ENUM EH ASSIM ????????? */
+      void EnumDeclare(SemanticRoutines rSem) :
       {
-        <ENUM> (EnumVal() | EnumType())
+        Token type;
+      }
+      {
+        type = <ENUM> 
+        (EnumVal(rSem, type) | EnumType(rSem, type))
       }
 
-            void EnumVal() :
+            void EnumVal(SemanticRoutines rSem, Token type) :
             {}
             {
-              <ENUM>//IdentList()
+              IdentList(rSem, type)
             }
 
-            void EnumType() :
+            void EnumType(SemanticRoutines rSem, Token type) :
             {}
             {
-              <TYPE> //IdentList() <END> <TYPE>
+              <TYPE> IdentList(rSem, type) <END> <TYPE>
             }
 
       void ProcDeclare() : 
       {}
       {
-        <PROCEDURE> <IDENTIFIER> <LPAREN> (ParamList())? <RPAREN> (stmblk())* <END> <PROCEDURE> 
+        <PROCEDURE> <IDENTIFIER> <LPAREN> (ParamList())? <RPAREN> //(stmblk())* <END> <PROCEDURE> 
       }
 
       void FuncDeclare() :
       {}
       {
-        <FUNCTION> <IDENTIFIER> <LPAREN> (ParamList())? <RPAREN> (stmblk())* <END> <FUNCTION>
+        <FUNCTION> <IDENTIFIER> <LPAREN> (ParamList())? <RPAREN> //(stmblk())* <END> <FUNCTION>
       }
 
-      void stmblk() :
+      void stmblk(SemanticRoutines rSem) :
       {}
       {
-          ( statement() ) | <EOL>
+          ( statement(rSem) ) | <EOL>
       }
 
-      void statement() :
+      void statement(SemanticRoutines rSem) :
       {}
       {
             Flow()
@@ -466,7 +471,7 @@ void javacc_input() :
           | Branch()
           | Return()
           | LOOKAHEAD(2) <IDENTIFIER> (Assignment() | Call())
-       //   | (ScopeModifier())? ( VarDeclare() | TypeDeclare() )
+          | (ScopeModifier())? ( VarDeclare(rSem) | TypeDeclare(rSem) )
       }
 
             void Flow() :
@@ -484,7 +489,7 @@ void javacc_input() :
                   void ForStatement() :
                   {}
                   {
-                    <FOR> ForIDX() (<LABELSTMT>)? <DO> (stmblk())* <END> <FOR> 
+                    <FOR> //ForIDX() (<LABELSTMT>)? <DO> (stmblk())* <END> <FOR> 
                   }
 
                         void ForIDX() :
@@ -496,19 +501,19 @@ void javacc_input() :
                   void WhileStatement() :
                   {}
                   {
-                    <WHILE> Expression() (<WITHENTRY>)? (<LABELSTMT>)? <DO> (stmblk())* (EntryStatement())? <END> <WHILE>
+                    <WHILE> Expression() (<WITHENTRY>)? (<LABELSTMT>)? <DO> //(stmblk())* (EntryStatement())? <END> <WHILE>
                   }
 
                   void LoopStatement() :
                   {}
                   {
-                    <LOOP> (<WITHENTRY>)? (<LABELSTMT>)? <DO> (stmblk())* (EntryStatement())? <UNTIL> Expression() (<EOL>)* <END> <LOOP>
+                    <LOOP> (<WITHENTRY>)? (<LABELSTMT>)? <DO> //(stmblk())* (EntryStatement())? <UNTIL> Expression() (<EOL>)* <END> <LOOP>
                   }
 
                         void EntryStatement() :
                         {}
                         {
-                          <ENTRY> (stmblk())* 
+                          <ENTRY> //(stmblk())* 
                         }
 
             void Branch() :
@@ -526,19 +531,19 @@ void javacc_input() :
                         void IfTest() :
                         {}
                         {
-                          <IF> Expression() (<LABELSTMT>)? <THEN> (stmblk())* 
+                          <IF> Expression() (<LABELSTMT>)? <THEN> //(stmblk())* 
                         }
 
                         void ElsifStatement() :
                         {}
                         {
-                          <ELSIF> Expression() <THEN> (stmblk())*
+                          <ELSIF> Expression() <THEN> //(stmblk())*
                         }
 
                         void ElseStatement() :
                         {}
                         {
-                          <ELSE> (stmblk())*
+                          <ELSE> //(stmblk())*
                         }
 
 
@@ -551,25 +556,25 @@ void javacc_input() :
                         void IfDefTest() :
                         {}
                         {
-                          <IFDEF> (<NOT_OP>)? <IDENTIFIER> ( (<SC_AND> | <SC_OR>) (<NOT_OP>)? <IDENTIFIER>)? <THEN> (stmblk())*
+                          <IFDEF> (<NOT_OP>)? <IDENTIFIER> ( (<SC_AND> | <SC_OR>) (<NOT_OP>)? <IDENTIFIER>)? <THEN> //(stmblk())*
                         }
 
                         void ElsDefIfStatement() :
                         {}
                         {
-                          <ELSEIFDEF> (<NOT_OP>)? <IDENTIFIER> ( (<SC_AND> | <SC_OR>) (<NOT_OP>)? <IDENTIFIER>)? <THEN> (stmblk())*
+                          <ELSEIFDEF> (<NOT_OP>)? <IDENTIFIER> ( (<SC_AND> | <SC_OR>) (<NOT_OP>)? <IDENTIFIER>)? <THEN> //(stmblk())*
                         }
 
                         void ElsDefStatement() :
                         {}
                         {
-                          <ELSEDEF> (stmblk())*
+                          <ELSEDEF> //(stmblk())*
                         }
 
                   void SwitchStatement() :
                   {}
                   {
-                    SwitchTest() CaseStatement() (LOOKAHEAD(2) CaseStatement())* (<CASE> <ELSE> (stmblk())* )? <END> <SWITCH>
+                    SwitchTest() CaseStatement() (LOOKAHEAD(2) CaseStatement())* //(<CASE> <ELSE> (stmblk())* )? <END> <SWITCH>
                   }
 
                         void SwitchTest() :
@@ -581,7 +586,7 @@ void javacc_input() :
                         void CaseStatement() :
                         {}
                         {
-                          <CASE> CaseList() <THEN> (stmblk())* 
+                          <CASE> CaseList() <THEN> //(stmblk())* 
                         }
 
                               void CaseList() :
@@ -653,10 +658,14 @@ void javacc_input() :
                            (<EQUAL> Expression())?
                         }
 
-            void TypeDeclare() : 
-            {}
+            void TypeDeclare(SemanticRoutines rSem) : 
             {
-              <TYPE> <IDENTIFIER> <LPAREN> (ParamList())? <RPAREN> (stmblk())* <END> <TYPE> 
+              Token t;
+            }
+            {
+              <TYPE> 
+              t = <IDENTIFIER> 
+              <LPAREN> (ParamList())? <RPAREN> (stmblk(rSem))* <END> <TYPE> 
             }
 
             void Call() :

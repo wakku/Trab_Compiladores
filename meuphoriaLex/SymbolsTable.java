@@ -12,7 +12,9 @@ enum Type {
 	Atom,
 	Int,
 	Sequence,
-	Object
+	Object,
+	Constant,
+	Enum
 }
 
 

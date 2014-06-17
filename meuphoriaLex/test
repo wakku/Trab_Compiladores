@@ -16,3 +16,5 @@ integer counterwwwwww
 integer miles
 sequence name
 
+enum ONE, TWO, THREE
+
