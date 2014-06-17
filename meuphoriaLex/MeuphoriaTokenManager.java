@@ -3,14 +3,14 @@
 
 /** Token Manager. */
 @SuppressWarnings("unused")public class MeuphoriaTokenManager implements MeuphoriaConstants {
-        //Ação executada para cada Token encontrado
-        void CommonTokenAction(Token t) {
-                if(t.kind == IDENTIFIER) {
-                // Se tamanho for maior que 30, váriavel é invalida. Gera um erro.
-                if(t.image.length() > 30)
+//Ação executada para cada Token encontrado
+    void CommonTokenAction(Token t) {
+        if(t.kind == IDENTIFIER) {
+// Se tamanho for maior que 30, váriavel é invalida. Gera um erro.
+            if(t.image.length() > 30)
                 throw new TokenMgrError();
-                }
         }
+    }
 
   /** Debug output. */
   public  java.io.PrintStream debugStream = System.out;

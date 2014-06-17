@@ -14,6 +14,7 @@ enum Type {
 	Sequence,
 	Object,
 	Constant,
+	Boolean,
 	Enum
 }
 

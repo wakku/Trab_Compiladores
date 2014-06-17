@@ -17,6 +17,10 @@ integer miles
 sequence name
 name = miles + name
 
+sequence t
+t = {1,2,3}
+
+
 function tmp(integer a)
 end function
 

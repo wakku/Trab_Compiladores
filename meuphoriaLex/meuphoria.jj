@@ -526,7 +526,7 @@ void variables_declaration() :
         }
       }
 
-            void ProcedureType(Token procType) :
+            void ProcedureType(SemanticRoutines rSem, Token procType) :
             {
               Token t;
             }
@@ -624,11 +624,11 @@ void javacc_input() :
       void statement(SemanticRoutines rSem) :
       {}
       {
-            Flow()
-          | Loop()
-          | Branch()
-          | Return()
-          | LOOKAHEAD(2) <IDENTIFIER> (Assignment() | Call())
+            Flow(rSem)
+          | Loop(rSem)
+          | Branch(rSem)
+          | Return(rSem)
+          | LOOKAHEAD(2) <IDENTIFIER> (Assignment(rSem) | Call(rSem))
       }
 
             void Flow(SemanticRoutines rSem) :
@@ -638,35 +638,41 @@ void javacc_input() :
             }
 
 
-            void Call(SemanticRoutines rSem) :
+void Loop(SemanticRoutines rSem) :
+{}
+{
+ ForStatement(rSem) | WhileStatement(rSem) | LoopStatement(rSem) | <GOTO> <LABELSTMT>
+}
+
+      void ForStatement(SemanticRoutines rSem) :
+      {}
+      {
+        <FOR> ForIDX(rSem) (<LABELSTMT>)? <DO> (stmblk(rSem))* <END> <FOR> 
+      }
+
+      void ForIDX(SemanticRoutines rSem) :
+      {}
+      {
+          <IDENTIFIER> <EQUAL> Expression(rSem) <TO> Expression(rSem) (<BY> Expression(rSem))?
+      }
+
+      void WhileStatement(SemanticRoutines rSem) :
+      {}
+      {
+      <WHILE> Expression(rSem) (<WITHENTRY>)? (<LABELSTMT>)? <DO> (stmblk(rSem))* (EntryStatement(rSem))? <END> <WHILE>
+      }
+
+      void LoopStatement(SemanticRoutines rSem) :
+      {}
+      {
+      <LOOP> (<WITHENTRY>)? (<LABELSTMT>)? <DO> (stmblk(rSem))* (EntryStatement(rSem))? <UNTIL> Expression(rSem) (<EOL>)* <END> <LOOP>
+      }
+
+            void EntryStatement(SemanticRoutines rSem) :
             {}
             {
-              <LPAREN> (ArgList(rSem))? <RPAREN>
+            <ENTRY> (stmblk(rSem))* 
             }
-
-void ForIDX(SemanticRoutines rSem) :
-{}
-{
-    <IDENTIFIER> <EQUAL> Expression(rSem) <TO> Expression(rSem) (<BY> Expression(rSem))?
-}
-
-void WhileStatement(SemanticRoutines rSem) :
-{}
-{
-<WHILE> Expression(rSem) (<WITHENTRY>)? (<LABELSTMT>)? <DO> (stmblk(rSem))* (EntryStatement())? <END> <WHILE>
-}
-
-void LoopStatement(SemanticRoutines rSem) :
-{}
-{
-<LOOP> (<WITHENTRY>)? (<LABELSTMT>)? <DO> (stmblk(rSem))* (EntryStatement())? <UNTIL> Expression() (<EOL>)* <END> <LOOP>
-}
-
-void EntryStatement(SemanticRoutines rSem) :
-{}
-{
-<ENTRY> (stmblk(rSem))* 
-}
 
 void Branch(SemanticRoutines rSem) :
 {}
@@ -677,7 +683,7 @@ void Branch(SemanticRoutines rSem) :
 void IfStatement(SemanticRoutines rSem) :
 {}
 {
-    IfTest() (ElsifStatement(rSem))* (ElseStatement(rSem))? <END> <IF>
+    IfTest(rSem) (ElsifStatement(rSem))* (ElseStatement(rSem))? <END> <IF>
 }
 
       void IfTest(SemanticRoutines rSem) :
@@ -819,7 +825,6 @@ SEQUENCIA
 void Sequence(SemanticRoutines rSem) :
 {}
 {
-// USE LOOKAHED
     <LBRACE> ( LOOKAHEAD(2) <END_SYMBOL> | Object(rSem) (LOOKAHEAD(2) <COMMA> Object(rSem))* (<COMMA> <END_SYMBOL>)? )? <RBRACE> 
 }
 
@@ -835,16 +840,42 @@ void Object(SemanticRoutines rSem) :
 EXPRESSÕES
 ************************************************************/
 
-void Expression(SemanticRoutines rSem) :
-{}
+Type Expression(SemanticRoutines rSem) :
 {
-    Sequence(rSem) | Expression00(rSem)
+  Type type;
+}
+{
+    (
+      Sequence(rSem)
+      {
+        System.out.println("Sequencia");
+        return Type.Sequence;
+      }
+    )
+      | 
+    (
+      type = Expression00(rSem)
+      {
+        System.out.println("Nao sequencia");
+        return type;
+      }
+    )
 }
 
-void Expression00(SemanticRoutines rSem) :
-{}
+Type Expression00(SemanticRoutines rSem) :
 {
-    Expression01(rSem) ( (<SC_AND> | <SC_OR> | <XOR_OP>) Expression01(rSem) )*
+  Token t;
+  Type tp1, tp2;
+}
+{
+    Expression01(rSem) 
+    ( 
+      (t = <SC_AND> | t = <SC_OR> | t = <XOR_OP>) 
+      Expression01(rSem) 
+    )*
+    {
+      return null;
+    }
 }
 
 void Expression01(SemanticRoutines rSem) :
@@ -884,6 +915,14 @@ void Expression06(SemanticRoutines rSem) :
 }
 
 
+
+
+
+
+
+
+
+
 void Variable(SemanticRoutines rSem) :
 {}
 {
@@ -891,9 +930,15 @@ void Variable(SemanticRoutines rSem) :
 }
 
 void Slice(SemanticRoutines rSem) :
-{}
 {
-    <SLICE> ( Expression(rSem) | <END_SYMBOL>) <RBRACKET>
+  Type type;
+}
+{
+    <SLICE> ( type = Expression(rSem) | <END_SYMBOL>) <RBRACKET>
+    {
+      // verifica se type é inteiro
+
+    }
 }
 
 void Subscripting(SemanticRoutines rSem) :
@@ -913,7 +958,7 @@ void Subscripting(SemanticRoutines rSem) :
 DATA TYPE
 *****************************************/
 
-void ScopeModifier(SemanticRoutines rSem) :
+void ScopeModifier() :
 {}
 {
     <GLOBAL> | <PUBLIC> | <EXPORT> | <OVERRIDE>
@@ -939,6 +984,8 @@ Type DataType(SemanticRoutines rSem) :
           tp = Type.Object;
       else if(t.toString().equals("constant"))
           tp = Type.Constant;
+      else if(t.toString().equals("boolean"))
+          tp = Type.Boolean;
       else
         printError(t, "Erro Semantico: Tipo " + t.toString() + " nao existe.");
 
