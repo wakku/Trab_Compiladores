@@ -15,11 +15,12 @@
 integer counterwwwwww
 integer miles
 sequence name
+name = miles + name
 
 function tmp(integer a)
 end function
 
-procedure tmp2(integer a)
+global procedure tmp2(integer a)
 end procedure
 
 type tmp2(integer a)

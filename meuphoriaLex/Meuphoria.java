@@ -191,100 +191,6 @@ if ( errors != 0 ) {
         }
   }
 
-  final public void javacc_input() throws ParseException {Token t;
-    SemanticRoutines rSem;
-rSem = new SemanticRoutines();
-    label_2:
-    while (true) {
-      switch ((jj_ntk==-1)?jj_ntk_f():jj_ntk) {
-      case EOL:
-      case EXPORT:
-      case GLOBAL:
-      case PUBLIC:
-      case SWITCH:
-      case FALLTHRU:
-      case GOTO:
-      case RETRY:
-      case WHILE:
-      case BREAK:
-      case CONTINUE:
-      case ENUM:
-      case IF:
-      case LOOP:
-      case OVERRIDE:
-      case RETURN:
-      case EXIT:
-      case FUNCTION:
-      case IFDEF:
-      case PROCEDURE:
-      case TYPE:
-      case FOR:
-      case IDENTIFIER:{
-        ;
-        break;
-        }
-      default:
-        jj_la1[4] = jj_gen;
-        break label_2;
-      }
-      if (jj_2_2(2)) {
-        stmblk(rSem);
-      } else {
-        switch ((jj_ntk==-1)?jj_ntk_f():jj_ntk) {
-        case EXPORT:
-        case GLOBAL:
-        case PUBLIC:
-        case ENUM:
-        case OVERRIDE:
-        case FUNCTION:
-        case PROCEDURE:
-        case TYPE:{
-          switch ((jj_ntk==-1)?jj_ntk_f():jj_ntk) {
-          case EXPORT:
-          case GLOBAL:
-          case PUBLIC:
-          case OVERRIDE:{
-            ScopeModifier();
-            break;
-            }
-          default:
-            jj_la1[5] = jj_gen;
-            ;
-          }
-          switch ((jj_ntk==-1)?jj_ntk_f():jj_ntk) {
-          case ENUM:{
-            EnumDeclare(rSem);
-            break;
-            }
-          case FUNCTION:
-          case PROCEDURE:
-          case TYPE:{
-            ProcDeclare(rSem);
-            break;
-            }
-          default:
-            jj_la1[6] = jj_gen;
-            jj_consume_token(-1);
-            throw new ParseException();
-          }
-          break;
-          }
-        default:
-          jj_la1[7] = jj_gen;
-          jj_consume_token(-1);
-          throw new ParseException();
-        }
-      }
-    }
-    jj_consume_token(0);
-if ( errors != 0 ) {
-          System.out.println("An\u221a\u00b0lise encontrou " + errors + " erro(s).");
-        }
-        else {
-          System.out.println("An\u221a\u00b0lises l\u221a\u00a9xica, sint\u221a\u00b0tica e sem\u221a\u00a2ntica conclu\u221a\u2260das com sucesso!");
-        }
-  }
-
   final public void VarDeclare(SemanticRoutines rSem) throws ParseException {Type type;
     type = DataType();
     IdentList(rSem, type);
@@ -292,7 +198,7 @@ if ( errors != 0 ) {
 
   final public void IdentList(SemanticRoutines rSem, Type type) throws ParseException {
     Ident(rSem, type);
-    label_3:
+    label_2:
     while (true) {
       switch ((jj_ntk==-1)?jj_ntk_f():jj_ntk) {
       case COMMA:{
@@ -300,8 +206,8 @@ if ( errors != 0 ) {
         break;
         }
       default:
-        jj_la1[8] = jj_gen;
-        break label_3;
+        jj_la1[4] = jj_gen;
+        break label_2;
       }
       jj_consume_token(COMMA);
       Ident(rSem, type);
@@ -328,7 +234,7 @@ System.out.println(t.toString());
       break;
       }
     default:
-      jj_la1[9] = jj_gen;
+      jj_la1[5] = jj_gen;
       ;
     }
   }
@@ -347,7 +253,7 @@ type = Type.Enum;
       break;
       }
     default:
-      jj_la1[10] = jj_gen;
+      jj_la1[6] = jj_gen;
       jj_consume_token(-1);
       throw new ParseException();
     }
@@ -382,7 +288,7 @@ type = Type.Enum;
       break;
       }
     default:
-      jj_la1[11] = jj_gen;
+      jj_la1[7] = jj_gen;
       jj_consume_token(-1);
       throw new ParseException();
     }
@@ -407,11 +313,11 @@ if(proc != null)
       break;
       }
     default:
-      jj_la1[12] = jj_gen;
+      jj_la1[8] = jj_gen;
       ;
     }
     jj_consume_token(RPAREN);
-    label_4:
+    label_3:
     while (true) {
       switch ((jj_ntk==-1)?jj_ntk_f():jj_ntk) {
       case EOL:
@@ -433,8 +339,8 @@ if(proc != null)
         break;
         }
       default:
-        jj_la1[13] = jj_gen;
-        break label_4;
+        jj_la1[9] = jj_gen;
+        break label_3;
       }
       stmblk(rSem);
     }
@@ -464,11 +370,11 @@ if (flag == 1) {
     case TYPE:{
       t = jj_consume_token(TYPE);
 if(!t.toString().equals(procType.toString()))
-            printError(t, "Erro Sint\u221a\u00b0tico: Esperado fechamento de '" + procType.toString());
+                  printError(t, "Erro Sint\u221a\u00b0tico: Esperado fechamento de '" + procType.toString());
       break;
       }
     default:
-      jj_la1[14] = jj_gen;
+      jj_la1[10] = jj_gen;
       jj_consume_token(-1);
       throw new ParseException();
     }
@@ -478,7 +384,7 @@ if(!t.toString().equals(procType.toString()))
         java.util.ArrayList<Symbol> parList = new java.util.ArrayList<Symbol>();
     s = Parameter(rSem);
 parList.add(s);
-    label_5:
+    label_4:
     while (true) {
       switch ((jj_ntk==-1)?jj_ntk_f():jj_ntk) {
       case COMMA:{
@@ -486,8 +392,8 @@ parList.add(s);
         break;
         }
       default:
-        jj_la1[15] = jj_gen;
-        break label_5;
+        jj_la1[11] = jj_gen;
+        break label_4;
       }
       jj_consume_token(COMMA);
       s = Parameter(rSem);
@@ -512,6 +418,105 @@ if (rSem.searchLevel(t.toString()) == null) {
                   {if ("" != null) return null;}
                 }
     throw new Error("Missing return statement in function");
+  }
+
+  final public void javacc_input() throws ParseException {Token t;
+    SemanticRoutines rSem;
+rSem = new SemanticRoutines();
+    label_5:
+    while (true) {
+      switch ((jj_ntk==-1)?jj_ntk_f():jj_ntk) {
+      case EOL:
+      case EXPORT:
+      case GLOBAL:
+      case PUBLIC:
+      case SWITCH:
+      case FALLTHRU:
+      case GOTO:
+      case RETRY:
+      case WHILE:
+      case BREAK:
+      case CONTINUE:
+      case ENUM:
+      case IF:
+      case LOOP:
+      case OVERRIDE:
+      case RETURN:
+      case EXIT:
+      case FUNCTION:
+      case IFDEF:
+      case PROCEDURE:
+      case TYPE:
+      case FOR:
+      case IDENTIFIER:{
+        ;
+        break;
+        }
+      default:
+        jj_la1[12] = jj_gen;
+        break label_5;
+      }
+      if (jj_2_2(2)) {
+        stmblk(rSem);
+      } else {
+        switch ((jj_ntk==-1)?jj_ntk_f():jj_ntk) {
+        case EXPORT:
+        case GLOBAL:
+        case PUBLIC:
+        case ENUM:
+        case OVERRIDE:
+        case FUNCTION:
+        case PROCEDURE:
+        case TYPE:
+        case IDENTIFIER:{
+          switch ((jj_ntk==-1)?jj_ntk_f():jj_ntk) {
+          case EXPORT:
+          case GLOBAL:
+          case PUBLIC:
+          case OVERRIDE:{
+            ScopeModifier();
+            break;
+            }
+          default:
+            jj_la1[13] = jj_gen;
+            ;
+          }
+          switch ((jj_ntk==-1)?jj_ntk_f():jj_ntk) {
+          case IDENTIFIER:{
+            VarDeclare(rSem);
+            break;
+            }
+          case ENUM:{
+            EnumDeclare(rSem);
+            break;
+            }
+          case FUNCTION:
+          case PROCEDURE:
+          case TYPE:{
+            ProcDeclare(rSem);
+            break;
+            }
+          default:
+            jj_la1[14] = jj_gen;
+            jj_consume_token(-1);
+            throw new ParseException();
+          }
+          break;
+          }
+        default:
+          jj_la1[15] = jj_gen;
+          jj_consume_token(-1);
+          throw new ParseException();
+        }
+      }
+    }
+    jj_consume_token(0);
+if ( errors != 0 ) {
+          System.out.println("An\u221a\u00b0lise encontrou " + errors + " erro(s).");
+        }
+        else {
+          System.out.println("An\u221a\u00b0lises l\u221a\u00a9xica, sint\u221a\u00b0tica e sem\u221a\u00a2ntica conclu\u221a\u2260das com sucesso!");
+        }
   }
 
   final public void stmblk(SemanticRoutines rSem) throws ParseException {
@@ -1791,20 +1796,21 @@ System.out.println(t.toString());
     finally { jj_save(5, xla); }
   }
 
-  private boolean jj_3R_32()
+  private boolean jj_3R_77()
  {
-    Token xsp;
-    xsp = jj_scanpos;
-    if (jj_3R_41()) {
-    jj_scanpos = xsp;
-    if (jj_3R_42()) return true;
-    }
+    if (jj_scan_token(IDENTIFIER)) return true;
     return false;
   }
 
-  private boolean jj_3R_41()
+  private boolean jj_3R_65()
  {
-    if (jj_3R_33()) return true;
+    if (jj_3R_69()) return true;
+    return false;
+  }
+
+  private boolean jj_3R_58()
+ {
+    if (jj_3R_65()) return true;
     return false;
   }
 
@@ -1822,6 +1828,23 @@ System.out.println(t.toString());
     jj_scanpos = xsp;
     if (jj_scan_token(9)) return true;
     }
+    return false;
+  }
+
+  private boolean jj_3R_32()
+ {
+    Token xsp;
+    xsp = jj_scanpos;
+    if (jj_3R_41()) {
+    jj_scanpos = xsp;
+    if (jj_3R_42()) return true;
+    }
+    return false;
+  }
+
+  private boolean jj_3R_41()
+ {
+    if (jj_3R_33()) return true;
     return false;
   }
 
@@ -1883,6 +1906,12 @@ System.out.println(t.toString());
   private boolean jj_3R_57()
  {
     if (jj_3R_64()) return true;
+    return false;
+  }
+
+  private boolean jj_3_2()
+ {
+    if (jj_3R_18()) return true;
     return false;
   }
 
@@ -1978,12 +2007,6 @@ System.out.println(t.toString());
   private boolean jj_3R_48()
  {
     if (jj_3R_59()) return true;
-    return false;
-  }
-
-  private boolean jj_3_2()
- {
-    if (jj_3R_18()) return true;
     return false;
   }
 
@@ -2121,6 +2144,12 @@ System.out.println(t.toString());
     return false;
   }
 
+  private boolean jj_3_1()
+ {
+    if (jj_3R_18()) return true;
+    return false;
+  }
+
   private boolean jj_3R_72()
  {
     Token xsp;
@@ -2133,12 +2162,6 @@ System.out.println(t.toString());
   private boolean jj_3R_43()
  {
     if (jj_3R_51()) return true;
-    return false;
-  }
-
-  private boolean jj_3_1()
- {
-    if (jj_3R_18()) return true;
     return false;
   }
 
@@ -2295,12 +2318,6 @@ System.out.println(t.toString());
     return false;
   }
 
-  private boolean jj_3R_28()
- {
-    if (jj_3R_34()) return true;
-    return false;
-  }
-
   private boolean jj_3R_29()
  {
     Token xsp;
@@ -2327,27 +2344,15 @@ System.out.println(t.toString());
     return false;
   }
 
+  private boolean jj_3R_28()
+ {
+    if (jj_3R_34()) return true;
+    return false;
+  }
+
   private boolean jj_3R_50()
  {
     if (jj_3R_60()) return true;
-    return false;
-  }
-
-  private boolean jj_3R_77()
- {
-    if (jj_scan_token(IDENTIFIER)) return true;
-    return false;
-  }
-
-  private boolean jj_3R_65()
- {
-    if (jj_3R_69()) return true;
-    return false;
-  }
-
-  private boolean jj_3R_58()
- {
-    if (jj_3R_65()) return true;
     return false;
   }
 
@@ -2374,13 +2379,13 @@ System.out.println(t.toString());
       jj_la1_init_3();
    }
    private static void jj_la1_init_0() {
-      jj_la1_0 = new int[] {0x75836200,0x16000,0x0,0x16000,0x75836200,0x16000,0x0,0x16000,0x0,0x0,0x0,0x0,0x0,0x75820200,0x0,0x0,0x75820200,0x0,0x75820000,0x0,0x64800000,0x0,0x11000000,0x0,0x0,0x0,0x0,0x0,0x20000,0x0,0x200000,0x0,0x0,0x80000000,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x200,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x16000,0x0,0x0,};
+      jj_la1_0 = new int[] {0x75836200,0x16000,0x0,0x16000,0x0,0x0,0x0,0x0,0x0,0x75820200,0x0,0x0,0x75836200,0x16000,0x0,0x16000,0x75820200,0x0,0x75820000,0x0,0x64800000,0x0,0x11000000,0x0,0x0,0x0,0x0,0x0,0x20000,0x0,0x200000,0x0,0x0,0x80000000,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x200,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x16000,0x0,0x0,};
    }
    private static void jj_la1_init_1() {
-      jj_la1_1 = new int[] {0x40015c1f,0x8,0x14801,0x14809,0x40015c1f,0x8,0x14801,0x14809,0x0,0x0,0x10000,0x14800,0x0,0x40001416,0x14800,0x0,0x40001416,0x80000000,0x40001416,0x0,0x400,0x0,0x40000004,0x80,0x0,0x0,0x0,0x0,0x1002,0x200,0x0,0x0,0x20000000,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x20040,0x20040,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x80000000,0x0,0x0,0x0,0x0,0x0,0x80000000,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x80000000,0x80000000,0x80000000,0x0,0x80000000,0x0,0x8,0x0,0x0,};
+      jj_la1_1 = new int[] {0x40015c1f,0x8,0x14801,0x14809,0x0,0x0,0x10000,0x14800,0x0,0x40001416,0x14800,0x0,0x40015c1f,0x8,0x14801,0x14809,0x40001416,0x80000000,0x40001416,0x0,0x400,0x0,0x40000004,0x80,0x0,0x0,0x0,0x0,0x1002,0x200,0x0,0x0,0x20000000,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x20040,0x20040,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x80000000,0x0,0x0,0x0,0x0,0x0,0x80000000,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x80000000,0x80000000,0x80000000,0x0,0x80000000,0x0,0x8,0x0,0x0,};
    }
    private static void jj_la1_init_2() {
-      jj_la1_2 = new int[] {0x80000000,0x0,0x80000000,0x80000000,0x80000000,0x0,0x0,0x0,0x40,0x1000000,0x80000000,0x0,0x80000000,0x80000000,0x0,0x40,0x80000000,0x10bc048,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x2000,0xc000000,0x2000,0xc000000,0x2000,0xc000000,0x2000,0xc000000,0x0,0x0,0x0,0x0,0x40,0x10bc048,0x8,0x8,0x40,0x40,0xbc000,0x40,0x8000e002,0x40,0x40,0x80000002,0xc0000002,0x80000002,0x8000e002,0x1c000000,0x1c000000,0x3f00000,0x3f00000,0x80000,0xc000,0xc000,0x30000,0x30000,0xe000,0xe000,0x8,0x8,0x80000000,0x210,0xc000e002,0x8,0x0,0x0,0x0,};
+      jj_la1_2 = new int[] {0x80000000,0x0,0x80000000,0x80000000,0x40,0x1000000,0x80000000,0x0,0x80000000,0x80000000,0x0,0x40,0x80000000,0x0,0x80000000,0x80000000,0x80000000,0x10bc048,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x2000,0xc000000,0x2000,0xc000000,0x2000,0xc000000,0x2000,0xc000000,0x0,0x0,0x0,0x0,0x40,0x10bc048,0x8,0x8,0x40,0x40,0xbc000,0x40,0x8000e002,0x40,0x40,0x80000002,0xc0000002,0x80000002,0x8000e002,0x1c000000,0x1c000000,0x3f00000,0x3f00000,0x80000,0xc000,0xc000,0x30000,0x30000,0xe000,0xe000,0x8,0x8,0x80000000,0x210,0xc000e002,0x8,0x0,0x0,0x0,};
    }
    private static void jj_la1_init_3() {
       jj_la1_3 = new int[] {0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x2,0x0,0x100,0x0,0x0,0x80000,0x100000,0x80000,0x100000,0x0,0x0,0x0,0x100000,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x100000,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x10e,0x0,0x0,0x1fe,0x1fe,0x1fe,0x10e,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x10e,0x0,0x10e,0x0,0x0,0xc,0xe,};

@@ -396,7 +396,7 @@ void variables_declaration() :
     }
 
     ( 
-          (LOOKAHEAD(2) stmblk(rSem) | (ScopeModifier())? (VarDeclare(rSem) | ProcDeclare(rSem) | EnumDeclare(rSem) /*| FuncDeclare(rSem) */) )
+          (LOOKAHEAD(2) stmblk(rSem) | (ScopeModifier())? (VarDeclare(rSem) | ProcDeclare(rSem) | EnumDeclare(rSem) ) ) 
       )*
       <EOF>
 
@@ -407,33 +407,6 @@ void variables_declaration() :
         else {
           System.out.println("Análises léxica, sintática e semântica concluídas com sucesso!");
         }
-      }
-}
-
-
-void javacc_input() :
-{
-    Token t;
-    SemanticRoutines rSem;
-}
-{
-      {
-        rSem = new SemanticRoutines();
-      }
-    
-      ( 
-          (LOOKAHEAD(2) stmblk(rSem) | (ScopeModifier())? (/*ConstantDeclare(rSem) |*/ EnumDeclare(rSem) | ProcDeclare(rSem) /*| FuncDeclare(rSem) */) )
-      )*
-      <EOF>
-
-      {
-        if ( errors != 0 ) {
-          System.out.println("Análise encontrou " + errors + " erro(s).");
-        } 
-        else {
-          System.out.println("Análises léxica, sintática e semântica concluídas com sucesso!");
-        }
-
       }
 }
 
@@ -580,17 +553,17 @@ void javacc_input() :
         */
       }
 
-      void ProcedureType(Token procType) :
-      {
-        Token t;
-      }
-      {
-        t = <PROCEDURE> | t = <FUNCTION> | t = <TYPE>
-        {
-          if(!t.toString().equals(procType.toString()))
-            printError(t, "Erro Sintático: Esperado fechamento de '" + procType.toString());
-        }
-      }
+            void ProcedureType(Token procType) :
+            {
+              Token t;
+            }
+            {
+              t = <PROCEDURE> | t = <FUNCTION> | t = <TYPE>
+              {
+                if(!t.toString().equals(procType.toString()))
+                  printError(t, "Erro Sintático: Esperado fechamento de '" + procType.toString());
+              }
+            }
 
 
       java.util.ArrayList<Symbol> ParamList(SemanticRoutines rSem) :
@@ -643,7 +616,31 @@ void javacc_input() :
 
 
 
+void javacc_input() :
+{
+    Token t;
+    SemanticRoutines rSem;
+}
+{
+      {
+        rSem = new SemanticRoutines();
+      }
+    
+      ( 
+          (LOOKAHEAD(2) stmblk(rSem) | (ScopeModifier())? ( VarDeclare(rSem) | EnumDeclare(rSem) | ProcDeclare(rSem) ) )
+      )*
+      <EOF>
 
+      {
+        if ( errors != 0 ) {
+          System.out.println("Análise encontrou " + errors + " erro(s).");
+        } 
+        else {
+          System.out.println("Análises léxica, sintática e semântica concluídas com sucesso!");
+        }
+
+      }
+}
 
       void stmblk(SemanticRoutines rSem) :
       {}
@@ -659,7 +656,6 @@ void javacc_input() :
           | Branch()
           | Return()
           | LOOKAHEAD(2) <IDENTIFIER> (Assignment() | Call())
-          //| (ScopeModifier())? ( VarDeclare(rSem) | TypeDeclare(rSem) )
       }
 
             void Flow() :
