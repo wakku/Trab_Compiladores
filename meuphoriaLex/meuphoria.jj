@@ -35,6 +35,8 @@ PARSER_BEGIN(Meuphoria)
 /* MeuPhoria Parser */
 class Meuphoria {
 
+  private static int errors = 0;
+
   // Processa o código e gera a tabela de tokens
   public void processa() throws ParseException, TokenMgrError{
     Token t;
@@ -95,12 +97,11 @@ class Meuphoria {
       //System.out.println("Analisado com sucesso!");
 
       analisadorSintatico.javacc_input();
-      System.out.println("SUCESSO!");
 
       analisadorSintatico = new Meuphoria(new java.io.StringReader(sb.toString()));
 
-      analisadorSintatico.javacc_input();
-      System.out.println("SUCESSO!");
+      //analisadorSintatico.javacc_input();
+      //System.out.println("SUCESSO!");
     }
     catch(ParseException e)
     {
@@ -268,7 +269,7 @@ TOKEN : {
 
 /*****************************************
         VARIAVEIS PRE-DEFINIDAS
-*****************************************/
+*****************************************
 TOKEN : {
     < ATOM      : "atom" >
   | < INT       : "integer" >
@@ -374,20 +375,51 @@ TOKEN : {
                 MEUPHORIA GRAMMAR
 *******************************************************/
 
-void javacc_input() :
-{}
+void printError(Token t, String msg):
 {
-    
-      ( 
-          (LOOKAHEAD(2) stmblk() | (ScopeModifier())? (ConstantDeclare() | EnumDeclare() | ProcDeclare() | FuncDeclare() ) )
-      )*
-      <EOF>
+}
+{
+  {
+    errors++;
+    System.out.println("[" + t.beginLine + ", " + t.beginColumn + "] " + msg);
+     //System.exit(1);
+  }
 }
 
-      void ConstantDeclare() :
+
+void javacc_input() :
+{
+    Token t;
+    SemanticRoutines rSem;
+}
+{
+      {
+        rSem = new SemanticRoutines();
+      }
+    
+      ( 
+          ( (ScopeModifier())? (VarDeclare(rSem) | ConstantDeclare(rSem) | EnumDeclare() | ProcDeclare() | FuncDeclare() ) )
+          | <EOL>
+          /*(LOOKAHEAD(2) stmblk() | (ScopeModifier())? (ConstantDeclare() | EnumDeclare() | ProcDeclare() | FuncDeclare() ) )*/
+      )*
+      <EOF>
+
+      {
+        if ( errors != 0 ) {
+          System.out.println("Análise encontrou " + errors + " erro(s).");
+          //System.exit(1);
+        } else {
+          System.out.println("Análises léxica, sintática e semântica concluídas com sucesso!");
+        }
+
+        //System.exit(0);
+      }
+}
+
+      void ConstantDeclare(SemanticRoutines rSem) :
       {}
       {
-        <CONSTANT> IdentList()
+        <CONSTANT> //IdentList()
       }
 
       void EnumDeclare() :
@@ -399,13 +431,13 @@ void javacc_input() :
             void EnumVal() :
             {}
             {
-              IdentList()
+              <ENUM>//IdentList()
             }
 
             void EnumType() :
             {}
             {
-              <TYPE> IdentList() <END> <TYPE>
+              <TYPE> //IdentList() <END> <TYPE>
             }
 
       void ProcDeclare() : 
@@ -434,7 +466,7 @@ void javacc_input() :
           | Branch()
           | Return()
           | LOOKAHEAD(2) <IDENTIFIER> (Assignment() | Call())
-          | (ScopeModifier())? ( VarDeclare() | TypeDeclare() )
+       //   | (ScopeModifier())? ( VarDeclare() | TypeDeclare() )
       }
 
             void Flow() :
@@ -583,22 +615,42 @@ void javacc_input() :
               <RETURN> Expression() (<COMMA> Expression())*
             }
 
-            void VarDeclare() :
-            {}
+            void VarDeclare(SemanticRoutines rSem) :
             {
-              DataType() IdentList()
+              Token type;
+            }
+            {
+              type = DataType() 
+
+              IdentList(rSem, type)
             }
 
-                  void IdentList() :
+                  void IdentList(SemanticRoutines rSem, Token type) :
                   {}
                   {
-                    Ident() ( <COMMA> Ident() )* 
+                    Ident(rSem, type) ( <COMMA> Ident(rSem, type) )* 
                   }
 
-                        void Ident() :
-                        {}
+                        void Ident(SemanticRoutines rSem, Token type) :
                         {
-                          <IDENTIFIER> (<EQUAL> Expression())?
+                          Token t;
+                        }
+                        {
+                           t = <IDENTIFIER> 
+                           {
+                              System.out.println(t.toString());
+                              if (rSem.searchLevel(t.toString()) == null) {
+                                Symbol s = new Symbol(t.toString(),rSem.getLevel(),Category.Variable);
+                                s.setType(SemanticRoutines.tokenAsType(type));
+                                rSem.insert(s);
+
+                              }
+                              else {
+                                //Throw semantic exception
+                                printError(t, "Erro Semantico: Variavel '" + t.toString() + "' ja declarada.");
+                              }
+                           }
+                           (<EQUAL> Expression())?
                         }
 
             void TypeDeclare() : 
@@ -739,10 +791,17 @@ void ScopeModifier() :
   <GLOBAL> | <PUBLIC> | <EXPORT> | <OVERRIDE>
 }
 
-void DataType() :
-{}
+Token DataType() :
 {
-  <ATOM> | <INT> | <SEQUENCE> | <OBJECT> | <IDENTIFIER>
+  Token t;
+}
+{
+  t = <IDENTIFIER>
+  //t = <ATOM> | t = <INT> | t = <SEQUENCE> | t = <OBJECT> | t = <IDENTIFIER>
+  {
+      System.out.println(t.toString());
+      return t;
+  }
 }
 
 void Real() :
