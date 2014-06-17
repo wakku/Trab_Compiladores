@@ -96,7 +96,8 @@ class Meuphoria {
       // Processamento finalizado
       //System.out.println("Analisado com sucesso!");
 
-      analisadorSintatico.javacc_input();
+      //analisadorSintatico.javacc_input();
+      analisadorSintatico.variables_declaration();
 
       analisadorSintatico = new Meuphoria(new java.io.StringReader(sb.toString()));
 
@@ -382,8 +383,31 @@ void printError(Token t, String msg):
   {
     errors++;
     System.out.println("[" + t.beginLine + ", " + t.beginColumn + "] " + msg);
-     //System.exit(1);
   }
+}
+
+void variables_declaration() :
+{
+    SemanticRoutines rSem; 
+}
+{
+    {
+        rSem = new SemanticRoutines();
+    }
+
+    ( 
+          (LOOKAHEAD(2) stmblk(rSem) | (ScopeModifier())? (VarDeclare(rSem) | ProcDeclare(rSem) | EnumDeclare(rSem) /*| FuncDeclare(rSem) */) )
+      )*
+      <EOF>
+
+      {
+        if ( errors != 0 ) {
+          System.out.println("Análise encontrou " + errors + " erro(s).");
+        } 
+        else {
+          System.out.println("Análises léxica, sintática e semântica concluídas com sucesso!");
+        }
+      }
 }
 
 
@@ -398,7 +422,7 @@ void javacc_input() :
       }
     
       ( 
-          (LOOKAHEAD(2) stmblk(rSem) | (ScopeModifier())? (ConstantDeclare(rSem) | EnumDeclare(rSem) | ProcDeclare(rSem) | FuncDeclare(rSem) ) )
+          (LOOKAHEAD(2) stmblk(rSem) | (ScopeModifier())? (/*ConstantDeclare(rSem) |*/ EnumDeclare(rSem) | ProcDeclare(rSem) /*| FuncDeclare(rSem) */) )
       )*
       <EOF>
 
@@ -413,17 +437,45 @@ void javacc_input() :
       }
 }
 
-      void ConstantDeclare(SemanticRoutines rSem) :
+
+      void VarDeclare(SemanticRoutines rSem) :
       {
         Type type;
       }
       {
-        <CONSTANT> 
-        {
-          type = Type.Constant;
-        }
+        type = DataType() 
+
         IdentList(rSem, type)
       }
+
+                  void IdentList(SemanticRoutines rSem, Type type) :
+                  {}
+                  {
+                    Ident(rSem, type) ( <COMMA> Ident(rSem, type) )* 
+                  }
+
+                        void Ident(SemanticRoutines rSem, Type type) :
+                        {
+                          Token t;
+                        }
+                        {
+                           t = <IDENTIFIER> 
+                           {
+                              System.out.println(t.toString());
+                              if (rSem.searchLevel(t.toString()) == null) {
+                                Symbol s = new Symbol(t.toString(),rSem.getLevel(),Category.Variable);
+                                s.setType(type);
+                                rSem.insert(s);
+
+                              }
+                              else {
+                                //Throw semantic exception
+                                printError(t, "Erro Semantico: Variavel '" + t.toString() + "' ja declarada.");
+                              }
+                           }
+                           (<EQUAL> Expression())?
+                        }
+
 
       /* NAO SEI SE O ENUM EH ASSIM ????????? */
       void EnumDeclare(SemanticRoutines rSem) :
@@ -450,20 +502,58 @@ void javacc_input() :
               <TYPE> IdentList(rSem, type) <END> <TYPE>
             }
 
-      /* Procedure is not a declaration, it is a call - FIX IR????????*/
+
       void ProcDeclare(SemanticRoutines rSem) : 
       {
-        Token t;
+        Token t, t2;
         Symbol proc = null;
-        java.util.ArrayList<Type> par = new java.util.ArrayList<Type>();
+        java.util.ArrayList<Symbol> par = new java.util.ArrayList<Symbol>();
+        int flag = 0;
       }
       {
-        <PROCEDURE> 
+        (t2 = <PROCEDURE> | t2 = <TYPE> | t2 = <FUNCTION>)
         t = <IDENTIFIER> 
-        <LPAREN> 
-          ( par = ParamList(rSem) )? 
-        <RPAREN> (stmblk(rSem))* <END> <PROCEDURE> 
+        {
+          System.out.println(t.toString());
+          if ( rSem.searchLevel(t.toString()) == null ) {
+            proc = new Symbol(t.toString(), rSem.getLevel(), Category.Procedure);
+            rSem.insert(proc);
+            rSem.newLevel();
+            flag = 1;
+          }
+          else {
+            //Throw semantic exception
+            printError(t, "Erro Semantico: Procedimento '" + t.toString() + "' ja declarado.");
+          }
+        }
 
+        <LPAREN> 
+          ( 
+              par = ParamList(rSem) 
+              {
+                if(proc != null)
+                  proc.setParameters(par);
+              }
+          )? 
+          // MUDAR STMBLK ????????????
+        <RPAREN> (stmblk(rSem))* 
+
+        <END> ProcedureType(t2)
+
+
+        {
+          if (flag == 1) {
+
+              if(proc!= null) {
+                proc.setNPar(par.size());
+                
+                for (int i = 0; i < par.size(); i++)
+                  rSem.insert(par.get(i));
+              }
+          }
+        }
+
+        /*
         {
             proc = rSem.search(t.toString());
 
@@ -487,14 +577,73 @@ void javacc_input() :
               printError(t, "Erro semantico: Procedimento '" + t.toString() + "' não declarado.");
             }
         }
-
+        */
       }
 
-      void FuncDeclare(SemanticRoutines rSem) :
-      {}
+      void ProcedureType(Token procType) :
       {
-        <FUNCTION> <IDENTIFIER> <LPAREN> /*(ParamList())?*/ <RPAREN> (stmblk(rSem))* <END> <FUNCTION>
+        Token t;
       }
+      {
+        t = <PROCEDURE> | t = <FUNCTION> | t = <TYPE>
+        {
+          if(!t.toString().equals(procType.toString()))
+            printError(t, "Erro Sintático: Esperado fechamento de '" + procType.toString());
+        }
+      }
+
+
+      java.util.ArrayList<Symbol> ParamList(SemanticRoutines rSem) :
+      {
+        Symbol s;
+        java.util.ArrayList<Symbol> parList = new java.util.ArrayList<Symbol>();
+      }
+      {
+        s = Parameter(rSem) 
+        {
+          parList.add(s);
+        }
+
+        (
+            <COMMA> 
+            s = Parameter(rSem) 
+            {
+              parList.add(s);
+            }
+        )*
+
+
+        {
+          return parList;
+        }
+      }
+
+            Symbol Parameter(SemanticRoutines rSem) :
+            {
+              Type type;
+              Token t;
+            }
+            {
+              type = DataType() 
+              t = <IDENTIFIER>
+              {
+                if (rSem.searchLevel(t.toString()) == null) {
+                  Symbol s = new Symbol(t.toString(), rSem.getLevel(), Category.Parameter);
+                  s.setType(type);
+                  rSem.insert(s);
+                  return s;
+                }
+                else {
+                  printError(t, "Erro Semantico: Parâmetro '" + t.toString() + "' ja declarado.");
+                  return null;
+                }
+              }
+            }
+
+
+
+
+
 
       void stmblk(SemanticRoutines rSem) :
       {}
@@ -510,7 +659,7 @@ void javacc_input() :
           | Branch()
           | Return()
           | LOOKAHEAD(2) <IDENTIFIER> (Assignment() | Call())
-          | (ScopeModifier())? ( VarDeclare(rSem) | TypeDeclare(rSem) )
+          //| (ScopeModifier())? ( VarDeclare(rSem) | TypeDeclare(rSem) )
       }
 
             void Flow() :
@@ -659,59 +808,6 @@ void javacc_input() :
               <RETURN> Expression() (<COMMA> Expression())*
             }
 
-            void VarDeclare(SemanticRoutines rSem) :
-            {
-              Type type;
-            }
-            {
-              type = DataType() 
-
-              IdentList(rSem, type)
-            }
-
-                  void IdentList(SemanticRoutines rSem, Type type) :
-                  {}
-                  {
-                    Ident(rSem, type) ( <COMMA> Ident(rSem, type) )* 
-                  }
-
-                        void Ident(SemanticRoutines rSem, Type type) :
-                        {
-                          Token t;
-                        }
-                        {
-                           t = <IDENTIFIER> 
-                           {
-                              System.out.println(t.toString());
-                              if (rSem.searchLevel(t.toString()) == null) {
-                                Symbol s = new Symbol(t.toString(),rSem.getLevel(),Category.Variable);
-                                //s.setType(SemanticRoutines.tokenAsType(type));
-                                s.setType(type);
-                                rSem.insert(s);
-
-                              }
-                              else {
-                                //Throw semantic exception
-                                printError(t, "Erro Semantico: Variavel '" + t.toString() + "' ja declarada.");
-                              }
-                           }
-                           (<EQUAL> Expression())?
-                        }
-
-            void TypeDeclare(SemanticRoutines rSem) : 
-            {
-              Token t;
-            }
-            {
-              <TYPE> 
-              t = <IDENTIFIER> 
-              {
-                // declara um procedure
-
-              }
-              <LPAREN> /*(ParamList())? */<RPAREN> (stmblk(rSem))* <END> <TYPE> 
-            }
-
             void Call() :
             {}
             {
@@ -821,30 +917,6 @@ void Expression06() :
                     <LBRACKET> Expression() <RBRACKET>
                   }
 
-      java.util.ArrayList<Type> ParamList(SemanticRoutines rSem) : // usar lista de parâmetros do symbol
-      {
-        java.util.ArrayList<Type> par = new java.util.ArrayList<Type>();
-      }
-      {
-        Parameter(rSem, par) (<COMMA> Parameter(rSem, par) )*
-        {
-          return par;
-        }
-      }
-
-            void Parameter(SemanticRoutines rSem, java.util.ArrayList<Type> par) :
-            {
-              Type tp;
-            }
-            {
-              tp = DataType() 
-              <IDENTIFIER>
-              {
-                par.add(tp);
-              }
-
-            }
-
 
 /*****************************************
               DATA TYPE
@@ -863,11 +935,22 @@ Type DataType() :
 }
 {
   t = <IDENTIFIER>
-  //t = <ATOM> | t = <INT> | t = <SEQUENCE> | t = <OBJECT> | t = <IDENTIFIER>
   {
       System.out.println(t.toString());
-      //if() MUDAR ??????????? colocar todas as opções
-      tp = Type.Atom;
+      tp = null;
+      if(t.toString().equals("atom"))
+          tp = Type.Atom;
+      else if(t.toString().equals("integer"))
+          tp = Type.Int;
+      else if(t.toString().equals("sequence"))
+          tp = Type.Sequence;
+      else if(t.toString().equals("object"))
+          tp = Type.Object;
+      else if(t.toString().equals("constant"))
+          tp = Type.Constant;
+      else
+        printError(t, "Erro Semantico: Tipo " + t.toString() + " nao existe.");
+
       return tp;
   }
 }

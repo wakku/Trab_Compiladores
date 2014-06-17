@@ -61,7 +61,6 @@ public class SemanticRoutines {
 	}
 
 	public void insert(Symbol symbol) {
-		System.out.println(level + "    " + scopes.size());
 		if ( level < scopes.size() ) {
 			scopes.get(level).insert(symbol);
 		}
