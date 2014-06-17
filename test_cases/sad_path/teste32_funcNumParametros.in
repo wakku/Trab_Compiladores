@@ -1,0 +1,8 @@
+--Numero errado de argumentos na funcao:
+integer a = 5
+integer b = 2
+function teste(integer arg)
+?arg
+return arg
+end function
+integer resultado = teste(a, b)

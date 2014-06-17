@@ -1,0 +1,5 @@
+--Realizar operacoes do lado esquerdo do '='
+integer a = 8
+integer b = 1
+integer teste
+teste + a = b

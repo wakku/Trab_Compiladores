@@ -1,0 +1,6 @@
+--Não deve redeclarar argumentos
+integer a
+procedure teste(integer arg)
+integer arg
+end procedure
+teste(a)

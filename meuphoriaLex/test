@@ -6,7 +6,7 @@
  pra ver se o compilador pode
  ignorar tudo isso sem problemas*/
 
- /*
+/*
   *aaaaa
   *bbbbb
   */
@@ -15,6 +15,15 @@
 integer counterwwwwww
 integer miles
 sequence name
+
+function tmp(integer a)
+end function
+
+procedure tmp2(integer a)
+end procedure
+
+type tmp2(integer a)
+end type
 
 enum ONE, TWO, THREE
 

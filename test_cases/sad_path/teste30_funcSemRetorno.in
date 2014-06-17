@@ -1,0 +1,6 @@
+--Funcao nao possui retorno
+integer a = 8
+function teste(integer arg)
+?arg
+end function
+integer resultado = teste(a)
