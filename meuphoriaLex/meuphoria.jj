@@ -168,7 +168,7 @@ TOKEN : {
 PALAVRAS RERSERVADAS
 *****************************************/
 TOKEN : {
-    <CASE :	"case">
+    <CASE : "case">
     | <DO : "do">
     | <END : "end">
     | <EXPORT : "export">
@@ -459,6 +459,7 @@ void variables_declaration() :
         {
           type = Type.Enum;
         }
+        // REMOVIDO ENUMDELTA
         (EnumVal(rSem, type) | EnumType(rSem, type))
       }
 
@@ -759,7 +760,8 @@ void IfDefStatement(SemanticRoutines rSem) :
 void SwitchStatement(SemanticRoutines rSem) :
 {}
 {
-  SwitchTest(rSem) CaseStatement(rSem) (LOOKAHEAD(2) CaseStatement(rSem))* (<CASE> <ELSE> (stmblk(rSem))* )? <END> <SWITCH>
+  // REMOVIDO CASE DO CASE ELSE
+  SwitchTest(rSem) CaseStatement(rSem) (LOOKAHEAD(2) CaseStatement(rSem))* (<ELSE> (stmblk(rSem))* )? <END> <SWITCH>
 }
 
       void SwitchTest(SemanticRoutines rSem) :
@@ -967,7 +969,13 @@ void Slice(SemanticRoutines rSem) :
   Type type;
 }
 {
-    <SLICE> ( type = Expression(rSem) | <END_SYMBOL>) <RBRACKET>
+    // SLIDE ALTERAÇÕES - PEDIDO
+    <SLICE> ( type = Expression(rSem) | <END_SYMBOL>) <RBRACKET> 
+      //Tem que arrumar, essa é a repetição
+      (
+        <LBRACKET> Expression(rSem) <SLICE> ( type = Expression(rSem) | <END_SYMBOL>
+      )*
+
     {
       // verifica se type é inteiro
 
@@ -977,7 +985,8 @@ void Slice(SemanticRoutines rSem) :
 void Subscripting(SemanticRoutines rSem) :
 {}
 {
-    <RBRACKET> ( Index(rSem) )*
+    // Adicionado esse index iniciado - PEDIDO
+    Index(rSem) <RBRACKET> ( Index(rSem) )*
 }
 
                   void Index(SemanticRoutines rSem) :
