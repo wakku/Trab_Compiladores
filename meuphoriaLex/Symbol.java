@@ -20,6 +20,16 @@ public class Symbol {
 			parameters = new ArrayList();
 		}
 	}
+
+	public Symbol(String _id, int _level, int _value, Category _category) {
+		id = _id;
+		level = _level;
+		value = _value;
+		category = _category;
+		if ( category == Category.Procedure ) {
+			parameters = new ArrayList();
+		}
+	}
 	
 	public Symbol(int _value, int _level, Type _type) {
 		value = _value;
@@ -67,6 +77,19 @@ public class Symbol {
 			case Constant:
 				s += " Tipo=" + getType();
 				break;
+			case Function:
+				s += " Parametros=(";
+				i = parameters.iterator();
+				if ( i != null ) {
+					while ( i.hasNext() ) {
+						s += (Symbol)i.next();
+						if ( i.hasNext() ) {
+							s += ", ";
+						}
+					}
+				}
+				s += ") " + npar;
+				break;
 			case Procedure:
 				s += " Parametros=(";
 				i = parameters.iterator();
@@ -84,57 +107,23 @@ public class Symbol {
 		return s;
 	}
 
-	public String getId() {
-		return id;
-	}
+	/***************************
+	GETTERS
+	***************************/
 
-	public Type getType() {
-		return type;
-	}
+	public String 	getId() 			{ return id; }
+	public Type 	getType() 			{ return type; }
+	public int 		getLevel() 			{ return level; }
+	public Category getCategory() 		{ return category; }
+	public ArrayList getParameters() 	{ return parameters; }
+	public int 		getNPar() 			{ return npar; }
+	public int 		getAddress() 		{ return address; }
+	public String 	getLabel()			{ return label; }
 
-	public void setType(Type t) {
-		type = t;
-	}
-
-	public int getLevel() {
-		return level;
-	}
-
-	public Category getCategory() {
-		return category;
-	}
-
-	public ArrayList getParameters() {
-		return parameters;
-	}
-
-	public void setParameters(ArrayList par) {
-		parameters = par;
-	}
-	
-	public int getNPar() {
-		return npar;
-	}
-
-	public void setNPar(int d) {
-		npar = d;
-	}
-
-	public void setAddress(int addr) {
-		address = addr;
-	}
-	
-	public int getAddress() {
-		return address;
-	}
-	
-	public void setLabel(String lbl) {
-		label = lbl;
-	}
-	
-	public String getLabel() {
-		return label;
-	}
-
+	public void setType(Type t) 				{ type = t; }
+	public void setParameters(ArrayList par) 	{ parameters = par; }
+	public void setNPar(int d) 					{ npar = d; }
+	public void setAddress(int addr) 			{ address = addr;	}	
+	public void setLabel(String lbl) 			{ label = lbl; }
 }
 
