@@ -2,4 +2,4 @@ integer a = 4
 integer b = 2
 integer a = 5
 
---Redeclaracao de Variavel não pode!
+--Redeclaracao de Variavel nao pode!

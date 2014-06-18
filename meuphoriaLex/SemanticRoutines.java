@@ -46,7 +46,7 @@ public class SemanticRoutines {
 			builtin_trace,		builtin_xor_bits 
 			;  	
 
-		builtin_SumSeq 			= new Symbol("?", 0, 1, 100, Category.Procedure);
+		//builtin_SumSeq 			= new Symbol("?", 0, 1, 100, Category.Procedure);
 		builtin_abort 			= new Symbol("abort", 0, Category.Procedure);
 		builtin_and_bits		= new Symbol("and_bits", 0, Category.Function);
 		builtin_append			= new Symbol("append", 0, Category.Function);
@@ -133,7 +133,7 @@ public class SemanticRoutines {
 		// As demais constantes estão todas definidas em bibliotecas, como por exemplo o PI e etc. Não são builtins do Euphoria
 
 		/** COLOCANDO NA TABELA **/
-		symbols.insert(builtin_SumSeq);
+		//symbols.insert(builtin_SumSeq);
 		symbols.insert(builtin_abort);
 		symbols.insert(builtin_and_bits);
 		symbols.insert(builtin_append);

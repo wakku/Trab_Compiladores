@@ -5,5 +5,5 @@ tempo   = 100
 tempo   = 101
 distancia = 1000.0    		-- Setar um ponto flutuante
 nome    = "Vanessa"    		-- Setar uma String
-constant MAX = 100    		-- Setar uma constante
+constant MAX    		-- Setar uma constante
 enum ONE, TWO, THREE, FOUR 	-- Enumerar

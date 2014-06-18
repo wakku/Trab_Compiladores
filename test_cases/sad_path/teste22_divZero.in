@@ -1,2 +1,0 @@
---Não deve dividir por zero:
-integer a = 8 /0

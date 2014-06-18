@@ -33,67 +33,67 @@ public interface MeuphoriaConstants {
   /** RegularExpression Id. */
   int UNTIL = 18;
   /** RegularExpression Id. */
-  int CONSTANT = 19;
+  int ELSE = 19;
   /** RegularExpression Id. */
-  int ELSE = 20;
+  int ENTRY = 20;
   /** RegularExpression Id. */
-  int ENTRY = 21;
+  int FALLTHRU = 21;
   /** RegularExpression Id. */
-  int FALLTHRU = 22;
+  int GOTO = 22;
   /** RegularExpression Id. */
-  int GOTO = 23;
+  int LABEL = 23;
   /** RegularExpression Id. */
-  int LABEL = 24;
+  int RETRY = 24;
   /** RegularExpression Id. */
-  int RETRY = 25;
+  int THEN = 25;
   /** RegularExpression Id. */
-  int THEN = 26;
+  int WHILE = 26;
   /** RegularExpression Id. */
-  int WHILE = 27;
+  int BREAK = 27;
   /** RegularExpression Id. */
-  int BREAK = 28;
+  int CONTINUE = 28;
   /** RegularExpression Id. */
-  int CONTINUE = 29;
+  int ELSEDEF = 29;
   /** RegularExpression Id. */
-  int ELSEDEF = 30;
+  int ENUM = 30;
   /** RegularExpression Id. */
-  int ENUM = 31;
+  int IF = 31;
   /** RegularExpression Id. */
-  int IF = 32;
+  int LOOP = 32;
   /** RegularExpression Id. */
-  int LOOP = 33;
+  int OVERRIDE = 33;
   /** RegularExpression Id. */
-  int OVERRIDE = 34;
+  int RETURN = 34;
   /** RegularExpression Id. */
-  int RETURN = 35;
+  int TO = 35;
   /** RegularExpression Id. */
-  int TO = 36;
+  int WITH = 36;
   /** RegularExpression Id. */
-  int WITH = 37;
+  int BY = 37;
   /** RegularExpression Id. */
-  int BY = 38;
+  int ELSIF = 38;
   /** RegularExpression Id. */
-  int ELSIF = 39;
+  int EXIT = 39;
   /** RegularExpression Id. */
-  int EXIT = 40;
+  int FUNCTION = 40;
   /** RegularExpression Id. */
-  int FUNCTION = 41;
+  int IFDEF = 41;
   /** RegularExpression Id. */
-  int IFDEF = 42;
+  int PROCEDURE = 42;
   /** RegularExpression Id. */
-  int PROCEDURE = 43;
+  int TYPE = 43;
   /** RegularExpression Id. */
-  int TYPE = 44;
+  int WITHOUT = 44;
   /** RegularExpression Id. */
-  int WITHOUT = 45;
+  int SAVE = 45;
   /** RegularExpression Id. */
-  int SAVE = 46;
+  int STRICT = 46;
   /** RegularExpression Id. */
-  int STRICT = 47;
+  int ELSEIFDEF = 47;
   /** RegularExpression Id. */
-  int ELSEIFDEF = 48;
+  int FOR = 48;
   /** RegularExpression Id. */
-  int FOR = 49;
+  int PRINT = 49;
   /** RegularExpression Id. */
   int LPAREN = 50;
   /** RegularExpression Id. */
@@ -229,7 +229,6 @@ public interface MeuphoriaConstants {
     "\"public\"",
     "\"switch\"",
     "\"until\"",
-    "\"constant\"",
     "\"else\"",
     "\"entry\"",
     "\"fallthru\"",
@@ -260,6 +259,7 @@ public interface MeuphoriaConstants {
     "\"strict\"",
     "\"elsifdef\"",
     "\"for\"",
+    "\"?\"",
     "\"(\"",
     "\")\"",
     "\"{\"",

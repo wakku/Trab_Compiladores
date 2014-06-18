@@ -7,13 +7,14 @@ public class Symbol {
 	private Category category;
 	private Type type;
 	private int npar; // numero de parametros, no caso de funcao
-	private int minpar; // numero min par - funcoes builtin
-	private int maxpar; // numero max par - funcoes builtin
+	private int minpar = -1; // numero min par - funcoes builtin
+	private int maxpar = -1; // numero max par - funcoes builtin
 	private ArrayList parameters;
 	private int address;
 	private String label;
 	private int value;
 	private int nbytes;
+	private int return_parameters = 0;
 
 	public Symbol(String _id, int _level, Category _category) {
 		id = _id;
@@ -68,7 +69,9 @@ public class Symbol {
 			return 1;		// não é um procedimento.
 		}
 		if ( parameters.size() != _par.size() ) {
-			if( !(_par.size() >= minpar) && !(_par.size() <= maxpar ) ) //se não estiver no intervalo
+			if(minpar == -1 && maxpar == -1)
+				return 2;
+			else if( !(_par.size() >= minpar) && !(_par.size() <= maxpar ) ) //se não estiver no intervalo
 				return 2;		// número de parâmetros inválidos.
 		}
 		/*
@@ -136,6 +139,7 @@ public class Symbol {
 	public int 		getLevel() 			{ return level; }
 	public Category getCategory() 		{ return category; }
 	public ArrayList getParameters() 	{ return parameters; }
+	public int getReturnParameters() 	{ return return_parameters; }
 	public int 		getNPar() 			{ return npar; }
 	public int 		getAddress() 		{ return address; }
 	public String 	getLabel()			{ return label; }
@@ -144,6 +148,7 @@ public class Symbol {
 
 	public void setType(Type t) 				{ type = t; }
 	public void setParameters(ArrayList par) 	{ parameters = par; }
+	public void setReturnParameters(int n) 		{ return_parameters = n; }
 	public void setNPar(int d) 					{ npar = d; }
 	public void setAddress(int addr) 			{ address = addr;	}	
 	public void setLabel(String lbl) 			{ label = lbl; }

@@ -37,6 +37,8 @@ class Meuphoria {
 
     private static int errors = 0;
     private static boolean checkDeclaration = false;
+    private static int _return = 0;
+    private static Token call = null;
 
 // Processa o código e gera a tabela de tokens
     public void processa() throws ParseException, TokenMgrError {
@@ -168,7 +170,7 @@ TOKEN : {
     | <PUBLIC : "public">
     | <SWITCH : "switch">
     | <UNTIL : "until">
-    | <CONSTANT : "constant">
+    //| <CONSTANT : "constant">
     | <ELSE : "else">
     | <ENTRY : "entry">
     | <FALLTHRU : "fallthru">
@@ -199,6 +201,7 @@ TOKEN : {
     | <STRICT : "strict">
     | <ELSEIFDEF : "elsifdef">
     | <FOR : "for">
+    | <PRINT : "?">
 }
 
 /*****************************************
@@ -440,8 +443,16 @@ void variables_declaration() :
         Symbol proc = null;
         java.util.ArrayList<Symbol> par = new java.util.ArrayList<Symbol>();
         int flag = 0;
+        int a = 0;
+        int tmp = 0;
       }
       {
+        {
+          if(_return > 0) {
+            tmp = _return;
+            _return = 0;
+          }
+        }
         (t2 = <PROCEDURE> | t2 = <TYPE> | t2 = <FUNCTION>)
         t = <IDENTIFIER> 
         {
@@ -468,12 +479,23 @@ void variables_declaration() :
               }
           )? 
           // MUDAR STMBLK ????????????
-        <RPAREN> (stmblk(rSem))* 
+        <RPAREN> 
+        ( stmblk(rSem) )* 
 
         <END> ProcedureType(rSem, t2)
 
-
         {
+          if(proc != null)
+            proc.setReturnParameters(_return);
+
+          if(_return > 0) {
+            if(t2.toString().equals("procedure") && !checkDeclaration)
+              printError(t2, "Erro Semantico: Procedure nao pode retornar nenhum valor.");
+            _return = tmp;
+          }
+          else if((t2.toString().equals("function") || t2.toString().equals("type") ) && !checkDeclaration)
+            printError(t2, "Erro Semantico: " + t2.toString() + " nao retorna nenhum valor.");
+
           if (flag == 1) {
 
               if(proc!= null) {
@@ -483,8 +505,11 @@ void variables_declaration() :
                   rSem.insert(par.get(i));
               }
           }
-          if(!checkDeclaration)
-            rSem.previousLevel();
+          if(!checkDeclaration) {
+            rSem.removeLastLevel();
+            //rSem.previousLevel();
+            //rSem.deleteUpperLevel();
+          }
         }
       }
 
@@ -578,24 +603,36 @@ void javacc_input() :
       }
 }
 
-      void stmblk(SemanticRoutines rSem) :
-      {}
+      int stmblk(SemanticRoutines rSem) :
       {
-          ( statement(rSem) ) | <EOL>
+        int a = 0;
+      }
+      {
+          ( a = statement(rSem) ) { return a; }
+          | <EOL> { return a; }
       }
 
-      void statement(SemanticRoutines rSem) :
+      int statement(SemanticRoutines rSem) :
       {
         Token t;
+        int a = 0;
       }
       {
-            Flow(rSem)
-          | Loop(rSem)
-          | Branch(rSem)
-          | Return(rSem)
-          | LOOKAHEAD(2) (t = <IDENTIFIER>) (Assignment(rSem,t) | Call(rSem,t))
-          | (ScopeModifier())? (VarDeclare(rSem) | ProcDeclare(rSem) | EnumDeclare(rSem) ) 
+            Flow(rSem) { return a; }
+          | Loop(rSem) { return a; }
+          | Branch(rSem) { return a; }
+          | (a = Return(rSem) ) { return a; }
+          | LOOKAHEAD(2) (t = <IDENTIFIER>) (Assignment(rSem,t) | Call(rSem,t))  { return a; }
+          | (ScopeModifier())? (VarDeclare(rSem) | ProcDeclare(rSem) | EnumDeclare(rSem) )  { return a; }
+          | Print(rSem) { return a; }
+          
       }
+
+void Print(SemanticRoutines rSem) :
+{}
+{
+  <PRINT> Expression(rSem)
+}
 
             void Flow(SemanticRoutines rSem) :
             {}
@@ -761,11 +798,54 @@ void Assignment(SemanticRoutines rSem, Token identifier) :
 }
 
       void AssignmentMulti(SemanticRoutines rSem) :
-      {}
       {
-          (Variable(rSem))? (<COMMA> <IDENTIFIER> (Variable(rSem))? )? <EQUAL> Expression(rSem) (<COMMA> Expression(rSem))?
+        Token t;
+        int var = 1, exp = 0;
+      }
+      {
           {
-
+            call = null;
+          }
+          (Variable(rSem))? 
+          (
+            <COMMA> <IDENTIFIER> (Variable(rSem))? 
+            {
+              var++;
+            }
+          )? 
+          t = <EQUAL> 
+          Expression(rSem) 
+          {
+            if(call != null) {
+              Symbol c = rSem.search(call.toString());
+              if(c != null && c.getCategory() == Category.Procedure) {
+                exp += c.getReturnParameters();
+              }
+              else
+                exp = 1;
+            }
+            else
+              exp = 1;
+          }
+          (
+            <COMMA> Expression(rSem)
+            {
+              if(call != null) {
+                Symbol c = rSem.search(call.toString());
+                if(c != null && c.getCategory() == Category.Procedure) {
+                  exp += c.getReturnParameters();
+                }
+                else
+                  exp++;
+              }
+              else
+                exp++;
+            }
+          )?
+          {
+            if(var != exp && !checkDeclaration) {
+              printError(t, "Erro Semantico: Quantidade diferente de parametros na atribuicao de variaveis.");
+            }
           }
       }
 
@@ -778,10 +858,28 @@ void Assignment(SemanticRoutines rSem, Token identifier) :
           }
       }
 
-void Return(SemanticRoutines rSem) :
-{}
+int Return(SemanticRoutines rSem) :
 {
-    <RETURN> Expression(rSem) (<COMMA> Expression(rSem))*
+  Token t;
+  int i = 1;
+}
+{
+    t = <RETURN> 
+    Expression(rSem) 
+    (
+      <COMMA> Expression(rSem)
+      {
+        i++;
+      }
+    )*
+
+    {
+      if(_return > 0 && _return != i && !checkDeclaration)
+        printError(t, "Erro Semantico: Quantidade de parametros de retorno diferentes.");
+      else if(_return == 0)
+        _return = i;
+      return 1;
+    }
 }
 
 
@@ -857,7 +955,9 @@ SEQUENCIA
 ************************************************************/
 
 void Sequence(SemanticRoutines rSem) :
-{}
+{
+  //int tam;
+}
 {
     <LBRACE> ( LOOKAHEAD(2) <END_SYMBOL> | Object(rSem) (LOOKAHEAD(2) <COMMA> Object(rSem))* (<COMMA> <END_SYMBOL>)? )? <RBRACE> 
 }
@@ -964,6 +1064,7 @@ void Expression06(SemanticRoutines rSem) :
 {
     Atom(rSem) | <STRINGLIT> | (<LPAREN> Expression(rSem) <RPAREN>) | (t = <IDENTIFIER>) (Call(rSem, t) | Variable(rSem))?
     {
+      call = t;
       // check if the variable is declared
       var = rSem.searchLevel(t.toString());
       if(var == null && !checkDeclaration)

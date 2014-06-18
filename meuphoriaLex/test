@@ -22,15 +22,15 @@ t = {1,2,3}
 
 integer lalala
 
-procedure tmp2(integer a)
-	integer lalala
-end procedure
-
 lalala = miles
 
-tmp2(miles, name)
+function tmp(integer a)
+	if a then
+		return 1
+	end if
+	return 1
+end function
 
---function tmp(integer a)
---end function
+return 1,2
 
-
+miles, name = tmp(miles), miles

@@ -1,4 +1,4 @@
-integer b
+integer b, a
 
 for a = 1 to 16 do
    printf(1, "valor de a: %d\n", a)

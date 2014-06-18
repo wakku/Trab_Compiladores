@@ -1,2 +1,2 @@
-Lexical error at line 1, column 4.  Encountered: "\u201e" (8222), after : ""
-Existem erros no codigo! Por favor, verifica-los.
+[4, 9] Erro Semantico: Variavel 'arg' ja declarada.
+Análise encontrou 1 erro(s).

@@ -3,5 +3,5 @@ function DigaOi()
    return 1
 end function
 
--- Chama a função acima
+-- Chama a funcao acima
 DigaOi()

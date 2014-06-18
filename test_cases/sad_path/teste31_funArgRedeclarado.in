@@ -1,4 +1,4 @@
---Não deve redeclarar argumentos
+--Nao deve redeclarar argumentos
 integer a
 procedure teste(integer arg)
 integer arg
