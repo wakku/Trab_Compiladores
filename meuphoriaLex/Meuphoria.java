@@ -44,7 +44,6 @@ public static void main(String args[]) {
             String read = br.readLine();
 
             while(read != null) {
-//System.out.println(read);
                 sb.append(read + "\u005cn");
                 read =br.readLine();
 
@@ -54,25 +53,15 @@ public static void main(String args[]) {
             System.out.println(e.getMessage());
         }
 
-//System.out.println(sb.toString());
-
-// Define o analisador sintatico de acordo com a entrada do sistema
-//Meuphoria analisadorSintatico = new Meuphoria(System.in);
+        // Define o analisador sintatico de acordo com a entrada do sistema
         Meuphoria analisadorSintatico = new Meuphoria(new java.io.StringReader(sb.toString()));
 
-// Roda o loop de processamento enquanto não encontrar EOF
-//analisadorlexico.processa();
-// Processamento finalizado
-//System.out.println("Analisado com sucesso!");
-
-      //analisadorSintatico.javacc_input();
-      analisadorSintatico.variables_declaration();
+        analisadorSintatico.variables_declaration();
 
         checkDeclaration = true;
         analisadorSintatico = new Meuphoria(new java.io.StringReader(sb.toString()));
 
         analisadorSintatico.javacc_input();
-//System.out.println("SUCESSO!");
     }
     catch(ParseException e)
     {
@@ -212,8 +201,7 @@ rSem = new SemanticRoutines();
 
   final public void Ident(SemanticRoutines rSem, Type type) throws ParseException {Token t;
     t = jj_consume_token(IDENTIFIER);
-System.out.println(t.toString());
-                              if(!checkDeclaration) {
+if(!checkDeclaration) {
                                   if (rSem.searchLevel(t.toString()) == null) {
                                     Symbol s = new Symbol(t.toString(),rSem.getLevel(),Category.Variable);
                                     s.setType(type);
@@ -291,8 +279,7 @@ type = Type.Enum;
       throw new ParseException();
     }
     t = jj_consume_token(IDENTIFIER);
-System.out.println(t.toString());
-          if(!checkDeclaration) {
+if(!checkDeclaration) {
               if ( rSem.searchLevel(t.toString()) == null ) {
                 proc = new Symbol(t.toString(), rSem.getLevel(), Category.Procedure);
                 rSem.insert(proc);
@@ -370,7 +357,7 @@ if (flag == 1) {
     case TYPE:{
       t = jj_consume_token(TYPE);
 if(!t.toString().equals(procType.toString()) && !checkDeclaration)
-                  printError(t, "Erro Sint\u221a\u00b0tico: Esperado fechamento de '" + procType.toString());
+                  printError(t, "Erro Sint\u00e1tico: Esperado fechamento de '" + procType.toString());
       break;
       }
     default:
@@ -415,7 +402,7 @@ if (rSem.searchLevel(t.toString()) == null) {
                 }
                 else {
                   if(!checkDeclaration)
-                      printError(t, "Erro Semantico: Par\u221a\u00a2metro '" + t.toString() + "' ja declarado.");
+                      printError(t, "Erro Semantico: Par\u00e2metro '" + t.toString() + "' ja declarado.");
                   {if ("" != null) return null;}
                 }
     throw new Error("Missing return statement in function");
@@ -513,10 +500,10 @@ rSem = new SemanticRoutines();
     }
     jj_consume_token(0);
 if ( errors != 0 ) {
-          System.out.println("An\u221a\u00b0lise encontrou " + errors + " erro(s).");
+          System.out.println("An\u00e1lise encontrou " + errors + " erro(s).");
         }
         else {
-          System.out.println("An\u221a\u00b0lises l\u221a\u00a9xica, sint\u221a\u00b0tica e sem\u221a\u00a2ntica conclu\u221a\u2260das com sucesso!");
+          System.out.println("An\u00e1lises l\u00e9xica, sint\u00e1tica e sem\u00e2ntica conclu\u00eddas com sucesso!");
         }
   }
 
@@ -749,7 +736,7 @@ if ( errors != 0 ) {
     t = jj_consume_token(WHILE);
     type = Expression(rSem);
 if(type != Type.Boolean && !checkDeclaration)
-            printError(t, "Erro Semantico: A condi\u221a\u00df\u221a\u00a3o do " + t.toString() + " deve ser do tipo boolean" );
+            printError(t, "Erro Semantico: A condi\u00e7\u00e3o do " + t.toString() + " deve ser do tipo boolean" );
     switch ((jj_ntk==-1)?jj_ntk_f():jj_ntk) {
     case WITHENTRY:{
       jj_consume_token(WITHENTRY);
@@ -1437,7 +1424,7 @@ if(type != Type.Boolean && !checkDeclaration)
     case EQUAL:{
 var = rSem.search(identifier.toString());
       if(var == null && !checkDeclaration)
-        printError(identifier, "Erro Semantico: Vari\u221a\u00b0vel " + identifier.toString() + " n\u221a\u00a3o declarada.");
+        printError(identifier, "Erro Semantico: Vari\u00e1vel " + identifier.toString() + " n\u00e3o declarada.");
       AssignmentMulti(rSem);
       break;
       }
@@ -1573,14 +1560,13 @@ var = rSem.search(identifier.toString());
     jj_consume_token(RPAREN);
 if(checkDeclaration) {
                   proc = rSem.search(t.toString());
-                  System.out.println("testando ----------------->>> " + proc);
 
                   if (proc != null) {
 
                     int analisePar = proc.verifyParameters(par);
 
                     if (analisePar == 1 ) {
-                      printError(t, "Erro semantico: Procedimento '" + t + "' n\u221a\u00a3o declarado.");
+                      printError(t, "Erro semantico: Procedimento '" + t + "' n\u00e3o declarado.");
                     } else if (analisePar == 2)
                       printError(t, "Erro semantico: Procedimento '" + t.toString() + "' com numero de parametros invalidos.");
                     else if (analisePar == 3)
@@ -1592,7 +1578,7 @@ if(checkDeclaration) {
 
                   }
                   else {
-                    printError(t, "Erro semantico: Procedimento '" + t.toString() + "' n\u221a\u00a3o declarado.");
+                    printError(t, "Erro semantico: Procedimento '" + t.toString() + "' n\u00e3o declarado.");
                   }
             }
   }
@@ -2042,7 +2028,7 @@ void Expression(SemanticRoutines rSem) :
 // check if the variable is declared
       var = rSem.search(t.toString());
       if(var == null && !checkDeclaration)
-        printError(t, "Erro Semantico: Vari\u221a\u00b0vel " + t.toString() + " n\u221a\u00a3o declarada.");
+        printError(t, "Erro Semantico: Vari\u00e1vel " + t.toString() + " n\u00e3o declarada.");
       break;
       }
     default:
@@ -2194,8 +2180,7 @@ void ScopeModifier() throws ParseException {
   final public Type DataType(SemanticRoutines rSem) throws ParseException {Token t;
   Type tp;
     t = jj_consume_token(IDENTIFIER);
-System.out.println(t.toString());
-      tp = null;
+tp = null;
       if(t.toString().equals("atom"))
           tp = Type.Atom;
       else if(t.toString().equals("integer"))
@@ -2298,6 +2283,43 @@ System.out.println(t.toString());
     finally { jj_save(5, xla); }
   }
 
+  private boolean jj_3R_33()
+ {
+    if (jj_3R_38()) return true;
+    return false;
+  }
+
+  private boolean jj_3R_77()
+ {
+    if (jj_scan_token(WHILE)) return true;
+    if (jj_3R_46()) return true;
+    return false;
+  }
+
+  private boolean jj_3R_64()
+ {
+    if (jj_3R_75()) return true;
+    return false;
+  }
+
+  private boolean jj_3R_80()
+ {
+    if (jj_3R_85()) return true;
+    return false;
+  }
+
+  private boolean jj_3R_83()
+ {
+    if (jj_scan_token(IDENTIFIER)) return true;
+    return false;
+  }
+
+  private boolean jj_3R_68()
+ {
+    if (jj_3R_77()) return true;
+    return false;
+  }
+
   private boolean jj_3_5()
  {
     if (jj_scan_token(COMMA)) return true;
@@ -2359,12 +2381,6 @@ System.out.println(t.toString());
     return false;
   }
 
-  private boolean jj_3R_93()
- {
-    if (jj_scan_token(LPAREN)) return true;
-    return false;
-  }
-
   private boolean jj_3R_67()
  {
     if (jj_3R_76()) return true;
@@ -2385,6 +2401,12 @@ System.out.println(t.toString());
     }
     }
     }
+    return false;
+  }
+
+  private boolean jj_3R_93()
+ {
+    if (jj_scan_token(LPAREN)) return true;
     return false;
   }
 
@@ -2424,12 +2446,6 @@ System.out.println(t.toString());
     return false;
   }
 
-  private boolean jj_3R_74()
- {
-    if (jj_scan_token(LBRACKET)) return true;
-    return false;
-  }
-
   private boolean jj_3R_63()
  {
     if (jj_scan_token(COMMA)) return true;
@@ -2462,15 +2478,21 @@ System.out.println(t.toString());
     return false;
   }
 
-  private boolean jj_3R_56()
+  private boolean jj_3R_74()
  {
-    if (jj_3R_64()) return true;
+    if (jj_scan_token(LBRACKET)) return true;
     return false;
   }
 
   private boolean jj_3R_39()
  {
     if (jj_scan_token(LPAREN)) return true;
+    return false;
+  }
+
+  private boolean jj_3R_56()
+ {
+    if (jj_3R_64()) return true;
     return false;
   }
 
@@ -2492,23 +2514,6 @@ System.out.println(t.toString());
     return false;
   }
 
-  private boolean jj_3R_46()
- {
-    Token xsp;
-    xsp = jj_scanpos;
-    if (jj_3R_55()) {
-    jj_scanpos = xsp;
-    if (jj_3R_56()) return true;
-    }
-    return false;
-  }
-
-  private boolean jj_3R_55()
- {
-    if (jj_3R_47()) return true;
-    return false;
-  }
-
   private boolean jj_3R_37()
  {
     if (jj_3R_43()) return true;
@@ -2523,6 +2528,23 @@ System.out.println(t.toString());
     jj_scanpos = xsp;
     if (jj_scan_token(9)) return true;
     }
+    return false;
+  }
+
+  private boolean jj_3R_46()
+ {
+    Token xsp;
+    xsp = jj_scanpos;
+    if (jj_3R_55()) {
+    jj_scanpos = xsp;
+    if (jj_3R_56()) return true;
+    }
+    return false;
+  }
+
+  private boolean jj_3R_55()
+ {
+    if (jj_3R_47()) return true;
     return false;
   }
 
@@ -2570,12 +2592,6 @@ System.out.println(t.toString());
     return false;
   }
 
-  private boolean jj_3_6()
- {
-    if (jj_scan_token(END_SYMBOL)) return true;
-    return false;
-  }
-
   private boolean jj_3R_53()
  {
     Token xsp;
@@ -2584,6 +2600,18 @@ System.out.println(t.toString());
     xsp = jj_scanpos;
     if (jj_3R_63()) jj_scanpos = xsp;
     if (jj_scan_token(EQUAL)) return true;
+    return false;
+  }
+
+  private boolean jj_3_6()
+ {
+    if (jj_scan_token(END_SYMBOL)) return true;
+    return false;
+  }
+
+  private boolean jj_3R_72()
+ {
+    if (jj_3R_80()) return true;
     return false;
   }
 
@@ -2610,9 +2638,17 @@ System.out.println(t.toString());
     return false;
   }
 
-  private boolean jj_3R_72()
+  private boolean jj_3R_84()
  {
-    if (jj_3R_80()) return true;
+    if (jj_scan_token(IF)) return true;
+    if (jj_3R_46()) return true;
+    return false;
+  }
+
+  private boolean jj_3R_70()
+ {
+    if (jj_scan_token(GOTO)) return true;
+    if (jj_scan_token(LABELSTMT)) return true;
     return false;
   }
 
@@ -2624,13 +2660,6 @@ System.out.println(t.toString());
     jj_scanpos = xsp;
     if (jj_scan_token(99)) return true;
     }
-    return false;
-  }
-
-  private boolean jj_3R_84()
- {
-    if (jj_scan_token(IF)) return true;
-    if (jj_3R_46()) return true;
     return false;
   }
 
@@ -2666,13 +2695,6 @@ System.out.println(t.toString());
     }
     }
     }
-    return false;
-  }
-
-  private boolean jj_3R_70()
- {
-    if (jj_scan_token(GOTO)) return true;
-    if (jj_scan_token(LABELSTMT)) return true;
     return false;
   }
 
@@ -2723,12 +2745,6 @@ System.out.println(t.toString());
     return false;
   }
 
-  private boolean jj_3R_88()
- {
-    if (jj_3R_89()) return true;
-    return false;
-  }
-
   private boolean jj_3R_38()
  {
     Token xsp;
@@ -2743,6 +2759,12 @@ System.out.println(t.toString());
   private boolean jj_3R_44()
  {
     if (jj_3R_53()) return true;
+    return false;
+  }
+
+  private boolean jj_3R_88()
+ {
+    if (jj_3R_89()) return true;
     return false;
   }
 
@@ -2784,15 +2806,15 @@ System.out.println(t.toString());
     return false;
   }
 
-  private boolean jj_3R_69()
- {
-    if (jj_3R_78()) return true;
-    return false;
-  }
-
   private boolean jj_3_1()
  {
     if (jj_3R_32()) return true;
+    return false;
+  }
+
+  private boolean jj_3R_69()
+ {
+    if (jj_3R_78()) return true;
     return false;
   }
 
@@ -2837,43 +2859,6 @@ System.out.println(t.toString());
  {
     if (jj_scan_token(CASE)) return true;
     if (jj_3R_40()) return true;
-    return false;
-  }
-
-  private boolean jj_3R_33()
- {
-    if (jj_3R_38()) return true;
-    return false;
-  }
-
-  private boolean jj_3R_77()
- {
-    if (jj_scan_token(WHILE)) return true;
-    if (jj_3R_46()) return true;
-    return false;
-  }
-
-  private boolean jj_3R_64()
- {
-    if (jj_3R_75()) return true;
-    return false;
-  }
-
-  private boolean jj_3R_80()
- {
-    if (jj_3R_85()) return true;
-    return false;
-  }
-
-  private boolean jj_3R_83()
- {
-    if (jj_scan_token(IDENTIFIER)) return true;
-    return false;
-  }
-
-  private boolean jj_3R_68()
- {
-    if (jj_3R_77()) return true;
     return false;
   }
 

@@ -1,3 +1,4 @@
+[1, 14] Erro Semantico: Variável c não declarada.
 Encountered " "\n" "\n "" at line 1, column 15.
 Was expecting one of:
     "do" ...

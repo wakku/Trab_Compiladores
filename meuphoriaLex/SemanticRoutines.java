@@ -42,7 +42,7 @@ public class SemanticRoutines {
 			builtin_trace,		builtin_xor_bits 
 			;  	
 
-		builtin_SumSeq 			= new Symbol("?", 0, Category.Procedure);
+		builtin_SumSeq 			= new Symbol("?", 0, 1, 100, Category.Procedure);
 		builtin_abort 			= new Symbol("abort", 0, Category.Procedure);
 		builtin_and_bits		= new Symbol("and_bits", 0, Category.Function);
 		builtin_append			= new Symbol("append", 0, Category.Function);
@@ -94,9 +94,9 @@ public class SemanticRoutines {
 		builtin_position		= new Symbol("position", 0, Category.Procedure);
 		builtin_power			= new Symbol("power", 0, Category.Function);
 		builtin_prepend			= new Symbol("prepend", 0, Category.Function);
-		builtin_print			= new Symbol("print", 0, Category.Procedure);
-		builtin_printf			= new Symbol("printf", 0, Category.Procedure);
-		builtin_puts			= new Symbol("puts", 0, Category.Procedure);
+		builtin_print			= new Symbol("print", 0, 1, 100, Category.Procedure);
+		builtin_printf			= new Symbol("printf", 0, 1, 100, Category.Procedure);
+		builtin_puts			= new Symbol("puts", 0, 1, 100, Category.Procedure);
 		builtin_rand			= new Symbol("rand", 0, Category.Function);
 		builtin_remainder		= new Symbol("remaninder", 0, Category.Function);
 		builtin_remove			= new Symbol("remove", 0, Category.Function);

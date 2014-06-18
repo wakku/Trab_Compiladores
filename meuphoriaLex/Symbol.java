@@ -7,6 +7,8 @@ public class Symbol {
 	private Category category;
 	private Type type;
 	private int npar; // numero de parametros, no caso de funcao
+	private int minpar; // numero min par - funcoes builtin
+	private int maxpar; // numero max par - funcoes builtin
 	private ArrayList parameters;
 	private int address;
 	private String label;
@@ -16,6 +18,19 @@ public class Symbol {
 	public Symbol(String _id, int _level, Category _category) {
 		id = _id;
 		level = _level;
+		category = _category;
+		npar = 1;
+		if ( category == Category.Procedure ) {
+			parameters = new ArrayList();
+		}
+		//nbytes = 
+	}
+
+	public Symbol(String _id, int _level, int _minpar, int _maxpar, Category _category) {
+		id = _id;
+		level = _level;
+		minpar = _minpar;
+		maxpar = _maxpar;
 		category = _category;
 		if ( category == Category.Procedure ) {
 			parameters = new ArrayList();
@@ -53,7 +68,8 @@ public class Symbol {
 			return 1;		// não é um procedimento.
 		}
 		if ( parameters.size() != _par.size() ) {
-			return 2;		// número de parâmetros inválidos.
+			if( !(_par.size() >= minpar) && !(_par.size() <= maxpar ) ) //se não estiver no intervalo
+				return 2;		// número de parâmetros inválidos.
 		}
 		/*
 		Iterator l, p;
@@ -123,6 +139,8 @@ public class Symbol {
 	public int 		getNPar() 			{ return npar; }
 	public int 		getAddress() 		{ return address; }
 	public String 	getLabel()			{ return label; }
+	public int 		getMinpar() 			{ return minpar; }
+	public int 		getMaxpar() 			{ return maxpar; }
 
 	public void setType(Type t) 				{ type = t; }
 	public void setParameters(ArrayList par) 	{ parameters = par; }

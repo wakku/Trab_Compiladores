@@ -1,1 +1,4 @@
-SUCESSO!
+[4, 34] Erro Semantico: Variável a não declarada.
+[5, 7] Erro Semantico: Variável a não declarada.
+[6, 11] Erro Semantico: Variável a não declarada.
+Análise encontrou 3 erro(s).
