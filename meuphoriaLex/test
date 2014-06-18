@@ -13,23 +13,24 @@
 
 -- testando declarar variaveis.
 integer counterwwwwww
-integer miles
+integer miles = 0
 sequence name
 name = miles + name
-
-x = miles
-
-name()
 
 sequence t
 t = {1,2,3}
 
+integer lalala
+
 procedure tmp2(integer a)
+	integer lalala
 end procedure
+
+lalala = miles
 
 tmp2(miles, name)
 
-function tmp(integer a)
-end function
+--function tmp(integer a)
+--end function
 
 

@@ -1,2 +1,3 @@
 [1, 13] Erro Semantico: Variável a não declarada.
-Análise encontrou 1 erro(s).
+[2, 13] Erro Semantico: Variável d não declarada.
+Análise encontrou 2 erro(s).

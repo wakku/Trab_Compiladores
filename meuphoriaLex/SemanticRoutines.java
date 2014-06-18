@@ -9,16 +9,20 @@ public class SemanticRoutines {
 		SymbolsTable symbols = new SymbolsTable();
 		
 		/** TIPOS**/
-		Symbol symbolAtom, symbolInt, symbolSequence, symbolObject;
+		Symbol symbolAtom, symbolInt, symbolSequence, symbolObject, symbolEnum, symbolConstant;
 		symbolAtom 		= new Symbol("atom", 0, Category.Constant);
 		symbolInt 		= new Symbol("int", 0, Category.Constant);
 		symbolSequence 	= new Symbol("sequence", 0, Category.Constant);
 		symbolObject 	= new Symbol("object", 0, Category.Constant);
+		symbolEnum 	= new Symbol("enum", 0, Category.Constant);
+		symbolConstant 	= new Symbol("constant", 0, Category.Constant);
 
 		symbols.insert(symbolAtom);
 		symbols.insert(symbolInt);
 		symbols.insert(symbolSequence);
 		symbols.insert(symbolObject);
+		symbols.insert(symbolEnum);
+		symbols.insert(symbolConstant);
 
 		/** BUILT-INS **/
 		Symbol
@@ -254,7 +258,8 @@ public class SemanticRoutines {
 	}
 
 	public void previousLevel() {
-		level--;
+		//if(level > 0)
+			level--;
 	}
 
 	public void posteriorLevel() {

@@ -1,0 +1,12 @@
+function DigaOi()
+integer teste2 = 1
+printf(1, "Valor de teste2 %d\n", teste2)
+return teste2
+end function
+
+-- chama a procedure definida em cima.
+integer teste1, teste2
+teste1 = 10
+teste2 = 5
+printf(1, "Valor de teste %d\n", teste1)
+DigaOi()

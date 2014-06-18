@@ -1,5 +1,5 @@
 -- Testando comentario.
--- Testando comentário com acentos e alguns caracteres especiais áéíóúç~`!@#$%^&*()-+=.
+-- Testando comentário com acentos e alguns caracteres especiais áéíóç~`!@#$%^&*()-+=.
 
 puts(1, "Testando a Meuphoria!\n") -- testando comentário após código
 

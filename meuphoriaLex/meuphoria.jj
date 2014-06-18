@@ -168,7 +168,6 @@ TOKEN : {
     | <PUBLIC : "public">
     | <SWITCH : "switch">
     | <UNTIL : "until">
-    | <AS : "as">
     | <CONSTANT : "constant">
     | <ELSE : "else">
     | <ENTRY : "entry">
@@ -189,26 +188,14 @@ TOKEN : {
     | <TO : "to">
     | <WITH : "with">
     | <BY : "by">
-    | <DEPRECATE : "deprecate">
     | <ELSIF : "elsif">
     | <EXIT : "exit">
     | <FUNCTION : "function">
     | <IFDEF : "ifdef">
-    | <NAMESPACE : "namespace">
     | <PROCEDURE : "procedure">
-    | <ROUTINE : "routine">
     | <TYPE : "type">
     | <WITHOUT : "without">
-    | <PROFILE : "profile">
-    | <PROFILE_TIME : "profile_time">
-    | <TRACE : "trace">
-    | <BATCH : "batch">
-    | <TYPE_CHECK : "type_check">
-    | <INDIRECT_INCLUDES : "indirect_includes">
-    | <INLINE : "inline">
-    | <WARNING : "warning">
     | <SAVE : "save">
-    | <RESTORE : "restore">
     | <STRICT : "strict">
     | <ELSEIFDEF : "elsifdef">
     | <FOR : "for">
@@ -255,7 +242,6 @@ TOKEN : {
     | <SC_OR: "or" >
     | <SC_AND: "and" >
     | <XOR_OP: "xor" >
-| <QMARK : "?"> // print command
 | <END_SYMBOL : "$">
 }
 
@@ -380,15 +366,6 @@ void variables_declaration() :
           (LOOKAHEAD(2) stmblk(rSem) | (ScopeModifier())? (VarDeclare(rSem) | ProcDeclare(rSem) | EnumDeclare(rSem) ) ) 
       )*
       <EOF>
-
-      /*{
-        if ( errors != 0 ) {
-          System.out.println("Análise encontrou " + errors + " erro(s).");
-        } 
-        else {
-          System.out.println("Análises léxica, sintática e semântica concluídas com sucesso!");
-        }
-      }*/
 }
 
       void VarDeclare(SemanticRoutines rSem) :
@@ -506,6 +483,8 @@ void variables_declaration() :
                   rSem.insert(par.get(i));
               }
           }
+          if(!checkDeclaration)
+            rSem.previousLevel();
         }
       }
 
@@ -615,6 +594,7 @@ void javacc_input() :
           | Branch(rSem)
           | Return(rSem)
           | LOOKAHEAD(2) (t = <IDENTIFIER>) (Assignment(rSem,t) | Call(rSem,t))
+          | (ScopeModifier())? (VarDeclare(rSem) | ProcDeclare(rSem) | EnumDeclare(rSem) ) 
       }
 
             void Flow(SemanticRoutines rSem) :
@@ -773,7 +753,7 @@ void Assignment(SemanticRoutines rSem, Token identifier) :
 }
 {
     {
-      var = rSem.search(identifier.toString());
+      var = rSem.searchLevel(identifier.toString());
       if(var == null && !checkDeclaration)
         printError(identifier, "Erro Semantico: Variável " + identifier.toString() + " não declarada.");
     }
@@ -784,12 +764,18 @@ void Assignment(SemanticRoutines rSem, Token identifier) :
       {}
       {
           (Variable(rSem))? (<COMMA> <IDENTIFIER> (Variable(rSem))? )? <EQUAL> Expression(rSem) (<COMMA> Expression(rSem))?
+          {
+
+          }
       }
 
       void AssignmentWihOp(SemanticRoutines rSem) :
       {}
       {
           (<PLUS> | <MINUS> | <SLASH> | <STAR> | <CONCAT> ) <EQUAL> Expression(rSem) 
+          {
+
+          }
       }
 
 void Return(SemanticRoutines rSem) :
@@ -979,9 +965,13 @@ void Expression06(SemanticRoutines rSem) :
     Atom(rSem) | <STRINGLIT> | (<LPAREN> Expression(rSem) <RPAREN>) | (t = <IDENTIFIER>) (Call(rSem, t) | Variable(rSem))?
     {
       // check if the variable is declared
-      var = rSem.search(t.toString());
+      var = rSem.searchLevel(t.toString());
       if(var == null && !checkDeclaration)
         printError(t, "Erro Semantico: Variável " + t.toString() + " não declarada.");
+      else {
+        //int a = null;
+      }
+
     }
 }
 
