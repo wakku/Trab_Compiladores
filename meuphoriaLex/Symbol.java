@@ -11,6 +11,7 @@ public class Symbol {
 	private int address;
 	private String label;
 	private int value;
+	private int nbytes;
 
 	public Symbol(String _id, int _level, Category _category) {
 		id = _id;
@@ -19,6 +20,7 @@ public class Symbol {
 		if ( category == Category.Procedure ) {
 			parameters = new ArrayList();
 		}
+		//nbytes = 
 	}
 	
 	public Symbol(int _value, int _level, Type _type) {
@@ -43,6 +45,7 @@ public class Symbol {
 		if ( parameters.size() != _par.size() ) {
 			return 2;		// número de parâmetros inválidos.
 		}
+		/*
 		Iterator l, p;
 		l = parameters.iterator();
 		p = _par.iterator();
@@ -51,6 +54,7 @@ public class Symbol {
 				return 3;	// tipo de parâmetros inválidos.
 			}
 		}
+		*/
 		return 0;			// lista de parâmetros válida.
 	}
 
@@ -102,6 +106,10 @@ public class Symbol {
 
 	public Category getCategory() {
 		return category;
+	}
+
+	public void setCategory(Category cat) {
+		category = cat;
 	}
 
 	public ArrayList getParameters() {

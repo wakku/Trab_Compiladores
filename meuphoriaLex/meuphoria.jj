@@ -36,9 +36,10 @@ PARSER_BEGIN(Meuphoria)
 class Meuphoria {
 
     private static int errors = 0;
+    private static boolean checkDeclaration = false;
 
 // Processa o código e gera a tabela de tokens
-    public void processa() throws ParseException, TokenMgrError{
+    public void processa() throws ParseException, TokenMgrError {
         Token t;
         String nomeToken;
         do {
@@ -58,9 +59,9 @@ class Meuphoria {
                 System.out.println(String.format("%-15s %-20s <EOL>", location, nomeToken));
             else
                 System.out.println(String.format("%-15s %-20s %s", location, nomeToken, t.image));
-} while (!(nomeToken.equals("<EOF>"))); // Termina o loop se EOF
-System.out.println(String.format("%s", t.image));
-}
+        } while (!(nomeToken.equals("<EOF>"))); // Termina o loop se EOF
+        System.out.println(String.format("%s", t.image));
+    }
 
 /** Main entry point. */
 public static void main(String args[]) {
@@ -99,9 +100,10 @@ public static void main(String args[]) {
       //analisadorSintatico.javacc_input();
       analisadorSintatico.variables_declaration();
 
+        checkDeclaration = true;
         analisadorSintatico = new Meuphoria(new java.io.StringReader(sb.toString()));
 
-//analisadorSintatico.javacc_input();
+        analisadorSintatico.javacc_input();
 //System.out.println("SUCESSO!");
     }
     catch(ParseException e)
@@ -269,16 +271,6 @@ TOKEN : {
 }
 
 /*****************************************
-VARIAVEIS PRE-DEFINIDAS
-*****************************************
-TOKEN : {
-< ATOM      : "atom" >
-| < INT       : "integer" >
-| < SEQUENCE  : "sequence" >
-| < OBJECT    : "object" >
-}
-
-/*****************************************
 IDENTIFICADORES
 *****************************************/
 TOKEN : { 
@@ -400,14 +392,14 @@ void variables_declaration() :
       )*
       <EOF>
 
-      {
+      /*{
         if ( errors != 0 ) {
           System.out.println("Análise encontrou " + errors + " erro(s).");
         } 
         else {
           System.out.println("Análises léxica, sintática e semântica concluídas com sucesso!");
         }
-      }
+      }*/
 }
 
       void VarDeclare(SemanticRoutines rSem) :
@@ -434,15 +426,17 @@ void variables_declaration() :
                            t = <IDENTIFIER> 
                            {
                               System.out.println(t.toString());
-                              if (rSem.searchLevel(t.toString()) == null) {
-                                Symbol s = new Symbol(t.toString(),rSem.getLevel(),Category.Variable);
-                                s.setType(type);
-                                rSem.insert(s);
+                              if(!checkDeclaration) {
+                                  if (rSem.searchLevel(t.toString()) == null) {
+                                    Symbol s = new Symbol(t.toString(),rSem.getLevel(),Category.Variable);
+                                    s.setType(type);
+                                    rSem.insert(s);
 
-                              }
-                              else {
-                                //Throw semantic exception
-                                printError(t, "Erro Semantico: Variavel '" + t.toString() + "' ja declarada.");
+                                  }
+                                  else {
+                                    //Throw semantic exception
+                                    printError(t, "Erro Semantico: Variavel '" + t.toString() + "' ja declarada.");
+                                  }
                               }
                            }
                            (<EQUAL> Expression(rSem))?
@@ -459,7 +453,6 @@ void variables_declaration() :
         {
           type = Type.Enum;
         }
-        // REMOVIDO ENUMDELTA
         (EnumVal(rSem, type) | EnumType(rSem, type))
       }
 
@@ -488,15 +481,17 @@ void variables_declaration() :
         t = <IDENTIFIER> 
         {
           System.out.println(t.toString());
-          if ( rSem.searchLevel(t.toString()) == null ) {
-            proc = new Symbol(t.toString(), rSem.getLevel(), Category.Procedure);
-            rSem.insert(proc);
-            rSem.newLevel();
-            flag = 1;
-          }
-          else {
-            //Throw semantic exception
-            printError(t, "Erro Semantico: Procedimento '" + t.toString() + "' ja declarado.");
+          if(!checkDeclaration) {
+              if ( rSem.searchLevel(t.toString()) == null ) {
+                proc = new Symbol(t.toString(), rSem.getLevel(), Category.Procedure);
+                rSem.insert(proc);
+                rSem.newLevel();
+                flag = 1;
+              }
+              else {
+                //Throw semantic exception
+                printError(t, "Erro Semantico: Procedimento '" + t.toString() + "' ja declarado.");
+              }
           }
         }
 
@@ -534,7 +529,7 @@ void variables_declaration() :
             {
               t = <PROCEDURE> | t = <FUNCTION> | t = <TYPE>
               {
-                if(!t.toString().equals(procType.toString()))
+                if(!t.toString().equals(procType.toString()) && !checkDeclaration)
                   printError(t, "Erro Sintático: Esperado fechamento de '" + procType.toString());
               }
             }
@@ -581,7 +576,8 @@ void variables_declaration() :
                   return s;
                 }
                 else {
-                  printError(t, "Erro Semantico: Parâmetro '" + t.toString() + "' ja declarado.");
+                  if(!checkDeclaration)
+                      printError(t, "Erro Semantico: Parâmetro '" + t.toString() + "' ja declarado.");
                   return null;
                 }
               }
@@ -623,13 +619,15 @@ void javacc_input() :
       }
 
       void statement(SemanticRoutines rSem) :
-      {}
+      {
+        Token t;
+      }
       {
             Flow(rSem)
           | Loop(rSem)
           | Branch(rSem)
           | Return(rSem)
-          | LOOKAHEAD(2) <IDENTIFIER> (Assignment(rSem) | Call(rSem))
+          | LOOKAHEAD(2) (t = <IDENTIFIER>) (Assignment(rSem,t) | Call(rSem,t))
       }
 
             void Flow(SemanticRoutines rSem) :
@@ -666,7 +664,7 @@ void Loop(SemanticRoutines rSem) :
         t = <WHILE> 
         type = Expression(rSem) 
         {
-          if(type != Type.Boolean)
+          if(type != Type.Boolean && !checkDeclaration)
             printError(t, "Erro Semantico: A condição do " + t.toString() + " deve ser do tipo boolean" );
         }
         (<WITHENTRY>)? (<LABELSTMT>)? <DO> (stmblk(rSem))* (EntryStatement(rSem))? <END> <WHILE>
@@ -703,11 +701,11 @@ void IfStatement(SemanticRoutines rSem) :
       }
       {
         t = <IF> 
-        type = Expression(rSem) 
-        {
-          if(type != Type.Boolean)
+        Expression(rSem) 
+        /*{
+          if(type != Type.Boolean && !checkDeclaration)
             printError(t, "Erro Semantico: A condição do " + t.toString() + " deve ser do tipo boolean" );
-        }
+        }*/
         (<LABELSTMT>)? <THEN> (stmblk(rSem))* 
       }
 
@@ -718,11 +716,11 @@ void IfStatement(SemanticRoutines rSem) :
       }
       {
         t = <ELSIF> 
-        type = Expression(rSem) 
-        {
-          if(type != Type.Boolean)
+        Expression(rSem) 
+        /*{
+          if(type != Type.Boolean && !checkDeclaration)
             printError(t, "Erro Semantico: A condição do " + t.toString() + " deve ser do tipo boolean" );
-        }
+        }*/
         <THEN> (stmblk(rSem))*
       }
 
@@ -760,7 +758,6 @@ void IfDefStatement(SemanticRoutines rSem) :
 void SwitchStatement(SemanticRoutines rSem) :
 {}
 {
-  // REMOVIDO CASE DO CASE ELSE
   SwitchTest(rSem) CaseStatement(rSem) (LOOKAHEAD(2) CaseStatement(rSem))* (<ELSE> (stmblk(rSem))* )? <END> <SWITCH>
 }
 
@@ -782,10 +779,17 @@ void CaseStatement(SemanticRoutines rSem) :
           Expression(rSem) (<COMMA> Expression(rSem))* 
       }
 
-
-void Assignment(SemanticRoutines rSem) :
-{}
+// MUDAR AINDA ??????????????
+void Assignment(SemanticRoutines rSem, Token identifier) :
 {
+  Symbol var;
+}
+{
+    {
+      var = rSem.search(identifier.toString());
+      if(var == null && !checkDeclaration)
+        printError(identifier, "Erro Semantico: Variável " + identifier.toString() + " não declarada.");
+    }
     AssignmentMulti(rSem) | AssignmentWihOp(rSem)
 }
 
@@ -808,43 +812,72 @@ void Return(SemanticRoutines rSem) :
 }
 
 
-void Call(SemanticRoutines rSem) :
-{}
+void Call(SemanticRoutines rSem, Token t) :
 {
-    <LPAREN> (ArgList(rSem))? <RPAREN>
+  Symbol proc = null;
+  java.util.ArrayList<Type> par = new java.util.ArrayList<Type>();
+}
+{
+    <LPAREN> 
+      (
+        par = ArgList(rSem)
+      )? 
+    <RPAREN>
 
-    /*
         {
-            proc = rSem.search(t.toString());
+            if(checkDeclaration) {
+                  proc = rSem.search(t.toString());
+                  System.out.println("testando ----------------->>> " + proc);
 
-            if (proc != null) {
-              
-              int analisePar = proc.verifyParameters(par);
+                  if (proc != null) {
+                    
+                    int analisePar = proc.verifyParameters(par);
 
-              if (analisePar == 1 ) {
-                printError(t, "Erro semantico: Procedimento '" + t + "' não declarado.");
-              } else if (analisePar == 2)
-                printError(t, "Erro semantico: Procedimento '" + t.toString() + "' com numero de parametros invalidos.");
-              else if (analisePar == 3)
-                printError(t, "Erro semantico: Procedimento '" + t.toString() + "' com tipo de parametros invalidos.");
-              else {
-                //DO SOMETHING
-                // está correto
-              }
+                    if (analisePar == 1 ) {
+                      printError(t, "Erro semantico: Procedimento '" + t + "' não declarado.");
+                    } else if (analisePar == 2)
+                      printError(t, "Erro semantico: Procedimento '" + t.toString() + "' com numero de parametros invalidos.");
+                    else if (analisePar == 3)
+                      printError(t, "Erro semantico: Procedimento '" + t.toString() + "' com tipo de parametros invalidos.");
+                    else {
+                      //DO SOMETHING
+                      // está correto
+                    }
 
-            }
-            else {
-              printError(t, "Erro semantico: Procedimento '" + t.toString() + "' não declarado.");
+                  }
+                  else {
+                    printError(t, "Erro semantico: Procedimento '" + t.toString() + "' não declarado.");
+                  }
             }
         }
-        */
+        
 }
 
-void ArgList(SemanticRoutines rSem) :
-{}
-{
-    Expression(rSem) ( <COMMA> Expression(rSem) )*
-}
+
+      java.util.ArrayList<Type> ArgList(SemanticRoutines rSem) :
+      {
+        Type type;
+        java.util.ArrayList<Type> parList = new java.util.ArrayList<Type>();
+      }
+      {
+        type = Expression(rSem)
+        {
+          parList.add(type);
+        }
+
+        (
+            <COMMA> 
+            type = Expression(rSem)
+            {
+              parList.add(type);
+            }
+        )*
+
+
+        {
+          return parList;
+        }
+      }
 
 
 /************************************************************
@@ -877,28 +910,25 @@ Type Expression(SemanticRoutines rSem) :
     (
       Sequence(rSem)
       {
-        System.out.println("Sequencia");
         return Type.Sequence;
       }
     )
       | 
     (
-      type = Expression00(rSem)
+      Expression00(rSem)
       {
-        System.out.println("Nao sequencia");
-        //return type;
         return Type.Boolean;
       }
     )
 }
-
+/*
 Type Expression00(SemanticRoutines rSem) :
 {
   Token t = null;
   Type tp1, tp2;
 }
 {
-    /*tp1 =*/ Expression01(rSem) 
+    /*tp1 = Expression01(rSem) 
     ( 
       (t = <SC_AND> | t = <SC_OR> | t = <XOR_OP>) 
       Expression01(rSem) 
@@ -907,10 +937,21 @@ Type Expression00(SemanticRoutines rSem) :
       /*if(t != null)
         return Type.Boolean;
       else
-        return Type.Constant;*/
-
-      return Type.Boolean;
+        return Type.Constant;
     }
+}
+
+
+void Expression(SemanticRoutines rSem) :
+{}
+{
+  Sequence(rSem) | Expression00(rSem)
+}
+*/
+void Expression00(SemanticRoutines rSem) :
+{}
+{
+  Expression01(rSem) ( ( <SC_AND> | <SC_OR> | <XOR_OP>) Expression01(rSem) )*
 }
 
 void Expression01(SemanticRoutines rSem) :
@@ -944,9 +985,18 @@ void Expression05(SemanticRoutines rSem) :
 }
 
 void Expression06(SemanticRoutines rSem) :
-{}
 {
-    Atom(rSem) | <STRINGLIT> | (<LPAREN> Expression(rSem) <RPAREN>) | <IDENTIFIER> (Call(rSem) | Variable(rSem))?
+  Token t;
+  Symbol var = null;
+}
+{
+    Atom(rSem) | <STRINGLIT> | (<LPAREN> Expression(rSem) <RPAREN>) | (t = <IDENTIFIER>) (Call(rSem, t) | Variable(rSem))?
+    {
+      // check if the variable is declared
+      var = rSem.search(t.toString());
+      if(var == null && !checkDeclaration)
+        printError(t, "Erro Semantico: Variável " + t.toString() + " não declarada.");
+    }
 }
 
 
@@ -969,11 +1019,9 @@ void Slice(SemanticRoutines rSem) :
   Type type;
 }
 {
-    // SLIDE ALTERAÇÕES - PEDIDO
-    <SLICE> ( type = Expression(rSem) | <END_SYMBOL>) <RBRACKET> 
-      //Tem que arrumar, essa é a repetição
+    <SLICE> ( Expression(rSem) | <END_SYMBOL>) <RBRACKET> 
       (
-        <LBRACKET> Expression(rSem) <SLICE> ( type = Expression(rSem) | <END_SYMBOL>
+        <LBRACKET> Expression(rSem) <SLICE> ( Expression(rSem) | <END_SYMBOL>) <RBRACKET>
       )*
 
     {
@@ -985,8 +1033,7 @@ void Slice(SemanticRoutines rSem) :
 void Subscripting(SemanticRoutines rSem) :
 {}
 {
-    // Adicionado esse index iniciado - PEDIDO
-    Index(rSem) <RBRACKET> ( Index(rSem) )*
+    <RBRACKET> ( Index(rSem) )*
 }
 
                   void Index(SemanticRoutines rSem) :
@@ -1028,7 +1075,7 @@ Type DataType(SemanticRoutines rSem) :
           tp = Type.Constant;
       else if(t.toString().equals("boolean"))
           tp = Type.Boolean;
-      else
+      else if(!checkDeclaration)
         printError(t, "Erro Semantico: Tipo " + t.toString() + " nao existe.");
 
       return tp;

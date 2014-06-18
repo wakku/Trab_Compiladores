@@ -17,21 +17,19 @@ integer miles
 sequence name
 name = miles + name
 
+x = miles
+
+name()
+
 sequence t
 t = {1,2,3}
 
-while {1,2,3} do
-end while
+procedure tmp2(integer a)
+end procedure
 
+tmp2(miles, name)
 
 function tmp(integer a)
 end function
 
-global procedure tmp2(integer a)
-end procedure
-
-type tmp2(integer a)
-end type
-
-enum ONE, TWO, THREE
 
