@@ -1,3 +1,0 @@
-integer a
-integer b = a / 2
---Variavel sem valor nao pode executar operação!

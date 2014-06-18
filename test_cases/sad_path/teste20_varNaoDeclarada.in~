@@ -1,4 +1,4 @@
 integer b = a
-integer c = d
+integer c = 15
 
 --Variavel nao Declarada

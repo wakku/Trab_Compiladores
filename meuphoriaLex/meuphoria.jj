@@ -168,7 +168,6 @@ TOKEN : {
     | <PUBLIC : "public">
     | <SWITCH : "switch">
     | <UNTIL : "until">
-    | <AS : "as">
     | <CONSTANT : "constant">
     | <ELSE : "else">
     | <ENTRY : "entry">
@@ -189,26 +188,14 @@ TOKEN : {
     | <TO : "to">
     | <WITH : "with">
     | <BY : "by">
-    | <DEPRECATE : "deprecate">
     | <ELSIF : "elsif">
     | <EXIT : "exit">
     | <FUNCTION : "function">
     | <IFDEF : "ifdef">
-    | <NAMESPACE : "namespace">
     | <PROCEDURE : "procedure">
-    | <ROUTINE : "routine">
     | <TYPE : "type">
     | <WITHOUT : "without">
-    | <PROFILE : "profile">
-    | <PROFILE_TIME : "profile_time">
-    | <TRACE : "trace">
-    | <BATCH : "batch">
-    | <TYPE_CHECK : "type_check">
-    | <INDIRECT_INCLUDES : "indirect_includes">
-    | <INLINE : "inline">
-    | <WARNING : "warning">
     | <SAVE : "save">
-    | <RESTORE : "restore">
     | <STRICT : "strict">
     | <ELSEIFDEF : "elsifdef">
     | <FOR : "for">
@@ -255,7 +242,6 @@ TOKEN : {
     | <SC_OR: "or" >
     | <SC_AND: "and" >
     | <XOR_OP: "xor" >
-| <QMARK : "?"> // print command
 | <END_SYMBOL : "$">
 }
 
