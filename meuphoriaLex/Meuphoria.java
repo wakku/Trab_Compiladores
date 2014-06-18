@@ -357,7 +357,7 @@ if (flag == 1) {
     case TYPE:{
       t = jj_consume_token(TYPE);
 if(!t.toString().equals(procType.toString()) && !checkDeclaration)
-                  printError(t, "Erro Sint\u00e1tico: Esperado fechamento de '" + procType.toString());
+                  printError(t, "Erro Sint\u221a\u00b0tico: Esperado fechamento de '" + procType.toString());
       break;
       }
     default:
@@ -402,7 +402,7 @@ if (rSem.searchLevel(t.toString()) == null) {
                 }
                 else {
                   if(!checkDeclaration)
-                      printError(t, "Erro Semantico: Par\u00e2metro '" + t.toString() + "' ja declarado.");
+                      printError(t, "Erro Semantico: Par\u221a\u00a2metro '" + t.toString() + "' ja declarado.");
                   {if ("" != null) return null;}
                 }
     throw new Error("Missing return statement in function");
@@ -500,10 +500,10 @@ rSem = new SemanticRoutines();
     }
     jj_consume_token(0);
 if ( errors != 0 ) {
-          System.out.println("An\u00e1lise encontrou " + errors + " erro(s).");
+          System.out.println("An\u221a\u00b0lise encontrou " + errors + " erro(s).");
         }
         else {
-          System.out.println("An\u00e1lises l\u00e9xica, sint\u00e1tica e sem\u00e2ntica conclu\u00eddas com sucesso!");
+          System.out.println("An\u221a\u00b0lises l\u221a\u00a9xica, sint\u221a\u00b0tica e sem\u221a\u00a2ntica conclu\u221a\u2260das com sucesso!");
         }
   }
 
@@ -736,7 +736,7 @@ if ( errors != 0 ) {
     t = jj_consume_token(WHILE);
     type = Expression(rSem);
 if(type != Type.Boolean && !checkDeclaration)
-            printError(t, "Erro Semantico: A condi\u00e7\u00e3o do " + t.toString() + " deve ser do tipo boolean" );
+            printError(t, "Erro Semantico: A condi\u221a\u00df\u221a\u00a3o do " + t.toString() + " deve ser do tipo boolean" );
     switch ((jj_ntk==-1)?jj_ntk_f():jj_ntk) {
     case WITHENTRY:{
       jj_consume_token(WITHENTRY);
@@ -1424,7 +1424,7 @@ if(type != Type.Boolean && !checkDeclaration)
     case EQUAL:{
 var = rSem.search(identifier.toString());
       if(var == null && !checkDeclaration)
-        printError(identifier, "Erro Semantico: Vari\u00e1vel " + identifier.toString() + " n\u00e3o declarada.");
+        printError(identifier, "Erro Semantico: Vari\u221a\u00b0vel " + identifier.toString() + " n\u221a\u00a3o declarada.");
       AssignmentMulti(rSem);
       break;
       }
@@ -1566,7 +1566,7 @@ if(checkDeclaration) {
                     int analisePar = proc.verifyParameters(par);
 
                     if (analisePar == 1 ) {
-                      printError(t, "Erro semantico: Procedimento '" + t + "' n\u00e3o declarado.");
+                      printError(t, "Erro semantico: Procedimento '" + t + "' n\u221a\u00a3o declarado.");
                     } else if (analisePar == 2)
                       printError(t, "Erro semantico: Procedimento '" + t.toString() + "' com numero de parametros invalidos.");
                     else if (analisePar == 3)
@@ -1578,7 +1578,7 @@ if(checkDeclaration) {
 
                   }
                   else {
-                    printError(t, "Erro semantico: Procedimento '" + t.toString() + "' n\u00e3o declarado.");
+                    printError(t, "Erro semantico: Procedimento '" + t.toString() + "' n\u221a\u00a3o declarado.");
                   }
             }
   }
@@ -2028,7 +2028,7 @@ void Expression(SemanticRoutines rSem) :
 // check if the variable is declared
       var = rSem.search(t.toString());
       if(var == null && !checkDeclaration)
-        printError(t, "Erro Semantico: Vari\u00e1vel " + t.toString() + " n\u00e3o declarada.");
+        printError(t, "Erro Semantico: Vari\u221a\u00b0vel " + t.toString() + " n\u221a\u00a3o declarada.");
       break;
       }
     default:

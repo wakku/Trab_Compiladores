@@ -1,1 +1,2 @@
-Análises léxica, sintática e semântica concluídas com sucesso!
+Lexical error at line 6, column 16.  Encountered: "\u201e" (8222), after : ""
+Existem erros no codigo! Por favor, verifica-los.

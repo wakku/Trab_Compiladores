@@ -1,2 +1,3 @@
 [3, 9] Erro Semantico: Variavel 'a' ja declarada.
-Análise encontrou 1 erro(s).
+Lexical error at line 5, column 29.  Encountered: "\u201e" (8222), after : ""
+Existem erros no codigo! Por favor, verifica-los.

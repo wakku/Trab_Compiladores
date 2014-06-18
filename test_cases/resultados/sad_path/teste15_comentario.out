@@ -1,2 +1,2 @@
-Lexical error at line 9, column 0.  Encountered: <EOF> after : ""
+Lexical error at line 2, column 70.  Encountered: "\u02d9" (729), after : ""
 Existem erros no codigo! Por favor, verifica-los.
