@@ -1,0 +1,6 @@
+integer tempo
+tempo = 10
+
+-- tentar chamar a variavel como se fosse uma procedure/funcao
+
+tempo()

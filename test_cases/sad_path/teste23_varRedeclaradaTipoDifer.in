@@ -1,0 +1,4 @@
+integer a = 4
+sequence a = {1, 2}
+
+--Redeclaracao de Variavel não pode!

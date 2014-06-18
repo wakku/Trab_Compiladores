@@ -1,0 +1,15 @@
+function sayHello()
+   sequence nome
+   nome = "Oi Vanessa"
+   return nome
+end function
+
+function sayBye()
+   sequence nome
+   nome = "Tchau Vanessa"
+   return nome
+end function
+
+
+puts(1,sayHello())
+puts(1,sayBye())
