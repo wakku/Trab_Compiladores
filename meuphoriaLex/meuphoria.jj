@@ -644,7 +644,20 @@ void Print(SemanticRoutines rSem) :
 void Loop(SemanticRoutines rSem) :
 {}
 {
- ForStatement(rSem) | WhileStatement(rSem) | LoopStatement(rSem) | <GOTO> <LABELSTMT>
+  (
+    {
+      if(!checkDeclaration) {
+        rSem.newLevel();
+      }
+    }
+    ( ForStatement(rSem) | WhileStatement(rSem) | LoopStatement(rSem) )
+    {
+      if(!checkDeclaration) {
+        rSem.removeLastLevel();
+      }
+    }
+  )
+  | <GOTO> <LABELSTMT>
 }
 
       void ForStatement(SemanticRoutines rSem) :
@@ -695,7 +708,48 @@ void Branch(SemanticRoutines rSem) :
 void IfStatement(SemanticRoutines rSem) :
 {}
 {
-    IfTest(rSem) (ElsifStatement(rSem))* (ElseStatement(rSem))? <END> <IF>
+    {
+      if(!checkDeclaration) {
+        rSem.newLevel();
+      }
+    }
+    IfTest(rSem) 
+    {
+      if(!checkDeclaration) {
+        rSem.removeLastLevel();
+      }
+    }
+
+    (
+      {
+        if(!checkDeclaration) {
+          rSem.newLevel();
+        }
+      }
+      ElsifStatement(rSem)
+      {
+        if(!checkDeclaration) {
+          rSem.removeLastLevel();
+        }
+      }
+    )* 
+
+
+    (
+      {
+        if(!checkDeclaration) {
+          rSem.newLevel();
+        }
+      }
+      ElseStatement(rSem)
+      {
+        if(!checkDeclaration) {
+          rSem.removeLastLevel();
+        }
+      }
+    )? 
+
+    <END> <IF>
 }
 
       void IfTest(SemanticRoutines rSem) :
@@ -738,7 +792,47 @@ void IfStatement(SemanticRoutines rSem) :
 void IfDefStatement(SemanticRoutines rSem) :
 {}
 {
-    IfDefTest(rSem) ( ElsDefIfStatement(rSem) <LABELSTMT> )? ( ElsDefStatement(rSem))? <ENDDEFIF>
+    {
+      if(!checkDeclaration) {
+        rSem.newLevel();
+      }
+    }
+    IfDefTest(rSem)
+    {
+      if(!checkDeclaration) {
+        rSem.removeLastLevel();
+      }
+    } 
+
+    ( 
+      {
+        if(!checkDeclaration) {
+          rSem.newLevel();
+        }
+      }
+      ElsDefIfStatement(rSem) <LABELSTMT> 
+      {
+        if(!checkDeclaration) {
+          rSem.removeLastLevel();
+        }
+      }
+    )? 
+
+    ( 
+      {
+        if(!checkDeclaration) {
+          rSem.newLevel();
+        }
+      }
+      ElsDefStatement(rSem)
+      {
+        if(!checkDeclaration) {
+          rSem.removeLastLevel();
+        }
+      }
+    )? 
+
+    <ENDDEFIF>
 }
 
       void IfDefTest(SemanticRoutines rSem) :
@@ -762,7 +856,49 @@ void IfDefStatement(SemanticRoutines rSem) :
 void SwitchStatement(SemanticRoutines rSem) :
 {}
 {
-  SwitchTest(rSem) CaseStatement(rSem) (LOOKAHEAD(2) CaseStatement(rSem))* (<ELSE> (stmblk(rSem))* )? <END> <SWITCH>
+  SwitchTest(rSem) 
+
+  {
+    if(!checkDeclaration) {
+      rSem.newLevel();
+    }
+  }
+  CaseStatement(rSem) 
+  {
+    if(!checkDeclaration) {
+      rSem.removeLastLevel();
+    }
+  }
+
+  (LOOKAHEAD(2) 
+      {
+        if(!checkDeclaration) {
+          rSem.newLevel();
+        }
+      }      
+      CaseStatement(rSem)
+      {
+        if(!checkDeclaration) {
+          rSem.removeLastLevel();
+        }
+      }
+  )* 
+
+  (
+    {
+      if(!checkDeclaration) {
+        rSem.newLevel();
+      }
+    }
+    <ELSE> (stmblk(rSem))* 
+    {
+      if(!checkDeclaration) {
+        rSem.removeLastLevel();
+      }
+    }
+  )? 
+
+  <END> <SWITCH>
 }
 
       void SwitchTest(SemanticRoutines rSem) :

@@ -1,0 +1,38 @@
+Casos de Teste
+
+Relatório:
+
+ - Adicionar comentários sobre a função print como built-in
+ - Falar sobre escolha da tabela hash para criação da tabela de símbolos
+ - Falar como foi feita a parte de descobrimento de declarações de variáveis - passando duas vezes pelo código, primeiro encontra declarações, depois faz a análise semântica (podendo citar como é feito em C++, que é atualizando e verificando se a declaração está completa)
+ - Atualizar gramática (já está corrigida no docs)
+ - Corrigir introdução (mais formal)
+
+
+
+FAZER:
+ - limitante inferior > superior
+ - overflow ou underflow
+ - 
+
+
+
+3) Listas de alguns erros dependentes de contexto
+
+Identificador já declarado no escopo (nível) atual
+
+Tipo não definido
+
+Limite inferior > limite superior na declaração de vetores/matrizes
+
+Função não declarada (quando há parênteses)
+
+Função, variável, parâmetro, ou constante não definidas (checagem no lado direito de atribuições)
+
+Incompatibilidade no número de parâmetros
+
+Procedimento não declarado (quando há parênteses)
+
+Função, variável, procedimento ou parâmetros não definidos (lado esquerdo de atribuições/lado esquerdo)
+
+Identificador de tipo esperado

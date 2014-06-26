@@ -1,5 +1,0 @@
-sequence EssaVariavelTemMaisDeTrintaCaracteres
-
-EssaVariavelTemMaisDeTrintaCaracteres = "teste"
-
-printf(1, "Valor de variavel %s\n", {EssaVariavelTemMaisDeTrintaCaracteres})

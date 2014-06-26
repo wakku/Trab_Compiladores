@@ -1,3 +1,0 @@
-for a = 1 to 6 do
-   printf(1, "valor de a %d\n", a)
-end for

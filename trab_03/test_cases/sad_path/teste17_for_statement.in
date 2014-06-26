@@ -1,3 +1,0 @@
-for a = 1 to c
-   printf(1, "valor de a %d\n", a)
-end for
