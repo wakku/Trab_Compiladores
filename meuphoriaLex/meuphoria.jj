@@ -478,7 +478,7 @@ void variables_declaration() :
                   proc.setParameters(par);
               }
           )? 
-          // MUDAR STMBLK ????????????
+
         <RPAREN> 
         ( stmblk(rSem) )* 
 
@@ -1095,6 +1095,7 @@ void Sequence(SemanticRoutines rSem) :
   //int tam;
 }
 {
+    // Como fazer a atribuição e salvar na TS???????????????
     <LBRACE> ( LOOKAHEAD(2) <END_SYMBOL> | Object(rSem) (LOOKAHEAD(2) <COMMA> Object(rSem))* (<COMMA> <END_SYMBOL>)? )? <RBRACE> 
 }
 
@@ -1115,47 +1116,89 @@ Type Expression(SemanticRoutines rSem) :
   Type type;
 }
 {
+
     (
-      Sequence(rSem)
+      // Trocar sequence pela estrutura ??????
+      //"{" (expression “,”)* [(expression | “$”)] "}"
+      // Sequence(rSem)
+      <LBRACE> ( Expression(rSem) <COMMA> ) ( Expression(rSem) | <END_SYMBOL> )+ <RBRACE>
       {
         return Type.Sequence;
       }
     )
       | 
     (
-      Expression00(rSem)
+      type = Expression00(rSem)
       {
-        return Type.Boolean;
+        return type;
       }
     )
 }
-/*
+
 Type Expression00(SemanticRoutines rSem) :
 {
   Token t = null;
-  Type tp1, tp2;
+  Type tp;
 }
 {
-    /*tp1 = Expression01(rSem) 
+    tp = Expression01(rSem) 
     ( 
       (t = <SC_AND> | t = <SC_OR> | t = <XOR_OP>) 
       Expression01(rSem) 
     )*
     {
-      /*if(t != null)
+      if(t != null)
         return Type.Boolean;
       else
-        return Type.Constant;
+        return tp;
     }
 }
 
+Type Expression01(SemanticRoutines rSem) :
+{
+  Token t = null;
+  Type tp;
+}
+{
+    tp = Expression02(rSem) 
+    ( 
+      ( t = <LT> | t = <GT> | t = <LE> | t = <GE> | t = <EQUAL> | t = <NE> )
+      Expression02(rSem) 
+    )*
+    {
+      if(t != null)
+        return Type.Boolean;
+      else
+        return tp;
+    }
+}
 
+Type Expression02(SemanticRoutines rSem) :
+{
+  Token t = null;
+  Type tp;
+}
+{
+    tp = Expression03(rSem) 
+    ( 
+      ( t = <CONCAT> )
+      Expression03(rSem) 
+    )*
+    {
+      if(t != null)
+        return Type.Boolean;
+      else
+        return tp;
+    }
+}
+
+/*
 void Expression(SemanticRoutines rSem) :
 {}
 {
   Sequence(rSem) | Expression00(rSem)
 }
-*/
+
 void Expression00(SemanticRoutines rSem) :
 {}
 {
@@ -1173,23 +1216,33 @@ void Expression02(SemanticRoutines rSem) :
 {
     Expression03(rSem) ( <CONCAT> Expression03(rSem) )*
 }
+*/
 
 void Expression03(SemanticRoutines rSem) :
 {}
 {
     Expression04(rSem) ( (<PLUS> | <MINUS>) Expression04(rSem) )*
+    {
+      return null;
+    }
 }
 
 void Expression04(SemanticRoutines rSem) :
 {}
 {
     Expression05(rSem) ( (<STAR> | <SLASH>) Expression05(rSem) )*
+    {
+      return null;
+    }
 }
 
 void Expression05(SemanticRoutines rSem) :
 {}
 {
     (<PLUS> | <MINUS> | <NOT_OP>)? Expression06(rSem)
+    {
+      return null;
+    }
 }
 
 void Expression06(SemanticRoutines rSem) :
@@ -1199,6 +1252,10 @@ void Expression06(SemanticRoutines rSem) :
 }
 {
     Atom(rSem) | <STRINGLIT> | (<LPAREN> Expression(rSem) <RPAREN>) | (t = <IDENTIFIER>) (Call(rSem, t) | Variable(rSem))?
+    {
+        return null;
+    }
+    
     {
       call = t;
       // check if the variable is declared
