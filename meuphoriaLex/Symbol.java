@@ -16,6 +16,7 @@ public class Symbol {
 	//private String value;
 	private int nbytes;
 	private int return_parameters = 0;
+	private ArrayList return_p;
 
 	public Symbol(String _id, int _level, Category _category) {
 		id = _id;
@@ -24,6 +25,7 @@ public class Symbol {
 		npar = 1;
 		if ( category == Category.Procedure ) {
 			parameters = new ArrayList();
+			return_p = new ArrayList();
 		}
 		//nbytes = 
 	}
@@ -36,6 +38,7 @@ public class Symbol {
 		category = _category;
 		if ( category == Category.Procedure ) {
 			parameters = new ArrayList();
+			return_p = new ArrayList();
 		}
 		//nbytes = 
 	}
@@ -47,6 +50,7 @@ public class Symbol {
 		category = _category;
 		if ( category == Category.Procedure ) {
 			parameters = new ArrayList();
+			return_p = new ArrayList();
 		}
 	}
 	
@@ -141,6 +145,7 @@ public class Symbol {
 	public Category getCategory() 		{ return category; }
 	public ArrayList getParameters() 	{ return parameters; }
 	public int getReturnParameters() 	{ return return_parameters; }
+	public ArrayList getReturnTypes()	{ return return_p; }
 	public int 		getNPar() 			{ return npar; }
 	public int 		getAddress() 		{ return address; }
 	public String 	getLabel()			{ return label; }
@@ -150,6 +155,7 @@ public class Symbol {
 	public void setType(Type t) 				{ type = t; }
 	public void setParameters(ArrayList par) 	{ parameters = par; }
 	public void setReturnParameters(int n) 		{ return_parameters = n; }
+	public void setReturnTypes(ArrayList r_par)	{ return_p = r_par; }
 	public void setNPar(int d) 					{ npar = d; }
 	public void setAddress(int addr) 			{ address = addr;	}	
 	public void setLabel(String lbl) 			{ label = lbl; }

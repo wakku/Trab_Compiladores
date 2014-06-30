@@ -33,4 +33,5 @@ end function
 
 return 1,2
 
-miles, name = tmp(miles), miles
+--miles, name = tmp(miles), miles
+miles = tmp(miles)

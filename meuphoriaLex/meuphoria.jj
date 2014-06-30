@@ -39,6 +39,7 @@ class Meuphoria {
     private static boolean checkDeclaration = false;
     private static int _return = 0;
     private static Token call = null;
+    private static java.util.ArrayList<Type> _return_param = new java.util.ArrayList<Type>();
 
 // Processa o código e gera a tabela de tokens
     public void processa() throws ParseException, TokenMgrError {
@@ -450,12 +451,17 @@ void variables_declaration() :
         Token t, t2;
         Symbol proc = null;
         java.util.ArrayList<Symbol> par = new java.util.ArrayList<Symbol>();
+        java.util.ArrayList<Type> return_parameters = null;//new java.util.ArrayList<Type>();
         int flag = 0;
         int a = 0;
         int tmp = 0;
       }
       {
         {
+          if(!_return_param.isEmpty()) {
+            return_parameters = new java.util.ArrayList<Type>(_return_param);//_return_param.clone();
+            _return_param.clear();
+          }
           if(_return > 0) {
             tmp = _return;
             _return = 0;
@@ -493,8 +499,15 @@ void variables_declaration() :
         <END> ProcedureType(rSem, t2)
 
         {
-          if(proc != null)
+          if(proc != null) {
             proc.setReturnParameters(_return);
+            proc.setReturnTypes(_return_param);
+            _return_param.clear();
+            if(return_parameters != null) {
+              _return_param = (java.util.ArrayList<Type>)return_parameters.clone();
+              return_parameters = null;
+            }
+          }
 
           if(_return > 0) {
             if(t2.toString().equals("procedure") && !checkDeclaration)
@@ -959,7 +972,7 @@ void Assignment(SemanticRoutines rSem, Token identifier) :
       void AssignmentMulti(SemanticRoutines rSem, Token identifier) :
       {
         Token t;
-        Type tp1, tp2;
+        Type tp1 = null, tp2 = null;
         int var = 1, exp = 0;
       }
       {
@@ -978,6 +991,9 @@ void Assignment(SemanticRoutines rSem, Token identifier) :
           {
             Symbol s = rSem.searchLevel(identifier.toString());
             tp1 = s.getType();
+
+            if(tp2 == null)
+              System.out.println("problema");
 
             if(tp1 != tp2 && !checkDeclaration) {
                 printError(t, "Erro Semantico: Atribuição incorreta, tipo " + tp1.toString() + " diferente do tipo " + tp2.toString() );
@@ -1032,19 +1048,25 @@ void Assignment(SemanticRoutines rSem, Token identifier) :
 int Return(SemanticRoutines rSem) :
 {
   Token t;
+  Type type = null;
   int i = 1;
 }
 {
     t = <RETURN> 
     Expression(rSem) 
     (
-      <COMMA> Expression(rSem)
+      <COMMA> 
+      type = Expression(rSem)
       {
         i++;
+        // adicionar na lista 
+        _return_param.add(type);
       }
     )*
 
     {
+      // ADD AQUI!!!!!!!!!!
+
       if(_return > 0 && _return != i && !checkDeclaration)
         printError(t, "Erro Semantico: Quantidade de parametros de retorno diferentes.");
       else if(_return == 0)
@@ -1193,7 +1215,7 @@ Type Expression00(SemanticRoutines rSem) :
           return Type.Boolean;
         }   
       }
-    )*
+    )?
     {
       if(t != null) {
         // check if the expressions are sequences with different sizes ???????
@@ -1236,9 +1258,10 @@ Type Expression02(SemanticRoutines rSem) :
       tp2 = Expression03(rSem) 
     )*
     {
-
-      // check the matching types ?????????????
-      return tp1;
+      if(t != null)
+        return Type.Sequence;
+      else
+        return tp1;
     }
 }
 
@@ -1307,9 +1330,13 @@ Type Expression06(SemanticRoutines rSem) :
         call = t;
         // check if the variable is declared
         var = rSem.searchLevel(t.toString());
+        Symbol var2 = rSem.search(t.toString());
+        if(var != null && var2 != null)
+          System.out.println("lalalalalalalalalalalala " + var.toString());
         if(var == null && !checkDeclaration) {
           printError(t, "Erro Semantico: Variável " + t.toString() + " não declarada.");
-          return null; 
+          //return null;
+          return Type.Atom;
         }
         else {
           // it doesn't have to attribute the variable, because it is not this function goal
