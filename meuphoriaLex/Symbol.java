@@ -13,6 +13,7 @@ public class Symbol {
 	private int address;
 	private String label;
 	private int value;
+	//private String value;
 	private int nbytes;
 	private int return_parameters = 0;
 
@@ -74,7 +75,7 @@ public class Symbol {
 			else if( !(_par.size() >= minpar) && !(_par.size() <= maxpar ) ) //se não estiver no intervalo
 				return 2;		// número de parâmetros inválidos.
 		}
-		/*
+		
 		Iterator l, p;
 		l = parameters.iterator();
 		p = _par.iterator();
@@ -83,7 +84,7 @@ public class Symbol {
 				return 3;	// tipo de parâmetros inválidos.
 			}
 		}
-		*/
+		
 		return 0;			// lista de parâmetros válida.
 	}
 

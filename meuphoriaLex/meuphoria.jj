@@ -382,9 +382,18 @@ void variables_declaration() :
       }
 
                   void IdentList(SemanticRoutines rSem, Type type) :
-                  {}
                   {
-                    Ident(rSem, type) ( <COMMA> Ident(rSem, type) )* 
+                    //int enum = 0;
+                  }
+                  {
+                    Ident(rSem, type) 
+                    // ?????????? corrigir para o enum
+                    /*{
+                      if(type == Type.Enum)
+                        enum ++;
+                    }*/
+
+                    ( <COMMA> Ident(rSem, type) )* 
                   }
 
                         void Ident(SemanticRoutines rSem, Type type) :
@@ -399,7 +408,6 @@ void variables_declaration() :
                                     Symbol s = new Symbol(t.toString(),rSem.getLevel(),Category.Variable);
                                     s.setType(type);
                                     rSem.insert(s);
-
                                   }
                                   else {
                                     //Throw semantic exception
@@ -507,8 +515,6 @@ void variables_declaration() :
           }
           if(!checkDeclaration) {
             rSem.removeLastLevel();
-            //rSem.previousLevel();
-            //rSem.deleteUpperLevel();
           }
         }
       }
@@ -671,6 +677,7 @@ void Loop(SemanticRoutines rSem) :
       {
           // check if the expressions have the same type as the identifier ????
           <IDENTIFIER> <EQUAL> Expression(rSem) <TO> Expression(rSem) (<BY> Expression(rSem))?
+
       }
 
       void WhileStatement(SemanticRoutines rSem) :
@@ -689,9 +696,21 @@ void Loop(SemanticRoutines rSem) :
       }
 
       void LoopStatement(SemanticRoutines rSem) :
-      {}
       {
-      <LOOP> (<WITHENTRY>)? (<LABELSTMT>)? <DO> (stmblk(rSem))* (EntryStatement(rSem))? <UNTIL> Expression(rSem) (<EOL>)* <END> <LOOP>
+        Type type;
+        Token t;
+      }
+      {
+        <LOOP> (<WITHENTRY>)? (<LABELSTMT>)? <DO> (stmblk(rSem))* (EntryStatement(rSem))? 
+
+        t = <UNTIL> 
+        type = Expression(rSem) 
+        {
+          if(type != Type.Boolean && !checkDeclaration)
+            printError(t, "Erro Semantico: A condição do " + t.toString() + " deve ser do tipo boolean" );
+        }
+
+        (<EOL>)* <END> <LOOP>
       }
 
             void EntryStatement(SemanticRoutines rSem) :
@@ -940,6 +959,7 @@ void Assignment(SemanticRoutines rSem, Token identifier) :
       void AssignmentMulti(SemanticRoutines rSem, Token identifier) :
       {
         Token t;
+        Type tp1, tp2;
         int var = 1, exp = 0;
       }
       {
@@ -954,7 +974,16 @@ void Assignment(SemanticRoutines rSem, Token identifier) :
             }
           )? 
           t = <EQUAL> 
-          Expression(rSem) 
+          tp2 = Expression(rSem) 
+          {
+            Symbol s = rSem.searchLevel(identifier.toString());
+            tp1 = s.getType();
+
+            if(tp1 != tp2 && !checkDeclaration) {
+                printError(t, "Erro Semantico: Atribuição incorreta, tipo " + tp1.toString() + " diferente do tipo " + tp2.toString() );
+            }
+          }
+
           {
             if(call != null) {
               Symbol c = rSem.search(call.toString());
@@ -1124,8 +1153,6 @@ Type Expression(SemanticRoutines rSem) :
 }
 {
     (
-      // Change sequence to  ???????
-      // expression::= ( "{" (E0 “,”)* [(E0 | “$”)] "}" ) | E0 
       /* The code has to be readapt to accept the changes for sequence calculations ??????
        Sequências e operadores {{ "jon", "smith" }, 52389, 97.25} => OK
         x = { {1, 2, 3} + {-1, 0, 1}, {4, 5, 6} + {-1, 0, 1} } => OK
@@ -1135,7 +1162,8 @@ Type Expression(SemanticRoutines rSem) :
 
         x = {apple, orange*2, {1,2,3}, 99/4+foobar} => OK*/
 
-      Sequence(rSem)
+      //Sequence(rSem)
+      <LBRACE> ( LOOKAHEAD(2) <END_SYMBOL> | Expression00(rSem) (LOOKAHEAD(2) <COMMA> Expression00(rSem))* (<COMMA> <END_SYMBOL>)? )? <RBRACE> 
       {
         return Type.Sequence;
       }
@@ -1159,11 +1187,18 @@ Type Expression00(SemanticRoutines rSem) :
     ( 
       (t = <SC_AND> | t = <SC_OR> | t = <XOR_OP>) 
       tp2 = Expression01(rSem) 
+      {
+        if(t != null) {
+          // check if the expressions are sequences with different sizes ???????
+          return Type.Boolean;
+        }   
+      }
     )*
     {
-      // check if the types are boolean ????????
-      if(t != null)
+      if(t != null) {
+        // check if the expressions are sequences with different sizes ???????
         return Type.Boolean;
+      }
       else
         return tp1;
     }
@@ -1265,7 +1300,7 @@ Type Expression06(SemanticRoutines rSem) :
 }
 {
       Atom(rSem) {return Type.Atom; }
-    | <STRINGLIT> { return Type.Sequence; } // convert caracteres to strings ??????
+    | <STRINGLIT> { return Type.Sequence; }//Type.String; }
     | (<LPAREN> tp = Expression(rSem) <RPAREN>) { return tp; }
     | (t = <IDENTIFIER>) (Call(rSem, t) | Variable(rSem, t))? 
       { // search the variable and return its type ?????? 
@@ -1278,16 +1313,12 @@ Type Expression06(SemanticRoutines rSem) :
         }
         else {
           // it doesn't have to attribute the variable, because it is not this function goal
-          //System.out.println(var.getType());
           return var.getType();
+          // if it is a procedure or function ????
+          //then it has to return the return values of the function
         }
       }
-    
 
-    {
-      
-
-    }
 }
 
 
@@ -1365,8 +1396,8 @@ Type DataType(SemanticRoutines rSem) :
           tp = Type.Int;
       else if(t.toString().equals("sequence"))
           tp = Type.Sequence;
-      else if(t.toString().equals("object"))
-          tp = Type.Object;
+      //else if(t.toString().equals("object"))
+          //tp = Type.Object;
       else if(t.toString().equals("constant"))
           tp = Type.Constant;
       else if(t.toString().equals("boolean"))
