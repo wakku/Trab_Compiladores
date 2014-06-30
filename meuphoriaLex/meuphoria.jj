@@ -669,6 +669,7 @@ void Loop(SemanticRoutines rSem) :
       void ForIDX(SemanticRoutines rSem) :
       {}
       {
+          // check if the expressions have the same type as the identifier ????
           <IDENTIFIER> <EQUAL> Expression(rSem) <TO> Expression(rSem) (<BY> Expression(rSem))?
       }
 
@@ -759,11 +760,11 @@ void IfStatement(SemanticRoutines rSem) :
       }
       {
         t = <IF> 
-        Expression(rSem) 
-        /*{
+        type = Expression(rSem) 
+        {
           if(type != Type.Boolean && !checkDeclaration)
             printError(t, "Erro Semantico: A condição do " + t.toString() + " deve ser do tipo boolean" );
-        }*/
+        }
         (<LABELSTMT>)? <THEN> (stmblk(rSem))* 
       }
 
@@ -774,11 +775,11 @@ void IfStatement(SemanticRoutines rSem) :
       }
       {
         t = <ELSIF> 
-        Expression(rSem) 
-        /*{
+        type = Expression(rSem) 
+        {
           if(type != Type.Boolean && !checkDeclaration)
             printError(t, "Erro Semantico: A condição do " + t.toString() + " deve ser do tipo boolean" );
-        }*/
+        }
         <THEN> (stmblk(rSem))*
       }
 
@@ -838,12 +839,14 @@ void IfDefStatement(SemanticRoutines rSem) :
       void IfDefTest(SemanticRoutines rSem) :
       {}
       {
+        // check if it is not necessary operations on the identifiers ??????
       <IFDEF> (<NOT_OP>)? <IDENTIFIER> ( (<SC_AND> | <SC_OR>) (<NOT_OP>)? <IDENTIFIER>)? <THEN> (stmblk(rSem))*
       }
 
       void ElsDefIfStatement(SemanticRoutines rSem) :
       {}
       {
+        // check if it is not necessary operations on the identifiers ??????
       <ELSEIFDEF> (<NOT_OP>)? <IDENTIFIER> ( (<SC_AND> | <SC_OR>) (<NOT_OP>)? <IDENTIFIER>)? <THEN> (stmblk(rSem))*
       }
 
@@ -910,6 +913,7 @@ void SwitchStatement(SemanticRoutines rSem) :
 void CaseStatement(SemanticRoutines rSem) :
 {}
 {
+  // check if the switchTest expression has the same type as the caseList ??????
 <CASE> CaseList(rSem) <THEN> (stmblk(rSem))* 
 }
 
@@ -930,10 +934,10 @@ void Assignment(SemanticRoutines rSem, Token identifier) :
       if(var == null && !checkDeclaration)
         printError(identifier, "Erro Semantico: Variável " + identifier.toString() + " não declarada.");
     }
-    AssignmentMulti(rSem) | AssignmentWihOp(rSem)
+    AssignmentMulti(rSem, identifier) | AssignmentWihOp(rSem, identifier)
 }
 
-      void AssignmentMulti(SemanticRoutines rSem) :
+      void AssignmentMulti(SemanticRoutines rSem, Token identifier) :
       {
         Token t;
         int var = 1, exp = 0;
@@ -942,9 +946,9 @@ void Assignment(SemanticRoutines rSem, Token identifier) :
           {
             call = null;
           }
-          (Variable(rSem))? 
+          (Variable(rSem, identifier))? 
           (
-            <COMMA> <IDENTIFIER> (Variable(rSem))? 
+            <COMMA> <IDENTIFIER> (Variable(rSem, identifier))? 
             {
               var++;
             }
@@ -979,18 +983,20 @@ void Assignment(SemanticRoutines rSem, Token identifier) :
             }
           )?
           {
+            // verificar os tipos do identifier e da expressão, para saber se pode fazer a atribuição ????????
+            // para cada atribuição
             if(var != exp && !checkDeclaration) {
               printError(t, "Erro Semantico: Quantidade diferente de parametros na atribuicao de variaveis.");
             }
           }
       }
 
-      void AssignmentWihOp(SemanticRoutines rSem) :
+      void AssignmentWihOp(SemanticRoutines rSem, Token identifier) :
       {}
       {
           (<PLUS> | <MINUS> | <SLASH> | <STAR> | <CONCAT> ) <EQUAL> Expression(rSem) 
           {
-
+            // verificar os tipos do identifier e da expressão, para saber se pode fazer a atribuição ????????
           }
       }
 
@@ -1095,7 +1101,8 @@ void Sequence(SemanticRoutines rSem) :
   //int tam;
 }
 {
-    // Como fazer a atribuição e salvar na TS???????????????
+    // Como fazer a atribuição e salvar na TS???????
+    // Professora simplificou para que coloque tudo dentro da expressão
     <LBRACE> ( LOOKAHEAD(2) <END_SYMBOL> | Object(rSem) (LOOKAHEAD(2) <COMMA> Object(rSem))* (<COMMA> <END_SYMBOL>)? )? <RBRACE> 
 }
 
@@ -1116,12 +1123,19 @@ Type Expression(SemanticRoutines rSem) :
   Type type;
 }
 {
-
     (
-      // Trocar sequence pela estrutura ??????
-      //"{" (expression “,”)* [(expression | “$”)] "}"
-      // Sequence(rSem)
-      <LBRACE> ( Expression(rSem) <COMMA> ) ( Expression(rSem) | <END_SYMBOL> )+ <RBRACE>
+      // Change sequence to  ???????
+      // expression::= ( "{" (E0 “,”)* [(E0 | “$”)] "}" ) | E0 
+      /* The code has to be readapt to accept the changes for sequence calculations ??????
+       Sequências e operadores {{ "jon", "smith" }, 52389, 97.25} => OK
+        x = { {1, 2, 3} + {-1, 0, 1}, {4, 5, 6} + {-1, 0, 1} } => OK
+
+        w = ({1, 0, 0, 1}) and ({1, 1, 1, 0}) => só funciona com parênteses w = not ({1, 5, -2, 0, 0}) => só funciona com parênteses
+        w = ({1, 2, 3}) = ({1, 2, 4}) => só funciona com parênteses
+
+        x = {apple, orange*2, {1,2,3}, 99/4+foobar} => OK*/
+
+      Sequence(rSem)
       {
         return Type.Sequence;
       }
@@ -1138,133 +1152,140 @@ Type Expression(SemanticRoutines rSem) :
 Type Expression00(SemanticRoutines rSem) :
 {
   Token t = null;
-  Type tp;
+  Type tp1, tp2;
 }
 {
-    tp = Expression01(rSem) 
+    tp1 = Expression01(rSem) 
     ( 
       (t = <SC_AND> | t = <SC_OR> | t = <XOR_OP>) 
-      Expression01(rSem) 
+      tp2 = Expression01(rSem) 
     )*
     {
+      // check if the types are boolean ????????
       if(t != null)
         return Type.Boolean;
       else
-        return tp;
+        return tp1;
     }
 }
 
 Type Expression01(SemanticRoutines rSem) :
 {
   Token t = null;
-  Type tp;
+  Type tp1, tp2;
 }
 {
-    tp = Expression02(rSem) 
+    tp1 = Expression02(rSem) 
     ( 
       ( t = <LT> | t = <GT> | t = <LE> | t = <GE> | t = <EQUAL> | t = <NE> )
-      Expression02(rSem) 
+      tp2 = Expression02(rSem) 
     )*
     {
+      // check comparison between types ????????
       if(t != null)
         return Type.Boolean;
       else
-        return tp;
+        return tp1;
     }
 }
 
 Type Expression02(SemanticRoutines rSem) :
 {
   Token t = null;
-  Type tp;
+  Type tp1, tp2;
 }
 {
-    tp = Expression03(rSem) 
+    tp1 = Expression03(rSem) 
     ( 
       ( t = <CONCAT> )
-      Expression03(rSem) 
+      tp2 = Expression03(rSem) 
     )*
     {
-      if(t != null)
-        return Type.Boolean;
-      else
-        return tp;
+
+      // check the matching types ?????????????
+      return tp1;
     }
 }
 
-/*
-void Expression(SemanticRoutines rSem) :
-{}
+Type Expression03(SemanticRoutines rSem) :
 {
-  Sequence(rSem) | Expression00(rSem)
+  Token t = null;
+  Type tp1, tp2;
 }
-
-void Expression00(SemanticRoutines rSem) :
-{}
 {
-  Expression01(rSem) ( ( <SC_AND> | <SC_OR> | <XOR_OP>) Expression01(rSem) )*
-}
-
-void Expression01(SemanticRoutines rSem) :
-{}
-{
-    Expression02(rSem) ( ( <LT> | <GT> | <LE> | <GE> | <EQUAL> | <NE> ) Expression02(rSem) )*
-}
-
-void Expression02(SemanticRoutines rSem) :
-{}
-{
-    Expression03(rSem) ( <CONCAT> Expression03(rSem) )*
-}
-*/
-
-void Expression03(SemanticRoutines rSem) :
-{}
-{
-    Expression04(rSem) ( (<PLUS> | <MINUS>) Expression04(rSem) )*
+    tp1 = Expression04(rSem) 
+    ( 
+      ( t = <PLUS> | t = <MINUS> )
+      tp2 = Expression04(rSem) 
+    )*
     {
-      return null;
+
+      // check the matching types ?????????????
+      return tp1;
     }
 }
 
-void Expression04(SemanticRoutines rSem) :
-{}
+Type Expression04(SemanticRoutines rSem) :
 {
-    Expression05(rSem) ( (<STAR> | <SLASH>) Expression05(rSem) )*
-    {
-      return null;
-    }
+  Token t = null;
+  Type tp1, tp2;
 }
-
-void Expression05(SemanticRoutines rSem) :
-{}
 {
-    (<PLUS> | <MINUS> | <NOT_OP>)? Expression06(rSem)
+    tp1 = Expression05(rSem) 
+    ( 
+      ( t = <STAR> | t = <SLASH> )
+      tp2 = Expression05(rSem) 
+    )*
     {
-      return null;
+
+      // check the matching types ?????????????
+      return tp1;
     }
 }
 
-void Expression06(SemanticRoutines rSem) :
+Type Expression05(SemanticRoutines rSem) :
+{
+  Token t = null;
+  Type tp = null;
+}
+{
+    (t = <PLUS> | t = <MINUS> | t = <NOT_OP>)? 
+    tp = Expression06(rSem)
+    {
+      // check all the types and give the outputs for not and + and - ????????
+      return tp;
+    }
+}
+
+Type Expression06(SemanticRoutines rSem) :
 {
   Token t;
   Symbol var = null;
+  Type tp = null;
 }
 {
-    Atom(rSem) | <STRINGLIT> | (<LPAREN> Expression(rSem) <RPAREN>) | (t = <IDENTIFIER>) (Call(rSem, t) | Variable(rSem))?
-    {
-        return null;
-    }
-    
-    {
-      call = t;
-      // check if the variable is declared
-      var = rSem.searchLevel(t.toString());
-      if(var == null && !checkDeclaration)
-        printError(t, "Erro Semantico: Variável " + t.toString() + " não declarada.");
-      else {
-        //int a = null;
+      Atom(rSem) {return Type.Atom; }
+    | <STRINGLIT> { return Type.Sequence; } // convert caracteres to strings ??????
+    | (<LPAREN> tp = Expression(rSem) <RPAREN>) { return tp; }
+    | (t = <IDENTIFIER>) (Call(rSem, t) | Variable(rSem, t))? 
+      { // search the variable and return its type ?????? 
+        call = t;
+        // check if the variable is declared
+        var = rSem.searchLevel(t.toString());
+        if(var == null && !checkDeclaration) {
+          printError(t, "Erro Semantico: Variável " + t.toString() + " não declarada.");
+          return null; 
+        }
+        else {
+          // it doesn't have to attribute the variable, because it is not this function goal
+          //System.out.println(var.getType());
+          return var.getType();
+        }
       }
+    
+
+    {
+      
 
     }
 }
@@ -1278,29 +1299,30 @@ void Expression06(SemanticRoutines rSem) :
 
 
 
-void Variable(SemanticRoutines rSem) :
+void Variable(SemanticRoutines rSem, Token t) :
 {}
 {
-    <LBRACKET> Expression(rSem) (Slice(rSem) | Subscripting(rSem))
+    <LBRACKET> Expression(rSem) (Slice(rSem, t) | Subscripting(rSem, t))
 }
 
-void Slice(SemanticRoutines rSem) :
+void Slice(SemanticRoutines rSem, Token t) :
 {
   Type type;
 }
 {
+    // check if upper limit is inferior than lower limit ???????
     <SLICE> ( Expression(rSem) | <END_SYMBOL>) <RBRACKET> 
       (
         <LBRACKET> Expression(rSem) <SLICE> ( Expression(rSem) | <END_SYMBOL>) <RBRACKET>
       )*
 
     {
-      // verifica se type é inteiro
+      // check if the expressions are integers numbers ???????
 
     }
 }
 
-void Subscripting(SemanticRoutines rSem) :
+void Subscripting(SemanticRoutines rSem, Token t) :
 {}
 {
     <RBRACKET> ( Index(rSem) )*
@@ -1309,7 +1331,12 @@ void Subscripting(SemanticRoutines rSem) :
                   void Index(SemanticRoutines rSem) :
                   {}
                   {
+                    // check if it is integer and smaller than the creation index ???????
+                    // in the creation, save the index number ???????
                     <LBRACKET> Expression(rSem) <RBRACKET>
+                    {
+
+                    }
                   }
 
 

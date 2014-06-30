@@ -4,3 +4,4 @@ loop do
   until 1
 end loop
 integer b = 9
+b = i
