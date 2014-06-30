@@ -1,0 +1,27 @@
+--Precedencia e Prioridade
+puts(1,"Deve imprimir 14, 14, 24, 7 e 3. Comeca aqui ->")
+
+integer a = 5
+integer b = 3
+integer c = 3
+integer resultado
+
+resultado = a + (b * c)
+puts(1,"a + (b * c) = ")
+?resultado
+
+resultado = a + b * c
+puts(1,"a + b * c = ")
+?resultado
+
+resultado = (a + b) * c
+puts(1,"(a + b) * c = ")
+?resultado
+
+resultado = 6 + b / c
+puts(1,"6 + b / c = ")
+?resultado
+
+resultado = (6 + b) / c
+puts(1,"(6 + b) / c = ")
+?resultado

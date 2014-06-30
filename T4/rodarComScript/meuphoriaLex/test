@@ -1,0 +1,36 @@
+#!/home/euphoria-4.0b2/bin/eui
+
+-- Testando comentario.
+
+/***** testando um comentario de bloco
+ pra ver se o compilador pode
+ ignorar tudo isso sem problemas*/
+
+/*
+  *aaaaa
+  *bbbbb
+  */
+
+-- testando declarar variaveis.
+integer counterwwwwww
+integer miles = 0
+sequence name
+name = miles + name
+
+sequence t
+t = {1,2,3}
+
+integer lalala
+
+lalala = miles
+
+function tmp(integer a)
+	if a then
+		return 1
+	end if
+	return 1
+end function
+
+return 1,2
+
+miles, name = tmp(miles), miles

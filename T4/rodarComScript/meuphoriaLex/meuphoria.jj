@@ -1,0 +1,1171 @@
+/* **********************************************************************
+ANALISADOR LÉXICO
+************************************************************************
+
+Integrantes: 
+Caio Gomes                  7239072
+Diego Gomes                 7656467
+Fernando Cury Gorodscy      7152354
+Roberty Manzini Bertolo     7573399
+Vanessa Apolinário Lima     7239256
+
+Documento:
+Codigo fonte
+
+Nome:
+MeuPhoria
+
+************************************************************************/
+
+
+/*****************************************
+Opções
+*****************************************/
+options {
+    STATIC = false;
+    DEBUG_LOOKAHEAD = false;
+    COMMON_TOKEN_ACTION = true ;
+}
+
+/*****************************************
+Inicialização do Analisador Léxico
+*****************************************/
+PARSER_BEGIN(Meuphoria)
+
+/* MeuPhoria Parser */
+class Meuphoria {
+
+    private static int errors = 0;
+    private static boolean checkDeclaration = false;
+    private static int _return = 0;
+    private static Token call = null;
+
+// Processa o código e gera a tabela de tokens
+    public void processa() throws ParseException, TokenMgrError {
+        Token t;
+        String nomeToken;
+        do {
+// Pega o próximo token gerado pelo Léxico.
+            t = getNextToken();
+            if(t.kind == IDENTIFIER) {
+// Se tamanho for maior que 30, váriavel é invalida. Gera um erro.
+                if(t.image.length() > 30)
+                    throw new TokenMgrError();
+            }
+// Pega o proximo token do tipo t.kind
+            nomeToken = tokenImage[t.kind];
+// Seta a localização do token
+            String location = "@(" + t.beginLine + ", " + t.beginColumn + ")";
+// Imprime as informações do token. Se for EOF não imprime image, pois ela não existe.
+            if(t.kind == EOL)
+                System.out.println(String.format("%-15s %-20s <EOL>", location, nomeToken));
+            else
+                System.out.println(String.format("%-15s %-20s %s", location, nomeToken, t.image));
+        } while (!(nomeToken.equals("<EOF>"))); // Termina o loop se EOF
+        System.out.println(String.format("%s", t.image));
+    }
+
+/** Main entry point. */
+public static void main(String args[]) {
+    try
+    {
+        java.io.InputStream tmp = System.in;
+
+        java.io.InputStreamReader is = new java.io.InputStreamReader(tmp);
+        java.lang.StringBuilder sb=new java.lang.StringBuilder();
+        java.io.BufferedReader br = new java.io.BufferedReader(is);
+        try {
+            String read = br.readLine();
+
+            while(read != null) {
+                sb.append(read + "\n");
+                read =br.readLine();
+
+            }
+        }
+        catch(java.io.IOException e) {
+            System.out.println(e.getMessage());
+        }
+
+        // Define o analisador sintatico de acordo com a entrada do sistema
+        Meuphoria analisadorSintatico = new Meuphoria(new java.io.StringReader(sb.toString()));
+
+        analisadorSintatico.variables_declaration();
+
+        checkDeclaration = true;
+        analisadorSintatico = new Meuphoria(new java.io.StringReader(sb.toString()));
+
+        analisadorSintatico.javacc_input();
+    }
+    catch(ParseException e)
+    {
+        System.out.println(e.getMessage());
+        System.out.println("Ocorreu uma excecao!");
+    }
+    catch(TokenMgrError e)
+    {
+        System.out.println(e.getMessage());
+        System.out.println("Existem erros no codigo! Por favor, verifica-los.");
+    }
+}
+}
+PARSER_END(Meuphoria)
+
+
+
+TOKEN_MGR_DECLS : { 
+
+//Ação executada para cada Token encontrado
+    void CommonTokenAction(Token t) {
+        if(t.kind == IDENTIFIER) {
+// Se tamanho for maior que 30, váriavel é invalida. Gera um erro.
+            if(t.image.length() > 30)
+                throw new TokenMgrError();
+        }
+    }
+}
+
+
+
+/*****************************************
+SKIP
+*****************************************/
+SKIP : { " " | "\t" | "\r" }
+
+/* Skip Comentários de linha e de bloco */
+SKIP :
+{
+    "/*" : WithinComment
+    | <COMENTARIO_INICIAL : "#" (~["\n","\r"])*  >
+    | <COMENTARIO_LINHA: "--" (~["\n","\r"])* >
+}
+
+<WithinComment> SKIP :
+{
+    "*/" : DEFAULT
+}
+
+<WithinComment> MORE :
+{
+    <~[]>
+}
+
+/*****************************************
+TERMINAIS
+*****************************************/
+TOKEN : {
+    < EOL : "\n" >
+}
+
+/*****************************************
+PALAVRAS RERSERVADAS
+*****************************************/
+TOKEN : {
+    <CASE : "case">
+    | <DO : "do">
+    | <END : "end">
+    | <EXPORT : "export">
+    | <GLOBAL : "global">
+    | <INCLUDE : "include">
+    | <PUBLIC : "public">
+    | <SWITCH : "switch">
+    | <UNTIL : "until">
+    //| <CONSTANT : "constant">
+    | <ELSE : "else">
+    | <ENTRY : "entry">
+    | <FALLTHRU : "fallthru">
+    | <GOTO : "goto">
+    | <LABEL : "label">
+    | <RETRY : "retry">
+    | <THEN : "then">
+    | <WHILE : "while">
+    | <BREAK : "break">
+    | <CONTINUE : "continue">
+    | <ELSEDEF : "elsedef">
+    | <ENUM : "enum">
+    | <IF : "if">
+    | <LOOP : "loop">
+    | <OVERRIDE : "override">
+    | <RETURN : "return">
+    | <TO : "to">
+    | <WITH : "with">
+    | <BY : "by">
+    | <ELSIF : "elsif">
+    | <EXIT : "exit">
+    | <FUNCTION : "function">
+    | <IFDEF : "ifdef">
+    | <PROCEDURE : "procedure">
+    | <TYPE : "type">
+    | <WITHOUT : "without">
+    | <SAVE : "save">
+    | <STRICT : "strict">
+    | <ELSEIFDEF : "elsifdef">
+    | <FOR : "for">
+    | <PRINT : "?">
+}
+
+/*****************************************
+SEPARADORES
+*****************************************/
+TOKEN : { 
+    <LPAREN: "(" >
+        | <RPAREN: ")" >
+| <LBRACE: "{" >
+| <RBRACE: "}" >
+| <LBRACKET: "[" >
+| <RBRACKET: "]" >
+| <SEMICOLON: ";" >
+| <COMMA: "," >
+| <DOT: "." >
+| <#SINGLE_QUOTE: "\'" >
+| <SLICE: ".." >
+| <#QUOTE: "\"">
+| <#TRIPLE_QUOTE: "\"\"\"">
+| <COLON : ":">
+}
+
+/*****************************************
+OPERADORES
+*****************************************/
+TOKEN : {
+    <NOT_OP: "not" >
+    | <PLUS: "+" >
+    | <MINUS: "-" >
+    | <STAR: "*" >
+    | <SLASH: "/" >
+    | <ESCLEAD: "\\">
+    | <CONCAT: "&" >
+    | <GT: ">" >
+    | <LT: "<" >
+    | <LE: "<=" >
+    | <GE: ">=" >
+// Depois no sintático, terá que ser adicionado como comando
+    | <EQUAL: "=" >
+    | <NE: "!=" >
+    | <SC_OR: "or" >
+    | <SC_AND: "and" >
+    | <XOR_OP: "xor" >
+| <END_SYMBOL : "$">
+}
+
+/*****************************************
+IDENTIFICADORES
+*****************************************/
+TOKEN : { 
+    < IDENTIFIER : ( ["a"-"z", "A"-"Z"] | "_" ) ( ["a"-"z", "A"-"Z"] | ["0"-"9"] | "_" )* > 
+    | < CHAR : (["a"-"z", "A"-"Z"] | "_" | "%" | "&" | "$" | "*" | " " | "\\"
+        | "." | "!" | "@" | "#" | "$" | "%" | "^" | "*" | "(" | ")" | "-" | "=" ) >
+}
+
+/*****************************************
+MANIPULACAO DE NUMEROS
+*****************************************/
+TOKEN : {
+    < INTEGER : ["0"-"9"] (["0"-"9"] | "_")* >
+    | < FLOAT   : <INTEGER> <DOT> ["0"-"9"] (["0"-"9"] | "_")* >
+    | < EXP     : (<INTEGER> | <FLOAT>) ("E" | "e") (<PLUS> | <MINUS>)? <INTEGER> >
+}
+
+
+TOKEN : {
+    < BIN_NUMBER : "0b" (["0", "1"])+(["0", "1", "_"])* >
+    | < OCT_NUMBER : "0t" (["0"-"7"])+(["0"-"7", "_"])* >
+    | < DEC_NUMBER : "0d" <INTEGER> >
+    | < HEX_NUMBER : "0x" (["0"-"9", "A"-"F"])+(["0"-"9", "A"-"F", "_"])* >
+}
+
+/*****************************************
+MANIPULAÇÃO DE STRINGS
+*****************************************/
+TOKEN : {
+    < STRINGLIT : <SIMPLESTRINGLIT> | <RAWSTRINGLIT> >
+    | < SIMPLESTRINGLIT : <QUOTE>
+    (
+        ["a"-"z", "A"-"Z"] | "_" | "%" | "&" | "$" | "*" | " "
+        | "." | "!" | "@" | "#" | "$" | "%" | "^" | "*" | "(" | ")" | "-" | "=" | ["0"-"9"] |
+        "<" | ">" | "," | ":" | "|" | ";" | "?" | "/" | "~" | "]" | "[" | "{" | "}" | "+" |
+        "_" | "`" | "´" | "á" | "é" | "í" | "ó" | "ú" | "ê" | "ã" | "õ"
+        | <BINARY>
+        | <HEX2>
+        | <HEX4>
+        | <HEX8>
+        | <ESCCHAR>)* <QUOTE> >
+    | < ESCCHAR : <ESCLEAD> ( "n" | "r" | "t" | "\\" | "\"" | "\'" | "0" | "e" | "E" 
+        | <BINARY> | <HEX2> | <HEX4> | <HEX8> ) >
+| < BINARY : "\\b" (["0", "1"])+(["0", "1", "_"])* >//<BIN> >
+| < HEX2 : "\\x" ["0"-"9","A"-"F"] ["0"-"9","A"-"F"] >
+| < HEX4 : "\\u" ["0"-"9","A"-"F"] ["0"-"9","A"-"F"]["0"-"9","A"-"F"] ["0"-"9","A"-"F"] >
+| < HEX8 : "\\U" ["0"-"9","A"-"F"] ["0"-"9","A"-"F"]["0"-"9","A"-"F"] ["0"-"9","A"-"F"]["0"-"9","A"-"F"] ["0"-"9","A"-"F"]["0"-"9","A"-"F"] ["0"-"9","A"-"F"] >
+| < RAWSTRINGLIT : <DQRAWSTRING> | <BQRAWSTRING> | <VANSTRING> >
+| < DQRAWSTRING : "´" 
+(
+    ["a"-"z", "A"-"Z"] | "_" | "%" | "&" | "$" | "*" | " "
+    | "." | "!" | "@" | "#" | "$" | "%" | "^" | "*" | "(" | ")" | "-" | "=" | ["0"-"9"] |
+    "<" | ">" | "," | ":" | "|" | ";" | "?" | "/" | "~" | "]" | "[" | "{" | "}" | "+" |
+    "_" | "`" | "´" | "á" | "é" | "í" | "ó" | "ú" | "ê" | "ã" | "õ"
+    | <BINARY>
+    | <HEX2>
+    | <HEX4>
+    | <HEX8>)+
+"´" >
+| <BQRAWSTRING : "\"\"\"" 
+(
+    ["a"-"z", "A"-"Z"] | "_" | "%" | "&" | "$" | "*" | " "
+    | "." | "!" | "@" | "#" | "$" | "%" | "^" | "*" | "(" | ")" | "-" | "=" | ["0"-"9"] |
+    "<" | ">" | "," | ":" | "|" | ";" | "?" | "/" | "~" | "]" | "[" | "{" | "}" | "+" |
+    "_" | "`" | "´" | "á" | "é" | "í" | "ó" | "ú" | "ê" | "ã" | "õ"
+    | <BINARY>
+    | <HEX2>
+    | <HEX4>
+    | <HEX8>)+
+"\"\"\"" >
+| <VANSTRING : "\'" 
+(
+    ["a"-"z", "A"-"Z"] | "_" | "%" | "&" | "$" | "*" | " " | "\\"
+    )+
+"\'" >
+}
+
+/*************************
+Statements Básicos
+**************************/
+TOKEN : {
+    < WITHENTRY : <WITH> <ENTRY> >
+    | < LABELSTMT : <LABEL> <STRINGLIT> >
+}
+
+/*************************
+Branching
+**************************/
+
+TOKEN : {
+    < ENDDEFIF      : <END> <IFDEF> >
+}
+
+/*******************************************************
+MEUPHORIA GRAMMAR
+*******************************************************/
+
+void printError(Token t, String msg):
+{
+}
+{
+  {
+    errors++;
+    System.out.println("[" + t.beginLine + ", " + t.beginColumn + "] " + msg);
+  }
+}
+
+void variables_declaration() :
+{
+    SemanticRoutines rSem; 
+}
+{
+    {
+        rSem = new SemanticRoutines();
+    }
+
+    ( 
+          (LOOKAHEAD(2) stmblk(rSem) | (ScopeModifier())? (VarDeclare(rSem) | ProcDeclare(rSem) | EnumDeclare(rSem) ) ) 
+      )*
+      <EOF>
+}
+
+      void VarDeclare(SemanticRoutines rSem) :
+      {
+        Type type;
+      }
+      {
+        type = DataType(rSem) 
+
+        IdentList(rSem, type)
+      }
+
+                  void IdentList(SemanticRoutines rSem, Type type) :
+                  {}
+                  {
+                    Ident(rSem, type) ( <COMMA> Ident(rSem, type) )* 
+                  }
+
+                        void Ident(SemanticRoutines rSem, Type type) :
+                        {
+                          Token t;
+                        }
+                        {
+                           t = <IDENTIFIER> 
+                           {
+                              if(!checkDeclaration) {
+                                  if (rSem.searchLevel(t.toString()) == null) {
+                                    Symbol s = new Symbol(t.toString(),rSem.getLevel(),Category.Variable);
+                                    s.setType(type);
+                                    rSem.insert(s);
+
+                                  }
+                                  else {
+                                    //Throw semantic exception
+                                    printError(t, "Erro Semantico: Variavel '" + t.toString() + "' ja declarada.");
+                                  }
+                              }
+                           }
+                           (<EQUAL> Expression(rSem))?
+                        }
+
+
+      /* NAO SEI SE O ENUM EH ASSIM ????????? */
+      void EnumDeclare(SemanticRoutines rSem) :
+      {
+        Type type;
+      }
+      {
+        <ENUM> 
+        {
+          type = Type.Enum;
+        }
+        (EnumVal(rSem, type) | EnumType(rSem, type))
+      }
+
+            void EnumVal(SemanticRoutines rSem, Type type) :
+            {}
+            {
+              IdentList(rSem, type)
+            }
+
+            void EnumType(SemanticRoutines rSem, Type type) :
+            {}
+            {
+              <TYPE> IdentList(rSem, type) <END> <TYPE>
+            }
+
+
+      void ProcDeclare(SemanticRoutines rSem) : 
+      {
+        Token t, t2;
+        Symbol proc = null;
+        java.util.ArrayList<Symbol> par = new java.util.ArrayList<Symbol>();
+        int flag = 0;
+        int a = 0;
+        int tmp = 0;
+      }
+      {
+        {
+          if(_return > 0) {
+            tmp = _return;
+            _return = 0;
+          }
+        }
+        (t2 = <PROCEDURE> | t2 = <TYPE> | t2 = <FUNCTION>)
+        t = <IDENTIFIER> 
+        {
+          if(!checkDeclaration) {
+              if ( rSem.searchLevel(t.toString()) == null ) {
+                proc = new Symbol(t.toString(), rSem.getLevel(), Category.Procedure);
+                rSem.insert(proc);
+                rSem.newLevel();
+                flag = 1;
+              }
+              else {
+                //Throw semantic exception
+                printError(t, "Erro Semantico: Procedimento '" + t.toString() + "' ja declarado.");
+              }
+          }
+        }
+
+        <LPAREN> 
+          ( 
+              par = ParamList(rSem) 
+              {
+                if(proc != null)
+                  proc.setParameters(par);
+              }
+          )? 
+          // MUDAR STMBLK ????????????
+        <RPAREN> 
+        ( stmblk(rSem) )* 
+
+        <END> ProcedureType(rSem, t2)
+
+        {
+          if(proc != null)
+            proc.setReturnParameters(_return);
+
+          if(_return > 0) {
+            if(t2.toString().equals("procedure") && !checkDeclaration)
+              printError(t2, "Erro Semantico: Procedure nao pode retornar nenhum valor.");
+            _return = tmp;
+          }
+          else if((t2.toString().equals("function") || t2.toString().equals("type") ) && !checkDeclaration)
+            printError(t2, "Erro Semantico: " + t2.toString() + " nao retorna nenhum valor.");
+
+          if (flag == 1) {
+
+              if(proc!= null) {
+                proc.setNPar(par.size());
+                
+                for (int i = 0; i < par.size(); i++)
+                  rSem.insert(par.get(i));
+              }
+          }
+          if(!checkDeclaration) {
+            rSem.removeLastLevel();
+            //rSem.previousLevel();
+            //rSem.deleteUpperLevel();
+          }
+        }
+      }
+
+            void ProcedureType(SemanticRoutines rSem, Token procType) :
+            {
+              Token t;
+            }
+            {
+              t = <PROCEDURE> | t = <FUNCTION> | t = <TYPE>
+              {
+                if(!t.toString().equals(procType.toString()) && !checkDeclaration)
+                  printError(t, "Erro Sintático: Esperado fechamento de '" + procType.toString());
+              }
+            }
+
+
+      java.util.ArrayList<Symbol> ParamList(SemanticRoutines rSem) :
+      {
+        Symbol s;
+        java.util.ArrayList<Symbol> parList = new java.util.ArrayList<Symbol>();
+      }
+      {
+        s = Parameter(rSem) 
+        {
+          parList.add(s);
+        }
+
+        (
+            <COMMA> 
+            s = Parameter(rSem) 
+            {
+              parList.add(s);
+            }
+        )*
+
+
+        {
+          return parList;
+        }
+      }
+
+            Symbol Parameter(SemanticRoutines rSem) :
+            {
+              Type type;
+              Token t;
+            }
+            {
+              type = DataType(rSem) 
+              t = <IDENTIFIER>
+              {
+                if (rSem.searchLevel(t.toString()) == null) {
+                  Symbol s = new Symbol(t.toString(), rSem.getLevel(), Category.Parameter);
+                  s.setType(type);
+                  rSem.insert(s);
+                  return s;
+                }
+                else {
+                  if(!checkDeclaration)
+                      printError(t, "Erro Semantico: Parâmetro '" + t.toString() + "' ja declarado.");
+                  return null;
+                }
+              }
+            }
+
+
+
+
+void javacc_input() :
+{
+    Token t;
+    SemanticRoutines rSem;
+}
+{
+      {
+        rSem = new SemanticRoutines();
+      }
+    
+      ( 
+          (LOOKAHEAD(2) stmblk(rSem) | (ScopeModifier())? ( VarDeclare(rSem) | EnumDeclare(rSem) | ProcDeclare(rSem) ) )
+      )*
+      <EOF>
+
+      {
+        if ( errors != 0 ) {
+          System.out.println("Análise encontrou " + errors + " erro(s).");
+        } 
+        else {
+          System.out.println("Análises léxica, sintática e semântica concluídas com sucesso!");
+        }
+
+      }
+}
+
+      int stmblk(SemanticRoutines rSem) :
+      {
+        int a = 0;
+      }
+      {
+          ( a = statement(rSem) ) { return a; }
+          | <EOL> { return a; }
+      }
+
+      int statement(SemanticRoutines rSem) :
+      {
+        Token t;
+        int a = 0;
+      }
+      {
+            Flow(rSem) { return a; }
+          | Loop(rSem) { return a; }
+          | Branch(rSem) { return a; }
+          | (a = Return(rSem) ) { return a; }
+          | LOOKAHEAD(2) (t = <IDENTIFIER>) (Assignment(rSem,t) | Call(rSem,t))  { return a; }
+          | (ScopeModifier())? (VarDeclare(rSem) | ProcDeclare(rSem) | EnumDeclare(rSem) )  { return a; }
+          | Print(rSem) { return a; }
+          
+      }
+
+void Print(SemanticRoutines rSem) :
+{}
+{
+  <PRINT> Expression(rSem)
+}
+
+            void Flow(SemanticRoutines rSem) :
+            {}
+            {
+              ( <BREAK> (<INTEGER>)? | <CONTINUE> | <RETRY> | <EXIT> | <FALLTHRU> ) (<STRINGLIT>)?
+            }
+
+
+void Loop(SemanticRoutines rSem) :
+{}
+{
+ ForStatement(rSem) | WhileStatement(rSem) | LoopStatement(rSem) | <GOTO> <LABELSTMT>
+}
+
+      void ForStatement(SemanticRoutines rSem) :
+      {}
+      {
+        <FOR> ForIDX(rSem) (<LABELSTMT>)? <DO> (stmblk(rSem))* <END> <FOR> 
+      }
+
+      void ForIDX(SemanticRoutines rSem) :
+      {}
+      {
+          <IDENTIFIER> <EQUAL> Expression(rSem) <TO> Expression(rSem) (<BY> Expression(rSem))?
+      }
+
+      void WhileStatement(SemanticRoutines rSem) :
+      {
+        Token t;
+        Type type;
+      }
+      {
+        t = <WHILE> 
+        type = Expression(rSem) 
+        {
+          if(type != Type.Boolean && !checkDeclaration)
+            printError(t, "Erro Semantico: A condição do " + t.toString() + " deve ser do tipo boolean" );
+        }
+        (<WITHENTRY>)? (<LABELSTMT>)? <DO> (stmblk(rSem))* (EntryStatement(rSem))? <END> <WHILE>
+      }
+
+      void LoopStatement(SemanticRoutines rSem) :
+      {}
+      {
+      <LOOP> (<WITHENTRY>)? (<LABELSTMT>)? <DO> (stmblk(rSem))* (EntryStatement(rSem))? <UNTIL> Expression(rSem) (<EOL>)* <END> <LOOP>
+      }
+
+            void EntryStatement(SemanticRoutines rSem) :
+            {}
+            {
+              <ENTRY> (stmblk(rSem))* 
+            }
+
+void Branch(SemanticRoutines rSem) :
+{}
+{
+    IfStatement(rSem) | SwitchStatement(rSem) | IfDefStatement(rSem)
+}
+
+void IfStatement(SemanticRoutines rSem) :
+{}
+{
+    IfTest(rSem) (ElsifStatement(rSem))* (ElseStatement(rSem))? <END> <IF>
+}
+
+      void IfTest(SemanticRoutines rSem) :
+      {
+        Token t;
+        Type type;
+      }
+      {
+        t = <IF> 
+        Expression(rSem) 
+        /*{
+          if(type != Type.Boolean && !checkDeclaration)
+            printError(t, "Erro Semantico: A condição do " + t.toString() + " deve ser do tipo boolean" );
+        }*/
+        (<LABELSTMT>)? <THEN> (stmblk(rSem))* 
+      }
+
+      void ElsifStatement(SemanticRoutines rSem) :
+      {
+        Token t;
+        Type type;
+      }
+      {
+        t = <ELSIF> 
+        Expression(rSem) 
+        /*{
+          if(type != Type.Boolean && !checkDeclaration)
+            printError(t, "Erro Semantico: A condição do " + t.toString() + " deve ser do tipo boolean" );
+        }*/
+        <THEN> (stmblk(rSem))*
+      }
+
+      void ElseStatement(SemanticRoutines rSem) :
+      {}
+      {
+        <ELSE> (stmblk(rSem))*
+      }
+
+
+void IfDefStatement(SemanticRoutines rSem) :
+{}
+{
+    IfDefTest(rSem) ( ElsDefIfStatement(rSem) <LABELSTMT> )? ( ElsDefStatement(rSem))? <ENDDEFIF>
+}
+
+      void IfDefTest(SemanticRoutines rSem) :
+      {}
+      {
+      <IFDEF> (<NOT_OP>)? <IDENTIFIER> ( (<SC_AND> | <SC_OR>) (<NOT_OP>)? <IDENTIFIER>)? <THEN> (stmblk(rSem))*
+      }
+
+      void ElsDefIfStatement(SemanticRoutines rSem) :
+      {}
+      {
+      <ELSEIFDEF> (<NOT_OP>)? <IDENTIFIER> ( (<SC_AND> | <SC_OR>) (<NOT_OP>)? <IDENTIFIER>)? <THEN> (stmblk(rSem))*
+      }
+
+      void ElsDefStatement(SemanticRoutines rSem) :
+      {}
+      {
+      <ELSEDEF> (stmblk(rSem))*
+      }
+
+void SwitchStatement(SemanticRoutines rSem) :
+{}
+{
+  SwitchTest(rSem) CaseStatement(rSem) (LOOKAHEAD(2) CaseStatement(rSem))* (<ELSE> (stmblk(rSem))* )? <END> <SWITCH>
+}
+
+      void SwitchTest(SemanticRoutines rSem) :
+      {}
+      {
+          <SWITCH> Expression(rSem) ((<WITH> | <WITHOUT>) <FALLTHRU>)? (<LABELSTMT>)? <DO> (<EOL>)?
+      }
+
+void CaseStatement(SemanticRoutines rSem) :
+{}
+{
+<CASE> CaseList(rSem) <THEN> (stmblk(rSem))* 
+}
+
+      void CaseList(SemanticRoutines rSem) :
+      {}
+      {
+          Expression(rSem) (<COMMA> Expression(rSem))* 
+      }
+
+// MUDAR AINDA ??????????????
+void Assignment(SemanticRoutines rSem, Token identifier) :
+{
+  Symbol var;
+}
+{
+    {
+      var = rSem.searchLevel(identifier.toString());
+      if(var == null && !checkDeclaration)
+        printError(identifier, "Erro Semantico: Variável " + identifier.toString() + " não declarada.");
+    }
+    AssignmentMulti(rSem) | AssignmentWihOp(rSem)
+}
+
+      void AssignmentMulti(SemanticRoutines rSem) :
+      {
+        Token t;
+        int var = 1, exp = 0;
+      }
+      {
+          {
+            call = null;
+          }
+          (Variable(rSem))? 
+          (
+            <COMMA> <IDENTIFIER> (Variable(rSem))? 
+            {
+              var++;
+            }
+          )? 
+          t = <EQUAL> 
+          Expression(rSem) 
+          {
+            if(call != null) {
+              Symbol c = rSem.search(call.toString());
+              if(c != null && c.getCategory() == Category.Procedure) {
+                exp += c.getReturnParameters();
+              }
+              else
+                exp = 1;
+            }
+            else
+              exp = 1;
+          }
+          (
+            <COMMA> Expression(rSem)
+            {
+              if(call != null) {
+                Symbol c = rSem.search(call.toString());
+                if(c != null && c.getCategory() == Category.Procedure) {
+                  exp += c.getReturnParameters();
+                }
+                else
+                  exp++;
+              }
+              else
+                exp++;
+            }
+          )?
+          {
+            if(var != exp && !checkDeclaration) {
+              printError(t, "Erro Semantico: Quantidade diferente de parametros na atribuicao de variaveis.");
+            }
+          }
+      }
+
+      void AssignmentWihOp(SemanticRoutines rSem) :
+      {}
+      {
+          (<PLUS> | <MINUS> | <SLASH> | <STAR> | <CONCAT> ) <EQUAL> Expression(rSem) 
+          {
+
+          }
+      }
+
+int Return(SemanticRoutines rSem) :
+{
+  Token t;
+  int i = 1;
+}
+{
+    t = <RETURN> 
+    Expression(rSem) 
+    (
+      <COMMA> Expression(rSem)
+      {
+        i++;
+      }
+    )*
+
+    {
+      if(_return > 0 && _return != i && !checkDeclaration)
+        printError(t, "Erro Semantico: Quantidade de parametros de retorno diferentes.");
+      else if(_return == 0)
+        _return = i;
+      return 1;
+    }
+}
+
+
+void Call(SemanticRoutines rSem, Token t) :
+{
+  Symbol proc = null;
+  java.util.ArrayList<Type> par = new java.util.ArrayList<Type>();
+}
+{
+    <LPAREN> 
+      (
+        par = ArgList(rSem)
+      )? 
+    <RPAREN>
+
+        {
+            if(checkDeclaration) {
+                  proc = rSem.search(t.toString());
+
+                  if (proc != null) {
+                    
+                    int analisePar = proc.verifyParameters(par);
+
+                    if (analisePar == 1 ) {
+                      printError(t, "Erro semantico: Procedimento '" + t + "' não declarado.");
+                    } else if (analisePar == 2)
+                      printError(t, "Erro semantico: Procedimento '" + t.toString() + "' com numero de parametros invalidos.");
+                    else if (analisePar == 3)
+                      printError(t, "Erro semantico: Procedimento '" + t.toString() + "' com tipo de parametros invalidos.");
+                    else {
+                      //DO SOMETHING
+                      // está correto
+                    }
+
+                  }
+                  else {
+                    printError(t, "Erro semantico: Procedimento '" + t.toString() + "' não declarado.");
+                  }
+            }
+        }
+        
+}
+
+
+      java.util.ArrayList<Type> ArgList(SemanticRoutines rSem) :
+      {
+        Type type;
+        java.util.ArrayList<Type> parList = new java.util.ArrayList<Type>();
+      }
+      {
+        type = Expression(rSem)
+        {
+          parList.add(type);
+        }
+
+        (
+            <COMMA> 
+            type = Expression(rSem)
+            {
+              parList.add(type);
+            }
+        )*
+
+
+        {
+          return parList;
+        }
+      }
+
+
+/************************************************************
+SEQUENCIA
+************************************************************/
+
+void Sequence(SemanticRoutines rSem) :
+{
+  //int tam;
+}
+{
+    <LBRACE> ( LOOKAHEAD(2) <END_SYMBOL> | Object(rSem) (LOOKAHEAD(2) <COMMA> Object(rSem))* (<COMMA> <END_SYMBOL>)? )? <RBRACE> 
+}
+
+
+void Object(SemanticRoutines rSem) :
+{}
+{
+    Sequence(rSem) | Atom(rSem) | <BIN_NUMBER> | <OCT_NUMBER> | <DEC_NUMBER> | <HEX_NUMBER> | <IDENTIFIER> | <STRINGLIT>
+}
+
+
+/************************************************************
+EXPRESSÕES
+************************************************************/
+
+Type Expression(SemanticRoutines rSem) :
+{
+  Type type;
+}
+{
+    (
+      Sequence(rSem)
+      {
+        return Type.Sequence;
+      }
+    )
+      | 
+    (
+      Expression00(rSem)
+      {
+        return Type.Boolean;
+      }
+    )
+}
+/*
+Type Expression00(SemanticRoutines rSem) :
+{
+  Token t = null;
+  Type tp1, tp2;
+}
+{
+    /*tp1 = Expression01(rSem) 
+    ( 
+      (t = <SC_AND> | t = <SC_OR> | t = <XOR_OP>) 
+      Expression01(rSem) 
+    )*
+    {
+      /*if(t != null)
+        return Type.Boolean;
+      else
+        return Type.Constant;
+    }
+}
+
+
+void Expression(SemanticRoutines rSem) :
+{}
+{
+  Sequence(rSem) | Expression00(rSem)
+}
+*/
+void Expression00(SemanticRoutines rSem) :
+{}
+{
+  Expression01(rSem) ( ( <SC_AND> | <SC_OR> | <XOR_OP>) Expression01(rSem) )*
+}
+
+void Expression01(SemanticRoutines rSem) :
+{}
+{
+    Expression02(rSem) ( ( <LT> | <GT> | <LE> | <GE> | <EQUAL> | <NE> ) Expression02(rSem) )*
+}
+
+void Expression02(SemanticRoutines rSem) :
+{}
+{
+    Expression03(rSem) ( <CONCAT> Expression03(rSem) )*
+}
+
+void Expression03(SemanticRoutines rSem) :
+{}
+{
+    Expression04(rSem) ( (<PLUS> | <MINUS>) Expression04(rSem) )*
+}
+
+void Expression04(SemanticRoutines rSem) :
+{}
+{
+    Expression05(rSem) ( (<STAR> | <SLASH>) Expression05(rSem) )*
+}
+
+void Expression05(SemanticRoutines rSem) :
+{}
+{
+    (<PLUS> | <MINUS> | <NOT_OP>)? Expression06(rSem)
+}
+
+void Expression06(SemanticRoutines rSem) :
+{
+  Token t;
+  Symbol var = null;
+}
+{
+    Atom(rSem) | <STRINGLIT> | (<LPAREN> Expression(rSem) <RPAREN>) | (t = <IDENTIFIER>) (Call(rSem, t) | Variable(rSem))?
+    {
+      call = t;
+      // check if the variable is declared
+      var = rSem.searchLevel(t.toString());
+      if(var == null && !checkDeclaration)
+        printError(t, "Erro Semantico: Variável " + t.toString() + " não declarada.");
+      else {
+        //int a = null;
+      }
+
+    }
+}
+
+
+
+
+
+
+
+
+
+
+void Variable(SemanticRoutines rSem) :
+{}
+{
+    <LBRACKET> Expression(rSem) (Slice(rSem) | Subscripting(rSem))
+}
+
+void Slice(SemanticRoutines rSem) :
+{
+  Type type;
+}
+{
+    <SLICE> ( Expression(rSem) | <END_SYMBOL>) <RBRACKET> 
+      (
+        <LBRACKET> Expression(rSem) <SLICE> ( Expression(rSem) | <END_SYMBOL>) <RBRACKET>
+      )*
+
+    {
+      // verifica se type é inteiro
+
+    }
+}
+
+void Subscripting(SemanticRoutines rSem) :
+{}
+{
+    <RBRACKET> ( Index(rSem) )*
+}
+
+                  void Index(SemanticRoutines rSem) :
+                  {}
+                  {
+                    <LBRACKET> Expression(rSem) <RBRACKET>
+                  }
+
+
+/*****************************************
+DATA TYPE
+*****************************************/
+
+void ScopeModifier() :
+{}
+{
+    <GLOBAL> | <PUBLIC> | <EXPORT> | <OVERRIDE>
+}
+
+Type DataType(SemanticRoutines rSem) :
+{
+  Token t;
+  Type tp;
+}
+{
+  t = <IDENTIFIER>
+  {
+      tp = null;
+      if(t.toString().equals("atom"))
+          tp = Type.Atom;
+      else if(t.toString().equals("integer"))
+          tp = Type.Int;
+      else if(t.toString().equals("sequence"))
+          tp = Type.Sequence;
+      else if(t.toString().equals("object"))
+          tp = Type.Object;
+      else if(t.toString().equals("constant"))
+          tp = Type.Constant;
+      else if(t.toString().equals("boolean"))
+          tp = Type.Boolean;
+      else if(!checkDeclaration)
+        printError(t, "Erro Semantico: Tipo " + t.toString() + " nao existe.");
+
+      return tp;
+  }
+}
+
+void Real(SemanticRoutines rSem) :
+{}
+{
+    <FLOAT> | <EXP>
+}
+
+void Atom(SemanticRoutines rSem) :
+{}
+{
+    <INTEGER> | Real(rSem)
+}

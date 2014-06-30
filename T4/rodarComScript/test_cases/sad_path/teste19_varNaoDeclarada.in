@@ -1,0 +1,4 @@
+integer b = a
+integer c = d
+
+--Variavel nao Declarada

@@ -1,0 +1,9 @@
+function qualquerUma(integer b, integer c)
+   atom number
+   number = 1 + b + c
+   return number
+end function
+
+integer b = 5
+integer c = 6
+integer a = qualquerUma(b, c)
