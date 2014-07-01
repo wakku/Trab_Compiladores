@@ -1032,7 +1032,7 @@ void Assignment(SemanticRoutines rSem, Token identifier) :
       {
           {
             call = null;
-
+            System.out.println(identifier);
             s = rSem.searchLevel(identifier.toString());
             tp = s.getType();
             tp1.add(tp);
@@ -1053,11 +1053,13 @@ void Assignment(SemanticRoutines rSem, Token identifier) :
           tmp = Expression(rSem) 
 
           {
+            System.out.println("1....");
             if(!tmp.isEmpty()) {
               for(int i = 0; i < tmp.size(); i++)
                 tp2.add(tmp.get(i));
               tmp.clear();
             }
+
             if(call != null) {
               Symbol c = rSem.search(call.toString());
               if(c != null && c.getCategory() == Category.Procedure) {
@@ -1077,6 +1079,7 @@ void Assignment(SemanticRoutines rSem, Token identifier) :
                   tp2.add(tmp.get(i));
                 tmp.clear();
               }
+
               if(call != null) {
                 Symbol c = rSem.search(call.toString());
                 if(c != null && c.getCategory() == Category.Procedure) {
@@ -1275,25 +1278,25 @@ java.util.ArrayList<Type> Expression(SemanticRoutines rSem) :
 
       //Sequence(rSem)
         <LBRACE> ( LOOKAHEAD(2) <END_SYMBOL> | tp = Expression00(rSem) 
-        {
+        /*{
           if(!tp.isEmpty()) {
             for(int i = 0; i < tp.size(); i++)
               tp2.add(tp.get(i));
           }
           tp.clear();
-        }
+        }*/
         (LOOKAHEAD(2) <COMMA> 
           tp = Expression00(rSem)
-          {
+          /*{
             if(!tp.isEmpty()) {
               for(int i = 0; i < tp.size(); i++)
                 tp2.add(tp.get(i));
             }
             tp.clear();
-          }
+          }*/
         )* (<COMMA> <END_SYMBOL>)? )? <RBRACE> 
       {
-        System.out.println(tp2);
+        //System.out.println(tp2);
         type.add(Type.Sequence);
         return type;
       }
@@ -1443,8 +1446,9 @@ java.util.ArrayList<Type> Expression06(SemanticRoutines rSem) :
         // check if the variable is declared
         var = rSem.searchLevel(t.toString());
         Symbol var2 = rSem.search(t.toString());
-        if(var == null && !checkDeclaration) {
-          printError(t, "Erro Semantico: Variável " + t.toString() + " não declarada.");
+        if(var == null) {
+          if(!checkDeclaration)
+            printError(t, "Erro Semantico: Variável " + t.toString() + " não declarada.");
           tp.add(Type.NotDeclared);
           return tp;
         }

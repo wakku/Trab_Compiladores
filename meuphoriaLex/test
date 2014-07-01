@@ -14,20 +14,15 @@
 -- testando declarar variaveis.
 integer counterwwwwww
 integer miles = 0
-sequence name = {1, "aaa", 2}
-name = miles + name
-
-sequence t
-t = {1,2}
-
-name = name + t
+sequence name -- = {1, "aaa", 2}
 
 integer lalala
+lalala = name + miles
 
 function tmp(integer a)
-	sequence a
-	a = {1,2}
-	if a then
+	if a>0 then
+		sequence b
+		b = {1,2}
 		return 1
 	end if
 	return 1
@@ -36,4 +31,5 @@ end function
 return 1,2
 
 --miles, name = tmp(miles), miles
-name = tmp(miles)
+--name = tmp(miles)
+--miles = tmp(miles)
