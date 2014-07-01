@@ -460,7 +460,7 @@ void variables_declaration() :
       }
       {
         {
-          if(!_return_param.isEmpty()) {
+          if(_return_param!= null && !_return_param.isEmpty()) {
               return_parameters = new java.util.ArrayList<Type>();
               for(int count=0; count<_return_param.size(); count++)
                 return_parameters.add(_return_param.get(count));
@@ -504,13 +504,11 @@ void variables_declaration() :
         <END> ProcedureType(rSem, t2)
 
         {
+
           if(proc != null) {
             proc.setReturnParameters(_return);
             proc.setReturnTypes(_return_param);
           }
-            //System.out.println("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
-            //System.out.println(_return_param.toString());
-            //System.out.println(proc.getReturnTypes().toString());
           _return_param.clear();
           if(return_parameters != null) {
             for(int count=0; count<return_parameters.size(); count++)

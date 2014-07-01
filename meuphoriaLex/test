@@ -25,6 +25,8 @@ name = name + t
 integer lalala
 
 function tmp(integer a)
+	sequence a
+	a = {1,2}
 	if a then
 		return 1
 	end if
