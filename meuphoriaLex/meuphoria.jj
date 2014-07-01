@@ -996,13 +996,13 @@ void Assignment(SemanticRoutines rSem, Token identifier) :
             tp1 = s.getType();
 
             // Como saber se o nome da função da expressão?
-            Symbol s2 = rSem.searchLevel(.toString());
-            tp2 = s2.getCategory();
+        //    Symbol s2 = rSem.searchLevel(.toString());
+      //      tp2 = s2.getCategory();
 
-            if()
-            if(tp2 == null)
+    //        if()
+  //          if(tp2 == null)
               System.out.println("problema");
-            tp2.
+//            tp2.
             //EDICAO ROBERTY
             // comparar se os tipos são iguais
             // lembrar da recursão
@@ -1353,6 +1353,7 @@ Type Expression06(SemanticRoutines rSem) :
         }
         else {
           // it doesn't have to attribute the variable, because it is not this function goal
+          System.out.println(var.getReturnTypes().toString());
           return var.getType();
           // if it is a procedure or function ????
           //then it has to return the return values of the function
