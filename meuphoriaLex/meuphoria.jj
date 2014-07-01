@@ -1277,7 +1277,7 @@ java.util.ArrayList<Type> Expression(SemanticRoutines rSem) :
         x = {apple, orange*2, {1,2,3}, 99/4+foobar} => OK*/
 
       //Sequence(rSem)
-        <LBRACE> ( LOOKAHEAD(2) <END_SYMBOL> | tp = Expression00(rSem) 
+        <LBRACE> ( LOOKAHEAD(2) <END_SYMBOL> | tp = Expression(rSem) 
         /*{
           if(!tp.isEmpty()) {
             for(int i = 0; i < tp.size(); i++)
@@ -1286,7 +1286,7 @@ java.util.ArrayList<Type> Expression(SemanticRoutines rSem) :
           tp.clear();
         }*/
         (LOOKAHEAD(2) <COMMA> 
-          tp = Expression00(rSem)
+          tp = Expression(rSem)
           /*{
             if(!tp.isEmpty()) {
               for(int i = 0; i < tp.size(); i++)
