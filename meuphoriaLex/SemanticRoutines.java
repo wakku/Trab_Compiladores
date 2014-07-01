@@ -229,6 +229,14 @@ public class SemanticRoutines {
 		return null;
 	}
 
+	/*public Symbol searchPreviousLevels(String id) {
+		if(scopes.isEmpty() != true) {
+			SymbolsTable ts = scopes.get(level);
+			return ts.search(id);
+		}
+		return null;
+	}*/
+
 	public Symbol search(String id, int level) {
 		SymbolsTable ts = scopes.get(level);
 		return ts.search(id);

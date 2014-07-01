@@ -16,7 +16,7 @@ integer counterwwwwww
 integer miles = 0
 sequence name
 name = miles + name
-/*
+
 sequence t
 t = {1,2,3}
 
@@ -36,4 +36,4 @@ end function
 return 1,2
 
 --miles, name = tmp(miles), miles
-miles = tmp(miles)*/
+miles = tmp(miles)

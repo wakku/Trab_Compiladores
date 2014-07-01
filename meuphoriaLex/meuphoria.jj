@@ -674,11 +674,6 @@ void Loop(SemanticRoutines rSem) :
 {}
 {
   (
-    {
-      if(!checkDeclaration) {
-        rSem.newLevel();
-      }
-    }
     ( ForStatement(rSem) | WhileStatement(rSem) | LoopStatement(rSem) )
     {
       if(!checkDeclaration) {
@@ -692,7 +687,15 @@ void Loop(SemanticRoutines rSem) :
       void ForStatement(SemanticRoutines rSem) :
       {}
       {
-        <FOR> ForIDX(rSem) (<LABELSTMT>)? <DO> (stmblk(rSem))* <END> <FOR> 
+        <FOR> ForIDX(rSem) (<LABELSTMT>)? <DO> 
+
+        {
+          if(!checkDeclaration) {
+            rSem.newLevel();
+          }
+        }
+
+        (stmblk(rSem))* <END> <FOR> 
       }
 
       void ForIDX(SemanticRoutines rSem) :
@@ -717,7 +720,15 @@ void Loop(SemanticRoutines rSem) :
           else if(type.get(0) != Type.Boolean && !checkDeclaration)
             printError(t, "Erro Semantico: A condição do " + t.toString() + " deve ser do tipo boolean" );
         }
-        (<WITHENTRY>)? (<LABELSTMT>)? <DO> (stmblk(rSem))* (EntryStatement(rSem))? <END> <WHILE>
+        (<WITHENTRY>)? (<LABELSTMT>)? <DO> 
+
+        {
+          if(!checkDeclaration) {
+            rSem.newLevel();
+          }
+        }
+
+        (stmblk(rSem))* (EntryStatement(rSem))? <END> <WHILE>
       }
 
       void LoopStatement(SemanticRoutines rSem) :
@@ -726,7 +737,15 @@ void Loop(SemanticRoutines rSem) :
         Token t;
       }
       {
-        <LOOP> (<WITHENTRY>)? (<LABELSTMT>)? <DO> (stmblk(rSem))* (EntryStatement(rSem))? 
+        <LOOP> (<WITHENTRY>)? (<LABELSTMT>)? <DO> 
+
+        {
+          if(!checkDeclaration) {
+            rSem.newLevel();
+          }
+        }
+
+        (stmblk(rSem))* (EntryStatement(rSem))? 
 
         t = <UNTIL> 
         type = Expression(rSem) 
@@ -755,11 +774,6 @@ void Branch(SemanticRoutines rSem) :
 void IfStatement(SemanticRoutines rSem) :
 {}
 {
-    {
-      if(!checkDeclaration) {
-        rSem.newLevel();
-      }
-    }
     IfTest(rSem) 
     {
       if(!checkDeclaration) {
@@ -768,11 +782,6 @@ void IfStatement(SemanticRoutines rSem) :
     }
 
     (
-      {
-        if(!checkDeclaration) {
-          rSem.newLevel();
-        }
-      }
       ElsifStatement(rSem)
       {
         if(!checkDeclaration) {
@@ -783,11 +792,6 @@ void IfStatement(SemanticRoutines rSem) :
 
 
     (
-      {
-        if(!checkDeclaration) {
-          rSem.newLevel();
-        }
-      }
       ElseStatement(rSem)
       {
         if(!checkDeclaration) {
@@ -813,7 +817,15 @@ void IfStatement(SemanticRoutines rSem) :
           else if(type.get(0) != Type.Boolean && !checkDeclaration)
             printError(t, "Erro Semantico: A condição do " + t.toString() + " deve ser do tipo boolean" );
         }
-        (<LABELSTMT>)? <THEN> (stmblk(rSem))* 
+        (<LABELSTMT>)? <THEN> 
+
+        {
+          if(!checkDeclaration) {
+            rSem.newLevel();
+          }
+        }
+
+        (stmblk(rSem))* 
       }
 
       void ElsifStatement(SemanticRoutines rSem) :
@@ -830,24 +842,35 @@ void IfStatement(SemanticRoutines rSem) :
           else if(type.get(0) != Type.Boolean && !checkDeclaration)
             printError(t, "Erro Semantico: A condição do " + t.toString() + " deve ser do tipo boolean" );
         }
-        <THEN> (stmblk(rSem))*
+        <THEN> 
+
+        {
+          if(!checkDeclaration) {
+            rSem.newLevel();
+          }
+        }
+
+        (stmblk(rSem))*
       }
 
       void ElseStatement(SemanticRoutines rSem) :
       {}
       {
-        <ELSE> (stmblk(rSem))*
+        <ELSE> 
+
+        {
+          if(!checkDeclaration) {
+            rSem.newLevel();
+          }
+        }
+
+        (stmblk(rSem))*
       }
 
 
 void IfDefStatement(SemanticRoutines rSem) :
 {}
 {
-    {
-      if(!checkDeclaration) {
-        rSem.newLevel();
-      }
-    }
     IfDefTest(rSem)
     {
       if(!checkDeclaration) {
@@ -856,11 +879,6 @@ void IfDefStatement(SemanticRoutines rSem) :
     } 
 
     ( 
-      {
-        if(!checkDeclaration) {
-          rSem.newLevel();
-        }
-      }
       ElsDefIfStatement(rSem) <LABELSTMT> 
       {
         if(!checkDeclaration) {
@@ -870,11 +888,6 @@ void IfDefStatement(SemanticRoutines rSem) :
     )? 
 
     ( 
-      {
-        if(!checkDeclaration) {
-          rSem.newLevel();
-        }
-      }
       ElsDefStatement(rSem)
       {
         if(!checkDeclaration) {
@@ -890,20 +903,43 @@ void IfDefStatement(SemanticRoutines rSem) :
       {}
       {
         // check if it is not necessary operations on the identifiers ??????
-      <IFDEF> (<NOT_OP>)? <IDENTIFIER> ( (<SC_AND> | <SC_OR>) (<NOT_OP>)? <IDENTIFIER>)? <THEN> (stmblk(rSem))*
+        <IFDEF> (<NOT_OP>)? <IDENTIFIER> ( (<SC_AND> | <SC_OR>) (<NOT_OP>)? <IDENTIFIER>)? <THEN> 
+        {
+          if(!checkDeclaration) {
+            rSem.newLevel();
+          }
+        }
+
+        (stmblk(rSem))*
       }
 
       void ElsDefIfStatement(SemanticRoutines rSem) :
       {}
       {
         // check if it is not necessary operations on the identifiers ??????
-      <ELSEIFDEF> (<NOT_OP>)? <IDENTIFIER> ( (<SC_AND> | <SC_OR>) (<NOT_OP>)? <IDENTIFIER>)? <THEN> (stmblk(rSem))*
+        <ELSEIFDEF> (<NOT_OP>)? <IDENTIFIER> ( (<SC_AND> | <SC_OR>) (<NOT_OP>)? <IDENTIFIER>)? <THEN> 
+
+        {
+          if(!checkDeclaration) {
+            rSem.newLevel();
+          }
+        }
+
+        (stmblk(rSem))*
       }
 
       void ElsDefStatement(SemanticRoutines rSem) :
       {}
       {
-      <ELSEDEF> (stmblk(rSem))*
+        <ELSEDEF> 
+
+        {
+          if(!checkDeclaration) {
+            rSem.newLevel();
+          }
+        }
+
+        (stmblk(rSem))*
       }
 
 void SwitchStatement(SemanticRoutines rSem) :
@@ -911,11 +947,6 @@ void SwitchStatement(SemanticRoutines rSem) :
 {
   SwitchTest(rSem) 
 
-  {
-    if(!checkDeclaration) {
-      rSem.newLevel();
-    }
-  }
   CaseStatement(rSem) 
   {
     if(!checkDeclaration) {
@@ -924,11 +955,6 @@ void SwitchStatement(SemanticRoutines rSem) :
   }
 
   (LOOKAHEAD(2) 
-      {
-        if(!checkDeclaration) {
-          rSem.newLevel();
-        }
-      }      
       CaseStatement(rSem)
       {
         if(!checkDeclaration) {
@@ -964,7 +990,13 @@ void CaseStatement(SemanticRoutines rSem) :
 {}
 {
   // check if the switchTest expression has the same type as the caseList ??????
-<CASE> CaseList(rSem) <THEN> (stmblk(rSem))* 
+<CASE> CaseList(rSem) <THEN> 
+  {
+    if(!checkDeclaration) {
+      rSem.newLevel();
+    }
+  }
+(stmblk(rSem))* 
 }
 
       void CaseList(SemanticRoutines rSem) :
@@ -1246,19 +1278,17 @@ java.util.ArrayList<Type> Expression(SemanticRoutines rSem) :
     )
       | 
     (
-      tp = Expression00(rSem)
+      type = Expression00(rSem)
       {
-        type.add(tp);
         return type;
-        //return tp;
       }
     )
 }
 
-Type Expression00(SemanticRoutines rSem) :
+java.util.ArrayList<Type> Expression00(SemanticRoutines rSem) :
 {
   Token t = null;
-  Type tp1, tp2;
+  java.util.ArrayList<Type> tp1, tp2;
 }
 {
     tp1 = Expression01(rSem) 
@@ -1266,26 +1296,26 @@ Type Expression00(SemanticRoutines rSem) :
       (t = <SC_AND> | t = <SC_OR> | t = <XOR_OP>) 
       tp2 = Expression01(rSem) 
       {
-        if(t != null) {
+        //if(t != null) {
           // check if the expressions are sequences with different sizes ???????
-          return Type.Boolean;
-        }   
+          //return Type.Boolean;
+        //}   
       }
     )?
     {
-      if(t != null) {
+      //if(t != null) {
         // check if the expressions are sequences with different sizes ???????
-        return Type.Boolean;
-      }
-      else
+        //return Type.Boolean;
+      //}
+      //else
         return tp1;
     }
 }
 
-Type Expression01(SemanticRoutines rSem) :
+java.util.ArrayList<Type> Expression01(SemanticRoutines rSem) :
 {
   Token t = null;
-  Type tp1, tp2;
+  java.util.ArrayList<Type> tp1, tp2;
 }
 {
     tp1 = Expression02(rSem) 
@@ -1295,17 +1325,17 @@ Type Expression01(SemanticRoutines rSem) :
     )*
     {
       // check comparison between types ????????
-      if(t != null)
-        return Type.Boolean;
-      else
+      //if(t != null)
+        //return Type.Boolean;
+      //else
         return tp1;
     }
 }
 
-Type Expression02(SemanticRoutines rSem) :
+java.util.ArrayList<Type> Expression02(SemanticRoutines rSem) :
 {
   Token t = null;
-  Type tp1, tp2;
+  java.util.ArrayList<Type> tp1, tp2;
 }
 {
     tp1 = Expression03(rSem) 
@@ -1314,17 +1344,17 @@ Type Expression02(SemanticRoutines rSem) :
       tp2 = Expression03(rSem) 
     )*
     {
-      if(t != null)
-        return Type.Sequence;
-      else
+      //if(t != null)
+        //return Type.Sequence;
+      //else
         return tp1;
     }
 }
 
-Type Expression03(SemanticRoutines rSem) :
+java.util.ArrayList<Type> Expression03(SemanticRoutines rSem) :
 {
   Token t = null;
-  Type tp1, tp2;
+  java.util.ArrayList<Type> tp1, tp2;
 }
 {
     tp1 = Expression04(rSem) 
@@ -1339,10 +1369,10 @@ Type Expression03(SemanticRoutines rSem) :
     }
 }
 
-Type Expression04(SemanticRoutines rSem) :
+java.util.ArrayList<Type> Expression04(SemanticRoutines rSem) :
 {
   Token t = null;
-  Type tp1, tp2;
+  java.util.ArrayList<Type> tp1, tp2;
 }
 {
     tp1 = Expression05(rSem) 
@@ -1357,10 +1387,10 @@ Type Expression04(SemanticRoutines rSem) :
     }
 }
 
-Type Expression05(SemanticRoutines rSem) :
+java.util.ArrayList<Type> Expression05(SemanticRoutines rSem) :
 {
   Token t = null;
-  Type tp = null;
+  java.util.ArrayList<Type> tp = null;
 }
 {
     (t = <PLUS> | t = <MINUS> | t = <NOT_OP>)? 
@@ -1371,16 +1401,19 @@ Type Expression05(SemanticRoutines rSem) :
     }
 }
 
-Type Expression06(SemanticRoutines rSem) :
+java.util.ArrayList<Type> Expression06(SemanticRoutines rSem) :
 {
   Token t;
   Symbol var = null;
-  java.util.ArrayList<Type> tp = null;
+  java.util.ArrayList<Type> tp = new java.util.ArrayList<Type>();
 }
 {
-      Atom(rSem) {return Type.Atom; }
-    | <STRINGLIT> { return Type.Sequence; }//Type.String; }
-    | (<LPAREN> tp = Expression(rSem) <RPAREN>) { return tp.get(0); }
+      Atom(rSem) {  tp.add(Type.Atom); return tp; }
+
+    | <STRINGLIT> { tp.add(Type.Sequence); return tp; }
+
+    | (<LPAREN> tp = Expression(rSem) <RPAREN>) { return tp; }
+
     | (t = <IDENTIFIER>) (Call(rSem, t) | Variable(rSem, t))? 
       { // search the variable and return its type ?????? 
         call = t;
@@ -1389,18 +1422,16 @@ Type Expression06(SemanticRoutines rSem) :
         Symbol var2 = rSem.search(t.toString());
         if(var == null && !checkDeclaration) {
           printError(t, "Erro Semantico: Variável " + t.toString() + " não declarada.");
-          return null;
-          //return Type.Atom;
+          tp.add(Type.NotDeclared);
+          return tp;
         }
         else {
-          if(var.getCategory() == Category.Procedure) {
-            System.out.println(var.getReturnTypes().toString());
-            // has to return an arraylist
-            //return var.getReturnTypes().pop();
-            return Type.Atom;
+          if(var.getCategory() == Category.Procedure)
+            return var.getReturnTypes();
+          else {
+            tp.add(var.getType());
+            return tp;
           }
-          else
-            return var.getType();
         }
       }
 

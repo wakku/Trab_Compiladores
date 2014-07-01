@@ -16,7 +16,8 @@ enum Type {
 	//Object,
 	Constant,
 	Boolean,
-	Enum
+	Enum,
+	NotDeclared
 }
 
 
