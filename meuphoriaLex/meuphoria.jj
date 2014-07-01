@@ -1377,9 +1377,7 @@ java.util.ArrayList<Type> Expression02(SemanticRoutines rSem) :
     tp1 = Expression03(rSem) 
     ( 
       ( t = <CONCAT> )
-      tp2 = Expression03(rSem) 
-    )*
-    {
+      tp2 = Expression03(rSem) {
         if(t != null) {
             // tudo se concatena e vira sequencia (lembrar que sequencia é o Arr > 1)
             // lembrar de juntar arraylist tp1 e tp2(adicionar tp2 em tp1)
@@ -1387,8 +1385,11 @@ java.util.ArrayList<Type> Expression02(SemanticRoutines rSem) :
             for(int count=0; count<tp2.size(); count++)
               tp1.add(tp2.get(count));
 
-            return tmp;
+            return tp1;
           }  
+      }
+    )*
+    {
         return tp1;
     }
 }
