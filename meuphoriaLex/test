@@ -13,23 +13,33 @@
 
 -- testando declarar variaveis.
 integer counterwwwwww
-integer miles = 0
+atom miles = 0
+integer a = 5
 sequence name -- = {1, "aaa", 2}
 
 atom letra
 name = miles
 
-function tmp(integer a)
+/*function tmp(integer a)
+	atom x = 0
 	if a>0 then
-		sequence b
+		atom x = 0
+		sequence b,d
 		b = {1,2}
-		return 1
+		d = {2}
+		return x
 	end if
-	return 1
-end function
+	return x
+end function*/
+
+sequence s1 = {1,2,3}
+sequence s2 = {1,2}
+if (s1 > s2) then
+	atom alfa
+end if
 
 return 1,2
 
 --miles, name = tmp(miles), miles
 --name = tmp(miles)
-miles = tmp(miles)
+miles = tmp(a)

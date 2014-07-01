@@ -2239,7 +2239,7 @@ java.util.ArrayList<Type> Expression(SemanticRoutines rSem) throws ParseExceptio
   }
 
   final public java.util.ArrayList<Type> Expression00(SemanticRoutines rSem) throws ParseException {Token t = null;
-  java.util.ArrayList<Type> tp1, tp2;
+  java.util.ArrayList<Type> tp1, tp2, tmp = new java.util.ArrayList<Type>();
     tp1 = Expression01(rSem);
     switch ((jj_ntk==-1)?jj_ntk_f():jj_ntk) {
     case SC_OR:
@@ -2266,8 +2266,11 @@ java.util.ArrayList<Type> Expression(SemanticRoutines rSem) throws ParseExceptio
       tp2 = Expression01(rSem);
 if(t != null) {
           // check if the expressions are sequences with different sizes ???????
-
-          //return Type.Boolean;
+          // if tp1 or tp2 sizes are more than one, then they are sequences
+          if((tp1.size() > 1 && tp2.size() > 1) && tp1.size()!= tp2.size())
+              printError(t, "Erro Semantico: Sequencias de tamanhos diferentes.");
+          tmp.add(Type.Boolean);
+          {if ("" != null) return tmp;}
         }
       break;
       }
@@ -2285,7 +2288,7 @@ if(t != null) {
   }
 
   final public java.util.ArrayList<Type> Expression01(SemanticRoutines rSem) throws ParseException {Token t = null;
-  java.util.ArrayList<Type> tp1, tp2;
+  java.util.ArrayList<Type> tp1, tp2, tmp = new java.util.ArrayList<Type>();
     tp1 = Expression02(rSem);
     label_26:
     while (true) {
@@ -2334,12 +2337,16 @@ if(t != null) {
         throw new ParseException();
       }
       tp2 = Expression02(rSem);
+if(t != null) {
+            // check if the expressions are sequences with different sizes ???????
+            // if tp1 or tp2 sizes are more than one, then they are sequences
+            if((tp1.size() > 1 && tp2.size() > 1) && tp1.size()!= tp2.size())
+                printError(t, "Erro Semantico: Sequencias de tamanhos diferentes.");
+            tmp.add(Type.Boolean);
+            {if ("" != null) return tmp;}
+          }
     }
-// check comparison between types ????????
-      //if(t != null)
-        //return Type.Boolean;
-      //else
-        {if ("" != null) return tp1;}
+{if ("" != null) return tp1;}
     throw new Error("Missing return statement in function");
   }
 
@@ -2360,9 +2367,15 @@ if(t != null) {
       t = jj_consume_token(CONCAT);
       tp2 = Expression03(rSem);
     }
-//if(t != null)
-        //return Type.Sequence;
-      //else
+if(t != null) {
+            // tudo se concatena e vira sequencia (lembrar que sequencia é o Arr > 1)
+            // lembrar de juntar arraylist tp1 e tp2(adicionar tp2 em tp1)
+            // em essencia funciona, não testei
+            for(int count=0; count<tp2.size(); count++)
+              tp1.add(tp2.get(count));
+
+            {if ("" != null) return tmp;}
+          }
         {if ("" != null) return tp1;}
     throw new Error("Missing return statement in function");
   }
@@ -2397,6 +2410,20 @@ if(t != null) {
         throw new ParseException();
       }
       tp2 = Expression04(rSem);
+if(t != null) {
+            // check if the expressions are sequences with different sizes ???????
+            // if tp1 or tp2 sizes are more than one, then they are sequences
+            if((tp1.size() > 1 && tp2.size() > 1) && tp1.size()!= tp2.size())
+                printError(t, "Erro Semantico: Sequencias de tamanhos diferentes.");
+            // tudo soma com tudo, e a ordem de prioridade é sequencia, object, atom, integer
+            // tem que fazer um matching de arrays
+            // por exemplo se o primeiro for sequencia e o segundo integer
+            // tem que somar cada integer em cada Array da sequencia
+            // vai ser grande mas a ideia é essa
+            // acho interessante limitar essa definição senão será muito complexo
+
+            {if ("" != null) return tp1;}
+          }
     }
 // check the matching types ?????????????
       {if ("" != null) return tp1;}
@@ -2820,6 +2847,12 @@ tp = null;
     return false;
   }
 
+  private boolean jj_3R_88()
+ {
+    if (jj_scan_token(LBRACKET)) return true;
+    return false;
+  }
+
   private boolean jj_3R_68()
  {
     if (jj_scan_token(RETURN)) return true;
@@ -2920,21 +2953,56 @@ tp = null;
     return false;
   }
 
-  private boolean jj_3R_88()
- {
-    if (jj_scan_token(LBRACKET)) return true;
-    return false;
-  }
-
   private boolean jj_3R_34()
  {
     if (jj_3R_41()) return true;
     return false;
   }
 
+  private boolean jj_3R_114()
+ {
+    if (jj_scan_token(IDENTIFIER)) return true;
+    return false;
+  }
+
+  private boolean jj_3R_113()
+ {
+    if (jj_scan_token(LPAREN)) return true;
+    return false;
+  }
+
   private boolean jj_3R_115()
  {
     if (jj_scan_token(IDENTIFIER)) return true;
+    return false;
+  }
+
+  private boolean jj_3R_112()
+ {
+    if (jj_scan_token(STRINGLIT)) return true;
+    return false;
+  }
+
+  private boolean jj_3R_111()
+ {
+    if (jj_3R_51()) return true;
+    return false;
+  }
+
+  private boolean jj_3R_101()
+ {
+    Token xsp;
+    xsp = jj_scanpos;
+    if (jj_3R_111()) {
+    jj_scanpos = xsp;
+    if (jj_3R_112()) {
+    jj_scanpos = xsp;
+    if (jj_3R_113()) {
+    jj_scanpos = xsp;
+    if (jj_3R_114()) return true;
+    }
+    }
+    }
     return false;
   }
 
@@ -2986,6 +3054,29 @@ tp = null;
     return false;
   }
 
+  private boolean jj_3R_100()
+ {
+    Token xsp;
+    xsp = jj_scanpos;
+    if (jj_scan_token(65)) {
+    jj_scanpos = xsp;
+    if (jj_scan_token(66)) {
+    jj_scanpos = xsp;
+    if (jj_scan_token(64)) return true;
+    }
+    }
+    return false;
+  }
+
+  private boolean jj_3R_89()
+ {
+    Token xsp;
+    xsp = jj_scanpos;
+    if (jj_3R_100()) jj_scanpos = xsp;
+    if (jj_3R_101()) return true;
+    return false;
+  }
+
   private boolean jj_3_6()
  {
     if (jj_scan_token(END_SYMBOL)) return true;
@@ -2996,12 +3087,6 @@ tp = null;
  {
     if (jj_scan_token(GOTO)) return true;
     if (jj_scan_token(LABELSTMT)) return true;
-    return false;
-  }
-
-  private boolean jj_3R_114()
- {
-    if (jj_scan_token(IDENTIFIER)) return true;
     return false;
   }
 
@@ -3052,24 +3137,12 @@ tp = null;
     return false;
   }
 
-  private boolean jj_3R_113()
- {
-    if (jj_scan_token(LPAREN)) return true;
-    return false;
-  }
-
   private boolean jj_3R_78()
  {
     if (jj_scan_token(BREAK)) return true;
     Token xsp;
     xsp = jj_scanpos;
     if (jj_scan_token(83)) jj_scanpos = xsp;
-    return false;
-  }
-
-  private boolean jj_3R_112()
- {
-    if (jj_scan_token(STRINGLIT)) return true;
     return false;
   }
 
@@ -3101,29 +3174,6 @@ tp = null;
     return false;
   }
 
-  private boolean jj_3R_111()
- {
-    if (jj_3R_51()) return true;
-    return false;
-  }
-
-  private boolean jj_3R_101()
- {
-    Token xsp;
-    xsp = jj_scanpos;
-    if (jj_3R_111()) {
-    jj_scanpos = xsp;
-    if (jj_3R_112()) {
-    jj_scanpos = xsp;
-    if (jj_3R_113()) {
-    jj_scanpos = xsp;
-    if (jj_3R_114()) return true;
-    }
-    }
-    }
-    return false;
-  }
-
   private boolean jj_3R_50()
  {
     if (jj_scan_token(LBRACE)) return true;
@@ -3152,6 +3202,12 @@ tp = null;
     if (jj_3R_92()) return true;
     }
     }
+    return false;
+  }
+
+  private boolean jj_3R_77()
+ {
+    if (jj_3R_89()) return true;
     return false;
   }
 
@@ -3213,20 +3269,6 @@ tp = null;
     return false;
   }
 
-  private boolean jj_3R_100()
- {
-    Token xsp;
-    xsp = jj_scanpos;
-    if (jj_scan_token(65)) {
-    jj_scanpos = xsp;
-    if (jj_scan_token(66)) {
-    jj_scanpos = xsp;
-    if (jj_scan_token(64)) return true;
-    }
-    }
-    return false;
-  }
-
   private boolean jj_3R_56()
  {
     if (jj_3R_68()) return true;
@@ -3237,15 +3279,6 @@ tp = null;
  {
     if (jj_scan_token(PRINT)) return true;
     if (jj_3R_49()) return true;
-    return false;
-  }
-
-  private boolean jj_3R_89()
- {
-    Token xsp;
-    xsp = jj_scanpos;
-    if (jj_3R_100()) jj_scanpos = xsp;
-    if (jj_3R_101()) return true;
     return false;
   }
 
@@ -3325,6 +3358,12 @@ tp = null;
     return false;
   }
 
+  private boolean jj_3R_63()
+ {
+    if (jj_3R_76()) return true;
+    return false;
+  }
+
   private boolean jj_3R_110()
  {
     if (jj_scan_token(TYPE)) return true;
@@ -3360,9 +3399,31 @@ tp = null;
     return false;
   }
 
-  private boolean jj_3R_77()
+  private boolean jj_3R_51()
  {
-    if (jj_3R_89()) return true;
+    Token xsp;
+    xsp = jj_scanpos;
+    if (jj_scan_token(83)) {
+    jj_scanpos = xsp;
+    if (jj_3R_63()) return true;
+    }
+    return false;
+  }
+
+  private boolean jj_3R_64()
+ {
+    if (jj_3R_77()) return true;
+    return false;
+  }
+
+  private boolean jj_3R_76()
+ {
+    Token xsp;
+    xsp = jj_scanpos;
+    if (jj_scan_token(84)) {
+    jj_scanpos = xsp;
+    if (jj_scan_token(85)) return true;
+    }
     return false;
   }
 
@@ -3426,32 +3487,15 @@ tp = null;
     return false;
   }
 
-  private boolean jj_3R_64()
- {
-    if (jj_3R_77()) return true;
-    return false;
-  }
-
   private boolean jj_3R_108()
  {
     if (jj_scan_token(IDENTIFIER)) return true;
     return false;
   }
 
-  private boolean jj_3R_63()
+  private boolean jj_3R_52()
  {
-    if (jj_3R_76()) return true;
-    return false;
-  }
-
-  private boolean jj_3R_51()
- {
-    Token xsp;
-    xsp = jj_scanpos;
-    if (jj_scan_token(83)) {
-    jj_scanpos = xsp;
-    if (jj_3R_63()) return true;
-    }
+    if (jj_3R_64()) return true;
     return false;
   }
 
@@ -3462,6 +3506,12 @@ tp = null;
     return false;
   }
 
+  private boolean jj_3R_96()
+ {
+    if (jj_scan_token(IDENTIFIER)) return true;
+    return false;
+  }
+
   private boolean jj_3R_35()
  {
     if (jj_scan_token(CASE)) return true;
@@ -3469,19 +3519,19 @@ tp = null;
     return false;
   }
 
-  private boolean jj_3R_52()
- {
-    if (jj_3R_64()) return true;
-    return false;
-  }
-
-  private boolean jj_3R_76()
+  private boolean jj_3R_84()
  {
     Token xsp;
     xsp = jj_scanpos;
-    if (jj_scan_token(84)) {
+    if (jj_scan_token(14)) {
     jj_scanpos = xsp;
-    if (jj_scan_token(85)) return true;
+    if (jj_scan_token(16)) {
+    jj_scanpos = xsp;
+    if (jj_scan_token(13)) {
+    jj_scanpos = xsp;
+    if (jj_scan_token(33)) return true;
+    }
+    }
     }
     return false;
   }
@@ -3504,15 +3554,15 @@ tp = null;
     return false;
   }
 
-  private boolean jj_3R_93()
- {
-    if (jj_3R_105()) return true;
-    return false;
-  }
-
   private boolean jj_3R_45()
  {
     if (jj_3R_52()) return true;
+    return false;
+  }
+
+  private boolean jj_3R_93()
+ {
+    if (jj_3R_105()) return true;
     return false;
   }
 
@@ -3543,12 +3593,6 @@ tp = null;
     return false;
   }
 
-  private boolean jj_3R_96()
- {
-    if (jj_scan_token(IDENTIFIER)) return true;
-    return false;
-  }
-
   private boolean jj_3_4()
  {
     if (jj_3R_35()) return true;
@@ -3558,23 +3602,6 @@ tp = null;
   private boolean jj_3_1()
  {
     if (jj_3R_32()) return true;
-    return false;
-  }
-
-  private boolean jj_3R_84()
- {
-    Token xsp;
-    xsp = jj_scanpos;
-    if (jj_scan_token(14)) {
-    jj_scanpos = xsp;
-    if (jj_scan_token(16)) {
-    jj_scanpos = xsp;
-    if (jj_scan_token(13)) {
-    jj_scanpos = xsp;
-    if (jj_scan_token(33)) return true;
-    }
-    }
-    }
     return false;
   }
 
