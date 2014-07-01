@@ -16,8 +16,8 @@ integer counterwwwwww
 integer miles = 0
 sequence name -- = {1, "aaa", 2}
 
-integer lalala
-lalala = name + miles
+atom letra
+name = miles
 
 function tmp(integer a)
 	if a>0 then

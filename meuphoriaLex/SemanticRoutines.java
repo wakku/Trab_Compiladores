@@ -221,6 +221,15 @@ public class SemanticRoutines {
 		level = 0;
 	}
 
+	public boolean checkAtom(Type tp1, Type tp2) {
+		if(tp1 == Type.Atom && tp2 == Type.Int)
+			return true;
+		else if(tp2 == Type.Atom && tp1 == Type.Int)
+			return true;
+		else
+			return false;
+	}
+
 	public Symbol searchLevel(String id) {
 		if(scopes.isEmpty() != true) {
 			SymbolsTable ts = scopes.get(level);

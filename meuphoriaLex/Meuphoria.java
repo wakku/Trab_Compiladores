@@ -1867,7 +1867,7 @@ if(var != exp && !checkDeclaration) {
             else if(!checkDeclaration){
               // check if the types are the same ????????
               for(int i = 0; i < tp1.size(); i++) {
-                if(tp1.get(i) != tp2.get(i)) {
+                if(tp1.get(i) != tp2.get(i) && !rSem.checkAtom(tp1.get(i), tp2.get(i)) ) {
                   printError(t, "Erro Semantico: Tipos diferentes na atribui\u221a\u00df\u221a\u00a3o de vari\u221a\u00b0veis.");
                 }
               }
