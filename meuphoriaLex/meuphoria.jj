@@ -990,6 +990,7 @@ void Assignment(SemanticRoutines rSem, Token identifier) :
           tp2 = Expression(rSem) 
           {
             Symbol s = rSem.searchLevel(identifier.toString());
+            // verificar se s eh uma variavel (categoria) - dar erro se nao for
             tp1 = s.getType();
 
             if(tp2 == null)
@@ -1050,6 +1051,7 @@ int Return(SemanticRoutines rSem) :
   Token t;
   Type type = null;
   int i = 1;
+  java.util.ArrayList<Type> tmp = new java.util.ArrayList<Type>();
 }
 {
     t = <RETURN> 
@@ -1060,12 +1062,17 @@ int Return(SemanticRoutines rSem) :
       {
         i++;
         // adicionar na lista 
-        _return_param.add(type);
+        tmp.add(type);
       }
     )*
 
     {
       // ADD AQUI!!!!!!!!!!
+      if(!_return_param.isEmpty()) {
+        System.out.println("ate aqui veio....");
+          if(tmp.equals(_return_param))
+            System.out.println("iguais!!! =)");
+      }
 
       if(_return > 0 && _return != i && !checkDeclaration)
         printError(t, "Erro Semantico: Quantidade de parametros de retorno diferentes.");
@@ -1331,8 +1338,6 @@ Type Expression06(SemanticRoutines rSem) :
         // check if the variable is declared
         var = rSem.searchLevel(t.toString());
         Symbol var2 = rSem.search(t.toString());
-        if(var != null && var2 != null)
-          System.out.println("lalalalalalalalalalalala " + var.toString());
         if(var == null && !checkDeclaration) {
           printError(t, "Erro Semantico: Variável " + t.toString() + " não declarada.");
           //return null;
@@ -1340,6 +1345,7 @@ Type Expression06(SemanticRoutines rSem) :
         }
         else {
           // it doesn't have to attribute the variable, because it is not this function goal
+          System.out.println(var.getCategory().toString());
           return var.getType();
           // if it is a procedure or function ????
           //then it has to return the return values of the function
