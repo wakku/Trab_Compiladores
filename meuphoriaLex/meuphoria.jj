@@ -1396,7 +1396,8 @@ java.util.ArrayList<Type> Expression02(SemanticRoutines rSem) :
 java.util.ArrayList<Type> Expression03(SemanticRoutines rSem) :
 {
   Token t = null;
-  java.util.ArrayList<Type> tp1, tp2;
+  java.util.ArrayList<Type> tp1, tp2, tmp=new java.util.ArrayList<Type>();
+  int value1=0, value2=0;
 }
 {
     tp1 = Expression04(rSem) 
@@ -1415,8 +1416,47 @@ java.util.ArrayList<Type> Expression03(SemanticRoutines rSem) :
             // tem que somar cada integer em cada Array da sequencia
             // vai ser grande mas a ideia é essa
             // acho interessante limitar essa definição senão será muito complexo
+            // se algum dos dois for sequencia
+            /*else
+            {
+              if(tp1.size()>1)
+              for(int count=0;count<tp1.size();count++)
+              {
+                if((tp1.size() > 1 && tp2.size() > 1) && tp1.size()== tp2.size())
+                {
+                  value1=count;
+                  value1=value2;
+                } else {
+                  value1=count;
+                  value2=0;
+                }
 
-            return tp1;
+                if(tp1.get(value1) == tp2.get(value2))
+                {
+                  tmp.add(tp1.get(value1));
+                }
+                else if(tp1.get(value1) == Type.Sequence || tp2.get(value2) == Type.Sequence )
+                {
+                  tmp.add(Type.Sequence);
+                }
+                else if(tp1.get(value1) == Type.Object || tp2.get(value2) == Type.Object )
+                {
+                  tmp.add(Type.Object);
+                }
+                else if(tp1.get(value1) == Type.Atom || tp2.get(value2) == Type.Atom )
+                {
+                  tmp.add(Type.Atom);
+                }
+                else if(tp1.get(value1) == Type.Integer || tp2.get(value2) == Type.Integer )
+                {
+                  tmp.add(Type.Integer);
+                } else {
+                  printError(t, "Erro Semantico: Tipo invalido.");
+                }
+              }
+              return tmp;
+            }*/
+
           }  
       } 
     )*
