@@ -459,7 +459,11 @@ void variables_declaration() :
       {
         {
           if(!_return_param.isEmpty()) {
-            return_parameters = _return_param; //new java.util.ArrayList<Type>(_return_param);//_return_param.clone();
+
+              for(int count=0; count<_return_param.size(); count++)
+                return_parameters.add(_return_param.get(count));
+
+            //return_parameters = _return_param; //new java.util.ArrayList<Type>(_return_param);//_return_param.clone();
             _return_param.clear();
             System.out.println("clear... ");
           }
@@ -508,7 +512,10 @@ void variables_declaration() :
             System.out.println(proc.getReturnTypes().toString());
             _return_param.clear();
             if(return_parameters != null) {
-              _return_param = return_parameters; //(java.util.ArrayList<Type>)return_parameters.clone();
+              for(int count=0; count<return_parameters  .size(); count++)
+                _return_param.add(return_parameters.get(count));
+
+              //_return_param = return_parameters; //(java.util.ArrayList<Type>)return_parameters.clone();
               return_parameters = null;
             }
           }
@@ -1086,9 +1093,10 @@ int Return(SemanticRoutines rSem) :
     {
       // ADD AQUI!!!!!!!!!!
       if(!tmp.isEmpty()) {
-        //_return_param = (java.util.ArrayList<Type>) tmp.clone();
-        _return_param = tmp;
-        System.out.println("tmp ------>>> " + _return_param.toString());
+        // OK ROBERTY
+        for(int count=0; count<tmp.size(); count++)
+          _return_param.add(tmp.get(count));
+
       }
 
       if(_return > 0 && _return != i && !checkDeclaration)
