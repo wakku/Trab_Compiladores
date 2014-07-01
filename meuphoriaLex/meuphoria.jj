@@ -1032,10 +1032,11 @@ void Assignment(SemanticRoutines rSem, Token identifier) :
       {
           {
             call = null;
-            System.out.println(identifier);
-            s = rSem.searchLevel(identifier.toString());
-            tp = s.getType();
-            tp1.add(tp);
+            if(!checkDeclaration) { 
+              s = rSem.searchLevel(identifier.toString());
+              tp = s.getType();
+              tp1.add(tp);
+            }
           }
           (Variable(rSem, identifier))? 
           (
@@ -1053,8 +1054,7 @@ void Assignment(SemanticRoutines rSem, Token identifier) :
           tmp = Expression(rSem) 
 
           {
-            System.out.println("1....");
-            if(!tmp.isEmpty()) {
+            if(!tmp.isEmpty() && !checkDeclaration) {
               for(int i = 0; i < tmp.size(); i++)
                 tp2.add(tmp.get(i));
               tmp.clear();
@@ -1074,7 +1074,7 @@ void Assignment(SemanticRoutines rSem, Token identifier) :
           (
             <COMMA> tmp = Expression(rSem)
             {
-              if(!tmp.isEmpty()) {
+              if(!tmp.isEmpty() && !checkDeclaration) {
                 for(int i = 0; i < tmp.size(); i++)
                   tp2.add(tmp.get(i));
                 tmp.clear();
