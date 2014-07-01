@@ -39,7 +39,7 @@ class Meuphoria {
     private static boolean checkDeclaration = false;
     private static int _return = 0;
     private static Token call = null;
-    private static java.util.ArrayList<Type> _return_param = new java.util.ArrayList<Type>();
+    private static java.util.ArrayList<Type> _return_param = null; //new java.util.ArrayList<Type>();
 
 // Processa o código e gera a tabela de tokens
     public void processa() throws ParseException, TokenMgrError {
@@ -94,6 +94,8 @@ public static void main(String args[]) {
         analisadorSintatico.variables_declaration();
 
         checkDeclaration = true;
+        _return = 0;
+        _return_param = null;
         analisadorSintatico = new Meuphoria(new java.io.StringReader(sb.toString()));
 
         analisadorSintatico.javacc_input();
@@ -451,7 +453,7 @@ void variables_declaration() :
         Token t, t2;
         Symbol proc = null;
         java.util.ArrayList<Symbol> par = new java.util.ArrayList<Symbol>();
-        java.util.ArrayList<Type> return_parameters = new java.util.ArrayList<Type>();
+        java.util.ArrayList<Type> return_parameters = null;//new java.util.ArrayList<Type>();
         int flag = 0;
         int a = 0;
         int tmp = 0;
@@ -459,13 +461,11 @@ void variables_declaration() :
       {
         {
           if(!_return_param.isEmpty()) {
-
+              return_parameters = new java.util.ArrayList<Type>();
               for(int count=0; count<_return_param.size(); count++)
                 return_parameters.add(_return_param.get(count));
 
-            //return_parameters = _return_param; //new java.util.ArrayList<Type>(_return_param);//_return_param.clone();
             _return_param.clear();
-            System.out.println("clear... ");
           }
           if(_return > 0) {
             tmp = _return;
@@ -507,17 +507,16 @@ void variables_declaration() :
           if(proc != null) {
             proc.setReturnParameters(_return);
             proc.setReturnTypes(_return_param);
-            System.out.println("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
-            System.out.println(_return_param.toString());
-            System.out.println(proc.getReturnTypes().toString());
-            _return_param.clear();
-            if(return_parameters != null) {
-              for(int count=0; count<return_parameters  .size(); count++)
-                _return_param.add(return_parameters.get(count));
+          }
+            //System.out.println("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
+            //System.out.println(_return_param.toString());
+            //System.out.println(proc.getReturnTypes().toString());
+          _return_param.clear();
+          if(return_parameters != null) {
+            for(int count=0; count<return_parameters.size(); count++)
+              _return_param.add(return_parameters.get(count));
 
-              //_return_param = return_parameters; //(java.util.ArrayList<Type>)return_parameters.clone();
-              return_parameters = null;
-            }
+            return_parameters = null;
           }
 
           if(_return > 0) {
@@ -707,13 +706,15 @@ void Loop(SemanticRoutines rSem) :
       void WhileStatement(SemanticRoutines rSem) :
       {
         Token t;
-        Type type;
+        java.util.ArrayList<Type> type;
       }
       {
         t = <WHILE> 
         type = Expression(rSem) 
         {
-          if(type != Type.Boolean && !checkDeclaration)
+          if(type.size() != 1 && !checkDeclaration)
+            printError(t, "Erro Semantico: A expressão do " + t.toString() + " retorna nenhum ou mais resultados." );
+          else if(type.get(0) != Type.Boolean && !checkDeclaration)
             printError(t, "Erro Semantico: A condição do " + t.toString() + " deve ser do tipo boolean" );
         }
         (<WITHENTRY>)? (<LABELSTMT>)? <DO> (stmblk(rSem))* (EntryStatement(rSem))? <END> <WHILE>
@@ -721,7 +722,7 @@ void Loop(SemanticRoutines rSem) :
 
       void LoopStatement(SemanticRoutines rSem) :
       {
-        Type type;
+        java.util.ArrayList<Type> type;
         Token t;
       }
       {
@@ -730,7 +731,9 @@ void Loop(SemanticRoutines rSem) :
         t = <UNTIL> 
         type = Expression(rSem) 
         {
-          if(type != Type.Boolean && !checkDeclaration)
+          if(type.size() != 1 && !checkDeclaration)
+            printError(t, "Erro Semantico: A expressão do " + t.toString() + " retorna nenhum ou mais resultados." );
+          else if(type.get(0) != Type.Boolean && !checkDeclaration)
             printError(t, "Erro Semantico: A condição do " + t.toString() + " deve ser do tipo boolean" );
         }
 
@@ -799,13 +802,15 @@ void IfStatement(SemanticRoutines rSem) :
       void IfTest(SemanticRoutines rSem) :
       {
         Token t;
-        Type type;
+        java.util.ArrayList<Type> type;
       }
       {
         t = <IF> 
         type = Expression(rSem) 
         {
-          if(type != Type.Boolean && !checkDeclaration)
+          if(type.size() != 1 && !checkDeclaration)
+            printError(t, "Erro Semantico: A expressão do " + t.toString() + " retorna nenhum ou mais resultados." );
+          else if(type.get(0) != Type.Boolean && !checkDeclaration)
             printError(t, "Erro Semantico: A condição do " + t.toString() + " deve ser do tipo boolean" );
         }
         (<LABELSTMT>)? <THEN> (stmblk(rSem))* 
@@ -814,13 +819,15 @@ void IfStatement(SemanticRoutines rSem) :
       void ElsifStatement(SemanticRoutines rSem) :
       {
         Token t;
-        Type type;
+        java.util.ArrayList<Type> type;
       }
       {
         t = <ELSIF> 
         type = Expression(rSem) 
         {
-          if(type != Type.Boolean && !checkDeclaration)
+          if(type.size() != 1 && !checkDeclaration)
+            printError(t, "Erro Semantico: A expressão do " + t.toString() + " retorna nenhum ou mais resultados." );
+          else if(type.get(0) != Type.Boolean && !checkDeclaration)
             printError(t, "Erro Semantico: A condição do " + t.toString() + " deve ser do tipo boolean" );
         }
         <THEN> (stmblk(rSem))*
@@ -984,6 +991,7 @@ void Assignment(SemanticRoutines rSem, Token identifier) :
       {
         Token t;
         Type tp1 = null, tp2 = null;
+        java.util.ArrayList<Type> tp = null;
 
         int var = 1, exp = 0;
       }
@@ -1001,7 +1009,7 @@ void Assignment(SemanticRoutines rSem, Token identifier) :
           t = <EQUAL> 
           
           // teria que pegar ou retornar o token da expressão para saber se é ou não uma função.
-          tp2 = Expression(rSem) 
+          tp = Expression(rSem) 
           {
             Symbol s = rSem.searchLevel(identifier.toString());
             // verificar se s eh uma variavel (categoria) - dar erro se nao for
@@ -1019,9 +1027,9 @@ void Assignment(SemanticRoutines rSem, Token identifier) :
             // comparar se os tipos são iguais
             // lembrar da recursão
 
-            if(tp1 != tp2 && !checkDeclaration) {
-                printError(t, "Erro Semantico: Atribuição incorreta, tipo " + tp1.toString() + " diferente do tipo " + tp2.toString() );
-            }
+            //if(tp1 != tp2 && !checkDeclaration) {
+            //    printError(t, "Erro Semantico: Atribuição incorreta, tipo " + tp1.toString() + " diferente do tipo " + tp2.toString() );
+            //}
           }
 
           {
@@ -1073,7 +1081,7 @@ void Assignment(SemanticRoutines rSem, Token identifier) :
 int Return(SemanticRoutines rSem) :
 {
   Token t;
-  Type type = null;
+  java.util.ArrayList<Type> type = null;
   int i = 1;
   java.util.ArrayList<Type> tmp = new java.util.ArrayList<Type>();
 }
@@ -1086,23 +1094,31 @@ int Return(SemanticRoutines rSem) :
       {
         i++;
         // adicionar na lista 
-        tmp.add(type);
+        for(int j = 0; j < type.size(); j++)
+            tmp.add(type.get(j));
       }
     )*
 
     {
-      // ADD AQUI!!!!!!!!!!
-      if(!tmp.isEmpty()) {
-        // OK ROBERTY
-        for(int count=0; count<tmp.size(); count++)
-          _return_param.add(tmp.get(count));
+      if(_return > 0 && _return != i && !checkDeclaration) {
+        printError(t, "Erro Semantico: Quantidade de parametros de retorno diferentes.");
+      }
+      else if(_return == 0) {
+        _return = i;
 
+        if(_return_param == null)
+          _return_param = new java.util.ArrayList<Type>();
+
+        for(int count=0; count<tmp.size(); count++)
+            _return_param.add(tmp.get(count));
+      }
+      else if(!checkDeclaration){
+        for(int count=0; count<tmp.size(); count++) {
+          if(tmp.get(count) != _return_param.get(count))
+            printError(t, "Erro Semantico: Tipos de retornos diferentes.");     
+        }
       }
 
-      if(_return > 0 && _return != i && !checkDeclaration)
-        printError(t, "Erro Semantico: Quantidade de parametros de retorno diferentes.");
-      else if(_return == 0)
-        _return = i;
       return 1;
     }
 }
@@ -1151,20 +1167,24 @@ void Call(SemanticRoutines rSem, Token t) :
 
       java.util.ArrayList<Type> ArgList(SemanticRoutines rSem) :
       {
-        Type type;
+        java.util.ArrayList<Type> type;
         java.util.ArrayList<Type> parList = new java.util.ArrayList<Type>();
       }
       {
         type = Expression(rSem)
         {
-          parList.add(type);
+          for(int i = 0; i < type.size(); i++)
+            parList.add(type.get(i));
+          //parList.add(type);
         }
 
         (
             <COMMA> 
             type = Expression(rSem)
             {
-              parList.add(type);
+              for(int i = 0; i < type.size(); i++)
+                parList.add(type.get(i));
+              //parList.add(type);
             }
         )*
 
@@ -1201,9 +1221,10 @@ void Object(SemanticRoutines rSem) :
 EXPRESSÕES
 ************************************************************/
 
-Type Expression(SemanticRoutines rSem) :
+java.util.ArrayList<Type> Expression(SemanticRoutines rSem) :
 {
-  Type type;
+  Type tp;
+  java.util.ArrayList<Type> type = new java.util.ArrayList<Type>();
 }
 {
     (
@@ -1219,14 +1240,17 @@ Type Expression(SemanticRoutines rSem) :
       //Sequence(rSem)
       <LBRACE> ( LOOKAHEAD(2) <END_SYMBOL> | Expression00(rSem) (LOOKAHEAD(2) <COMMA> Expression00(rSem))* (<COMMA> <END_SYMBOL>)? )? <RBRACE> 
       {
-        return Type.Sequence;
+        type.add(Type.Sequence);
+        return type;
       }
     )
       | 
     (
-      type = Expression00(rSem)
+      tp = Expression00(rSem)
       {
+        type.add(tp);
         return type;
+        //return tp;
       }
     )
 }
@@ -1351,12 +1375,12 @@ Type Expression06(SemanticRoutines rSem) :
 {
   Token t;
   Symbol var = null;
-  Type tp = null;
+  java.util.ArrayList<Type> tp = null;
 }
 {
       Atom(rSem) {return Type.Atom; }
     | <STRINGLIT> { return Type.Sequence; }//Type.String; }
-    | (<LPAREN> tp = Expression(rSem) <RPAREN>) { return tp; }
+    | (<LPAREN> tp = Expression(rSem) <RPAREN>) { return tp.get(0); }
     | (t = <IDENTIFIER>) (Call(rSem, t) | Variable(rSem, t))? 
       { // search the variable and return its type ?????? 
         call = t;
@@ -1369,18 +1393,14 @@ Type Expression06(SemanticRoutines rSem) :
           //return Type.Atom;
         }
         else {
-          // it doesn't have to attribute the variable, because it is not this function goal
-          System.out.println(var.getCategory().toString());
-
           if(var.getCategory() == Category.Procedure) {
             System.out.println(var.getReturnTypes().toString());
+            // has to return an arraylist
             //return var.getReturnTypes().pop();
             return Type.Atom;
           }
           else
             return var.getType();
-          // if it is a procedure or function ????
-          //then it has to return the return values of the function
         }
       }
 
