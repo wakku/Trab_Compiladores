@@ -1313,7 +1313,7 @@ java.util.ArrayList<Type> Expression(SemanticRoutines rSem) :
 java.util.ArrayList<Type> Expression00(SemanticRoutines rSem) :
 {
   Token t = null;
-  java.util.ArrayList<Type> tp1, tp2;
+  java.util.ArrayList<Type> tp1, tp2, tmp = new java.util.ArrayList<Type>();
 }
 {
     tp1 = Expression01(rSem) 
@@ -1323,8 +1323,11 @@ java.util.ArrayList<Type> Expression00(SemanticRoutines rSem) :
       {
         if(t != null) {
           // check if the expressions are sequences with different sizes ???????
-
-          //return Type.Boolean;
+          // if tp1 or tp2 sizes are more than one, then they are sequences
+          if((tp1.size() > 1 && tp2.size() > 1) && tp1.size()!= tp2.size())
+              printError(t, "Erro Semantico: Sequencias de tamanhos diferentes.");
+          tmp.add(Type.Boolean);
+          return tmp;
         }   
       }
     )?
@@ -1341,19 +1344,26 @@ java.util.ArrayList<Type> Expression00(SemanticRoutines rSem) :
 java.util.ArrayList<Type> Expression01(SemanticRoutines rSem) :
 {
   Token t = null;
-  java.util.ArrayList<Type> tp1, tp2;
+  java.util.ArrayList<Type> tp1, tp2, tmp = new java.util.ArrayList<Type>();
 }
 {
     tp1 = Expression02(rSem) 
     ( 
       ( t = <LT> | t = <GT> | t = <LE> | t = <GE> | t = <EQUAL> | t = <NE> )
-      tp2 = Expression02(rSem) 
+      tp2 = Expression02(rSem)
+      {
+        if(t != null) {
+            // check if the expressions are sequences with different sizes ???????
+            // if tp1 or tp2 sizes are more than one, then they are sequences
+            if((tp1.size() > 1 && tp2.size() > 1) && tp1.size()!= tp2.size())
+                printError(t, "Erro Semantico: Sequencias de tamanhos diferentes.");
+            tmp.add(Type.Boolean);
+            return tmp;
+          }  
+      } 
     )*
     {
-      // check comparison between types ????????
-      //if(t != null)
-        //return Type.Boolean;
-      //else
+        
         return tp1;
     }
 }
@@ -1370,9 +1380,15 @@ java.util.ArrayList<Type> Expression02(SemanticRoutines rSem) :
       tp2 = Expression03(rSem) 
     )*
     {
-      //if(t != null)
-        //return Type.Sequence;
-      //else
+        if(t != null) {
+            // tudo se concatena e vira sequencia (lembrar que sequencia é o Arr > 1)
+            // lembrar de juntar arraylist tp1 e tp2(adicionar tp2 em tp1)
+            // em essencia funciona, não testei
+            for(int count=0; count<tp2.size(); count++)
+              tp1.add(tp2.get(count));
+
+            return tmp;
+          }  
         return tp1;
     }
 }
@@ -1387,6 +1403,22 @@ java.util.ArrayList<Type> Expression03(SemanticRoutines rSem) :
     ( 
       ( t = <PLUS> | t = <MINUS> )
       tp2 = Expression04(rSem) 
+      {
+        if(t != null) {
+            // check if the expressions are sequences with different sizes ???????
+            // if tp1 or tp2 sizes are more than one, then they are sequences
+            if((tp1.size() > 1 && tp2.size() > 1) && tp1.size()!= tp2.size())
+                printError(t, "Erro Semantico: Sequencias de tamanhos diferentes.");
+            // tudo soma com tudo, e a ordem de prioridade é sequencia, object, atom, integer
+            // tem que fazer um matching de arrays
+            // por exemplo se o primeiro for sequencia e o segundo integer
+            // tem que somar cada integer em cada Array da sequencia
+            // vai ser grande mas a ideia é essa
+            // acho interessante limitar essa definição senão será muito complexo
+
+            return tp1;
+          }  
+      } 
     )*
     {
 
