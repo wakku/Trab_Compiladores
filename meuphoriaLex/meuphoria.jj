@@ -1022,49 +1022,44 @@ void Assignment(SemanticRoutines rSem, Token identifier) :
       void AssignmentMulti(SemanticRoutines rSem, Token identifier) :
       {
         Token t;
-        Type tp1 = null, tp2 = null;
-        java.util.ArrayList<Type> tp = null;
+        Type tp;
+        Symbol s;
+        //Type tp1 = null, tp2 = null;
+        java.util.ArrayList<Type> tp1 = new java.util.ArrayList<Type>();
+        java.util.ArrayList<Type> tp2 = new java.util.ArrayList<Type>();
+        java.util.ArrayList<Type> tmp = new java.util.ArrayList<Type>();
 
         int var = 1, exp = 0;
       }
       {
           {
             call = null;
+
+            s = rSem.searchLevel(identifier.toString());
+            tp = s.getType();
+            tp1.add(tp);
           }
           (Variable(rSem, identifier))? 
           (
-            <COMMA> <IDENTIFIER> (Variable(rSem, identifier))? 
+            <COMMA> t = <IDENTIFIER> (Variable(rSem, identifier))? 
             {
               var++;
+              s = rSem.searchLevel(t.toString());
+              tp = s.getType();
+              tp1.add(tp);
             }
           )? 
           t = <EQUAL> 
           
           // teria que pegar ou retornar o token da expressão para saber se é ou não uma função.
-          tp = Expression(rSem) 
-          {
-            Symbol s = rSem.searchLevel(identifier.toString());
-            // verificar se s eh uma variavel (categoria) - dar erro se nao for
-            tp1 = s.getType();
-
-            // Como saber se o nome da função da expressão?
-        //    Symbol s2 = rSem.searchLevel(.toString());
-      //      tp2 = s2.getCategory();
-
-    //        if()
-  //          if(tp2 == null)
-              
-//            tp2.
-            //EDICAO ROBERTY
-            // comparar se os tipos são iguais
-            // lembrar da recursão
-
-            //if(tp1 != tp2 && !checkDeclaration) {
-            //    printError(t, "Erro Semantico: Atribuição incorreta, tipo " + tp1.toString() + " diferente do tipo " + tp2.toString() );
-            //}
-          }
+          tmp = Expression(rSem) 
 
           {
+            if(!tmp.isEmpty()) {
+              for(int i = 0; i < tmp.size(); i++)
+                tp2.add(tmp.get(i));
+              tmp.clear();
+            }
             if(call != null) {
               Symbol c = rSem.search(call.toString());
               if(c != null && c.getCategory() == Category.Procedure) {
@@ -1077,8 +1072,13 @@ void Assignment(SemanticRoutines rSem, Token identifier) :
               exp = 1;
           }
           (
-            <COMMA> Expression(rSem)
+            <COMMA> tmp = Expression(rSem)
             {
+              if(!tmp.isEmpty()) {
+                for(int i = 0; i < tmp.size(); i++)
+                  tp2.add(tmp.get(i));
+                tmp.clear();
+              }
               if(call != null) {
                 Symbol c = rSem.search(call.toString());
                 if(c != null && c.getCategory() == Category.Procedure) {
@@ -1092,10 +1092,16 @@ void Assignment(SemanticRoutines rSem, Token identifier) :
             }
           )?
           {
-            // verificar os tipos do identifier e da expressão, para saber se pode fazer a atribuição ????????
-            // para cada atribuição
             if(var != exp && !checkDeclaration) {
               printError(t, "Erro Semantico: Quantidade diferente de parametros na atribuicao de variaveis.");
+            }
+            else if(!checkDeclaration){
+              // check if the types are the same ????????
+              for(int i = 0; i < tp1.size(); i++) {
+                if(tp1.get(i) != tp2.get(i)) {
+                  printError(t, "Erro Semantico: Tipos diferentes na atribuição de variáveis.");
+                }
+              }
             }
           }
       }
@@ -1236,7 +1242,6 @@ void Sequence(SemanticRoutines rSem) :
   //int tam;
 }
 {
-    // Como fazer a atribuição e salvar na TS???????
     // Professora simplificou para que coloque tudo dentro da expressão
     <LBRACE> ( LOOKAHEAD(2) <END_SYMBOL> | Object(rSem) (LOOKAHEAD(2) <COMMA> Object(rSem))* (<COMMA> <END_SYMBOL>)? )? <RBRACE> 
 }
@@ -1255,7 +1260,8 @@ EXPRESSÕES
 
 java.util.ArrayList<Type> Expression(SemanticRoutines rSem) :
 {
-  Type tp;
+  java.util.ArrayList<Type> tp = new java.util.ArrayList<Type>();
+  java.util.ArrayList<Type> tp2 = new java.util.ArrayList<Type>();
   java.util.ArrayList<Type> type = new java.util.ArrayList<Type>();
 }
 {
@@ -1270,8 +1276,26 @@ java.util.ArrayList<Type> Expression(SemanticRoutines rSem) :
         x = {apple, orange*2, {1,2,3}, 99/4+foobar} => OK*/
 
       //Sequence(rSem)
-      <LBRACE> ( LOOKAHEAD(2) <END_SYMBOL> | Expression00(rSem) (LOOKAHEAD(2) <COMMA> Expression00(rSem))* (<COMMA> <END_SYMBOL>)? )? <RBRACE> 
+        <LBRACE> ( LOOKAHEAD(2) <END_SYMBOL> | tp = Expression00(rSem) 
+        {
+          if(!tp.isEmpty()) {
+            for(int i = 0; i < tp.size(); i++)
+              tp2.add(tp.get(i));
+          }
+          tp.clear();
+        }
+        (LOOKAHEAD(2) <COMMA> 
+          tp = Expression00(rSem)
+          {
+            if(!tp.isEmpty()) {
+              for(int i = 0; i < tp.size(); i++)
+                tp2.add(tp.get(i));
+            }
+            tp.clear();
+          }
+        )* (<COMMA> <END_SYMBOL>)? )? <RBRACE> 
       {
+        System.out.println(tp2);
         type.add(Type.Sequence);
         return type;
       }
@@ -1296,10 +1320,11 @@ java.util.ArrayList<Type> Expression00(SemanticRoutines rSem) :
       (t = <SC_AND> | t = <SC_OR> | t = <XOR_OP>) 
       tp2 = Expression01(rSem) 
       {
-        //if(t != null) {
+        if(t != null) {
           // check if the expressions are sequences with different sizes ???????
+
           //return Type.Boolean;
-        //}   
+        }   
       }
     )?
     {

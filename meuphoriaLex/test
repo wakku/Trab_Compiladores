@@ -14,17 +14,15 @@
 -- testando declarar variaveis.
 integer counterwwwwww
 integer miles = 0
-sequence name
+sequence name = {1, "aaa", 2}
 name = miles + name
 
 sequence t
-t = {1,2,3}
+t = {1,2}
+
+name = name + t
 
 integer lalala
-
-lalala = miles
-
-return 1,"aaa"
 
 function tmp(integer a)
 	if a then
@@ -36,4 +34,4 @@ end function
 return 1,2
 
 --miles, name = tmp(miles), miles
-miles = tmp(miles)
+name = tmp(miles)
