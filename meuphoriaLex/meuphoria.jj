@@ -973,6 +973,7 @@ void Assignment(SemanticRoutines rSem, Token identifier) :
       {
         Token t;
         Type tp1 = null, tp2 = null;
+
         int var = 1, exp = 0;
       }
       {
@@ -987,13 +988,24 @@ void Assignment(SemanticRoutines rSem, Token identifier) :
             }
           )? 
           t = <EQUAL> 
+          
+          // teria que pegar ou retornar o token da expressão para saber se é ou não uma função.
           tp2 = Expression(rSem) 
           {
             Symbol s = rSem.searchLevel(identifier.toString());
             tp1 = s.getType();
 
+            // Como saber se o nome da função da expressão?
+            Symbol s2 = rSem.searchLevel(.toString());
+            tp2 = s2.getCategory();
+
+            if()
             if(tp2 == null)
               System.out.println("problema");
+            tp2.
+            //EDICAO ROBERTY
+            // comparar se os tipos são iguais
+            // lembrar da recursão
 
             if(tp1 != tp2 && !checkDeclaration) {
                 printError(t, "Erro Semantico: Atribuição incorreta, tipo " + tp1.toString() + " diferente do tipo " + tp2.toString() );
@@ -1041,6 +1053,7 @@ void Assignment(SemanticRoutines rSem, Token identifier) :
       {
           (<PLUS> | <MINUS> | <SLASH> | <STAR> | <CONCAT> ) <EQUAL> Expression(rSem) 
           {
+            
             // verificar os tipos do identifier e da expressão, para saber se pode fazer a atribuição ????????
           }
       }
