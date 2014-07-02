@@ -2615,8 +2615,8 @@ DATA TYPE
           tp = Type.Int;
       else if(t.toString().equals("sequence"))
           tp = Type.Sequence;
-      //else if(t.toString().equals("object"))
-          //tp = Type.Object;
+      else if(t.toString().equals("object"))
+          tp = Type.Object;
       else if(t.toString().equals("constant"))
           tp = Type.Constant;
       else if(t.toString().equals("boolean"))
