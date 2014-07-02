@@ -20,27 +20,32 @@ sequence name -- = {1, "aaa", 2}
 atom letra
 name = miles
 
-/*function tmp(integer a)
+function tmp(integer a)
 	atom x = 0
+	sequence d
+	x = d
 	if a>0 then
-		atom x = 0
-		sequence b,d
+		sequence b
+		atom x, e
 		b = {1,2}
-		d = {2}
-		return x
+		return x, e
 	end if
-	return x
-end function*/
+	return x, x
+end function
 
-sequence s1 = {1,2,3}
+/*sequence s1 = {1,2,3}
 sequence s2 = {1,2}
-s1 = {1, s2, {1,2,3} }
+a = s1
 if (s1 > s2) then
 	atom alfa
-end if
+	sequence b
+	alfa = b
+end if*/
 
 return 1,2
 
---miles, name = tmp(miles), miles
---name = tmp(miles)
+--miles, name = tmp(a), s1 -- tá ook :D
+--miles, name = tmp(a), miles -- tá ook :D ps.: não atribuir abaixo ahahah dá erro
+--name = tmp(a)
 --miles = tmp(a)
+--miles, miles = tmp(a)

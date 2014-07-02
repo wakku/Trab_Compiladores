@@ -1876,7 +1876,7 @@ if(var != exp && !checkDeclaration) {
               // check if the types are the same ????????
               for(int i = 0; i < tp1.size(); i++) {
                 if(tp1.get(i) != tp2.get(i) && !rSem.checkAtom(tp1.get(i), tp2.get(i)) ) {
-                  printError(t, "Erro Semantico: Tipos diferentes na atribui\u221a\u00df\u221a\u00a3o de vari\u221a\u00b0veis.");
+                  printError(t, "Erro Semantico: Tipos diferentes na atribui\u221a\u00df\u221a\u00a3o de vari\u221a\u00b0veis. " + tp1.get(i).toString() + " e " + tp2.get(i).toString());
                 }
               }
             }
@@ -2277,7 +2277,7 @@ java.util.ArrayList<Type> Expression(SemanticRoutines rSem) throws ParseExceptio
 if(t != null) {
           // check if the expressions are sequences with different sizes ???????
           // if tp1 or tp2 sizes are more than one, then they are sequences
-          if((tp1.size() > 1 && tp2.size() > 1) && tp1.size()!= tp2.size())
+          if((tp1.get(0) == Type.Sequence && tp2.get(0) == Type.Sequence) && tp1.size()!= tp2.size())
               printError(t, "Erro Semantico: Sequencias de tamanhos diferentes.");
           tmp.add(Type.Boolean);
           {if ("" != null) return tmp;}
@@ -2350,7 +2350,7 @@ if(t != null) {
 if(t != null) {
             // check if the expressions are sequences with different sizes ???????
             // if tp1 or tp2 sizes are more than one, then they are sequences
-            if((tp1.size() > 1 && tp2.size() > 1) && tp1.size()!= tp2.size())
+            if((tp1.get(0) == Type.Sequence && tp2.get(0) == Type.Sequence) && tp1.size()!= tp2.size())
                 printError(t, "Erro Semantico: Sequencias de tamanhos diferentes.");
             tmp.add(Type.Boolean);
             {if ("" != null) return tmp;}
@@ -2361,7 +2361,7 @@ if(t != null) {
   }
 
   final public java.util.ArrayList<Type> Expression02(SemanticRoutines rSem) throws ParseException {Token t = null;
-  java.util.ArrayList<Type> tp1, tp2;
+  java.util.ArrayList<Type> tp1, tp2, tmp=new java.util.ArrayList<Type>();
     tp1 = Expression03(rSem);
     label_27:
     while (true) {
@@ -2379,11 +2379,13 @@ if(t != null) {
 if(t != null) {
             // tudo se concatena e vira sequencia (lembrar que sequencia é o Arr > 1)
             // lembrar de juntar arraylist tp1 e tp2(adicionar tp2 em tp1)
-            // em essencia funciona, não testei
+            tmp.add(Type.Sequence);
+            for(int count=0; count<tp1.size(); count++)
+              tmp.add(tp1.get(count));
             for(int count=0; count<tp2.size(); count++)
-              tp1.add(tp2.get(count));
+              tmp.add(tp2.get(count));
 
-            {if ("" != null) return tp1;}
+            {if ("" != null) return tmp;}
           }
     }
 {if ("" != null) return tp1;}
@@ -2424,54 +2426,20 @@ if(t != null) {
 if(t != null) {
             // check if the expressions are sequences with different sizes ???????
             // if tp1 or tp2 sizes are more than one, then they are sequences
-            if((tp1.size() > 1 && tp2.size() > 1) && tp1.size()!= tp2.size())
+            if((tp1.get(0) == Type.Sequence && tp2.get(0) == Type.Sequence) && tp1.size()!= tp2.size())
                 printError(t, "Erro Semantico: Sequencias de tamanhos diferentes.");
-            // tudo soma com tudo, e a ordem de prioridade é sequencia, object, atom, integer
-            // tem que fazer um matching de arrays
-            // por exemplo se o primeiro for sequencia e o segundo integer
-            // tem que somar cada integer em cada Array da sequencia
-            // vai ser grande mas a ideia é essa
-            // acho interessante limitar essa definição senão será muito complexo
-            // se algum dos dois for sequencia
-            /*else
-            {
-              if(tp1.size()>1)
-              for(int count=0;count<tp1.size();count++)
-              {
-                if((tp1.size() > 1 && tp2.size() > 1) && tp1.size()== tp2.size())
-                {
-                  value1=count;
-                  value1=value2;
-                } else {
-                  value1=count;
-                  value2=0;
-                }
 
-                if(tp1.get(value1) == tp2.get(value2))
-                {
-                  tmp.add(tp1.get(value1));
-                }
-                else if(tp1.get(value1) == Type.Sequence || tp2.get(value2) == Type.Sequence )
-                {
-                  tmp.add(Type.Sequence);
-                }
-                else if(tp1.get(value1) == Type.Object || tp2.get(value2) == Type.Object )
-                {
-                  tmp.add(Type.Object);
-                }
-                else if(tp1.get(value1) == Type.Atom || tp2.get(value2) == Type.Atom )
-                {
-                  tmp.add(Type.Atom);
-                }
-                else if(tp1.get(value1) == Type.Integer || tp2.get(value2) == Type.Integer )
-                {
-                  tmp.add(Type.Integer);
-                } else {
-                  printError(t, "Erro Semantico: Tipo invalido.");
-                }
-              }
-              return tmp;
-            }*/
+            value1=0;
+            value2=0;
+
+            if(tp1.get(value1) == tp2.get(value2)) tmp.add(tp1.get(value1));
+            else if(tp1.get(value1) == Type.Sequence || tp2.get(value2) == Type.Sequence ) tmp.add(Type.Sequence);
+            else if(tp1.get(value1) == Type.Object || tp2.get(value2) == Type.Object ) tmp.add(Type.Object);
+            else if(tp1.get(value1) == Type.Atom || tp2.get(value2) == Type.Atom ) tmp.add(Type.Atom);
+            else if(tp1.get(value1) == Type.Int || tp2.get(value2) == Type.Int ) tmp.add(Type.Int);
+            else printError(t, "Erro Semantico: Tipo invalido.");
+
+            {if ("" != null) return tmp;}
 
           }
     }
@@ -2481,7 +2449,8 @@ if(t != null) {
   }
 
   final public java.util.ArrayList<Type> Expression04(SemanticRoutines rSem) throws ParseException {Token t = null;
-  java.util.ArrayList<Type> tp1, tp2;
+  java.util.ArrayList<Type> tp1, tp2, tmp=new java.util.ArrayList<Type>();
+  int value1=0, value2=0;
     tp1 = Expression05(rSem);
     label_29:
     while (true) {
@@ -2510,6 +2479,25 @@ if(t != null) {
         throw new ParseException();
       }
       tp2 = Expression05(rSem);
+if(t != null) {
+            // check if the expressions are sequences with different sizes ???????
+            // if tp1 or tp2 sizes are more than one, then they are sequences
+            if((tp1.get(0) == Type.Sequence && tp2.get(0) == Type.Sequence) && tp1.size()!= tp2.size())
+                printError(t, "Erro Semantico: Sequencias de tamanhos diferentes.");
+
+            value1=0;
+            value2=0;
+
+            if(tp1.get(value1) == tp2.get(value2)) tmp.add(tp1.get(value1));
+            else if(tp1.get(value1) == Type.Sequence || tp2.get(value2) == Type.Sequence ) tmp.add(Type.Sequence);
+            else if(tp1.get(value1) == Type.Object || tp2.get(value2) == Type.Object ) tmp.add(Type.Object);
+            else if(tp1.get(value1) == Type.Atom || tp2.get(value2) == Type.Atom ) tmp.add(Type.Atom);
+            else if(tp1.get(value1) == Type.Int || tp2.get(value2) == Type.Int ) tmp.add(Type.Int);
+            else printError(t, "Erro Semantico: Tipo invalido.");
+
+            {if ("" != null) return tmp;}
+
+          }
     }
 // check the matching types ?????????????
       {if ("" != null) return tp1;}
@@ -2547,8 +2535,7 @@ if(t != null) {
       ;
     }
     tp = Expression06(rSem);
-// check all the types and give the outputs for not and + and - ????????
-      {if ("" != null) return tp;}
+{if ("" != null) return tp;}
     throw new Error("Missing return statement in function");
   }
 
@@ -2891,6 +2878,37 @@ tp = null;
     finally { jj_save(7, xla); }
   }
 
+  private boolean jj_3R_66()
+ {
+    if (jj_scan_token(RETURN)) return true;
+    if (jj_3R_37()) return true;
+    return false;
+  }
+
+  private boolean jj_3R_52()
+ {
+    if (jj_3R_62()) return true;
+    return false;
+  }
+
+  private boolean jj_3R_92()
+ {
+    if (jj_3R_103()) return true;
+    return false;
+  }
+
+  private boolean jj_3R_115()
+ {
+    if (jj_scan_token(IDENTIFIER)) return true;
+    return false;
+  }
+
+  private boolean jj_3R_114()
+ {
+    if (jj_scan_token(LPAREN)) return true;
+    return false;
+  }
+
   private boolean jj_3R_113()
  {
     if (jj_scan_token(STRINGLIT)) return true;
@@ -2917,25 +2935,6 @@ tp = null;
     }
     }
     }
-    return false;
-  }
-
-  private boolean jj_3R_66()
- {
-    if (jj_scan_token(RETURN)) return true;
-    if (jj_3R_37()) return true;
-    return false;
-  }
-
-  private boolean jj_3R_52()
- {
-    if (jj_3R_62()) return true;
-    return false;
-  }
-
-  private boolean jj_3R_92()
- {
-    if (jj_3R_103()) return true;
     return false;
   }
 
@@ -2971,6 +2970,19 @@ tp = null;
     return false;
   }
 
+  private boolean jj_3R_46()
+ {
+    if (jj_3R_52()) return true;
+    return false;
+  }
+
+  private boolean jj_3_5()
+ {
+    if (jj_scan_token(COMMA)) return true;
+    if (jj_3R_36()) return true;
+    return false;
+  }
+
   private boolean jj_3R_110()
  {
     Token xsp;
@@ -2985,9 +2997,9 @@ tp = null;
     return false;
   }
 
-  private boolean jj_3R_46()
+  private boolean jj_3_8()
  {
-    if (jj_3R_52()) return true;
+    if (jj_scan_token(END_SYMBOL)) return true;
     return false;
   }
 
@@ -3000,29 +3012,10 @@ tp = null;
     return false;
   }
 
-  private boolean jj_3_5()
- {
-    if (jj_scan_token(COMMA)) return true;
-    if (jj_3R_36()) return true;
-    return false;
-  }
-
-  private boolean jj_3_8()
- {
-    if (jj_scan_token(END_SYMBOL)) return true;
-    return false;
-  }
-
   private boolean jj_3_7()
  {
     if (jj_scan_token(COMMA)) return true;
     if (jj_3R_37()) return true;
-    return false;
-  }
-
-  private boolean jj_3R_98()
- {
-    if (jj_3R_108()) return true;
     return false;
   }
 
@@ -3090,12 +3083,6 @@ tp = null;
     return false;
   }
 
-  private boolean jj_3R_61()
- {
-    if (jj_3R_74()) return true;
-    return false;
-  }
-
   private boolean jj_3R_69()
  {
     if (jj_3R_84()) return true;
@@ -3127,14 +3114,15 @@ tp = null;
     return false;
   }
 
-  private boolean jj_3R_51()
+  private boolean jj_3R_61()
  {
-    Token xsp;
-    xsp = jj_scanpos;
-    if (jj_scan_token(83)) {
-    jj_scanpos = xsp;
-    if (jj_3R_61()) return true;
-    }
+    if (jj_3R_74()) return true;
+    return false;
+  }
+
+  private boolean jj_3R_98()
+ {
+    if (jj_3R_108()) return true;
     return false;
   }
 
@@ -3173,17 +3161,6 @@ tp = null;
     return false;
   }
 
-  private boolean jj_3R_74()
- {
-    Token xsp;
-    xsp = jj_scanpos;
-    if (jj_scan_token(84)) {
-    jj_scanpos = xsp;
-    if (jj_scan_token(85)) return true;
-    }
-    return false;
-  }
-
   private boolean jj_3R_78()
  {
     if (jj_scan_token(GOTO)) return true;
@@ -3218,6 +3195,17 @@ tp = null;
     return false;
   }
 
+  private boolean jj_3R_51()
+ {
+    Token xsp;
+    xsp = jj_scanpos;
+    if (jj_scan_token(83)) {
+    jj_scanpos = xsp;
+    if (jj_3R_61()) return true;
+    }
+    return false;
+  }
+
   private boolean jj_3R_63()
  {
     Token xsp;
@@ -3243,6 +3231,17 @@ tp = null;
   private boolean jj_3R_88()
  {
     if (jj_3R_99()) return true;
+    return false;
+  }
+
+  private boolean jj_3R_74()
+ {
+    Token xsp;
+    xsp = jj_scanpos;
+    if (jj_scan_token(84)) {
+    jj_scanpos = xsp;
+    if (jj_scan_token(85)) return true;
+    }
     return false;
   }
 
@@ -3348,12 +3347,6 @@ tp = null;
     return false;
   }
 
-  private boolean jj_3R_94()
- {
-    if (jj_scan_token(IDENTIFIER)) return true;
-    return false;
-  }
-
   private boolean jj_3R_84()
  {
     Token xsp;
@@ -3424,20 +3417,9 @@ tp = null;
     return false;
   }
 
-  private boolean jj_3R_82()
+  private boolean jj_3R_87()
  {
-    Token xsp;
-    xsp = jj_scanpos;
-    if (jj_scan_token(14)) {
-    jj_scanpos = xsp;
-    if (jj_scan_token(16)) {
-    jj_scanpos = xsp;
-    if (jj_scan_token(13)) {
-    jj_scanpos = xsp;
-    if (jj_scan_token(33)) return true;
-    }
-    }
-    }
+    if (jj_3R_98()) return true;
     return false;
   }
 
@@ -3447,15 +3429,15 @@ tp = null;
     return false;
   }
 
-  private boolean jj_3R_87()
- {
-    if (jj_3R_98()) return true;
-    return false;
-  }
-
   private boolean jj_3R_39()
  {
     if (jj_scan_token(EOL)) return true;
+    return false;
+  }
+
+  private boolean jj_3R_94()
+ {
+    if (jj_scan_token(IDENTIFIER)) return true;
     return false;
   }
 
@@ -3479,6 +3461,23 @@ tp = null;
   private boolean jj_3R_106()
  {
     if (jj_3R_95()) return true;
+    return false;
+  }
+
+  private boolean jj_3R_82()
+ {
+    Token xsp;
+    xsp = jj_scanpos;
+    if (jj_scan_token(14)) {
+    jj_scanpos = xsp;
+    if (jj_scan_token(16)) {
+    jj_scanpos = xsp;
+    if (jj_scan_token(13)) {
+    jj_scanpos = xsp;
+    if (jj_scan_token(33)) return true;
+    }
+    }
+    }
     return false;
   }
 
@@ -3574,12 +3573,6 @@ tp = null;
     return false;
   }
 
-  private boolean jj_3R_86()
- {
-    if (jj_scan_token(LBRACKET)) return true;
-    return false;
-  }
-
   private boolean jj_3R_95()
  {
     if (jj_3R_105()) return true;
@@ -3595,6 +3588,12 @@ tp = null;
   private boolean jj_3R_62()
  {
     if (jj_3R_75()) return true;
+    return false;
+  }
+
+  private boolean jj_3R_86()
+ {
+    if (jj_scan_token(LBRACKET)) return true;
     return false;
   }
 
@@ -3637,21 +3636,9 @@ tp = null;
     return false;
   }
 
-  private boolean jj_3R_115()
- {
-    if (jj_scan_token(IDENTIFIER)) return true;
-    return false;
-  }
-
   private boolean jj_3_1()
  {
     if (jj_3R_32()) return true;
-    return false;
-  }
-
-  private boolean jj_3R_114()
- {
-    if (jj_scan_token(LPAREN)) return true;
     return false;
   }
 
