@@ -1,0 +1,17 @@
+--Tipo errado switch:
+sequence b = { 0 , 1}
+atom nota = 'C'
+
+switch b do
+
+   case 'A' then
+      puts(1, "Excelente!\n" )
+   case 'B', 'C' then
+      puts(1, "Muito bom!\n" )
+   case 'D' then
+      puts(1, "Aprovado!\n" )
+   case 'F' then
+      puts(1, "Oh, nao! Fui reprovado!\n" )
+   else
+      puts(1, "Nota invalida!\n" )
+end switch

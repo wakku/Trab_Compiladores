@@ -1,0 +1,7 @@
+[4, 1] Erro Semantico: A condição do while deve ser do tipo boolean
+[5, 33] Erro Semantico: Variável b não declarada.
+Encountered " "for" "for "" at line 6, column 5.
+Was expecting:
+    "while" ...
+    
+Ocorreu uma excecao!

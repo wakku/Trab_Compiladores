@@ -1,0 +1,6 @@
+sequence x = {1, 2, 3}
+function teste(atom arg)
+?arg
+return arg
+end function
+atom resultado = teste(x)
