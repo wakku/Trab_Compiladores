@@ -1100,7 +1100,7 @@ void Assignment(SemanticRoutines rSem, Token identifier) :
               // check if the types are the same ????????
               for(int i = 0; i < tp1.size(); i++) {
                 if(tp1.get(i) != tp2.get(i) && !rSem.checkAtom(tp1.get(i), tp2.get(i)) ) {
-                  printError(t, "Erro Semantico: Tipos diferentes na atribuição de variáveis.");
+                  printError(t, "Erro Semantico: Tipos diferentes na atribuição de variáveis. " + tp1.get(i).toString() + " e " + tp2.get(i).toString());
                 }
               }
             }
@@ -1324,7 +1324,7 @@ java.util.ArrayList<Type> Expression00(SemanticRoutines rSem) :
         if(t != null) {
           // check if the expressions are sequences with different sizes ???????
           // if tp1 or tp2 sizes are more than one, then they are sequences
-          if((tp1.size() > 1 && tp2.size() > 1) && tp1.size()!= tp2.size())
+          if((tp1.get(0) == Type.Sequence && tp2.get(0) == Type.Sequence) && tp1.size()!= tp2.size())
               printError(t, "Erro Semantico: Sequencias de tamanhos diferentes.");
           tmp.add(Type.Boolean);
           return tmp;
@@ -1355,7 +1355,7 @@ java.util.ArrayList<Type> Expression01(SemanticRoutines rSem) :
         if(t != null) {
             // check if the expressions are sequences with different sizes ???????
             // if tp1 or tp2 sizes are more than one, then they are sequences
-            if((tp1.size() > 1 && tp2.size() > 1) && tp1.size()!= tp2.size())
+            if((tp1.get(0) == Type.Sequence && tp2.get(0) == Type.Sequence) && tp1.size()!= tp2.size())
                 printError(t, "Erro Semantico: Sequencias de tamanhos diferentes.");
             tmp.add(Type.Boolean);
             return tmp;
@@ -1371,7 +1371,7 @@ java.util.ArrayList<Type> Expression01(SemanticRoutines rSem) :
 java.util.ArrayList<Type> Expression02(SemanticRoutines rSem) :
 {
   Token t = null;
-  java.util.ArrayList<Type> tp1, tp2;
+  java.util.ArrayList<Type> tp1, tp2, tmp=new java.util.ArrayList<Type>();
 }
 {
     tp1 = Expression03(rSem) 
@@ -1381,11 +1381,13 @@ java.util.ArrayList<Type> Expression02(SemanticRoutines rSem) :
         if(t != null) {
             // tudo se concatena e vira sequencia (lembrar que sequencia é o Arr > 1)
             // lembrar de juntar arraylist tp1 e tp2(adicionar tp2 em tp1)
-            // em essencia funciona, não testei
+            tmp.add(Type.Sequence);
+            for(int count=0; count<tp1.size(); count++)
+              tmp.add(tp1.get(count));
             for(int count=0; count<tp2.size(); count++)
-              tp1.add(tp2.get(count));
+              tmp.add(tp2.get(count));
 
-            return tp1;
+            return tmp;
           }  
       }
     )*
@@ -1409,54 +1411,20 @@ java.util.ArrayList<Type> Expression03(SemanticRoutines rSem) :
         if(t != null) {
             // check if the expressions are sequences with different sizes ???????
             // if tp1 or tp2 sizes are more than one, then they are sequences
-            if((tp1.size() > 1 && tp2.size() > 1) && tp1.size()!= tp2.size())
+            if((tp1.get(0) == Type.Sequence && tp2.get(0) == Type.Sequence) && tp1.size()!= tp2.size())
                 printError(t, "Erro Semantico: Sequencias de tamanhos diferentes.");
-            // tudo soma com tudo, e a ordem de prioridade é sequencia, object, atom, integer
-            // tem que fazer um matching de arrays
-            // por exemplo se o primeiro for sequencia e o segundo integer
-            // tem que somar cada integer em cada Array da sequencia
-            // vai ser grande mas a ideia é essa
-            // acho interessante limitar essa definição senão será muito complexo
-            // se algum dos dois for sequencia
-            /*else
-            {
-              if(tp1.size()>1)
-              for(int count=0;count<tp1.size();count++)
-              {
-                if((tp1.size() > 1 && tp2.size() > 1) && tp1.size()== tp2.size())
-                {
-                  value1=count;
-                  value1=value2;
-                } else {
-                  value1=count;
-                  value2=0;
-                }
 
-                if(tp1.get(value1) == tp2.get(value2))
-                {
-                  tmp.add(tp1.get(value1));
-                }
-                else if(tp1.get(value1) == Type.Sequence || tp2.get(value2) == Type.Sequence )
-                {
-                  tmp.add(Type.Sequence);
-                }
-                else if(tp1.get(value1) == Type.Object || tp2.get(value2) == Type.Object )
-                {
-                  tmp.add(Type.Object);
-                }
-                else if(tp1.get(value1) == Type.Atom || tp2.get(value2) == Type.Atom )
-                {
-                  tmp.add(Type.Atom);
-                }
-                else if(tp1.get(value1) == Type.Integer || tp2.get(value2) == Type.Integer )
-                {
-                  tmp.add(Type.Integer);
-                } else {
-                  printError(t, "Erro Semantico: Tipo invalido.");
-                }
-              }
-              return tmp;
-            }*/
+            value1=0;
+            value2=0;
+
+            if(tp1.get(value1) == tp2.get(value2)) tmp.add(tp1.get(value1));
+            else if(tp1.get(value1) == Type.Sequence || tp2.get(value2) == Type.Sequence ) tmp.add(Type.Sequence);
+            else if(tp1.get(value1) == Type.Object || tp2.get(value2) == Type.Object ) tmp.add(Type.Object);
+            else if(tp1.get(value1) == Type.Atom || tp2.get(value2) == Type.Atom ) tmp.add(Type.Atom);
+            else if(tp1.get(value1) == Type.Int || tp2.get(value2) == Type.Int ) tmp.add(Type.Int);
+            else printError(t, "Erro Semantico: Tipo invalido.");
+            
+            return tmp;
 
           }  
       } 
@@ -1471,13 +1439,35 @@ java.util.ArrayList<Type> Expression03(SemanticRoutines rSem) :
 java.util.ArrayList<Type> Expression04(SemanticRoutines rSem) :
 {
   Token t = null;
-  java.util.ArrayList<Type> tp1, tp2;
+  java.util.ArrayList<Type> tp1, tp2, tmp=new java.util.ArrayList<Type>();
+  int value1=0, value2=0;
 }
 {
     tp1 = Expression05(rSem) 
     ( 
       ( t = <STAR> | t = <SLASH> )
       tp2 = Expression05(rSem) 
+      {
+        if(t != null) {
+            // check if the expressions are sequences with different sizes ???????
+            // if tp1 or tp2 sizes are more than one, then they are sequences
+            if((tp1.get(0) == Type.Sequence && tp2.get(0) == Type.Sequence) && tp1.size()!= tp2.size())
+                printError(t, "Erro Semantico: Sequencias de tamanhos diferentes.");
+
+            value1=0;
+            value2=0;
+
+            if(tp1.get(value1) == tp2.get(value2)) tmp.add(tp1.get(value1));
+            else if(tp1.get(value1) == Type.Sequence || tp2.get(value2) == Type.Sequence ) tmp.add(Type.Sequence);
+            else if(tp1.get(value1) == Type.Object || tp2.get(value2) == Type.Object ) tmp.add(Type.Object);
+            else if(tp1.get(value1) == Type.Atom || tp2.get(value2) == Type.Atom ) tmp.add(Type.Atom);
+            else if(tp1.get(value1) == Type.Int || tp2.get(value2) == Type.Int ) tmp.add(Type.Int);
+            else printError(t, "Erro Semantico: Tipo invalido.");
+            
+            return tmp;
+
+          }  
+      } 
     )*
     {
 
@@ -1495,7 +1485,6 @@ java.util.ArrayList<Type> Expression05(SemanticRoutines rSem) :
     (t = <PLUS> | t = <MINUS> | t = <NOT_OP>)? 
     tp = Expression06(rSem)
     {
-      // check all the types and give the outputs for not and + and - ????????
       return tp;
     }
 }

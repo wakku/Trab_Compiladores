@@ -22,9 +22,12 @@ name = miles
 
 /*function tmp(integer a)
 	atom x = 0
+	sequence d
+	x = d
 	if a>0 then
-		atom x = 0
-		sequence b,d
+		sequence b
+		atom x
+		x = b
 		b = {1,2}
 		d = {2}
 		return x
