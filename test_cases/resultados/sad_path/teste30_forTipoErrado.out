@@ -1,2 +1,2 @@
-[5, 33] Erro Semantico: Variável a não declarada.
+[4, 5] Erro Semantico: Expressões são do tipo Atom e Sequence e deveriam ser do tipo atom ou integer.
 Análise encontrou 1 erro(s).

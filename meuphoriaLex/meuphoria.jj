@@ -407,7 +407,7 @@ void variables_declaration() :
                            t = <IDENTIFIER> 
                            {
                               if(!checkDeclaration) {
-                                  if (rSem.searchLevel(t.toString()) == null) {
+                                  if (rSem.searchLevels(t.toString()) == null) {
                                     Symbol s = new Symbol(t.toString(),rSem.getLevel(),Category.Variable);
                                     s.setType(type);
                                     rSem.insert(s);
@@ -476,7 +476,7 @@ void variables_declaration() :
         t = <IDENTIFIER> 
         {
           if(!checkDeclaration) {
-              if ( rSem.searchLevel(t.toString()) == null ) {
+              if ( rSem.searchLevels(t.toString()) == null ) {
                 proc = new Symbol(t.toString(), rSem.getLevel(), Category.Procedure);
                 rSem.insert(proc);
                 rSem.newLevel();
@@ -509,7 +509,13 @@ void variables_declaration() :
             proc.setReturnParameters(_return);
             proc.setReturnTypes(_return_param);
           }
-          _return_param.clear();
+
+          if(_return_param == null)
+            _return_param = new java.util.ArrayList<Type>();
+          else {
+            _return_param.clear();
+          }
+
           if(return_parameters != null) {
             for(int count=0; count<return_parameters.size(); count++)
               _return_param.add(return_parameters.get(count));
@@ -534,6 +540,7 @@ void variables_declaration() :
                   rSem.insert(par.get(i));
               }
           }
+
           if(!checkDeclaration) {
             rSem.removeLastLevel();
           }
@@ -587,7 +594,7 @@ void variables_declaration() :
               type = DataType(rSem) 
               t = <IDENTIFIER>
               {
-                if (rSem.searchLevel(t.toString()) == null) {
+                if (rSem.searchLevels(t.toString()) == null) {
                   Symbol s = new Symbol(t.toString(), rSem.getLevel(), Category.Parameter);
                   s.setType(type);
                   rSem.insert(s);
@@ -697,10 +704,29 @@ void Loop(SemanticRoutines rSem) :
       }
 
       void ForIDX(SemanticRoutines rSem) :
-      {}
+      {
+        java.util.ArrayList<Type> tp1, tp2;
+        Token t;
+      }
       {
           // check if the expressions have the same type as the identifier ????
-          <IDENTIFIER> <EQUAL> Expression(rSem) <TO> Expression(rSem) (<BY> Expression(rSem))?
+          t = <IDENTIFIER> 
+          <EQUAL> 
+          tp1 = Expression(rSem) 
+          <TO> 
+          tp2 = Expression(rSem) 
+          (<BY> Expression(rSem))?
+          {
+            if(tp1.size() > 1 && !checkDeclaration)
+              printError(t, "Erro Semantico: Primeira expressão retorna mais de uma variável.");
+            else if(tp2.size() > 1 && !checkDeclaration)
+              printError(t, "Erro Semantico: Segunda expressão retorna mais de uma variável.");
+            else if(!checkDeclaration){
+              if( !rSem.checkAtom(tp1.get(0), tp2.get(0)) )
+                printError(t, "Erro Semantico: Expressões são do tipo " + tp1.get(0).toString() + " e " + tp2.get(0).toString() 
+                              + " e deveriam ser do tipo atom ou integer.");
+            }
+          }
 
       }
 
@@ -941,11 +967,13 @@ void IfDefStatement(SemanticRoutines rSem) :
       }
 
 void SwitchStatement(SemanticRoutines rSem) :
-{}
 {
-  SwitchTest(rSem) 
+  java.util.ArrayList<Type> tp;
+}
+{
+  tp = SwitchTest(rSem) 
 
-  CaseStatement(rSem) 
+  CaseStatement(rSem, tp) 
   {
     if(!checkDeclaration) {
       rSem.removeLastLevel();
@@ -953,7 +981,7 @@ void SwitchStatement(SemanticRoutines rSem) :
   }
 
   (LOOKAHEAD(2) 
-      CaseStatement(rSem)
+      CaseStatement(rSem, tp)
       {
         if(!checkDeclaration) {
           rSem.removeLastLevel();
@@ -978,18 +1006,36 @@ void SwitchStatement(SemanticRoutines rSem) :
   <END> <SWITCH>
 }
 
-      void SwitchTest(SemanticRoutines rSem) :
-      {}
+      java.util.ArrayList<Type> SwitchTest(SemanticRoutines rSem) :
       {
-          <SWITCH> Expression(rSem) ((<WITH> | <WITHOUT>) <FALLTHRU>)? (<LABELSTMT>)? <DO> (<EOL>)?
+        java.util.ArrayList<Type> tp;
+      }
+      {
+          <SWITCH> tp = Expression(rSem) ((<WITH> | <WITHOUT>) <FALLTHRU>)? (<LABELSTMT>)? <DO> (<EOL>)*
+          {
+            return tp;
+          }
       }
 
-void CaseStatement(SemanticRoutines rSem) :
-{}
+void CaseStatement(SemanticRoutines rSem, java.util.ArrayList<Type> tp) :
+{
+  Token t;
+  java.util.ArrayList<Type> tp2;
+}
 {
   // check if the switchTest expression has the same type as the caseList ??????
-<CASE> CaseList(rSem) <THEN> 
+  t = <CASE> tp2 = CaseList(rSem) <THEN> 
   {
+    //comparar tp com tp2
+    if( (tp.size() != tp2.size()) && !checkDeclaration )
+      printError(t, "Erro Semantico: As variáveis de comparação do case não tem o mesmo tamanho.");
+    else if(!checkDeclaration) {
+      for(int i = 0; i < tp.size(); i++) {
+        if(tp.get(i) != tp2.get(i))
+          printError(t, "Erro Semantico: Esperado tipo " + tp.get(i).toString() + " encontrado " + tp2.get(i).toString() );
+      }
+    }
+
     if(!checkDeclaration) {
       rSem.newLevel();
     }
@@ -997,10 +1043,26 @@ void CaseStatement(SemanticRoutines rSem) :
 (stmblk(rSem))* 
 }
 
-      void CaseList(SemanticRoutines rSem) :
-      {}
+      java.util.ArrayList<Type> CaseList(SemanticRoutines rSem) :
       {
-          Expression(rSem) (<COMMA> Expression(rSem))* 
+        java.util.ArrayList<Type> tp = null, tmp;
+      }
+      {
+          tp = Expression(rSem) 
+          (
+            <COMMA> 
+            tmp = Expression(rSem)
+            {
+              if(tp == null)
+                tp = new java.util.ArrayList<Type>();
+              for(int i = 0; i < tmp.size(); i++) {
+                tp.add(tmp.get(i));
+              }
+            }
+          )* 
+          {
+            return tp;
+          }
       }
 
 // MUDAR AINDA ??????????????
@@ -1010,7 +1072,7 @@ void Assignment(SemanticRoutines rSem, Token identifier) :
 }
 {
     {
-      var = rSem.searchLevel(identifier.toString());
+      var = rSem.searchLevels(identifier.toString());
       if(var == null && !checkDeclaration)
         printError(identifier, "Erro Semantico: Variável " + identifier.toString() + " não declarada.");
     }
@@ -1033,7 +1095,7 @@ void Assignment(SemanticRoutines rSem, Token identifier) :
           {
             call = null;
             if(!checkDeclaration) { 
-              s = rSem.searchLevel(identifier.toString());
+              s = rSem.searchLevels(identifier.toString());
               if(s == null)
                 tp = Type.NotDeclared;
               else
@@ -1047,7 +1109,7 @@ void Assignment(SemanticRoutines rSem, Token identifier) :
             {
               var++;
               if(!checkDeclaration) {
-                s = rSem.searchLevel(t.toString());
+                s = rSem.searchLevels(t.toString());
                 if(s == null)
                   tp = Type.NotDeclared;
                 else
@@ -1105,10 +1167,9 @@ void Assignment(SemanticRoutines rSem, Token identifier) :
               printError(t, "Erro Semantico: Quantidade diferente de parametros na atribuicao de variaveis.");
             }
             else if(!checkDeclaration){
-              // check if the types are the same ????????
               for(int i = 0; i < tp1.size(); i++) {
                 if(tp1.get(i) != tp2.get(i) && !rSem.checkAtom(tp1.get(i), tp2.get(i)) ) {
-                  printError(t, "Erro Semantico: Tipos diferentes na atribuição de variáveis. " + tp1.get(i).toString() + " e " + tp2.get(i).toString());
+                  printError(t, "Erro Semantico: Tipo "+ tp1.get(i).toString() +" diferente de "+ tp2.get(i).toString() +" na atribuição de variáveis. ");
                 }
               }
             }
@@ -1134,7 +1195,12 @@ int Return(SemanticRoutines rSem) :
 }
 {
     t = <RETURN> 
-    Expression(rSem) 
+    type = Expression(rSem) 
+    {
+      for(int j = 0; j < type.size(); j++)
+        tmp.add(type.get(j));
+      type.clear();
+    }
     (
       <COMMA> 
       type = Expression(rSem)
@@ -1162,7 +1228,8 @@ int Return(SemanticRoutines rSem) :
       else if(!checkDeclaration){
         for(int count=0; count<tmp.size(); count++) {
           if(tmp.get(count) != _return_param.get(count))
-            printError(t, "Erro Semantico: Tipos de retornos diferentes.");     
+            printError(t, "Erro Semantico: Tipos de retornos diferentes "+ tmp.get(count).toString() +" e "+ 
+                          _return_param.get(count).toString()+".");
         }
       }
 
@@ -1193,11 +1260,18 @@ void Call(SemanticRoutines rSem, Token t) :
 
                     if (analisePar == 1 ) {
                       printError(t, "Erro semantico: Procedimento '" + t + "' não declarado.");
-                    } else if (analisePar == 2)
+                    } 
+                    else if (analisePar == 2)
                       printError(t, "Erro semantico: Procedimento '" + t.toString() + "' com numero de parametros invalidos.");
-                    else if (analisePar == 3)
-                      printError(t, "Erro semantico: Procedimento '" + t.toString() + "' com tipo de parametros invalidos.");
+                    //else if (analisePar == 3)
+                      //printError(t, "Erro semantico: Procedimento '" + t.toString() + "' com tipo de parametros invalidos.");
                     else {
+                      java.util.ArrayList<Symbol> param = proc.getParameters();
+                      for(int i = 0; i < param.size(); i++) {
+                        if(!rSem.checkAtom(par.get(i), param.get(i).getType()) )
+                          printError(t, "Erro Semantico: Tipo esperado " + param.get(i).getType().toString() + 
+                                        " recebido " + par.get(i).toString() +".");
+                      }
                       //DO SOMETHING
                       // está correto
                     }
@@ -1304,7 +1378,6 @@ java.util.ArrayList<Type> Expression(SemanticRoutines rSem) :
           }*/
         )* (<COMMA> <END_SYMBOL>)? )? <RBRACE> 
       {
-        //System.out.println(tp2);
         type.add(Type.Sequence);
         return type;
       }
@@ -1512,10 +1585,15 @@ java.util.ArrayList<Type> Expression06(SemanticRoutines rSem) :
 
     | (t = <IDENTIFIER>) (Call(rSem, t) | Variable(rSem, t))? 
       { // search the variable and return its type ?????? 
+        if(t.toString().equals("true") || t.toString().equals("false")) {
+          tp.add(Type.Boolean);
+          return tp;
+        }
+
         call = t;
         // check if the variable is declared
-        var = rSem.searchLevel(t.toString());
-        Symbol var2 = rSem.search(t.toString());
+        var = rSem.searchLevels(t.toString());
+        //Symbol var2 = rSem.search(t.toString());
         if(var == null) {
           if(!checkDeclaration)
             printError(t, "Erro Semantico: Variável " + t.toString() + " não declarada.");
@@ -1523,8 +1601,9 @@ java.util.ArrayList<Type> Expression06(SemanticRoutines rSem) :
           return tp;
         }
         else {
-          if(var.getCategory() == Category.Procedure)
+          if(var.getCategory() == Category.Procedure) {
             return var.getReturnTypes();
+          }
           else {
             tp.add(var.getType());
             return tp;

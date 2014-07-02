@@ -1,0 +1,7 @@
+--Tipo errado while:
+
+sequence b = { 0 , 1}
+sequence c = {1}
+while (b < c) do
+   printf(1, "entrou %d\n", b[0])
+end while

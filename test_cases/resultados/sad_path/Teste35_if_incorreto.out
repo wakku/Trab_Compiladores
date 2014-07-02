@@ -1,6 +1,0 @@
-[2, 1] Erro Semantico: A condição do if deve ser do tipo boolean
-[8, 18] Erro Semantico: Variável b não declarada.
-[8, 20] Erro Semantico: Variável c não declarada.
-[9, 18] Erro Semantico: Variável b não declarada.
-[9, 20] Erro Semantico: Variável c não declarada.
-Análise encontrou 5 erro(s).

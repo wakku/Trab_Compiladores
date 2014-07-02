@@ -1,0 +1,6 @@
+[8, 17] Erro Semantico: Tipos de retornos diferentes Atom e Object.
+[12, 1] Erro Semantico: Variável a não declarada.
+[12, 3] Erro Semantico: Tipo NotDeclared diferente de Atom na atribuição de variáveis. 
+[13, 16] Erro Semantico: Variável a não declarada.
+[13, 10] Erro Semantico: Tipo esperado Atom recebido NotDeclared.
+Análise encontrou 5 erro(s).

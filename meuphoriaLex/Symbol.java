@@ -80,14 +80,14 @@ public class Symbol {
 				return 2;		// número de parâmetros inválidos.
 		}
 		
-		Iterator l, p;
+		/*Iterator l, p;
 		l = parameters.iterator();
 		p = _par.iterator();
 		while ( l.hasNext() ) {
 			if ( ((Symbol)l.next()).getType() != ((Type)p.next()) ) {
 				return 3;	// tipo de parâmetros inválidos.
 			}
-		}
+		}*/
 		
 		return 0;			// lista de parâmetros válida.
 	}
@@ -145,7 +145,14 @@ public class Symbol {
 	public Category getCategory() 		{ return category; }
 	public ArrayList getParameters() 	{ return parameters; }
 	public int getReturnParameters() 	{ return return_parameters; }
-	public ArrayList getReturnTypes()	{ return return_p; }
+	public ArrayList getReturnTypes()	{ 
+		if(return_p == null)
+			return null;
+		ArrayList tmp = new ArrayList();
+		for(int i = 0; i < return_p.size(); i++)
+			tmp.add(return_p.get(i));
+		return tmp; 
+	}
 	public int 		getNPar() 			{ return npar; }
 	public int 		getAddress() 		{ return address; }
 	public String 	getLabel()			{ return label; }
@@ -155,7 +162,14 @@ public class Symbol {
 	public void setType(Type t) 				{ type = t; }
 	public void setParameters(ArrayList par) 	{ parameters = par; }
 	public void setReturnParameters(int n) 		{ return_parameters = n; }
-	public void setReturnTypes(ArrayList r_par)	{ return_p = r_par; }
+	public void setReturnTypes(ArrayList r_par)	{ 
+		if(r_par != null)
+			for(int i = 0; i < r_par.size(); i++)
+				return_p.add(r_par.get(i)); 
+		else {
+			return_p = null;
+		}
+	}
 	public void setNPar(int d) 					{ npar = d; }
 	public void setAddress(int addr) 			{ address = addr;	}	
 	public void setLabel(String lbl) 			{ label = lbl; }

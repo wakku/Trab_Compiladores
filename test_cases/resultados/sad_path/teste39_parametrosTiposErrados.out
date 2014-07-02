@@ -1,0 +1,3 @@
+[9, 1] Erro Semantico: Tipo esperado Boolean recebido Sequence.
+[9, 1] Erro Semantico: Tipo esperado Sequence recebido Boolean.
+Análise encontrou 2 erro(s).

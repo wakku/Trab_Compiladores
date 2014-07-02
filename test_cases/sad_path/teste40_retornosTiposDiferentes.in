@@ -1,0 +1,10 @@
+-- Chamar funcao com parametro errado
+
+function tmp(atom a)
+	if (a > 10) then
+		return 1,{1,2}
+	else
+		return {1}, 2
+	end if
+
+end function

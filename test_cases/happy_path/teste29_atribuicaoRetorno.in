@@ -1,0 +1,9 @@
+-- Atribui retorno da funcao
+
+function tmp(integer a)
+	a += 10
+	return a
+end function
+
+integer b = 5
+b = tmp(b)

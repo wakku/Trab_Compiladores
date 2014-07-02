@@ -1,0 +1,9 @@
+-- Retornos iguais dentro da funcao
+
+function tmp(integer a, integer b)
+	if (a > b) then
+		return 1
+	else
+		return 0
+	end if
+end function

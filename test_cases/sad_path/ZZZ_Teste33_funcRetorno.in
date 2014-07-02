@@ -1,0 +1,13 @@
+function teste(atom arg)
+	if (arg > 5) then
+		object ret = "Vanessa"
+		return ret
+	end if
+
+	if (arg < 6) then
+		return arg
+	end if
+end function
+
+a = 10
+atom b = teste(a)

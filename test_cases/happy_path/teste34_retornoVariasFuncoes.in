@@ -1,0 +1,21 @@
+-- Verifica se nao ha problema com retornos antes e depois da funcao
+
+sequence a = {1,2}
+sequence b = {2}
+
+if(a > b) then
+	return 0, 1
+end if
+
+function tmp(integer c)
+	if c>0 then
+		return 1
+	end if
+	return 0
+end function
+
+function tmp2()
+	return {1,2}
+end function
+
+return 1,2 

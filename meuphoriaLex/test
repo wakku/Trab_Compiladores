@@ -12,6 +12,24 @@
   */
 
 -- testando declarar variaveis.
+--Tipo errado switch:
+sequence b = { 0 , 1}
+atom nota = 'C'
+
+switch b do
+
+   case 'A' then
+      puts(1, "Excelente!\n" )
+   case 'B', 'C' then
+      puts(1, "Muito bom!\n" )
+   case 'D' then
+      puts(1, "Aprovado!\n" )
+   case 'F' then
+      puts(1, "Oh, nao! Fui reprovado!\n" )
+   else
+      puts(1, "Nota invalida!\n" )
+end switch
+
 integer counterwwwwww
 atom miles = 0
 integer a = 5
@@ -19,6 +37,10 @@ sequence name -- = {1, "aaa", 2}
 
 atom letra
 name = miles
+
+for letra = 1 to {1,2,3} do
+	atom abcd
+end for
 
 function tmp(integer a)
 	atom x = 0
@@ -44,8 +66,8 @@ end if*/
 
 return 1,2
 
---miles, name = tmp(a), s1 -- tá ook :D
---miles, name = tmp(a), miles -- tá ook :D ps.: não atribuir abaixo ahahah dá erro
+--miles, name = tmp(a), s1 -- ta ok
+--miles, name = tmp(a), miles -- ta ook :D ps.: nao atribuir abaixo ahahah da erro
 --name = tmp(a)
 --miles = tmp(a)
 --miles, miles = tmp(a)

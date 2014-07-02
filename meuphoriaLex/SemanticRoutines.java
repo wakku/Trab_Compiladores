@@ -226,6 +226,13 @@ public class SemanticRoutines {
 			return true;
 		else if(tp2 == Type.Atom && tp1 == Type.Int)
 			return true;
+		else if(tp1 == Type.Boolean && (tp2 == Type.Int || tp2 == Type.Atom) )
+			return true;
+		//else if(tp2 == Type.Boolean && (tp1 == Type.Int || tp1 == Type.Atom) )
+		//	return true;
+		else if(tp1 == tp2)
+			return true;
+		//else if(tp1 == Type.Constant && )
 		else
 			return false;
 	}
@@ -238,13 +245,22 @@ public class SemanticRoutines {
 		return null;
 	}
 
-	/*public Symbol searchPreviousLevels(String id) {
+	public Symbol searchLevel(String id, int l) {
 		if(scopes.isEmpty() != true) {
-			SymbolsTable ts = scopes.get(level);
+			SymbolsTable ts = scopes.get(l);
 			return ts.search(id);
 		}
 		return null;
-	}*/
+	}	
+
+	public Symbol searchLevels(String id) {
+		for(int i = this.getLevel(); i >= 0; i--) {
+			Symbol s = this.searchLevel(id, i);
+			if(s != null)
+				return s;
+		}
+		return null;
+	}
 
 	public Symbol search(String id, int level) {
 		SymbolsTable ts = scopes.get(level);

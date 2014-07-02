@@ -1,4 +1,5 @@
 [1, 14] Erro Semantico: Variável c não declarada.
+[1, 5] Erro Semantico: Expressões são do tipo Atom e NotDeclared e deveriam ser do tipo atom ou integer.
 Encountered " "\n" "\n "" at line 1, column 15.
 Was expecting one of:
     "do" ...

@@ -1,0 +1,6 @@
+--Tipo errado for:
+integer a
+atom b = 10
+for a = 1 to b do
+   printf(1, "valor de a %d\n", a)
+end for

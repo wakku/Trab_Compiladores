@@ -1,6 +1,6 @@
---Tipo errado for:
+--Tipo errado while:
 
 sequence b = { 0 , 1}
 while b do
    printf(1, "valor de a %d\n", b[0])
-end for
+end while

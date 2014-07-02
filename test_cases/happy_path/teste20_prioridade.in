@@ -4,7 +4,7 @@ puts(1,"Deve imprimir 14, 14, 24, 7 e 3. Comeca aqui ->")
 integer a = 5
 integer b = 3
 integer c = 3
-integer resultado
+atom resultado
 
 resultado = a + (b * c)
 puts(1,"a + (b * c) = ")

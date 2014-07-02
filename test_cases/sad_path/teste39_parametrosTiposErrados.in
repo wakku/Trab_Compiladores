@@ -1,0 +1,9 @@
+-- Chamar funcao com parametro errado
+
+procedure tmp(boolean a, sequence b)
+	printf(1, "valor de a = %d" , a)
+end procedure
+
+boolean a = 10
+sequence b = {1,2}
+tmp(b,a)

@@ -1,3 +1,3 @@
-[3, 10] Erro Semantico: Tipos diferentes na atribuição de variáveis. Sequence e Atom
-[4, 10] Erro Semantico: Tipos diferentes na atribuição de variáveis. Sequence e Atom
+[3, 10] Erro Semantico: Tipo Sequence diferente de Atom na atribuição de variáveis. 
+[4, 10] Erro Semantico: Tipo Sequence diferente de Atom na atribuição de variáveis. 
 Análise encontrou 2 erro(s).
