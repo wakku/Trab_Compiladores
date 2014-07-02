@@ -13,7 +13,7 @@ enum Type {
 	Int,
 	//String,
 	Sequence,
-	//Object,
+	Object,
 	Constant,
 	Boolean,
 	Enum,

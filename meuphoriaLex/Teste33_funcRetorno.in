@@ -1,0 +1,8 @@
+function teste(atom arg)
+	if (arg < 6) then
+		return 1
+	end if
+end function
+
+a = 10
+atom b = teste(a)

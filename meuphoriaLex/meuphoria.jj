@@ -1034,7 +1034,10 @@ void Assignment(SemanticRoutines rSem, Token identifier) :
             call = null;
             if(!checkDeclaration) { 
               s = rSem.searchLevel(identifier.toString());
-              tp = s.getType();
+              if(s == null)
+                tp = Type.NotDeclared;
+              else
+                tp = s.getType();
               tp1.add(tp);
             }
           }
@@ -1043,9 +1046,14 @@ void Assignment(SemanticRoutines rSem, Token identifier) :
             <COMMA> t = <IDENTIFIER> (Variable(rSem, identifier))? 
             {
               var++;
-              s = rSem.searchLevel(t.toString());
-              tp = s.getType();
-              tp1.add(tp);
+              if(!checkDeclaration) {
+                s = rSem.searchLevel(t.toString());
+                if(s == null)
+                  tp = Type.NotDeclared;
+                else
+                  tp = s.getType();
+                tp1.add(tp);
+              }
             }
           )? 
           t = <EQUAL> 
@@ -1612,8 +1620,8 @@ Type DataType(SemanticRoutines rSem) :
           tp = Type.Int;
       else if(t.toString().equals("sequence"))
           tp = Type.Sequence;
-      //else if(t.toString().equals("object"))
-          //tp = Type.Object;
+      else if(t.toString().equals("object"))
+          tp = Type.Object;
       else if(t.toString().equals("constant"))
           tp = Type.Constant;
       else if(t.toString().equals("boolean"))
